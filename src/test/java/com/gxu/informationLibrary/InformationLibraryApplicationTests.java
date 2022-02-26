@@ -1,10 +1,10 @@
-package com.gxu.informationLibrarySystem;
+package com.gxu.informationLibrary;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class InformationLibrarySystemApplicationTests {
+class InformationLibraryApplicationTests {
 
 	@Test
 	void contextLoads() {
