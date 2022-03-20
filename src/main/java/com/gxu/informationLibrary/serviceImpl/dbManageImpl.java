@@ -19,6 +19,7 @@ public class dbManageImpl implements dbManageServer {
 
     @Override
     @Transient
+//    开启事务
     public void createDB(String dbName){
         dbManage.createDbDao(dbName);
         dbManage.insertDbRecordDao(dbName);
@@ -26,6 +27,7 @@ public class dbManageImpl implements dbManageServer {
 
     @Override
     @Transient
+//    开启事务
     public void deleteDB(String dbName) {
         dbManage.deleteDbDao(dbName);
         dbManage.deleteDbRecordDao(dbName);

@@ -20,46 +20,46 @@ public class dbManageController {
 
     //    新建数据库
     @PostMapping("/db/add")
-    public response addDB(@RequestParam("dbName") String dbName) {
+    public response<String> addDB(@RequestParam("dbName") String dbName) {
         try {
             dbManage.createDB(dbName);
         } catch (Exception e) {
-            return new response(500, String.valueOf(e.getCause()), null);
+            return new response<>(500, String.valueOf(e.getCause()), null);
         }
-        return new response(null);
+        return new response<>(null);
     }
 
     //    删除数据库
     @DeleteMapping("db/delete")
-    public response deleteDB(@RequestParam("dbName") String dbName) {
+    public response<String> deleteDB(@RequestParam("dbName") String dbName) {
         try {
             dbManage.deleteDB(dbName);
         } catch (Exception e) {
-            return new response(500, String.valueOf(e.getCause()), null);
+            return new response<>(500, String.valueOf(e.getCause()), null);
         }
-        return new response(null);
+        return new response<>(null);
     }
 
     //    查询某个数据库
     @GetMapping("/db/get")
-    public response getDB(@RequestParam("dbName") String dbName) {
+    public response<List<dbInfo>> getDB(@RequestParam("dbName") String dbName) {
         List<dbInfo> data = new ArrayList<>();
         try {
             data = dbManage.getDB(dbName);
         } catch (Exception e) {
-            return new response(500, String.valueOf(e.getCause()), data);
+            return new response<>(500, String.valueOf(e.getCause()), data);
         }
         return new response<>(data);
     }
 
     //    查询所有数据库
     @GetMapping("db/all")
-    public response getAllDB() {
+    public response<List<dbInfo>> getAllDB() {
         List<dbInfo> data = new ArrayList<>();
         try {
             data = dbManage.getAllDB();
         } catch (Exception e) {
-            return new response(500, String.valueOf(e.getCause()), data);
+            return new response<>(500, String.valueOf(e.getCause()), data);
         }
         return new response<>(data);
     }
