@@ -30,7 +30,7 @@ public class dbManageController {
     }
 
     //    删除数据库
-    @DeleteMapping("db/delete")
+    @DeleteMapping("/db/delete")
     public response<String> deleteDB(@RequestParam("dbName") String dbName) {
         try {
             dbManage.deleteDB(dbName);
@@ -53,7 +53,7 @@ public class dbManageController {
     }
 
     //    查询所有数据库
-    @GetMapping("db/all")
+    @GetMapping("/db/all")
     public response<List<dbInfo>> getAllDB() {
         List<dbInfo> data = new ArrayList<>();
         try {
