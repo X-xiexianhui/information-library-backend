@@ -14,8 +14,8 @@
     <delete id="deleteDbRecordDao">
         delete from db_info where db_name=#{dbName};
     </delete>
-    <select id="getDbDao" resultType="com.gxu.informationLibrary.entity.dbInfo">
-        select* from db_info where db_name=#{dbName};
+    <select id="getDbDao" resultType="dbInfo">
+        select * from db_info where db_name like concat('%',#{dbName},'%')
     </select>
     <select id="getAllDbDao" resultType="dbInfo">
         select * from db_info;
