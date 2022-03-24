@@ -5,17 +5,17 @@
 <update id="createTable">
     create table ${dbName}.${tbName}(
         <foreach item="item" index="index" collection="column">
-            ${item.colName} ${item.datatype}(${item.length}) <if test="item.unique==true">unique</if> <if test="item.not_null==true">not null</if>,
+            ${item.colName} ${item.datatype}(${item.len}) <if test="item.uni==true">unique</if> <if test="item.not_null==true">not null</if>,
         </foreach>
         file varchar(64),
-        index (file),
         <if test="pks!=null and pks.size()>0">
         primary key (
             <foreach item="pk" index="index" collection="pks" separator=",">
                     ${pk}
             </foreach>
-            )
+            ),
         </if>
+        index (file)
     );
 </update>
 </mapper>
