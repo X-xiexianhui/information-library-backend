@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="">
+<update id="createIndex">
+    <foreach item="idx" index="index" collection="ides" separator=",">
+   <choose>
+       <when test="idx.type=='普通索引'">create index idx_${field} on ${dbName}.${tbName}(${field})</when>
+       <when test="idx.type=='唯一索引'">create index uni_idx_${field} on ${dbName}.${tbName}(${field})</when>
+    <otherwise>
+create index union_idx_index on ${dbName}.${tbName}(<foreach item="fd" index="id" collection="field" separator=",">${fd}</foreach>)
+    </otherwise>
+   </choose>
+    </foreach>
+</update>
+</mapper>
