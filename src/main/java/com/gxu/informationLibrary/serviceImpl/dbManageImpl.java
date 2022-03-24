@@ -42,4 +42,7 @@ public class dbManageImpl implements dbManageServer {
     public List<dbInfo> getAllDB() {
         return dbManage.getAllDbDao();
     }
+    public int getTables(String dbName){
+        return dbManage.getTables(dbName);
+    }
 }

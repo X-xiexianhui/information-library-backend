@@ -13,6 +13,7 @@ public interface dbManageDao {
     void insertDbRecordDao(@Param("dbName") String dbName);
     void deleteDbDao(@Param("dbName") String dbName);
     void deleteDbRecordDao(@Param("dbName") String dbName);
+    int getTables(@Param("dbName") String dbName);
     List<dbInfo> getDbDao(@Param("dbName") String dbName);
     List<dbInfo> getAllDbDao();
 }
