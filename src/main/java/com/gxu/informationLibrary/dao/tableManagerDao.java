@@ -11,5 +11,5 @@ import java.util.List;
 @Mapper
 @Repository
 public interface tableManagerDao {
-    void createTable(@Param("column") List column, @Param("dbName") String dbName, @Param("tbName") String tbName);
+    void createTable(@Param("column") List column,@Param("pks") List pks, @Param("dbName") String dbName, @Param("tbName") String tbName);
 }

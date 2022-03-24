@@ -1,10 +1,14 @@
 package com.gxu.informationLibrary.serviceImpl;
 
 import com.gxu.informationLibrary.dao.tableManagerDao;
+import com.gxu.informationLibrary.entity.Columns;
+import com.gxu.informationLibrary.entity.column;
 import com.gxu.informationLibrary.server.tbManageServer;
+import org.json.JSONObject;
 import org.springframework.stereotype.Service;
 
 import java.beans.Transient;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -17,7 +21,15 @@ public class tbManageImpl implements tbManageServer {
 
     @Override
     @Transient
-    public void createTable(String dbName, String tbName, List tableConfig) {
-        tbManage.createTable(tableConfig,dbName,tbName);
+    public void createTable(String Param) {
+        JSONObject jsonParam= new JSONObject(Param);
+        List<column>columns=new Columns(jsonParam.getJSONArray("column")).getColumns();
+        List<String>pks=new ArrayList<>();
+        for (column c: columns) {
+            if (c.isPK()){
+                pks.add(c.getColName());
+            }
+        }
+        tbManage.createTable(columns,pks, jsonParam.getString("dbName"), jsonParam.getString("tbName"));
     }
 }
