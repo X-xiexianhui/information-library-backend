@@ -24,7 +24,7 @@ public class dbManageController {
         try {
             dbManage.createDB(dbName);
         } catch (Exception e) {
-            return new response<>(500, String.valueOf(e.getCause()), null);
+            return new response<>(500, e.getMessage(), null);
         }
         return new response<>(null);
     }
@@ -39,7 +39,7 @@ public class dbManageController {
             }
             dbManage.deleteDB(dbName);
         } catch (Exception e) {
-            return new response<>(500, String.valueOf(e.getCause()), null);
+            return new response<>(500, e.getMessage(), null);
         }
         return new response<>(null);
     }
@@ -51,7 +51,7 @@ public class dbManageController {
         try {
             data = dbManage.getDB(dbName);
         } catch (Exception e) {
-            return new response<>(500, String.valueOf(e.getCause()), data);
+            return new response<>(500, e.getMessage(), data);
         }
         return new response<>(data);
     }
@@ -63,7 +63,7 @@ public class dbManageController {
         try {
             data = dbManage.getAllDB();
         } catch (Exception e) {
-            return new response<>(500, String.valueOf(e.getCause()), data);
+            return new response<>(500, e.getMessage(), data);
         }
         return new response<>(data);
     }
