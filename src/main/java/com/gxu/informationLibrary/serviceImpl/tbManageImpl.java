@@ -23,13 +23,15 @@ public class tbManageImpl implements tbManageServer {
     @Transient
     public void createTable(String Param) {
         JSONObject jsonParam= new JSONObject(Param);
-        List<column>columns=new Columns(jsonParam.getJSONArray("column")).getColumns();
+        String dbName=jsonParam.getString("dbName");
+        String tbName=jsonParam.getString("tbName");
+        List<column>columns=new Columns(jsonParam.getJSONArray("column"),dbName,tbName).getColumns();
         List<String>pks=new ArrayList<>();
         for (column c: columns) {
             if (c.isPK()){
                 pks.add(c.getColName());
             }
         }
-        tbManage.createTable(columns,pks, jsonParam.getString("dbName"), jsonParam.getString("tbName"));
+        tbManage.createTable(columns,pks, dbName, tbName);
     }
 }

@@ -17,7 +17,9 @@ public class column {
     boolean unique;
     boolean not_null;
 
-    public column(JSONObject jsonObject) {
+    public column(JSONObject jsonObject,String dbName,String tbName) {
+        this.dbName=dbName;
+        this.tbName=tbName;
         this.colName = jsonObject.getString("colName");
         this.datatype = jsonObject.getString("datatype");
         this.length = jsonObject.getInt("length");

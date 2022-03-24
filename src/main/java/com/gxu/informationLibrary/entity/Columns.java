@@ -10,9 +10,9 @@ import java.util.List;
 @Setter
 public class Columns {
     public List<column>columns=new ArrayList<>();
-    public Columns(JSONArray jsonArray){
+    public Columns(JSONArray jsonArray,String dbName,String tbName){
         for (int i=0;i<jsonArray.length();i++) {
-            columns.add(new column(jsonArray.getJSONObject(i)));
+            columns.add(new column(jsonArray.getJSONObject(i),dbName,tbName));
         }
     }
 }
