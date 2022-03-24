@@ -9,6 +9,13 @@
         </foreach>
         file varchar(64),
         index (file),
+        <if test="pks!=null and pks.size()>0">
+        primary key (
+            <foreach item="pk" index="index" collection="pks" separator=",">
+                    ${pk}
+            </foreach>
+            )
+        </if>
     );
 </update>
 </mapper>
