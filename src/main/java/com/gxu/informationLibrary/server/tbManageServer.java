@@ -1,6 +1,7 @@
 package com.gxu.informationLibrary.server;
-import org.json.JSONArray;
+
+import java.util.List;
 
 public interface tbManageServer {
-    void createTable(String dbName, String tbName, JSONArray tableConfig);
+    void createTable(String dbName, String tbName, List tableConfig);
 }
