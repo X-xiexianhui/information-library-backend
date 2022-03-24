@@ -20,4 +20,7 @@
     <select id="getAllDbDao" resultType="dbInfo">
         select * from db_info;
     </select>
+    <select id="getTables" resultType="int">
+        select tables from db_info where db_name=#{dbName};
+    </select>
 </mapper>
