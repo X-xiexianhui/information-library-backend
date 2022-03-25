@@ -28,9 +28,12 @@
     </insert>
     <update id="setColumn">
         <foreach item="item" index="index" collection="column">
-            insert into column_info(tb, col_name, data_type, len, place, PK, not_null, uni)
-            VALUES (#{index},#{item.colName},#{item.datatype},#{item.len},#{item.place},#{item.PK},#{item.not_null},#{item.uni});
-            update column_info set tb=(select tb_id from tb_info where tb_Name=#{tbName} and db=(select db_id from db_info where db_name=#{dbName}));
+            insert into column_info
+            select tb_id,#{item.colName},#{item.datatype},#{item.len},#{item.place},#{item.PK},#{item.not_null},#{item.uni}
+            from tb_info where tb_Name=#{tbName} and db=(select db_id from db_info where db_name=#{dbName}));
+#             insert into column_info(tb, col_name, data_type, len, place, PK, not_null, uni)
+#             VALUES (#{index},#{item.colName},#{item.datatype},#{item.len},#{item.place},#{item.PK},#{item.not_null},#{item.uni});
+#             update column_info set tb=(select tb_id from tb_info where tb_Name=#{tbName} and db=(select db_id from db_info where db_name=#{dbName}));
         </foreach>
     </update>
 </mapper>
