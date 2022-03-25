@@ -5,12 +5,18 @@
 <update id="createIndex">
     <foreach item="idx" index="index" collection="ides" separator=",">
    <choose>
-       <when test="idx.type=='普通索引'">create index idx_${field} on ${dbName}.${tbName}(${field})</when>
-       <when test="idx.type=='唯一索引'">create index uni_idx_${field} on ${dbName}.${tbName}(${field})</when>
+       <when test="idx.type=='普通索引'">create index #{idx.indexName} on ${dbName}.${tbName}(${field})</when>
+       <when test="idx.type=='唯一索引'">create index #{idx.indexName} on ${dbName}.${tbName}(${field})</when>
     <otherwise>
-create index union_idx_index on ${dbName}.${tbName}(<foreach item="fd" index="id" collection="field" separator=",">${fd}</foreach>)
+create index #{indexName} on ${dbName}.${tbName}(<foreach item="fd" index="id" collection="field" separator=",">${fd}</foreach>)
     </otherwise>
    </choose>
     </foreach>
 </update>
+    <select id="getColumns" resultType="String">
+        select col_name from column_info
+        where tb=(select tb_id from tb_info
+        where tb_Name =#{tbName} and db=(select db_id from db_info
+        where db_name=#{dbName}));
+    </select>
 </mapper>

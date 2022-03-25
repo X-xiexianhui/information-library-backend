@@ -34,4 +34,9 @@ public class tbManageImpl implements tbManageServer {
         }
         tbManage.createTable(columns,pks, dbName, tbName);
     }
+
+    @Override
+    public List<String> getColumns(String dbName, String tbName) {
+        return tbManage.getColumns(dbName,tbName);
+    }
 }

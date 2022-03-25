@@ -12,4 +12,5 @@ import java.util.List;
 @Repository
 public interface tableManagerDao {
     void createTable(@Param("column") List column,@Param("pks") List pks, @Param("dbName") String dbName, @Param("tbName") String tbName);
+    List<String>getColumns(@Param("dbName")String dbName,@Param("tbName")String tbName);
 }

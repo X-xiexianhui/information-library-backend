@@ -3,10 +3,10 @@ package com.gxu.informationLibrary.controller;
 import com.gxu.informationLibrary.entity.response;
 import com.gxu.informationLibrary.serviceImpl.tbManageImpl;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Controller
@@ -26,5 +26,15 @@ public class tableManageController {
             return new response<>(500, String.valueOf(e.getMessage()), "");
         }
         return new response<>("");
+    }
+    @GetMapping("/tb/column/get")
+    public response<List<String>>getColumn(@RequestParam(value="dbName",required=false)String dbName, @RequestParam(value = "tbName",required=false)String tbName){
+           List<String>data=new ArrayList<>();
+            try {
+                data=tbManage.getColumns(dbName,tbName);
+            } catch (Exception e){
+                return new response<>(500,e.getMessage(),data);
+            }
+            return new response<>(data);
     }
 }
