@@ -8,6 +8,7 @@
             ${item.colName} ${item.datatype}(${item.len}) <if test="item.uni==true">unique</if> <if test="item.not_null==true">not null</if>,
         </foreach>
         file varchar(64),
+        id int auto_increment,
         <if test="pks!=null and pks.size()>0">
         primary key (
             <foreach item="pk" index="index" collection="pks" separator=",">
@@ -15,7 +16,21 @@
             </foreach>
             ),
         </if>
+        index (id),
         index (file)
     );
 </update>
+    <update id="setTables">
+        update db_info set tables=tables+1;
+    </update>
+    <insert id="setTbInfo">
+        insert into tb_info(db, tb_Name)  select db_id,#{tbName} from db_info where db_name=#{dbName};
+    </insert>
+    <update id="setColumn">
+        <foreach item="item" index="index" collection="column">
+            insert into column_info(tb, col_name, data_type, len, place, PK, not_null, uni)
+            VALUES (#{index},#{item.colName},#{item.datatype},#{item.len},#{item.place},#{item.PK},#{item.not_null},#{item.uni});
+            update column_info set tb=(select tb_id from tb_info where tb_Name=#{tbName} and db=(select db_id from db_info where db_name=#{dbName}));
+        </foreach>
+    </update>
 </mapper>
