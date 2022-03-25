@@ -28,4 +28,16 @@ public class column {
         this.uni = jsonObject.getBoolean("unique");
         this.not_null = jsonObject.getBoolean("not_null");
     }
+
+    public column(String dbName, String tbName, String colName, String datatype, int len, int place, boolean PK, boolean uni, boolean not_null) {
+        this.dbName = dbName;
+        this.tbName = tbName;
+        this.colName = colName;
+        this.datatype = datatype;
+        this.len = len;
+        this.place = place;
+        this.PK = PK;
+        this.uni = uni;
+        this.not_null = not_null;
+    }
 }

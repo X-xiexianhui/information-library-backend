@@ -5,8 +5,9 @@
     <update id="createTable">
         create table ${dbName}.${tbName}(
         <foreach item="item" index="index" collection="column">
-            ${item.colName} ${item.datatype}(${item.len}) <if test="item.uni==true">unique</if>
-            <if test="item.not_null==true">not null</if>;
+            ${item.colName} ${item.datatype}(${item.len})
+            <if test="item.uni==true">unique</if>
+            <if test="item.not_null==true">not null</if>,
         </foreach>
         file varchar(64),
         record_ID int auto_increment,
@@ -43,5 +44,20 @@
         select *
         from tb_info
         where tb_info.tb_name like concat('%', #{tbName}, '%')
+    </select>
+    <select id="getColumnList" resultType="column">
+        select #{dbName},
+               #{tbName},
+               col_name,
+               data_type,
+               len,
+               place,
+               PK,
+               not_null,
+               uni
+        from column_info
+        where tb = (select tb_id
+                    from tb_info
+                    where tb_name = #{tbName} and db = (select db_id from db_info where db_name = #{dbName}));
     </select>
 </mapper>
