@@ -5,8 +5,8 @@ import com.gxu.informationLibrary.dao.dbManageDao;
 import com.gxu.informationLibrary.entity.dbInfo;
 import com.gxu.informationLibrary.server.dbManageServer;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.beans.Transient;
 import java.util.List;
 
 @Service
@@ -18,7 +18,7 @@ public class dbManageImpl implements dbManageServer {
     }
 
     @Override
-    @Transient
+    @Transactional
 //    开启事务
     public void createDB(String dbName){
         dbManage.createDbDao(dbName);
@@ -26,7 +26,7 @@ public class dbManageImpl implements dbManageServer {
     }
 
     @Override
-    @Transient
+    @Transactional
 //    开启事务
     public void deleteDB(String dbName) {
         dbManage.deleteDbDao(dbName);

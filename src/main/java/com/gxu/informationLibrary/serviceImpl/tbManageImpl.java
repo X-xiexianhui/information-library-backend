@@ -6,8 +6,7 @@ import com.gxu.informationLibrary.entity.column;
 import com.gxu.informationLibrary.server.tbManageServer;
 import org.json.JSONObject;
 import org.springframework.stereotype.Service;
-
-import java.beans.Transient;
+import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,7 +19,7 @@ public class tbManageImpl implements tbManageServer {
     }
 
     @Override
-    @Transient
+    @Transactional
     public void createTable(String Param) {
         JSONObject jsonParam= new JSONObject(Param);
         String dbName=jsonParam.getString("dbName");
@@ -35,7 +34,7 @@ public class tbManageImpl implements tbManageServer {
         tbManage.createTable(columns,pks, dbName, tbName);
         tbManage.setTables(dbName);
         tbManage.setTbInfo(dbName,tbName);
-        tbManage.setColumn(columns);
+        tbManage.setColumn(columns,tbName,dbName);
     }
 
     @Override

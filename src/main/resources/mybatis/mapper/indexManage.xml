@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="">
+<mapper namespace="com.gxu.informationLibrary.dao.indexManageDao">
 <update id="createIndex">
     <foreach item="idx" index="index" collection="ides" separator=",">
    <choose>
@@ -16,7 +16,7 @@ create index #{indexName} on ${dbName}.${tbName}(<foreach item="fd" index="id" c
     <select id="getColumns" resultType="String">
         select col_name from column_info
         where tb=(select tb_id from tb_info
-        where tb_Name =#{tbName} and db=(select db_id from db_info
+        where tb_name =#{tbName} and db=(select db_id from db_info
         where db_name=#{dbName}));
     </select>
 </mapper>
