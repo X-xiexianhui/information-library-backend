@@ -1,5 +1,7 @@
 package com.gxu.informationLibrary.controller;
 
+
+import com.alibaba.fastjson.JSONObject;
 import com.gxu.informationLibrary.entity.column;
 import com.gxu.informationLibrary.entity.response;
 import com.gxu.informationLibrary.serviceImpl.tbManageImpl;
@@ -37,5 +39,15 @@ public class tableManageController {
             return new response<>(500,e.getMessage(),"");
         }
         return new response<>("");
+    }
+    @GetMapping("/tb/test")
+    public response<List<JSONObject>>test(@RequestParam("dbName")String dbName, @RequestParam("tbName")String tbName){
+        List<JSONObject> data=new ArrayList<>();
+        try {
+            data=this.tbManage.test(dbName,tbName);
+        }catch (Exception e){
+            return new response<>(500,e.getMessage(),data);
+        }
+        return new response<>(data);
     }
 }

@@ -1,8 +1,8 @@
 package com.gxu.informationLibrary.entity;
 
+import com.alibaba.fastjson.JSONObject;
 import lombok.Getter;
 import lombok.Setter;
-import org.json.JSONObject;
 
 @Getter
 @Setter
@@ -17,15 +17,15 @@ public class column {
     boolean uni;
     boolean not_null;
 
-    public column(JSONObject jsonObject,String dbName,String tbName) {
+    public column(JSONObject jsonObject, String dbName, String tbName) {
         this.dbName=dbName;
         this.tbName=tbName;
         this.colName = jsonObject.getString("colName");
         this.datatype = jsonObject.getString("datatype");
-        this.len = jsonObject.getInt("length");
-        this.place = jsonObject.getInt("place");
+        this.len = jsonObject.getIntValue("len");
+        this.place = jsonObject.getIntValue("place");
         this.PK = jsonObject.getBoolean("PK");
-        this.uni = jsonObject.getBoolean("unique");
+        this.uni = jsonObject.getBoolean("uni");
         this.not_null = jsonObject.getBoolean("not_null");
     }
 

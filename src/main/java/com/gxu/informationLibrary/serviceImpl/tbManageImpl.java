@@ -1,10 +1,10 @@
 package com.gxu.informationLibrary.serviceImpl;
 
+import com.alibaba.fastjson.JSONObject;
 import com.gxu.informationLibrary.dao.tableManagerDao;
 import com.gxu.informationLibrary.entity.Columns;
 import com.gxu.informationLibrary.entity.column;
 import com.gxu.informationLibrary.server.tbManageServer;
-import org.json.JSONObject;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
@@ -21,7 +21,7 @@ public class tbManageImpl implements tbManageServer {
     @Override
     @Transactional
     public List<column> createTable(String Param) {
-        JSONObject jsonParam= new JSONObject(Param);
+        JSONObject jsonParam= JSONObject.parseObject(Param);
         String dbName=jsonParam.getString("dbName");
         String tbName=jsonParam.getString("tbName");
         List<column>columns=new Columns(jsonParam.getJSONArray("column"),dbName,tbName).getColumns();
@@ -38,5 +38,8 @@ public class tbManageImpl implements tbManageServer {
     @Override
     public void deleteTable(String dbName, String tbName) {
        tbManage.deleteTable(dbName,tbName);
+    }
+    public List<JSONObject>test(String dbName,String tbName){
+        return this.tbManage.test(dbName,tbName);
     }
 }
