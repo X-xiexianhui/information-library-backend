@@ -20,7 +20,7 @@ public class tbManageImpl implements tbManageServer {
 
     @Override
     @Transactional
-    public void createTable(String Param) {
+    public List<column> createTable(String Param) {
         JSONObject jsonParam= new JSONObject(Param);
         String dbName=jsonParam.getString("dbName");
         String tbName=jsonParam.getString("tbName");
@@ -35,10 +35,6 @@ public class tbManageImpl implements tbManageServer {
         tbManage.setTables(dbName);
         tbManage.setTbInfo(dbName,tbName);
         tbManage.setColumn(columns,tbName,dbName);
-    }
-
-    @Override
-    public List<String> getColumns(String dbName, String tbName) {
-        return tbManage.getColumns(dbName,tbName);
+        return this.tbManage.getColumnList(dbName,tbName);
     }
 }

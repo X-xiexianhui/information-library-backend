@@ -13,8 +13,8 @@ import java.util.List;
 @Repository
 public interface tableManagerDao {
     void createTable(@Param("column") List column,@Param("pks") List pks, @Param("dbName") String dbName, @Param("tbName") String tbName);
-    List<String>getColumns(@Param("dbName")String dbName,@Param("tbName")String tbName);
     void setTables(@Param("dbName") String dbName);
     void setTbInfo(@Param("dbName")String dbName,@Param("tbName")String tbName);
     void setColumn(@Param("list")List columns,@Param("tbName")String tbName,@Param("dbName")String dbName);
+    List<column>getColumnList(@Param("dbName")String dbName,@Param("tbName")String tbName);
 }

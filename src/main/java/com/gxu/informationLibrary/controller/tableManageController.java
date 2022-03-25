@@ -1,5 +1,6 @@
 package com.gxu.informationLibrary.controller;
 
+import com.gxu.informationLibrary.entity.column;
 import com.gxu.informationLibrary.entity.response;
 import com.gxu.informationLibrary.serviceImpl.tbManageImpl;
 import org.springframework.stereotype.Controller;
@@ -19,22 +20,13 @@ public class tableManageController {
     }
 
     @PostMapping("/tb/add")
-    public response<String> addTable(@RequestBody String Param){
+    public response<List<column>> addTable(@RequestBody String Param){
+        List<column>data=new ArrayList<>();
         try {
-            tbManage.createTable(Param);
+            data=tbManage.createTable(Param);
         } catch (Exception e){
-            return new response<>(500, String.valueOf(e.getMessage()), "");
+            return new response<>(500, String.valueOf(e.getMessage()), data);
         }
-        return new response<>("");
-    }
-    @GetMapping("/tb/column/get")
-    public response<List<String>>getColumn(@RequestParam(value="dbName",required=false)String dbName, @RequestParam(value = "tbName",required=false)String tbName){
-           List<String>data=new ArrayList<>();
-            try {
-                data=tbManage.getColumns(dbName,tbName);
-            } catch (Exception e){
-                return new response<>(500,e.getMessage(),data);
-            }
-            return new response<>(data);
+        return new response<>(data);
     }
 }
