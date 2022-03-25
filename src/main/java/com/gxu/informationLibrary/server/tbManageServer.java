@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface tbManageServer {
     List<column> createTable(String Param);
+    void deleteTable(String dbName,String tbName);
 }

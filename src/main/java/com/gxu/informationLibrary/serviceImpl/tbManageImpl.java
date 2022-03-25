@@ -32,9 +32,11 @@ public class tbManageImpl implements tbManageServer {
             }
         }
         tbManage.createTable(columns,pks, dbName, tbName);
-        tbManage.setTables(dbName);
-        tbManage.setTbInfo(dbName,tbName);
-        tbManage.setColumn(columns,tbName,dbName);
         return this.tbManage.getColumnList(dbName,tbName);
+    }
+
+    @Override
+    public void deleteTable(String dbName, String tbName) {
+       tbManage.deleteTable(dbName,tbName);
     }
 }

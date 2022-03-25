@@ -4,21 +4,14 @@
 <mapper namespace="com.gxu.informationLibrary.dao.dbManageDao">
     <update id="createDbDao">
         create database ${dbName};
-    </update>
-    <insert id="insertDbRecordDao">
         insert into db_info(db_name) values (#{dbName});
-    </insert>
+    </update>
     <update id="deleteDbDao">
         drop database if exists ${dbName};
-    </update>
-    <delete id="deleteDbRecordDao">
         delete from db_info where db_name=#{dbName};
-    </delete>
-    <select id="getDbDao" resultType="dbInfo">
+    </update>
+    <select id="searchDbDao" resultType="dbInfo">
         select * from db_info where db_name like concat('%',#{dbName},'%')
-    </select>
-    <select id="getAllDbDao" resultType="dbInfo">
-        select * from db_info;
     </select>
     <select id="getTables" resultType="int">
         select tables from db_info where db_name=#{dbName};

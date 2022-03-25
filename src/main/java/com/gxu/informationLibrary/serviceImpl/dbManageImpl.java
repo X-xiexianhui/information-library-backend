@@ -22,7 +22,6 @@ public class dbManageImpl implements dbManageServer {
 //    开启事务
     public void createDB(String dbName){
         dbManage.createDbDao(dbName);
-        dbManage.insertDbRecordDao(dbName);
     }
 
     @Override
@@ -30,17 +29,11 @@ public class dbManageImpl implements dbManageServer {
 //    开启事务
     public void deleteDB(String dbName) {
         dbManage.deleteDbDao(dbName);
-        dbManage.deleteDbRecordDao(dbName);
     }
 
     @Override
-    public List<dbInfo> getDB(String dbName) {
-        return dbManage.getDbDao(dbName);
-    }
-
-    @Override
-    public List<dbInfo> getAllDB() {
-        return dbManage.getAllDbDao();
+    public List<dbInfo> searchDB(String dbName) {
+        return dbManage.searchDbDao(dbName);
     }
     public int getTables(String dbName){
         return dbManage.getTables(dbName);

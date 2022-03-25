@@ -2,35 +2,46 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gxu.informationLibrary.dao.tableManagerDao">
-<update id="createTable">
-    create table ${dbName}.${tbName}(
+    <update id="createTable">
+        create table ${dbName}.${tbName}(
         <foreach item="item" index="index" collection="column">
-            ${item.colName} ${item.datatype}(${item.len}) <if test="item.uni==true">unique</if> <if test="item.not_null==true">not null</if>,
+            ${item.colName} ${item.datatype}(${item.len}) <if test="item.uni==true">unique</if>
+            <if test="item.not_null==true">not null</if>;
         </foreach>
         file varchar(64),
         record_ID int auto_increment,
         <if test="pks!=null and pks.size()>0">
-        primary key (
+            primary key (
             <foreach item="pk" index="index" collection="pks" separator=",">
-                    ${pk}
+                ${pk}
             </foreach>
             ),
         </if>
         index (record_ID),
         index (file)
-    );
-</update>
-    <update id="setTables">
-        update db_info set tables=tables+1;
-    </update>
-    <insert id="setTbInfo">
-        insert into tb_info(db, tb_name)  select db_id,#{tbName} from db_info where db_name=#{dbName};
-    </insert>
-    <insert id="setColumn">
+        );
+        update db_info set tables=tables+1 where db_name=#{dbName};
+        insert into tb_info(db, tb_name) select db_id,#{tbName} from db_info where db_name=#{dbName};
         insert into column_info
-        <foreach item="item" collection="list" index="index" separator="union all">
-            select tb_id, #{item.colName},#{item.datatype},#{item.len},#{item.place},#{item.PK},#{item.not_null},#{item.uni}
+        <foreach item="item" collection="column" index="index" separator="union all">
+            select tb_id,
+            #{item.colName},#{item.datatype},#{item.len},#{item.place},#{item.PK},#{item.not_null},#{item.uni}
             from tb_info where db=(select db_id from db_info where db_name=#{dbName}) and tb_name=#{tbName}
         </foreach>
-    </insert>
+    </update>
+    <update id="deleteTable">
+        drop table ${dbName}.${tbName};
+        update db_info
+        set tables=tables - 1
+        where db_name = #{dbName};
+        delete
+        from tb_info
+        where tb_name = #{tbName}
+          and db = (select db_id from db_info where db_name = #{dbName});
+    </update>
+    <select id="searchTables" resultType="table">
+        select *
+        from tb_info
+        where tb_info.tb_name like concat('%', #{tbName}, '%')
+    </select>
 </mapper>

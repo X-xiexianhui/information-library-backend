@@ -29,4 +29,13 @@ public class tableManageController {
         }
         return new response<>(data);
     }
+    @DeleteMapping("/tb/delete")
+    public response<String>deleteTable(@RequestParam("dbName")String dbName,@RequestParam("tbName")String tbName){
+        try {
+            tbManage.deleteTable(dbName,tbName);
+        }catch (Exception e){
+            return new response<>(500,e.getMessage(),"");
+        }
+        return new response<>("");
+    }
 }

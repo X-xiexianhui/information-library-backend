@@ -10,10 +10,7 @@ import java.util.List;
 @Repository
 public interface dbManageDao {
     void createDbDao(@Param("dbName") String dbName);
-    void insertDbRecordDao(@Param("dbName") String dbName);
     void deleteDbDao(@Param("dbName") String dbName);
-    void deleteDbRecordDao(@Param("dbName") String dbName);
+    List<dbInfo> searchDbDao(@Param("dbName") String dbName);
     int getTables(@Param("dbName") String dbName);
-    List<dbInfo> getDbDao(@Param("dbName") String dbName);
-    List<dbInfo> getAllDbDao();
 }

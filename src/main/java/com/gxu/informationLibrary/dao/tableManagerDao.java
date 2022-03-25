@@ -1,6 +1,7 @@
 package com.gxu.informationLibrary.dao;
 
 import com.gxu.informationLibrary.entity.column;
+import com.gxu.informationLibrary.entity.table;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -13,8 +14,7 @@ import java.util.List;
 @Repository
 public interface tableManagerDao {
     void createTable(@Param("column") List column,@Param("pks") List pks, @Param("dbName") String dbName, @Param("tbName") String tbName);
-    void setTables(@Param("dbName") String dbName);
-    void setTbInfo(@Param("dbName")String dbName,@Param("tbName")String tbName);
-    void setColumn(@Param("list")List columns,@Param("tbName")String tbName,@Param("dbName")String dbName);
+    void deleteTable(@Param("dbName")String dbName,@Param("tbName")String tbName);
+    List<table>searchTables(@Param("tbName")String tbName);
     List<column>getColumnList(@Param("dbName")String dbName,@Param("tbName")String tbName);
 }
