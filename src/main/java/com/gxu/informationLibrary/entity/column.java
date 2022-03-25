@@ -20,8 +20,8 @@ public class column {
     public column(JSONObject jsonObject, String dbName, String tbName) {
         this.dbName=dbName;
         this.tbName=tbName;
-        this.colName = jsonObject.getString("colName");
-        this.datatype = jsonObject.getString("datatype");
+        this.colName = jsonObject.getString("col_name");
+        this.datatype = jsonObject.getString("data_type");
         this.len = jsonObject.getIntValue("len");
         this.place = jsonObject.getIntValue("place");
         this.PK = jsonObject.getBoolean("PK");
