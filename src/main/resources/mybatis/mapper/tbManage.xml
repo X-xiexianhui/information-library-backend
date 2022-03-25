@@ -32,6 +32,5 @@
             select tb_id, #{item.colName},#{item.datatype},#{item.len},#{item.place},#{item.PK},#{item.not_null},#{item.uni}
             from tb_info where db=(select db_id from db_info where db_name=#{dbName}) and tb_name=#{tbName}
         </foreach>
-
     </insert>
 </mapper>
