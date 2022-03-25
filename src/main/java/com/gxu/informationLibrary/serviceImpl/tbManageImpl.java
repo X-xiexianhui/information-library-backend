@@ -33,6 +33,9 @@ public class tbManageImpl implements tbManageServer {
             }
         }
         tbManage.createTable(columns,pks, dbName, tbName);
+        tbManage.setTables(dbName);
+        tbManage.setTbInfo(dbName,tbName);
+        tbManage.setColumn(columns);
     }
 
     @Override
