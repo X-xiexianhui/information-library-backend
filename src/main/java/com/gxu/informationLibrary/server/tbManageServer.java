@@ -1,11 +1,10 @@
 package com.gxu.informationLibrary.server;
 
 
-import com.gxu.informationLibrary.entity.column;
-
+import com.alibaba.fastjson.JSONObject;
 import java.util.List;
 
 public interface tbManageServer {
-    List<column> createTable(String Param);
+    List<JSONObject> createTable(String Param);
     void deleteTable(String dbName,String tbName);
 }

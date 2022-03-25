@@ -20,7 +20,7 @@ public class tbManageImpl implements tbManageServer {
 
     @Override
     @Transactional
-    public List<column> createTable(String Param) {
+    public List<JSONObject> createTable(String Param) {
         JSONObject jsonParam= JSONObject.parseObject(Param);
         String dbName=jsonParam.getString("dbName");
         String tbName=jsonParam.getString("tbName");

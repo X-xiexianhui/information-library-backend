@@ -45,7 +45,7 @@
         from tb_info
         where tb_info.tb_name like concat('%', #{tbName}, '%')
     </select>
-    <select id="getColumnList" resultType="column">
+    <select id="getColumnList" resultType="com.alibaba.fastjson.JSONObject">
         select #{dbName},
                #{tbName},
                col_name,

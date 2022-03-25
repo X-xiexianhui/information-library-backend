@@ -22,8 +22,8 @@ public class tableManageController {
     }
 
     @PostMapping("/tb/add")
-    public response<List<column>> addTable(@RequestBody String Param){
-        List<column>data=new ArrayList<>();
+    public response<List<JSONObject>> addTable(@RequestBody String Param){
+        List<JSONObject>data=new ArrayList<>();
         try {
             data=tbManage.createTable(Param);
         } catch (Exception e){
