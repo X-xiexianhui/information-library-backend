@@ -1,6 +1,8 @@
 package com.gxu.informationLibrary.serviceImpl;
 
 import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.annotation.JSONType;
+import com.alibaba.fastjson.parser.Feature;
 import com.gxu.informationLibrary.dao.tableManagerDao;
 import com.gxu.informationLibrary.entity.Columns;
 import com.gxu.informationLibrary.entity.column;
@@ -21,7 +23,7 @@ public class tbManageImpl implements tbManageServer {
     @Override
     @Transactional
     public List<JSONObject> createTable(String Param) {
-        JSONObject jsonParam= JSONObject.parseObject(Param);
+        JSONObject jsonParam= JSONObject.parseObject(Param, Feature.OrderedField);
         String db_name=jsonParam.getString("db_name");
         String tb_name=jsonParam.getString("tb_name");
         List<column>columns=new Columns(jsonParam.getJSONArray("column"),db_name,tb_name).getColumns();
