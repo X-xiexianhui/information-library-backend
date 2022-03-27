@@ -3,6 +3,7 @@ package com.gxu.informationLibrary.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.gxu.informationLibrary.entity.response;
+import com.gxu.informationLibrary.entity.table;
 import com.gxu.informationLibrary.serviceImpl.tbManageImpl;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -34,6 +35,25 @@ public class tableManageController {
     public response<String>deleteTable(@RequestParam("db_name")String db_name, @RequestParam("tb_name")String tb_name){
         try {
             tbManage.deleteTable(db_name, tb_name);
+        }catch (Exception e){
+            return new response<>(500,e.getMessage(),"");
+        }
+        return new response<>("");
+    }
+    @GetMapping("/tb/search")
+    public response<List<table>>searchTables(@RequestParam("tb_name")String tb_name){
+        List<table>data= new ArrayList<>();
+        try {
+            this.tbManage.searchTables(tb_name);
+        } catch (Exception e){
+            return new response<>(500,e.getMessage(),data);
+        }
+        return new response<>(data);
+    }
+    @PostMapping("/tb/rename")
+    public response<String>renameTable(@RequestBody String Param){
+        try {
+            this.tbManage.renameTables(Param);
         }catch (Exception e){
             return new response<>(500,e.getMessage(),"");
         }

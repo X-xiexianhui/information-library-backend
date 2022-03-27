@@ -41,9 +41,11 @@
           and db = (select db_id from db_info where db_name = #{db_name});
     </update>
     <select id="searchTables" resultType="table">
-        select *
-        from tb_info
-        where tb_info.tb_name like concat('%', #{tb_name}, '%')
+        select tb_id, db_name, tb_name
+        from tb_info,
+             db_info
+        where tb_info.db = db_id
+          and tb_info.tb_name like concat('%', #{tb_name}, '%')
     </select>
     <select id="getColumnList" resultType="com.alibaba.fastjson.JSONObject">
         select col_name,
@@ -56,9 +58,11 @@
         from column_info
         where tb = (select tb_id
                     from tb_info
-                    where tb_name = #{tb_name} and db = (select db_id from db_info where db_name = #{db_name}));
+                    where tb_name = #{tb_name}
+                      and db = (select db_id from db_info where db_name = #{db_name}));
     </select>
     <select id="test" resultType="com.alibaba.fastjson.JSONObject">
-        select * from test.test1;
+        select *
+        from test.test1;
     </select>
 </mapper>

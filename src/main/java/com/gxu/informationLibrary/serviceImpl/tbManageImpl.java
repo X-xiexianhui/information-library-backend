@@ -1,10 +1,12 @@
 package com.gxu.informationLibrary.serviceImpl;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.parser.Feature;
 import com.gxu.informationLibrary.dao.tableManagerDao;
 import com.gxu.informationLibrary.entity.Columns;
 import com.gxu.informationLibrary.entity.column;
+import com.gxu.informationLibrary.entity.table;
 import com.gxu.informationLibrary.server.tbManageServer;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -40,6 +42,18 @@ public class tbManageImpl implements tbManageServer {
     public void deleteTable(String db_name, String tb_name) {
        tbManage.deleteTable(db_name,tb_name);
     }
+
+    @Override
+    public List<table> searchTables(String tb_name) {
+        return this.tbManage.searchTables(tb_name);
+    }
+
+    @Override
+    public void renameTables(String parma) {
+        JSONObject object= JSON.parseObject(parma);
+        this.tbManage.renameTables(object.getString("db_name"),object.getString("tb_name"),object.getString("new_name"));
+    }
+
     public List<JSONObject>test(String db_name,String tb_name){
         return this.tbManage.test(db_name,tb_name);
     }
