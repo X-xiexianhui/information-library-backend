@@ -17,6 +17,10 @@ public interface tableManagerDao {
     void deleteTable(@Param("db_name")String db_name, @Param("tb_name")String tb_name);
     List<table>searchTables(@Param("tb_name")String tb_name);
     void renameTables(@Param("db_name")String db_name,@Param("tb_name")String tb_name,@Param("new_name")String new_name);
-    List<JSONObject>getColumnList(@Param("db_name")String db_name,@Param("tb_name")String tb_name);
+    void addColumn();
+    void deleteColumn();
+    List<JSONObject> getColumn(@Param("db_name")String db_name, @Param("tb_name")String tb_name);
+    void alterColumnName();
+    void alterColumnType();
     List<JSONObject>test(@Param("db_name")String db_name, @Param("tb_name")String tb_name);
 }

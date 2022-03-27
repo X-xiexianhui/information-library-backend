@@ -19,7 +19,7 @@ public class dbManageController {
     }
 
     //    新建数据库
-    @PostMapping("/db/create")
+    @PostMapping("/db/add")
     public response<String> createDB(@RequestParam("db_name") String db_name) {
         try {
             dbManage.createDB(db_name);
