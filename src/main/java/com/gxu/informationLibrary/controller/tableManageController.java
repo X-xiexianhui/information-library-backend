@@ -41,10 +41,10 @@ public class tableManageController {
         return new response<>("");
     }
     @GetMapping("/tb/search")
-    public response<List<table>>searchTables(@RequestParam("tb_name")String tb_name){
+    public response<List<table>>searchTables(@RequestParam("query_name")String tb_name){
         List<table>data= new ArrayList<>();
         try {
-            this.tbManage.searchTables(tb_name);
+            data=this.tbManage.searchTable(tb_name);
         } catch (Exception e){
             return new response<>(500,e.getMessage(),data);
         }
@@ -53,7 +53,7 @@ public class tableManageController {
     @PostMapping("/tb/rename")
     public response<String>renameTable(@RequestBody String Param){
         try {
-            this.tbManage.renameTables(Param);
+            this.tbManage.renameTable(Param);
         }catch (Exception e){
             return new response<>(500,e.getMessage(),"");
         }

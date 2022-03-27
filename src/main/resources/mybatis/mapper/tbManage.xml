@@ -61,6 +61,11 @@
                     where tb_name = #{tb_name}
                       and db = (select db_id from db_info where db_name = #{db_name}));
     </select>
+    <update id="renameTable">
+        rename table ${db_name}.${tb_name} to ${db_name}.${new_name};
+        update tb_info set tb_name=#{new_name};
+
+    </update>
     <select id="test" resultType="com.alibaba.fastjson.JSONObject">
         select *
         from test.test1;

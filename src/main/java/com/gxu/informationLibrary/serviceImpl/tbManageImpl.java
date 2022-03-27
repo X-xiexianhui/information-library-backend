@@ -39,19 +39,21 @@ public class tbManageImpl implements tbManageServer {
     }
 
     @Override
+    @Transactional
     public void deleteTable(String db_name, String tb_name) {
        tbManage.deleteTable(db_name,tb_name);
     }
 
     @Override
-    public List<table> searchTables(String tb_name) {
+    public List<table> searchTable(String tb_name) {
         return this.tbManage.searchTables(tb_name);
     }
 
     @Override
-    public void renameTables(String parma) {
+    @Transactional
+    public void renameTable(String parma) {
         JSONObject object= JSON.parseObject(parma);
-        this.tbManage.renameTables(object.getString("db_name"),object.getString("tb_name"),object.getString("new_name"));
+        this.tbManage.renameTable(object.getString("db_name"),object.getString("tb_name"),object.getString("new_name"));
     }
 
     public List<JSONObject>test(String db_name,String tb_name){

@@ -10,6 +10,6 @@ import java.util.List;
 public interface tbManageServer {
     List<JSONObject> createTable(String Param);
     void deleteTable(String db_name,String tb_name);
-    List<table>searchTables(String tb_name);
-    void renameTables(String parma);
+    List<table> searchTable(String tb_name);
+    void renameTable(String parma);
 }
