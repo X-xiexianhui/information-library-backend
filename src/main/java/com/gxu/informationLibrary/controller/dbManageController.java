@@ -46,7 +46,7 @@ public class dbManageController {
 
     //    查询数据库
     @GetMapping("/db/search")
-    public response<List<dbInfo>> searchDB(@RequestParam("db_name") String db_name) {
+    public response<List<dbInfo>> searchDB(@RequestParam("query_name") String db_name) {
         List<dbInfo> data = new ArrayList<>();
         try {
             data = dbManage.searchDB(db_name);

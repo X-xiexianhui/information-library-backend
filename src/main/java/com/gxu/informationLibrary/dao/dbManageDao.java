@@ -11,6 +11,6 @@ import java.util.List;
 public interface dbManageDao {
     void createDbDao(@Param("db_name") String db_name);
     void deleteDbDao(@Param("db_name") String db_name);
-    List<dbInfo> searchDbDao(@Param("db_name") String db_name);
+    List<dbInfo> searchDbDao(@Param("query_name") String db_name);
     int getTables(@Param("db_name") String db_name);
 }

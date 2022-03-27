@@ -11,7 +11,7 @@
         delete from db_info where db_name=#{db_name};
     </update>
     <select id="searchDbDao" resultType="dbInfo">
-        select * from db_info where db_name like concat('%',#{db_name},'%')
+        select * from db_info where db_name like concat('%',#{query_name},'%')
     </select>
     <select id="getTables" resultType="int">
         select tables from db_info where db_name=#{db_name};
