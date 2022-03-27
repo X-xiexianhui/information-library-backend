@@ -2,7 +2,6 @@ package com.gxu.informationLibrary.controller;
 
 
 import com.alibaba.fastjson.JSONObject;
-import com.gxu.informationLibrary.entity.column;
 import com.gxu.informationLibrary.entity.response;
 import com.gxu.informationLibrary.serviceImpl.tbManageImpl;
 import org.springframework.stereotype.Controller;
@@ -32,19 +31,19 @@ public class tableManageController {
         return new response<>(data);
     }
     @DeleteMapping("/tb/delete")
-    public response<String>deleteTable(@RequestParam("dbName")String dbName,@RequestParam("tbName")String tbName){
+    public response<String>deleteTable(@RequestParam("db_name")String db_name, @RequestParam("tb_name")String tb_name){
         try {
-            tbManage.deleteTable(dbName,tbName);
+            tbManage.deleteTable(db_name, tb_name);
         }catch (Exception e){
             return new response<>(500,e.getMessage(),"");
         }
         return new response<>("");
     }
     @GetMapping("/tb/test")
-    public response<List<JSONObject>>test(@RequestParam("dbName")String dbName, @RequestParam("tbName")String tbName){
+    public response<List<JSONObject>>test(@RequestParam("db_name")String db_name, @RequestParam("tb_name")String tb_name){
         List<JSONObject> data=new ArrayList<>();
         try {
-            data=this.tbManage.test(dbName,tbName);
+            data=this.tbManage.test(db_name, tb_name);
         }catch (Exception e){
             return new response<>(500,e.getMessage(),data);
         }

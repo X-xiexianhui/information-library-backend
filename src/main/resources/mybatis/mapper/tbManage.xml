@@ -59,10 +59,6 @@
                     where tb_name = #{tbName} and db = (select db_id from db_info where db_name = #{dbName}));
     </select>
     <select id="test" resultType="com.alibaba.fastjson.JSONObject">
-        select *
-        from column_info
-        where tb = (select tb_id
-                    from tb_info
-                    where tb_name = #{tbName} and db = (select db_id from db_info where db_name = #{dbName}));
+        select * from column_info
     </select>
 </mapper>

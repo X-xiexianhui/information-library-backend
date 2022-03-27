@@ -22,24 +22,24 @@ public class tbManageImpl implements tbManageServer {
     @Transactional
     public List<JSONObject> createTable(String Param) {
         JSONObject jsonParam= JSONObject.parseObject(Param);
-        String dbName=jsonParam.getString("db_name");
-        String tbName=jsonParam.getString("tb_name");
-        List<column>columns=new Columns(jsonParam.getJSONArray("column"),dbName,tbName).getColumns();
+        String db_name=jsonParam.getString("db_name");
+        String tb_name=jsonParam.getString("tb_name");
+        List<column>columns=new Columns(jsonParam.getJSONArray("column"),db_name,tb_name).getColumns();
         List<String>pks=new ArrayList<>();
         for (column c: columns) {
             if (c.isPK()){
                 pks.add(c.getCol_name());
             }
         }
-        tbManage.createTable(columns,pks, dbName, tbName);
-        return this.tbManage.getColumnList(dbName,tbName);
+        tbManage.createTable(columns,pks, db_name, tb_name);
+        return this.tbManage.getColumnList(db_name,tb_name);
     }
 
     @Override
-    public void deleteTable(String dbName, String tbName) {
-       tbManage.deleteTable(dbName,tbName);
+    public void deleteTable(String db_name, String tb_name) {
+       tbManage.deleteTable(db_name,tb_name);
     }
-    public List<JSONObject>test(String dbName,String tbName){
-        return this.tbManage.test(dbName,tbName);
+    public List<JSONObject>test(String db_name,String tb_name){
+        return this.tbManage.test(db_name,tb_name);
     }
 }
