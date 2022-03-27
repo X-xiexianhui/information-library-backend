@@ -22,8 +22,8 @@ public class tbManageImpl implements tbManageServer {
     @Transactional
     public List<JSONObject> createTable(String Param) {
         JSONObject jsonParam= JSONObject.parseObject(Param);
-        String dbName=jsonParam.getString("dbName");
-        String tbName=jsonParam.getString("tbName");
+        String dbName=jsonParam.getString("db_name");
+        String tbName=jsonParam.getString("tb_name");
         List<column>columns=new Columns(jsonParam.getJSONArray("column"),dbName,tbName).getColumns();
         List<String>pks=new ArrayList<>();
         for (column c: columns) {
