@@ -3,7 +3,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gxu.informationLibrary.dao.tableManagerDao">
     <update id="createTable">
-        create table ${dbName}.${tbName}(
+        create table ${db_name}.${tb_name}(
         <foreach item="item" index="index" collection="column">
             ${item.col_name} ${item.data_type}(${item.len})
             <if test="item.uni==true">unique</if>
@@ -21,29 +21,29 @@
         index (record_ID),
         index (file)
         );
-        update db_info set tables=tables+1 where db_name=#{dbName};
-        insert into tb_info(db, tb_name) select db_id,#{tbName} from db_info where db_name=#{dbName};
+        update db_info set tables=tables+1 where db_name=#{db_name};
+        insert into tb_info(db, tb_name) select db_id,#{tb_name} from db_info where db_name=#{db_name};
         insert into column_info
         <foreach item="item" collection="column" index="index" separator="union all">
             select tb_id,
-            #{item.col_ame},#{item.data_type},#{item.len},#{item.place},#{item.PK},#{item.not_null},#{item.uni}
-            from tb_info where db=(select db_id from db_info where db_name=#{dbName}) and tb_name=#{tbName}
+            #{item.col_name},#{item.data_type},#{item.len},#{item.place},#{item.PK},#{item.not_null},#{item.uni}
+            from tb_info where db=(select db_id from db_info where db_name=#{db_name}) and tb_name=#{tb_name}
         </foreach>
     </update>
     <update id="deleteTable">
-        drop table ${dbName}.${tbName};
+        drop table ${db_name}.${tb_name};
         update db_info
         set tables=tables - 1
-        where db_name = #{dbName};
+        where db_name = #{db_name};
         delete
         from tb_info
-        where tb_name = #{tbName}
-          and db = (select db_id from db_info where db_name = #{dbName});
+        where tb_name = #{tb_name}
+          and db = (select db_id from db_info where db_name = #{db_name});
     </update>
     <select id="searchTables" resultType="table">
         select *
         from tb_info
-        where tb_info.tb_name like concat('%', #{tbName}, '%')
+        where tb_info.tb_name like concat('%', #{tb_name}, '%')
     </select>
     <select id="getColumnList" resultType="com.alibaba.fastjson.JSONObject">
         select col_name,
@@ -56,7 +56,7 @@
         from column_info
         where tb = (select tb_id
                     from tb_info
-                    where tb_name = #{tbName} and db = (select db_id from db_info where db_name = #{dbName}));
+                    where tb_name = #{tb_name} and db = (select db_id from db_info where db_name = #{db_name}));
     </select>
     <select id="test" resultType="com.alibaba.fastjson.JSONObject">
         select * from column_info
