@@ -6,7 +6,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class table {
-    int tbID;
-    String dbName;
-    String tbName;
+    int tb_id;
+    String db_name;
+    String tb_name;
 }
