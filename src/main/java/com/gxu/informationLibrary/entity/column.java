@@ -7,21 +7,21 @@ import lombok.Setter;
 @Getter
 @Setter
 public class column {
-    String dbName;
-    String tbName;
-    String colName;
-    String datatype;
+    String db_name;
+    String tb_name;
+    String col_name;
+    String data_type;
     int len;
     int place;
     boolean PK;
     boolean uni;
     boolean not_null;
 
-    public column(JSONObject jsonObject, String dbName, String tbName) {
-        this.dbName=dbName;
-        this.tbName=tbName;
-        this.colName = jsonObject.getString("col_name");
-        this.datatype = jsonObject.getString("data_type");
+    public column(JSONObject jsonObject, String db_name, String tb_name) {
+        this.db_name =db_name;
+        this.tb_name =tb_name;
+        this.col_name = jsonObject.getString("col_name");
+        this.data_type = jsonObject.getString("data_type");
         this.len = jsonObject.getIntValue("len");
         this.place = jsonObject.getIntValue("place");
         this.PK = jsonObject.getBoolean("PK");
@@ -29,11 +29,11 @@ public class column {
         this.not_null = jsonObject.getBoolean("not_null");
     }
 
-    public column(String dbName, String tbName, String colName, String datatype, int len, int place, boolean PK, boolean uni, boolean not_null) {
-        this.dbName = dbName;
-        this.tbName = tbName;
-        this.colName = colName;
-        this.datatype = datatype;
+    public column(String db_name, String tb_name, String col_name, String data_type, int len, int place, boolean PK, boolean uni, boolean not_null) {
+        this.db_name = db_name;
+        this.tb_name = tb_name;
+        this.col_name = col_name;
+        this.data_type = data_type;
         this.len = len;
         this.place = place;
         this.PK = PK;

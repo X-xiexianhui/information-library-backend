@@ -28,7 +28,7 @@ public class tbManageImpl implements tbManageServer {
         List<String>pks=new ArrayList<>();
         for (column c: columns) {
             if (c.isPK()){
-                pks.add(c.getColName());
+                pks.add(c.getCol_name());
             }
         }
         tbManage.createTable(columns,pks, dbName, tbName);
