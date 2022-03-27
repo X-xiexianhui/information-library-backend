@@ -2,7 +2,6 @@ package com.gxu.informationLibrary.dao;
 
 
 import com.alibaba.fastjson.JSONObject;
-import com.gxu.informationLibrary.entity.column;
 import com.gxu.informationLibrary.entity.table;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -14,10 +13,10 @@ import java.util.List;
 @Mapper
 @Repository
 public interface tableManagerDao {
-    void createTable(@Param("column") List column,@Param("pks") List pks, @Param("dbName") String dbName, @Param("tbName") String tbName);
-    void deleteTable(@Param("dbName")String dbName,@Param("tbName")String tbName);
-    List<table>searchTables(@Param("tbName")String tbName);
-    void alterTable(@Param("column") List column, @Param("pks") List pks, @Param("dbName") String dbName, @Param("tbName") String tbName);
-    List<JSONObject>getColumnList(@Param("dbName")String dbName,@Param("tbName")String tbName);
-    List<JSONObject>test(@Param("dbName")String dbName, @Param("tbName")String tbName);
+    void createTable(@Param("column") List column,@Param("pks") List pks, @Param("db_name") String db_name, @Param("tb_name") String tb_name);
+    void deleteTable(@Param("db_name")String db_name, @Param("tb_name")String tb_name);
+    List<table>searchTables(@Param("tb_name")String tb_name);
+    void alterTable(@Param("column") List column, @Param("pks") List pks, @Param("db_name") String db_name, @Param("tb_name") String tb_name);
+    List<JSONObject>getColumnList(@Param("db_name")String db_name,@Param("tb_name")String tb_name);
+    List<JSONObject>test(@Param("db_name")String db_name, @Param("tb_name")String tb_name);
 }

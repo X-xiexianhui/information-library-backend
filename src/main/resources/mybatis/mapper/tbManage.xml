@@ -5,7 +5,7 @@
     <update id="createTable">
         create table ${dbName}.${tbName}(
         <foreach item="item" index="index" collection="column">
-            ${item.colName} ${item.datatype}(${item.len})
+            ${item.col_name} ${item.data_type}(${item.len})
             <if test="item.uni==true">unique</if>
             <if test="item.not_null==true">not null</if>,
         </foreach>
@@ -26,7 +26,7 @@
         insert into column_info
         <foreach item="item" collection="column" index="index" separator="union all">
             select tb_id,
-            #{item.colName},#{item.datatype},#{item.len},#{item.place},#{item.PK},#{item.not_null},#{item.uni}
+            #{item.col_ame},#{item.data_type},#{item.len},#{item.place},#{item.PK},#{item.not_null},#{item.uni}
             from tb_info where db=(select db_id from db_info where db_name=#{dbName}) and tb_name=#{tbName}
         </foreach>
     </update>
