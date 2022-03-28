@@ -4,13 +4,14 @@
 <mapper namespace="com.gxu.informationLibrary.dao.tableManagerDao">
     <update id="createTable">
         create table ${db_name}.${tb_name}(
+        ${item.col_name} ${item.data_type}
         <foreach item="item" index="index" collection="column">
             <choose>
                 <when test="item.data_type=='numeric'">
-                    ${item.col_name} ${item.data_type}(${item.len},${item.place})
+                    (${item.len},${item.place})
                 </when>
                 <otherwise>
-                    ${item.col_name} ${item.data_type}(${item.len})
+                    (${item.len})
                 </otherwise>
             </choose>
             <if test="item.uni==true">unique</if>
@@ -18,6 +19,13 @@
         </foreach>
         file varchar(64),
         record_id int auto_increment,
+        <if test="pks!=null and pks.size()>0">
+            primary key (
+            <foreach item="pk" index="index" collection="pks" separator=",">
+                ${pk}
+            </foreach>
+            ),
+        </if>
         index (record_id),
         index (file)
         );
@@ -27,7 +35,7 @@
         <foreach item="item" collection="column" index="index" separator="union all">
             select tb_id,
             #{item.col_name},#{item.data_type},#{item.len},#{item.place},#{item.PK},#{item.not_null},#{item.uni}
-            from tb_info where db_name=(select db_id from db_info where db_name=#{db_name}) and tb_name=#{tb_name}
+            from tb_info where db_name=#{db_name} and tb_name=#{tb_name}
         </foreach>
     </update>
     <update id="deleteTable">
@@ -57,13 +65,14 @@
                uni
         from column_info
         where tb_id = (select tb_id
-                    from tb_info
-                    where tb_name = #{tb_name}
-                      and db_name = (select db_id from db_info where db_name = #{db_name}));
+                       from tb_info
+                       where tb_name = #{tb_name}
+                         and db_name = (select db_id from db_info where db_name = #{db_name}));
     </select>
     <update id="renameTable">
         rename table ${db_name}.${tb_name} to ${db_name}.${new_name};
-        update tb_info set tb_name=#{new_name};
+        update tb_info
+        set tb_name=#{new_name};
 
     </update>
     <select id="test" resultType="com.alibaba.fastjson.JSONObject">

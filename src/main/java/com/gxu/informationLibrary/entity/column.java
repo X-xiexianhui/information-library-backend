@@ -13,6 +13,7 @@ public class column {
     String data_type;
     int len;
     int place;
+    boolean PK;
     boolean uni;
     boolean not_null;
 
@@ -23,6 +24,7 @@ public class column {
         this.data_type = jsonObject.getString("data_type");
         this.len = jsonObject.getIntValue("len");
         this.place = jsonObject.getIntValue("place");
+        this.PK=jsonObject.getBoolean("PK");
         this.uni = jsonObject.getBoolean("uni");
         this.not_null = jsonObject.getBoolean("not_null");
     }
@@ -34,6 +36,7 @@ public class column {
         this.data_type = data_type;
         this.len = len;
         this.place = place;
+        this.PK=PK;
         this.uni = uni;
         this.not_null = not_null;
     }
