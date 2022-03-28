@@ -19,6 +19,8 @@ import java.util.List;
 public class tbManageImpl implements tbManageServer {
     final tableManagerDao tbManage;
 
+    private boolean isAlterPK = false;
+
     public tbManageImpl(tableManagerDao tbManage) {
         this.tbManage = tbManage;
     }
@@ -36,7 +38,7 @@ public class tbManageImpl implements tbManageServer {
             }
         }
         tbManage.createTable(columns, pks, db_name, tb_name);
-        return this.tbManage.getColumn(db_name, tb_name);
+        return tbManage.getColumn(db_name, tb_name);
     }
 
     @Override
@@ -46,18 +48,65 @@ public class tbManageImpl implements tbManageServer {
 
     @Override
     public List<table> searchTable(String tb_name) {
-        return this.tbManage.searchTable(tb_name);
+        return tbManage.searchTable(tb_name);
     }
 
     @Override
     public void renameTable(String parma) {
         JSONObject object = JSON.parseObject(parma);
-        this.tbManage.renameTable(object.getString("db_name"), object.getString("tb_name"), object.getString("new_name"));
+        tbManage.renameTable(object.getString("db_name"), object.getString("tb_name"), object.getString("new_name"));
     }
 
     @Override
     public List<JSONObject> alterTable(String Param) {
-        return null;
+        addColumn();
+        dropColumn();
+        alterColumn();
+        if (isAlterPK) {
+            alterPK();
+        }
+        return tbManage.getColumn("","");
+    }
+//    新增一列
+    private void addColumn() {
+        tbManage.addColumn();
+        tbManage.addUnique();
+        tbManage.setNotNull();
+        setIsAlterPK();
+    }
+// 删除一列
+    private void dropColumn() {
+        tbManage.dropColumn();
+    }
+// 修改一列
+    private void alterColumn() {
+        changeColumn();
+        alterUnique();
+        setNotNull();
+        setIsAlterPK();
+    }
+// 修改列名或者数据类型
+    private void changeColumn() {
+        tbManage.changeColumn();
+    }
+// 修改唯一性约束
+    private void alterUnique() {
+        tbManage.dropUnique();
+        tbManage.addUnique();
     }
 
+    private void setNotNull(){
+        tbManage.setNotNull();
+    }
+
+    private void alterPK() {
+        tbManage.dropPK();
+        tbManage.addPK();
+    }
+    private void setIsAlterPK(){
+        if (!isAlterPK){
+            isAlterPK=true;
+        }
+        tbManage.setColumnInfo("PK",1);
+    }
 }

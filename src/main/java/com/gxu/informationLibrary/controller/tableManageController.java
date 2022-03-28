@@ -44,7 +44,7 @@ public class tableManageController {
     public response<List<table>>searchTables(@RequestParam("query_name")String tb_name){
         List<table>data= new ArrayList<>();
         try {
-            data=this.tbManage.searchTable(tb_name);
+            data=tbManage.searchTable(tb_name);
         } catch (Exception e){
             return new response<>(500,e.getMessage(),data);
         }
@@ -53,7 +53,7 @@ public class tableManageController {
     @PostMapping("/tb/rename")
     public response<String>renameTable(@RequestBody String Param){
         try {
-            this.tbManage.renameTable(Param);
+            tbManage.renameTable(Param);
         }catch (Exception e){
             return new response<>(500,e.getMessage(),"");
         }
@@ -63,7 +63,7 @@ public class tableManageController {
     public response<List<JSONObject>>alterTable(@RequestBody String Param){
         List<JSONObject>data=new ArrayList<>();
         try {
-            this.tbManage.alterTable(Param);
+            tbManage.alterTable(Param);
         } catch (Exception e){
             return new response<>(500,e.getMessage(),data);
         }
