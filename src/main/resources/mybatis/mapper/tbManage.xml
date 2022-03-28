@@ -130,7 +130,12 @@
         </foreach>
         );
     </update>
+
     <select id="showKeys" resultType="com.alibaba.fastjson.JSONObject">
         show keys from ${db_name}.${tb_name} where Column_name=#{col_name} and Non_unique=0;
+    </select>
+
+    <select id="query">
+        select ${query_col} from ${db_name}.${tb_name} where ${col_name}=#{query_value};
     </select>
 </mapper>
