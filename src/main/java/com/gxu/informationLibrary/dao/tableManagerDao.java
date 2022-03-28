@@ -15,13 +15,14 @@ import java.util.List;
 public interface tableManagerDao {
     void createTable(@Param("column") List column,@Param("pks") List pks, @Param("db_name") String db_name, @Param("tb_name") String tb_name);
     void deleteTable(@Param("db_name")String db_name, @Param("tb_name")String tb_name);
-    List<table>searchTables(@Param("tb_name")String tb_name);
+    List<table> searchTable(@Param("tb_name")String tb_name);
     void renameTable(@Param("db_name")String db_name, @Param("tb_name")String tb_name, @Param("new_name")String new_name);
     void addColumn();
-    void deleteColumn();
+    void dropColumn();
     List<JSONObject> getColumn(@Param("db_name")String db_name, @Param("tb_name")String tb_name);
-//    修改名和类型
-    void modifyColumn();
+//    修改名
+    void modifyColumnName();
+    void modifyDataType();
     void dropPK();
     void addPK();
     void setNotNull();

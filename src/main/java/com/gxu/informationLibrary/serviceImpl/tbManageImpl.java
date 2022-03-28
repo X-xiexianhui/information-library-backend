@@ -46,7 +46,7 @@ public class tbManageImpl implements tbManageServer {
 
     @Override
     public List<table> searchTable(String tb_name) {
-        return this.tbManage.searchTables(tb_name);
+        return this.tbManage.searchTable(tb_name);
     }
 
     @Override

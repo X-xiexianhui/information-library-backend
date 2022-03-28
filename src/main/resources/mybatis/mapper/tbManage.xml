@@ -48,7 +48,7 @@
         where tb_name = #{tb_name}
           and db_name = #{db_name};
     </update>
-    <select id="searchTables" resultType="table">
+    <select id="searchTable" resultType="table">
         select tb_id, db_name, tb_name
         from tb_info
         where tb_name like concat('%', #{tb_name}, '%')
