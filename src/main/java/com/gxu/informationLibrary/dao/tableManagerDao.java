@@ -40,7 +40,7 @@ public interface tableManagerDao {
 
     void dropUnique();
 
-    String showKeys(String db_name, String tb_name, String col_name);
+    JSONObject showKeys(String db_name, String tb_name, String col_name);
 
     <T> List<String> query(@Param("db_name") String db_name, @Param("tb_name") String tb_name, @Param("col_name") String col_name, @Param("query_col") String query_col, @Param("query_value") T query_value);
 }
