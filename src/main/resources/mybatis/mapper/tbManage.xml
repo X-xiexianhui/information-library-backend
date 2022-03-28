@@ -38,6 +38,7 @@
             from tb_info where db_name=#{db_name} and tb_name=#{tb_name}
         </foreach>
     </update>
+
     <update id="deleteTable">
         drop table ${db_name}.${tb_name};
         update db_info
@@ -48,11 +49,22 @@
         where tb_name = #{tb_name}
           and db_name = #{db_name};
     </update>
+
     <select id="searchTable" resultType="table">
         select tb_id, db_name, tb_name
         from tb_info
         where tb_name like concat('%', #{tb_name}, '%')
     </select>
+
+    <update id="renameTable">
+        rename table ${db_name}.${tb_name} to ${db_name}.${new_name};
+        update tb_info
+        set tb_name=#{new_name}
+        where db_name = #{db_name}
+          and tb_name = #{tb_name};
+
+    </update>
+
     <select id="getColumn" resultType="com.alibaba.fastjson.JSONObject">
         select col_id,
                tb_id,
@@ -69,35 +81,54 @@
                        where tb_name = #{tb_name}
                          and db_name = #{db_name});
     </select>
-    <update id="renameTable">
-        rename table ${db_name}.${tb_name} to ${db_name}.${new_name};
-        update tb_info
-        set tb_name=#{new_name}
-        where db_name = #{db_name}
-          and tb_name = #{tb_name};
 
+    <update id="addColumn">
+        alter table ${db_name}.${tb_name} add column ${col_name} ${data_type}
+        <choose>
+            <when test="item.data_type=='numeric'">
+                (${len},${place})
+            </when>
+            <otherwise>
+                (${len})
+            </otherwise>
+        </choose>
+        <if test="uni==true">unique</if>
+        <if test="not_null==true">not null</if>,
     </update>
+
+    <update id="dropColumn">
+        alter table ${db_name}.${tb_name} drop column ${col_name};
+    </update>
+
+    <update id="changeColumn">
+        alter table ${db_name}.${tb_name} change ${col_name} ${new_column} ${data_type};
+    </update>
+
     <update id="addUnique">
-        alter table ${db_name}.${tb_name} add unique (${col_name});
+        alter table ${db_name}.${tb_name}
+            add unique (${col_name});
     </update>
+
     <update id="dropUnique">
-        alter table ${db_name}.${tb_name} drop index ${key_name};
+        alter table ${db_name}.${tb_name}
+            drop index ${key_name};
     </update>
+
     <update id="setNotNull">
-    alter table ${db_name}.${tb_name} modify ${col_name} <if test="not_null=='true'">not</if> null;
+        alter table ${db_name}.${tb_name} modify ${col_name} <if test="not_null=='true'">not</if> null;
     </update>
+
     <update id="dropPK">
-        alter table ${db_name}.${tb_name} drop primary key ;
+        alter table ${db_name}.${tb_name}
+            drop primary key;
     </update>
+
     <update id="addPK">
         alter table ${db_name}.${tb_name} add primary key (
-                  <foreach item="pk" index="index" collection="pks" separator=",">
-                      ${pk}
-                  </foreach>
-            );
+        <foreach item="pk" index="index" collection="pks" separator=",">
+            ${pk}
+        </foreach>
+        );
     </update>
-    <select id="test" resultType="com.alibaba.fastjson.JSONObject">
-        select *
-        from test.test1;
-    </select>
+
 </mapper>

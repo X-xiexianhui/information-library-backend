@@ -21,16 +21,14 @@ public interface tableManagerDao {
 
     void renameTable(@Param("db_name") String db_name, @Param("tb_name") String tb_name, @Param("new_name") String new_name);
 
+    List<JSONObject> getColumn(@Param("db_name") String db_name, @Param("tb_name") String tb_name);
+
     void addColumn();
 
     void dropColumn();
 
-    List<JSONObject> getColumn(@Param("db_name") String db_name, @Param("tb_name") String tb_name);
-
-    //    修改名
-    void modifyColumnName();
-
-    void modifyDataType();
+    //    修改列名或者类型
+    void changeColumn();
 
     void dropPK();
 
