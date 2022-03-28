@@ -9,7 +9,7 @@ create table column_info
     PK        tinyint(1) default 0 null,
     not_null  tinyint(1) default 0 null,
     uni       tinyint(1) default 0 null,
-    constraint column_info_tb_id_tb_info_tb_name foreign key(tb_id) references tb_info(tb_id) on DELETE cascade on update cascade
+    foreign key(tb_id) references tb_info(tb_id) on DELETE cascade on update cascade
 );
 
 

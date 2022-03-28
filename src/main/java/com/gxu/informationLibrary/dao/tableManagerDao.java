@@ -19,8 +19,14 @@ public interface tableManagerDao {
     void renameTable(@Param("db_name")String db_name, @Param("tb_name")String tb_name, @Param("new_name")String new_name);
     void addColumn();
     void deleteColumn();
+    List<JSONObject> getColumn(@Param("db_name")String db_name, @Param("tb_name")String tb_name);
 //    修改名和类型
     void modifyColumn();
-    List<JSONObject> getColumn(@Param("db_name")String db_name, @Param("tb_name")String tb_name);
+    void dropPK();
+    void addPK();
+    void setNotNull();
+    void addUnique();
+    void dropUnique();
+    <T>List<String>query(@Param("db_name")String db_name,@Param("tb_name") String tb_name,@Param("col_name") String col_name,@Param("query_col") String query_col,@Param("query_value") T query_value);
     List<JSONObject>test(@Param("db_name")String db_name, @Param("tb_name")String tb_name);
 }
