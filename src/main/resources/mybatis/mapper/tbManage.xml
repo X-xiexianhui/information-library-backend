@@ -5,7 +5,14 @@
     <update id="createTable">
         create table ${db_name}.${tb_name}(
         <foreach item="item" index="index" collection="column">
-            ${item.col_name} ${item.data_type}(${item.len})
+            <choose>
+                <when test="item.data_type=='numeric'">
+                    ${item.col_name} ${item.data_type}(${item.len},${item.place})
+                </when>
+                <otherwise>
+                    ${item.col_name} ${item.data_type}(${item.len})
+                </otherwise>
+            </choose>
             <if test="item.uni==true">unique</if>
             <if test="item.not_null==true">not null</if>,
         </foreach>
@@ -47,7 +54,7 @@
         where tb_info.db = db_id
           and tb_info.tb_name like concat('%', #{tb_name}, '%')
     </select>
-    <select id="getColumnList" resultType="com.alibaba.fastjson.JSONObject">
+    <select id="getColumn" resultType="com.alibaba.fastjson.JSONObject">
         select col_name,
                data_type,
                len,
