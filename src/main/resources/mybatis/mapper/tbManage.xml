@@ -138,4 +138,8 @@
     <select id="query">
         select ${query_col} from ${db_name}.${tb_name} where ${col_name}=#{query_value};
     </select>
+
+    <update id="setColumnInfo">
+        update column_info set ${col_name} = #{new_value};
+    </update>
 </mapper>
