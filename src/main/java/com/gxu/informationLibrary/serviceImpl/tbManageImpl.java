@@ -55,8 +55,4 @@ public class tbManageImpl implements tbManageServer {
         JSONObject object= JSON.parseObject(parma);
         this.tbManage.renameTable(object.getString("db_name"),object.getString("tb_name"),object.getString("new_name"));
     }
-
-    public List<JSONObject>test(String db_name,String tb_name){
-        return this.tbManage.test(db_name,tb_name);
-    }
 }

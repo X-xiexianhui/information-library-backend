@@ -59,14 +59,4 @@ public class tableManageController {
         }
         return new response<>("");
     }
-    @GetMapping("/tb/test")
-    public response<List<JSONObject>>test(@RequestParam("db_name")String db_name, @RequestParam("tb_name")String tb_name){
-        List<JSONObject> data=new ArrayList<>();
-        try {
-            data=this.tbManage.test(db_name, tb_name);
-        }catch (Exception e){
-            return new response<>(500,e.getMessage(),data);
-        }
-        return new response<>(data);
-    }
 }

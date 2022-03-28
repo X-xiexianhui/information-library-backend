@@ -1,7 +1,6 @@
 package com.gxu.informationLibrary.serviceImpl;
 
 import com.gxu.informationLibrary.dao.dbManageDao;
-
 import com.gxu.informationLibrary.entity.dbInfo;
 import com.gxu.informationLibrary.server.dbManageServer;
 import org.springframework.stereotype.Service;
@@ -20,7 +19,7 @@ public class dbManageImpl implements dbManageServer {
     @Override
     @Transactional
 //    开启事务
-    public void createDB(String dbName){
+    public void createDB(String dbName) {
         dbManage.createDb(dbName);
     }
 
@@ -35,7 +34,8 @@ public class dbManageImpl implements dbManageServer {
     public List<dbInfo> searchDB(String dbName) {
         return dbManage.searchDb(dbName);
     }
-    public int getTables(String dbName){
+
+    public int getTables(String dbName) {
         return dbManage.getTables(dbName);
     }
 }
