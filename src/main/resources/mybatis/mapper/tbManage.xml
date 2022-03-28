@@ -140,6 +140,6 @@
     </select>
 
     <update id="setColumnInfo">
-        update column_info set ${col_name} = #{new_value};
+        update column_info set ${col_name} = #{new_value} where tb_id=#{col_id};
     </update>
 </mapper>

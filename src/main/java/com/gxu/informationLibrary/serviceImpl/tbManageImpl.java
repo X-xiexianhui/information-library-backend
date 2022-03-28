@@ -107,6 +107,6 @@ public class tbManageImpl implements tbManageServer {
         if (!isAlterPK){
             isAlterPK=true;
         }
-        tbManage.setColumnInfo("PK",1);
+        tbManage.setColumnInfo("PK",1,1);
     }
 }
