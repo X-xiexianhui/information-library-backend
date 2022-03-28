@@ -28,13 +28,7 @@ public class tbManageImpl implements tbManageServer {
         String db_name=jsonParam.getString("db_name");
         String tb_name=jsonParam.getString("tb_name");
         List<column>columns=new Columns(jsonParam.getJSONArray("column"),db_name,tb_name).getColumns();
-        List<String>pks=new ArrayList<>();
-        for (column c: columns) {
-            if (c.isPK()){
-                pks.add(c.getCol_name());
-            }
-        }
-        tbManage.createTable(columns,pks, db_name, tb_name);
+        tbManage.createTable(columns,db_name, tb_name);
         return this.tbManage.getColumn(db_name,tb_name);
     }
 

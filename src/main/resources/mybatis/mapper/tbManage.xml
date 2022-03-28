@@ -18,13 +18,6 @@
         </foreach>
         file varchar(64),
         record_ID int auto_increment,
-        <if test="pks!=null and pks.size()>0">
-            primary key (
-            <foreach item="pk" index="index" collection="pks" separator=",">
-                ${pk}
-            </foreach>
-            ),
-        </if>
         index (record_ID),
         index (file)
         );
