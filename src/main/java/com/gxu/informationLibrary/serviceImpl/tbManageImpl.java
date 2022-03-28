@@ -91,6 +91,8 @@ public class tbManageImpl implements tbManageServer {
     }
 // 修改唯一性约束
     private void alterUnique() {
+        List<String>res=tbManage.query("","","");
+        JSONObject json=tbManage.showKeys("","","");
         tbManage.dropUnique();
         tbManage.addUnique();
     }

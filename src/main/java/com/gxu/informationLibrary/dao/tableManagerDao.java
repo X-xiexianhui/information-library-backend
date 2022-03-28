@@ -42,6 +42,6 @@ public interface tableManagerDao {
 
     JSONObject showKeys(@Param("db_name") String db_name,@Param("tb_name") String tb_name,@Param("col_name") String col_name);
 
-    <T> List<String> query(@Param("db_name") String db_name, @Param("tb_name") String tb_name, @Param("col_name") String col_name, @Param("query_col") String query_col, @Param("query_value") T query_value);
+    <T> List<String> query(@Param("col_name") String col_name, @Param("query_col") String query_col, @Param("query_value") T query_value);
     <T>void setColumnInfo(@Param("col_name") String col_name,@Param("new_value") T new_value,@Param("col_id") int col_id);
 }

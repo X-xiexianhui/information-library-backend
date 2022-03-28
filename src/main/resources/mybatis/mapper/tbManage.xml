@@ -136,7 +136,7 @@
     </select>
 
     <select id="query">
-        select ${query_col} from ${db_name}.${tb_name} where ${col_name}=#{query_value};
+        select ${query_col} from column_info where ${col_name}=#{query_value};
     </select>
 
     <update id="setColumnInfo">
