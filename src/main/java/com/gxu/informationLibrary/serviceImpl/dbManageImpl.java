@@ -17,14 +17,14 @@ public class dbManageImpl implements dbManageServer {
     }
 
     @Override
-    @Transactional
+    @Transactional(rollbackFor=Exception.class)
 //    开启事务
     public void createDB(String dbName) {
         dbManage.createDb(dbName);
     }
 
     @Override
-    @Transactional
+    @Transactional(rollbackFor=Exception.class)
 //    开启事务
     public void deleteDB(String dbName) {
         dbManage.deleteDb(dbName);

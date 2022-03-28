@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-@Transactional
+@Transactional(rollbackFor=Exception.class)
 public class tbManageImpl implements tbManageServer {
     final tableManagerDao tbManage;
 
