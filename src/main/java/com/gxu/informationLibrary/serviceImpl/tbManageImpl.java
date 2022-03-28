@@ -103,6 +103,7 @@ public class tbManageImpl implements tbManageServer {
 
     private void alterPK() {
         tbManage.dropPK();
+        List<String>pks=tbManage.query("","","");
         tbManage.addPK();
     }
     private void setIsAlterPK(){
