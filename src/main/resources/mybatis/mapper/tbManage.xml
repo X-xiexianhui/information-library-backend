@@ -17,8 +17,8 @@
             <if test="item.not_null==true">not null</if>,
         </foreach>
         file varchar(64),
-        record_ID int auto_increment,
-        index (record_ID),
+        record_id int auto_increment,
+        index (record_id),
         index (file)
         );
         update db_info set tables=tables+1 where db_name=#{db_name};
