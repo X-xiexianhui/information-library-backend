@@ -55,6 +55,7 @@
     </select>
     <select id="getColumn" resultType="com.alibaba.fastjson.JSONObject">
         select col_id,
+               tb_id,
                col_name,
                data_type,
                len,
@@ -66,7 +67,7 @@
         where tb_id = (select tb_id
                        from tb_info
                        where tb_name = #{tb_name}
-                         and db_name = (select db_id from db_info where db_name = #{db_name}));
+                         and db_name = #{db_name});
     </select>
     <update id="renameTable">
         rename table ${db_name}.${tb_name} to ${db_name}.${new_name};
