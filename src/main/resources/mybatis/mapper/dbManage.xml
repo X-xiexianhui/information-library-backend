@@ -2,15 +2,15 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gxu.informationLibrary.dao.dbManageDao">
-    <update id="createDbDao">
+    <update id="createDb">
         create database ${db_name};
         insert into db_info(db_name) values (#{db_name});
     </update>
-    <update id="deleteDbDao">
+    <update id="deleteDb">
         drop database if exists ${db_name};
         delete from db_info where db_name=#{db_name};
     </update>
-    <select id="searchDbDao" resultType="dbInfo">
+    <select id="searchDb" resultType="dbInfo">
         select * from db_info where db_name like concat('%',#{query_name},'%')
     </select>
     <select id="getTables" resultType="int">

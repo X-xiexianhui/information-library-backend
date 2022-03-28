@@ -21,19 +21,19 @@ public class dbManageImpl implements dbManageServer {
     @Transactional
 //    开启事务
     public void createDB(String dbName){
-        dbManage.createDbDao(dbName);
+        dbManage.createDb(dbName);
     }
 
     @Override
     @Transactional
 //    开启事务
     public void deleteDB(String dbName) {
-        dbManage.deleteDbDao(dbName);
+        dbManage.deleteDb(dbName);
     }
 
     @Override
     public List<dbInfo> searchDB(String dbName) {
-        return dbManage.searchDbDao(dbName);
+        return dbManage.searchDb(dbName);
     }
     public int getTables(String dbName){
         return dbManage.getTables(dbName);

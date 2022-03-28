@@ -9,8 +9,8 @@ import java.util.List;
 @Mapper
 @Repository
 public interface dbManageDao {
-    void createDbDao(@Param("db_name") String db_name);
-    void deleteDbDao(@Param("db_name") String db_name);
-    List<dbInfo> searchDbDao(@Param("query_name") String db_name);
+    void createDb(@Param("db_name") String db_name);
+    void deleteDb(@Param("db_name") String db_name);
+    List<dbInfo> searchDb(@Param("query_name") String db_name);
     int getTables(@Param("db_name") String db_name);
 }
