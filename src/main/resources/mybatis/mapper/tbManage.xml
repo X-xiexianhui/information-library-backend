@@ -77,6 +77,25 @@
           and tb_name = #{tb_name};
 
     </update>
+    <update id="addUnique">
+        alter table ${db_name}.${tb_name} add unique (${col_name});
+    </update>
+    <update id="dropUnique">
+        alter table ${db_name}.${tb_name} drop index ${key_name};
+    </update>
+    <update id="setNotNull">
+    alter table ${db_name}.${tb_name} modify ${col_name} <if test="not_null=='true'">not</if> null;
+    </update>
+    <update id="dropPK">
+        alter table ${db_name}.${tb_name} drop primary key ;
+    </update>
+    <update id="addPK">
+        alter table ${db_name}.${tb_name} add primary key (
+                  <foreach item="pk" index="index" collection="pks" separator=",">
+                      ${pk}
+                  </foreach>
+            );
+    </update>
     <select id="test" resultType="com.alibaba.fastjson.JSONObject">
         select *
         from test.test1;
