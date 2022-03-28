@@ -22,12 +22,12 @@
         index (file)
         );
         update db_info set tables=tables+1 where db_name=#{db_name};
-        insert into tb_info(db, tb_name) select db_id,#{tb_name} from db_info where db_name=#{db_name};
+        insert into tb_info(db_name, tb_name) values (#{db_name},#{tb_name});
         insert into column_info
         <foreach item="item" collection="column" index="index" separator="union all">
             select tb_id,
             #{item.col_name},#{item.data_type},#{item.len},#{item.place},#{item.PK},#{item.not_null},#{item.uni}
-            from tb_info where db=(select db_id from db_info where db_name=#{db_name}) and tb_name=#{tb_name}
+            from tb_info where db_name=(select db_id from db_info where db_name=#{db_name}) and tb_name=#{tb_name}
         </foreach>
     </update>
     <update id="deleteTable">
@@ -38,13 +38,13 @@
         delete
         from tb_info
         where tb_name = #{tb_name}
-          and db = (select db_id from db_info where db_name = #{db_name});
+          and db_name = (select db_id from db_info where db_name = #{db_name});
     </update>
     <select id="searchTables" resultType="table">
         select tb_id, db_name, tb_name
         from tb_info,
              db_info
-        where tb_info.db = db_id
+        where tb_info.db_name = db_id
           and tb_info.tb_name like concat('%', #{tb_name}, '%')
     </select>
     <select id="getColumn" resultType="com.alibaba.fastjson.JSONObject">
@@ -56,10 +56,10 @@
                not_null,
                uni
         from column_info
-        where tb = (select tb_id
+        where tb_id = (select tb_id
                     from tb_info
                     where tb_name = #{tb_name}
-                      and db = (select db_id from db_info where db_name = #{db_name}));
+                      and db_name = (select db_id from db_info where db_name = #{db_name}));
     </select>
     <update id="renameTable">
         rename table ${db_name}.${tb_name} to ${db_name}.${new_name};
