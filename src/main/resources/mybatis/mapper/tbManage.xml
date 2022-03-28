@@ -46,7 +46,7 @@
         delete
         from tb_info
         where tb_name = #{tb_name}
-          and db_name = (select db_id from db_info where db_name = #{db_name});
+          and db_name = #{db_name};
     </update>
     <select id="searchTables" resultType="table">
         select tb_id, db_name, tb_name
