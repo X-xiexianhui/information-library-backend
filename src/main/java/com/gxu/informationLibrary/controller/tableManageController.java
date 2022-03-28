@@ -59,4 +59,14 @@ public class tableManageController {
         }
         return new response<>("");
     }
+    @PostMapping("/tb/alter")
+    public response<List<JSONObject>>alterTable(@RequestBody String Param){
+        List<JSONObject>data=new ArrayList<>();
+        try {
+            this.tbManage.alterTable(Param);
+        } catch (Exception e){
+            return new response<>(500,e.getMessage(),data);
+        }
+        return new response<>(data);
+    }
 }
