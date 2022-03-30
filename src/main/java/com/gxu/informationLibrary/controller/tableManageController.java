@@ -27,7 +27,7 @@ public class tableManageController {
         try {
             data=tbManage.createTable(Param);
         } catch (Exception e){
-            return new response<>(500, String.valueOf(e.getMessage()), data);
+            return new response<>(500, e.getMessage(), data);
         }
         return new response<>(data);
     }

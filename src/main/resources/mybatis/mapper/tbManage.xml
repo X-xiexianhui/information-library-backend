@@ -101,7 +101,7 @@
     </update>
 
     <update id="changeColumn">
-        alter table ${db_name}.${tb_name} change ${col_name} ${new_column} ${data_type};
+        alter table ${db_name}.${tb_name} change ${col_name} ${new_column} ${data_type}(${len},${place});
     </update>
 
     <update id="addUnique">
