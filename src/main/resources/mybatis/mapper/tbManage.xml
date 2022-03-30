@@ -4,8 +4,8 @@
 <mapper namespace="com.gxu.informationLibrary.dao.tableManagerDao">
     <update id="createTable">
         create table ${db_name}.${tb_name}(
-        ${item.col_name} ${item.data_type}
         <foreach item="item" index="index" collection="column">
+            ${item.col_name} ${item.data_type}
             <choose>
                 <when test="item.data_type=='numeric'">
                     (${item.len},${item.place})
