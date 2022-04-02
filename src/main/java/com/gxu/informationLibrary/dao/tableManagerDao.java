@@ -25,7 +25,7 @@ public interface tableManagerDao {
 
     void addColumn();
 
-    void dropColumn();
+    void dropColumn(@Param("db_name")String db_name,@Param("tb_name")String tb_name,@Param("col_name")String col_name);
 
     //    修改列名或者类型
     void changeColumn();

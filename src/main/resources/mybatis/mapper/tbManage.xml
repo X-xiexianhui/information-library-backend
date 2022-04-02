@@ -98,6 +98,7 @@
 
     <update id="dropColumn">
         alter table ${db_name}.${tb_name} drop column ${col_name};
+        delete from column_info where col_name=#{col_name};
     </update>
 
     <update id="changeColumn">

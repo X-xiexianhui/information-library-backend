@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.parser.Feature;
 import com.gxu.informationLibrary.dao.tableManagerDao;
 import com.gxu.informationLibrary.entity.Columns;
+import com.gxu.informationLibrary.entity.alterColumn;
 import com.gxu.informationLibrary.entity.column;
 import com.gxu.informationLibrary.entity.table;
 import com.gxu.informationLibrary.server.tbManageServer;
@@ -59,8 +60,13 @@ public class tbManageImpl implements tbManageServer {
 
     @Override
     public List<JSONObject> alterTable(String Param) {
-        addColumn();
-        dropColumn();
+        JSONObject json=JSON.parseObject(Param);
+        String db_name= json.getString("db_name");
+        String tb_name= json.getString("tb_name");
+        String col_name= json.getString("col_name");
+        Columns insert=new Columns(json.getJSONArray("insert"),db_name,tb_name);
+        addColumn(insert);
+        dropColumn(db_name,tb_name,col_name);
         alterColumn();
         if (isAlterPK) {
             alterPK();
@@ -68,15 +74,15 @@ public class tbManageImpl implements tbManageServer {
         return tbManage.getColumn("","");
     }
 //    新增一列
-    private void addColumn() {
+    private void addColumn(Columns insert) {
         tbManage.addColumn();
         tbManage.addUnique();
         tbManage.setNotNull();
         setIsAlterPK();
     }
 // 删除一列
-    private void dropColumn() {
-        tbManage.dropColumn();
+    private void dropColumn(String db_name,String tb_name,String col_name) {
+        tbManage.dropColumn(db_name,tb_name,col_name);
     }
 // 修改一列
     private void alterColumn() {
