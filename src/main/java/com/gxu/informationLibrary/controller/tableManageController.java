@@ -69,4 +69,14 @@ public class tableManageController {
         }
         return new response<>(data);
     }
+    @GetMapping("/tb/column")
+    public response<List<JSONObject>>gettableColumn(@RequestParam("db_name")String db_name,@RequestParam("tb_name")String tb_name){
+        List<JSONObject>data= new ArrayList<>();
+        try {
+            data=tbManage.getColumn(db_name,tb_name);
+        } catch (Exception e){
+            return new response<>(500,e.getMessage(),data);
+        }
+        return new response<>(data);
+    }
 }

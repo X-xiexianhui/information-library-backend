@@ -73,6 +73,9 @@ public class tbManageImpl implements tbManageServer {
         }
         return tbManage.getColumn("","");
     }
+    public List<JSONObject> getColumn(String db_name,String tb_name){
+        return tbManage.getColumn(db_name, tb_name);
+    }
 //    新增一列
     private void addColumn(@NotNull List<column> insert) {
         tbManage.addColumn(insert);
