@@ -2,6 +2,7 @@ package com.gxu.informationLibrary.dao;
 
 
 import com.alibaba.fastjson.JSONObject;
+import com.gxu.informationLibrary.entity.column;
 import com.gxu.informationLibrary.entity.table;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -23,7 +24,7 @@ public interface tableManagerDao {
 
     List<JSONObject> getColumn(@Param("db_name") String db_name, @Param("tb_name") String tb_name);
 
-    void addColumn();
+    void addColumn(@Param("insert") List<column>insert);
 
     void dropColumn(@Param("db_name")String db_name,@Param("tb_name")String tb_name,@Param("col_name")String col_name);
 

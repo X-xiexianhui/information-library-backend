@@ -83,26 +83,38 @@
     </select>
 
     <update id="addColumn">
-        alter table ${db_name}.${tb_name} add column ${col_name} ${data_type}
-        <choose>
-            <when test="item.data_type=='numeric'">
-                (${len},${place})
-            </when>
-            <otherwise>
-                (${len})
-            </otherwise>
-        </choose>
-        <if test="uni==true">unique</if>
-        <if test="not_null==true">not null</if>,
+        <foreach collection="insert" item="in" index="index">
+            alter table ${in.db_name}.${in.tb_name} add column ${in.col_name} ${in.data_type}
+            <choose>
+                <when test="in.data_type=='numeric'">
+                    (${in.len},${in.place})
+                </when>
+                <otherwise>
+                    (${in.len})
+                </otherwise>
+            </choose>
+            <if test="in.uni==true">unique</if>
+            <if test="in.not_null==true">not null</if>;
+        </foreach>
+        insert into column_info(tb_id, col_name, data_type, len, place, PK, not_null, uni)
+        <foreach item="item" collection="insert" index="index" separator="union all">
+            select tb_id,
+            #{item.col_name},#{item.data_type},#{item.len},#{item.place},#{item.PK},#{item.not_null},#{item.uni}
+            from tb_info where db_name=#{db_name} and tb_name=#{tb_name}
+        </foreach>
     </update>
 
     <update id="dropColumn">
-        alter table ${db_name}.${tb_name} drop column ${col_name};
-        delete from column_info where col_name=#{col_name};
+        alter table ${db_name}.${tb_name}
+            drop column ${col_name};
+        delete
+        from column_info
+        where col_name = #{col_name};
     </update>
 
     <update id="changeColumn">
-        alter table ${db_name}.${tb_name} change ${col_name} ${new_column} ${data_type}(${len},${place});
+        alter table ${db_name}.${tb_name}
+            change ${col_name} ${new_column} ${data_type}(${len},${place});
     </update>
 
     <update id="addUnique">
@@ -133,14 +145,18 @@
     </update>
 
     <select id="showKeys" resultType="com.alibaba.fastjson.JSONObject">
-        show keys from ${db_name}.${tb_name} where Column_name=#{col_name} and Non_unique=0;
+        show keys from ${db_name}.${tb_name} where Column_name = #{col_name} and Non_unique = 0;
     </select>
 
     <select id="query">
-        select ${query_col} from column_info where ${col_name}=#{query_value};
+        select ${query_col}
+        from column_info
+        where ${col_name} = #{query_value};
     </select>
 
     <update id="setColumnInfo">
-        update column_info set ${col_name} = #{new_value} where tb_id=#{col_id};
+        update column_info
+        set ${col_name} = #{new_value}
+        where tb_id = #{col_id};
     </update>
 </mapper>

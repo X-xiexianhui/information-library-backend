@@ -5,10 +5,10 @@ import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.parser.Feature;
 import com.gxu.informationLibrary.dao.tableManagerDao;
 import com.gxu.informationLibrary.entity.Columns;
-import com.gxu.informationLibrary.entity.alterColumn;
 import com.gxu.informationLibrary.entity.column;
 import com.gxu.informationLibrary.entity.table;
 import com.gxu.informationLibrary.server.tbManageServer;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -64,7 +64,7 @@ public class tbManageImpl implements tbManageServer {
         String db_name= json.getString("db_name");
         String tb_name= json.getString("tb_name");
         String col_name= json.getString("col_name");
-        Columns insert=new Columns(json.getJSONArray("insert"),db_name,tb_name);
+        List<column> insert=new Columns(json.getJSONArray("insert"),db_name,tb_name).getColumns();
         addColumn(insert);
         dropColumn(db_name,tb_name,col_name);
         alterColumn();
@@ -74,11 +74,15 @@ public class tbManageImpl implements tbManageServer {
         return tbManage.getColumn("","");
     }
 //    新增一列
-    private void addColumn(Columns insert) {
-        tbManage.addColumn();
-        tbManage.addUnique();
-        tbManage.setNotNull();
-        setIsAlterPK();
+    private void addColumn(@NotNull List<column> insert) {
+        tbManage.addColumn(insert);
+        for (column c:insert) {
+            if (c.isPK()){
+                isAlterPK=true;
+                break;
+            }
+        }
+
     }
 // 删除一列
     private void dropColumn(String db_name,String tb_name,String col_name) {
@@ -89,7 +93,7 @@ public class tbManageImpl implements tbManageServer {
         changeColumn();
         alterUnique();
         setNotNull();
-        setIsAlterPK();
+        setIsAlterPK(1,false);
     }
 // 修改列名或者数据类型
     private void changeColumn() {
@@ -112,10 +116,10 @@ public class tbManageImpl implements tbManageServer {
         List<String>pks=tbManage.query("","","");
         tbManage.addPK();
     }
-    private void setIsAlterPK(){
+    private void setIsAlterPK(int col_id,boolean isPK){
         if (!isAlterPK){
             isAlterPK=true;
         }
-        tbManage.setColumnInfo("PK",1,1);
+        tbManage.setColumnInfo("PK",isPK,col_id);
     }
 }
