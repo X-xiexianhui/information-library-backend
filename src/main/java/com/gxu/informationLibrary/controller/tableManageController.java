@@ -63,7 +63,7 @@ public class tableManageController {
     public response<List<JSONObject>>alterTable(@RequestBody String Param){
         List<JSONObject>data=new ArrayList<>();
         try {
-            tbManage.alterTable(Param);
+            data=tbManage.alterTable(Param);
         } catch (Exception e){
             return new response<>(500,e.getMessage(),data);
         }
