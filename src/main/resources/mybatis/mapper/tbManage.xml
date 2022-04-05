@@ -114,7 +114,16 @@
 
     <update id="changeColumn">
         alter table ${db_name}.${tb_name}
-            change ${col_name} ${new_column} ${data_type}(${len},${place});
+        change ${col_name} ${new_column} ${data_type}
+        <choose>
+            <when test="data_type=='numeric'">
+                (${len},${place});
+            </when>
+            <otherwise>
+                (${len})
+            </otherwise>
+        </choose>
+
     </update>
 
     <update id="addUnique">

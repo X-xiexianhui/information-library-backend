@@ -110,14 +110,17 @@ public class tbManageImpl implements tbManageServer {
             } else if (Objects.equals(alter.getCol_name(), "uni")) {
                 alterUnique(alter.getDb_name(), alter.getTb_name(), alter.getCol_name(), (Boolean) alter.getNew_Value());
             } else {
-                changeColumn();
+                changeColumn(alter);
             }
         }
     }
 
     // 修改列名或者数据类型
-    private void changeColumn() {
-        tbManage.changeColumn();
+    private void changeColumn(alterColumn alter) {
+        if (Objects.equals(alter.getCol_name(),"col_name")){
+            tbManage.changeColumn();
+        }
+
     }
 
     // 修改唯一性约束
