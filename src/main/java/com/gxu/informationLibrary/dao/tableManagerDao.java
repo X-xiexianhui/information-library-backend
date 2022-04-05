@@ -29,7 +29,7 @@ public interface tableManagerDao {
     void dropColumn(@Param("db_name") String db_name, @Param("tb_name") String tb_name, @Param("col_name") String col_name);
 
     //    修改列名或者类型
-    void changeColumn();
+    void changeColumn(@Param("db_name")String db_name,@Param("tb_name") String tb_name,@Param("col_name") String col_name,@Param("new_column") String new_column,@Param("data_type") String data_type,@Param("len") int len,@Param("place") int place);
 
     void dropPK(@Param("db_name")String db_name,@Param("tb_name") String tb_name);
 

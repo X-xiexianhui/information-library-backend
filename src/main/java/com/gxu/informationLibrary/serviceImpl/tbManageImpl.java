@@ -117,8 +117,11 @@ public class tbManageImpl implements tbManageServer {
 
     // 修改列名或者数据类型
     private void changeColumn(alterColumn alter) {
+        String db_name =alter.getDb_name();
+        String tb_name =alter.getTb_name();
+        String col_name =alter.getCol_name();
         if (Objects.equals(alter.getCol_name(),"col_name")){
-            tbManage.changeColumn();
+            tbManage.changeColumn(db_name,tb_name,col_name, (String) alter.getNew_Value(),"int",10,1);
         }
 
     }
