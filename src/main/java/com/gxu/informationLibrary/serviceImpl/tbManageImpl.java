@@ -64,6 +64,7 @@ public class tbManageImpl implements tbManageServer {
         String db_name= json.getString("db_name");
         String tb_name= json.getString("tb_name");
         List<column> insert=new Columns(json.getJSONArray("insert"),db_name,tb_name).getColumns();
+        List<column> delete=new Columns(json.getJSONArray("remove"),db_name,tb_name).getColumns();
         addColumn(insert);
 //        dropColumn(db_name,tb_name,col_name);
 //        alterColumn();
@@ -87,8 +88,10 @@ public class tbManageImpl implements tbManageServer {
 
     }
 // 删除一列
-    private void dropColumn(String db_name,String tb_name,String col_name) {
-        tbManage.dropColumn(db_name,tb_name,col_name);
+    private void dropColumn(List<column>delete) {
+        for (column d: delete) {
+            tbManage.dropColumn(d.getDb_name(),d.getTb_name(),d.getCol_name());
+        }
     }
 // 修改一列
     private void alterColumn() {
