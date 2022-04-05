@@ -14,4 +14,9 @@ public class Columns {
             columns.add(new column(jsonArray.getJSONObject(i),db_name,tb_name));
         }
     }
+    public Columns(JSONArray jsonArray, String db_name, String tb_name,boolean is){
+        for (int i=0;i<jsonArray.size();i++) {
+            columns.add(new column(jsonArray.getJSONObject(i),db_name,tb_name,is));
+        }
+    }
 }

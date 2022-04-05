@@ -8,7 +8,6 @@ import com.gxu.informationLibrary.entity.Columns;
 import com.gxu.informationLibrary.entity.column;
 import com.gxu.informationLibrary.entity.table;
 import com.gxu.informationLibrary.server.tbManageServer;
-import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -64,9 +63,9 @@ public class tbManageImpl implements tbManageServer {
         String db_name= json.getString("db_name");
         String tb_name= json.getString("tb_name");
         List<column> insert=new Columns(json.getJSONArray("insert"),db_name,tb_name).getColumns();
-        List<column> delete=new Columns(json.getJSONArray("remove"),db_name,tb_name).getColumns();
+        List<column> remove=new Columns(json.getJSONArray("remove"),db_name,tb_name,true).getColumns();
         addColumn(insert);
-//        dropColumn(db_name,tb_name,col_name);
+        dropColumn(remove);
 //        alterColumn();
         if (isAlterPK) {
             alterPK();
@@ -77,7 +76,8 @@ public class tbManageImpl implements tbManageServer {
         return tbManage.getColumn(db_name, tb_name);
     }
 //    新增一列
-    private void addColumn(@NotNull List<column> insert) {
+    private void addColumn(List<column> insert) {
+        if (insert.size()==0)return;
         tbManage.addColumn(insert);
         for (column c:insert) {
             if (c.isPK()){
@@ -88,9 +88,11 @@ public class tbManageImpl implements tbManageServer {
 
     }
 // 删除一列
-    private void dropColumn(List<column>delete) {
-        for (column d: delete) {
-            tbManage.dropColumn(d.getDb_name(),d.getTb_name(),d.getCol_name());
+    private void dropColumn(List<column>remove) {
+        if (remove.size()==0)return;
+        for (column r: remove) {
+            String col_name = tbManage.query("col_name","","",r.getCol_id()).get(0);
+            tbManage.dropColumn(r.getDb_name(),r.getTb_name(),col_name);
         }
     }
 // 修改一列
@@ -106,7 +108,6 @@ public class tbManageImpl implements tbManageServer {
     }
 // 修改唯一性约束
     private void alterUnique() {
-        List<String>res=tbManage.query("","","");
         JSONObject json=tbManage.showKeys("","","");
         tbManage.dropUnique();
         tbManage.addUnique();
@@ -118,7 +119,7 @@ public class tbManageImpl implements tbManageServer {
 
     private void alterPK() {
         tbManage.dropPK();
-        List<String>pks=tbManage.query("","","");
+        List<String>pks=tbManage.query("","","",1);
         tbManage.addPK();
     }
     private void setIsAlterPK(int col_id,boolean isPK){
