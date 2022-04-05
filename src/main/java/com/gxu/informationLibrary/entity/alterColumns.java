@@ -22,7 +22,7 @@ public class alterColumns {
             String tb_name = jsonObject.getString("tb_name");
             String col_name = jsonObject.getString("col_name");
             if (Objects.equals(col_name, "PK") || Objects.equals(col_name, "not_null") || Objects.equals(col_name, "nui")) {
-                int new_value = jsonObject.getIntValue("new_value");
+                boolean new_value = jsonObject.getBooleanValue("new_value");
                 alterColumns.add(new alterColumn<>(col_id,db_name, tb_name, col_name, new_value));
             } else {
                 String new_value = jsonObject.getString("new_value");

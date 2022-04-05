@@ -102,7 +102,7 @@ public class tbManageImpl implements tbManageServer {
             if (Objects.equals(alter.getCol_name(),"PK")){
                 setIsAlterPK(alter.getCol_id(), (Boolean) alter.getNew_Value());
             }else if (Objects.equals(alter.getCol_name(),"not_null")){
-                setNotNull();
+                setNotNull(alter.getDb_name(),alter.getTb_name(),alter.getCol_name(), (Boolean) alter.getNew_Value());
             }else if (Objects.equals(alter.getCol_name(),"uni")){
                 alterUnique();
             }else {
@@ -121,8 +121,8 @@ public class tbManageImpl implements tbManageServer {
         tbManage.addUnique();
     }
 
-    private void setNotNull(){
-        tbManage.setNotNull();
+    private void setNotNull(String db_name,String tb_name,String col_name,boolean not_null){
+        tbManage.setNotNull(db_name,tb_name,col_name,not_null);
     }
 
     private void alterPK(String db_name,String tb_name) {
