@@ -117,13 +117,21 @@ public class tbManageImpl implements tbManageServer {
 
     // 修改列名或者数据类型
     private void changeColumn(alterColumn alter) {
-        String db_name =alter.getDb_name();
-        String tb_name =alter.getTb_name();
-        String col_name =alter.getCol_name();
-        if (Objects.equals(alter.getCol_name(),"col_name")){
-            tbManage.changeColumn(db_name,tb_name,col_name, (String) alter.getNew_Value(),"int",10,1);
+        String db_name = alter.getDb_name();
+        String tb_name = alter.getTb_name();
+        String col_name = alter.getCol_name();
+        String data_type =tbManage.query("data_type","col_id",alter.getCol_id()).get(0);
+        int len =tbManage.queryInt("len","col_id",alter.getCol_id());
+        int place =tbManage.queryInt("place","col_id",alter.getCol_id());
+        if (Objects.equals(alter.getCol_name(), "col_name")) {
+            tbManage.changeColumn(db_name, tb_name, col_name, (String) alter.getNew_Value(), data_type, len, place);
+        } else if (alter.getCol_name().equals("data_type")) {
+            tbManage.changeColumn(db_name, tb_name, col_name, col_name, (String) alter.getNew_Value(), len, place);
+        } else if (alter.getCol_name().equals("len")) {
+            tbManage.changeColumn(db_name, tb_name, col_name, col_name, data_type, (Integer) alter.getNew_Value(), place);
+        } else {
+            tbManage.changeColumn(db_name, tb_name, col_name, col_name, data_type, len, (Integer) alter.getNew_Value());
         }
-
     }
 
     // 修改唯一性约束
