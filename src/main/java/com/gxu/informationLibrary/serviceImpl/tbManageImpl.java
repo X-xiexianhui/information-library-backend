@@ -103,11 +103,11 @@ public class tbManageImpl implements tbManageServer {
     private void alterColumn(List<alterColumn> alterColumn) {
         if (alterColumn.size() == 0) return;
         for (alterColumn alter : alterColumn) {
-            if (Objects.equals(alter.getCol_name(), "PK")) {
+            if (alter.getCol_name().equals("PK")) {
                 setIsAlterPK(alter.getCol_id(), (Boolean) alter.getNew_Value());
-            } else if (Objects.equals(alter.getCol_name(), "not_null")) {
+            } else if (alter.getCol_name().equals("not_null")) {
                 setNotNull(alter.getDb_name(), alter.getTb_name(), alter.getCol_name(), (Boolean) alter.getNew_Value());
-            } else if (Objects.equals(alter.getCol_name(), "uni")) {
+            } else if (alter.getCol_name().equals("uni")) {
                 alterUnique(alter.getDb_name(), alter.getTb_name(), alter.getCol_name(), (Boolean) alter.getNew_Value());
             } else {
                 changeColumn(alter);
