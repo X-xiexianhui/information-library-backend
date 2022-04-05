@@ -65,7 +65,7 @@ public class tableManageController {
         try {
             data=tbManage.alterTable(Param);
         } catch (Exception e){
-            return new response<>(500,e.getMessage(),data);
+            return new response<>(500,e.getCause().getMessage(), data);
         }
         return new response<>(data);
     }
