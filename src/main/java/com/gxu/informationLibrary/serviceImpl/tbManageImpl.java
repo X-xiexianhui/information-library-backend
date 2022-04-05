@@ -100,7 +100,7 @@ public class tbManageImpl implements tbManageServer {
         if (alterColumn.size()==0)return;
         for (alterColumn alter:alterColumn) {
             if (Objects.equals(alter.getCol_name(),"PK")){
-                setIsAlterPK(alter.getCol_id(),false);
+                setIsAlterPK(alter.getCol_id(), (Boolean) alter.getNew_Value());
             }else if (Objects.equals(alter.getCol_name(),"not_null")){
                 setNotNull();
             }else if (Objects.equals(alter.getCol_name(),"uni")){
