@@ -68,7 +68,7 @@ public class tbManageImpl implements tbManageServer {
         dropColumn(remove);
 //        alterColumn();
         if (isAlterPK) {
-            alterPK();
+            alterPK(db_name,tb_name);
             isAlterPK=false;
         }
         return tbManage.getColumn(db_name,tb_name);
@@ -118,10 +118,11 @@ public class tbManageImpl implements tbManageServer {
         tbManage.setNotNull();
     }
 
-    private void alterPK() {
-        tbManage.dropPK();
-        List<String>pks=tbManage.query("","",1);
-        tbManage.addPK();
+    private void alterPK(String db_name,String tb_name) {
+        tbManage.dropPK(db_name,tb_name);
+        List<String>pks=tbManage.getPKs(db_name,tb_name);
+        if (pks.size()==0)return;
+        tbManage.addPK(pks);
     }
     private void setIsAlterPK(int col_id,boolean isPK){
         if (!isAlterPK){

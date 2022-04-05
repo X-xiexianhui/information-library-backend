@@ -31,9 +31,9 @@ public interface tableManagerDao {
     //    修改列名或者类型
     void changeColumn();
 
-    void dropPK();
+    void dropPK(@Param("db_name")String db_name,@Param("tb_name") String tb_name);
 
-    void addPK();
+    void addPK(List<String>pks);
 
     void setNotNull();
 
@@ -46,4 +46,5 @@ public interface tableManagerDao {
     <T> List<String> query(@Param("query_col")String query_col,@Param("query_name")String query_name,@Param("query_value")T query_value);
 
     <T> void setColumnInfo(@Param("col_name") String col_name, @Param("new_value") T new_value, @Param("col_id") int col_id);
+    List<String>getPKs(@Param("db_name")String db_name,@Param("tb_name") String tb_name);
 }
