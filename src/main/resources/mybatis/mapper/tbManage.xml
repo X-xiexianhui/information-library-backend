@@ -151,10 +151,7 @@
     <select id="query" resultType="String">
         select ${query_col}
         from column_info
-        where col_id = #{col_id}
-        <if test="query_name!=''">
-            and ${query_name} = #{query_value}
-        </if>;
+        where ${query_name} = #{query_value};
     </select>
 
     <update id="setColumnInfo">

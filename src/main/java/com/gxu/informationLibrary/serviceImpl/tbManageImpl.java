@@ -92,7 +92,7 @@ public class tbManageImpl implements tbManageServer {
     private void dropColumn(List<column>remove) {
         if (remove.size()==0)return;
         for (column r: remove) {
-            String col_name = tbManage.query("col_name","","",r.getCol_id()).get(0);
+            String col_name = tbManage.query("col_name","col_id",r.getCol_id()).get(0);
             tbManage.dropColumn(r.getDb_name(),r.getTb_name(),col_name);
         }
     }
@@ -120,7 +120,7 @@ public class tbManageImpl implements tbManageServer {
 
     private void alterPK() {
         tbManage.dropPK();
-        List<String>pks=tbManage.query("","","",1);
+        List<String>pks=tbManage.query("","",1);
         tbManage.addPK();
     }
     private void setIsAlterPK(int col_id,boolean isPK){
