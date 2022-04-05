@@ -92,9 +92,6 @@ public class tbManageImpl implements tbManageServer {
     private void dropColumn(List<column>remove) {
         if (remove.size()==0)return;
         for (column r: remove) {
-            if (r.isPK()){
-                isAlterPK=true;
-            }
             String col_name = tbManage.query("col_name","","",r.getCol_id()).get(0);
             tbManage.dropColumn(r.getDb_name(),r.getTb_name(),col_name);
         }
