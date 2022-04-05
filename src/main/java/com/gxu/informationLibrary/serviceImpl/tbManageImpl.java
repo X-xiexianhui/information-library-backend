@@ -123,12 +123,16 @@ public class tbManageImpl implements tbManageServer {
         String data_type =tbManage.query("data_type","col_id",alter.getCol_id()).get(0);
         int len =tbManage.queryInt("len","col_id",alter.getCol_id());
         int place =tbManage.queryInt("place","col_id",alter.getCol_id());
+//        修改列名
         if (Objects.equals(alter.getCol_name(), "col_name")) {
             tbManage.changeColumn(db_name, tb_name, col_name, (String) alter.getNew_Value(), data_type, len, place);
+//            修改数据类型
         } else if (alter.getCol_name().equals("data_type")) {
             tbManage.changeColumn(db_name, tb_name, col_name, col_name, (String) alter.getNew_Value(), len, place);
+//            修改长度
         } else if (alter.getCol_name().equals("len")) {
             tbManage.changeColumn(db_name, tb_name, col_name, col_name, data_type, (Integer) alter.getNew_Value(), place);
+//            修改小数位数
         } else {
             tbManage.changeColumn(db_name, tb_name, col_name, col_name, data_type, len, (Integer) alter.getNew_Value());
         }
