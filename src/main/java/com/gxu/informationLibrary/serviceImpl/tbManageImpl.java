@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Objects;
 
 @Service
-@Transactional(rollbackFor=Exception.class)
+@Transactional(rollbackFor = Exception.class)
 public class tbManageImpl implements tbManageServer {
     final tableManagerDao tbManage;
 
@@ -58,83 +58,102 @@ public class tbManageImpl implements tbManageServer {
 
     @Override
     public List<JSONObject> alterTable(String Param) {
-        JSONObject json=JSON.parseObject(Param);
-        String db_name= json.getString("db_name");
-        String tb_name= json.getString("tb_name");
-        List<column> insert=new Columns(json.getJSONArray("insert"),db_name,tb_name).getColumns();
-        List<column> remove=new Columns(json.getJSONArray("remove"),db_name,tb_name,true).getColumns();
-        List<alterColumn>update =new alterColumns(json.getJSONArray("update")).getAlterColumns();
+        JSONObject json = JSON.parseObject(Param);
+        String db_name = json.getString("db_name");
+        String tb_name = json.getString("tb_name");
+        List<column> insert = new Columns(json.getJSONArray("insert"), db_name, tb_name).getColumns();
+        List<column> remove = new Columns(json.getJSONArray("remove"), db_name, tb_name, true).getColumns();
+        List<alterColumn> update = new alterColumns(json.getJSONArray("update")).getAlterColumns();
         addColumn(insert);
         dropColumn(remove);
         alterColumn(update);
         if (isAlterPK) {
-            alterPK(db_name,tb_name);
-            isAlterPK=false;
+            alterPK(db_name, tb_name);
+            isAlterPK = false;
         }
-        return tbManage.getColumn(db_name,tb_name);
-    }
-    public List<JSONObject> getColumn(String db_name,String tb_name){
         return tbManage.getColumn(db_name, tb_name);
     }
-//    新增一列
+
+    public List<JSONObject> getColumn(String db_name, String tb_name) {
+        return tbManage.getColumn(db_name, tb_name);
+    }
+
+    //    新增一列
     private void addColumn(List<column> insert) {
-        if (insert.size()==0)return;
+        if (insert.size() == 0) return;
         tbManage.addColumn(insert);
-        for (column c:insert) {
-            if (c.isPK()){
-                isAlterPK=true;
+        for (column c : insert) {
+            if (c.isPK()) {
+                isAlterPK = true;
                 break;
             }
         }
     }
-// 删除一列
-    private void dropColumn(List<column>remove) {
-        if (remove.size()==0)return;
-        for (column r: remove) {
-            String col_name = tbManage.query("col_name","col_id",r.getCol_id()).get(0);
-            tbManage.dropColumn(r.getDb_name(),r.getTb_name(),col_name);
+
+    // 删除一列
+    private void dropColumn(List<column> remove) {
+        if (remove.size() == 0) return;
+        for (column r : remove) {
+            String col_name = tbManage.query("col_name", "col_id", r.getCol_id()).get(0);
+            tbManage.dropColumn(r.getDb_name(), r.getTb_name(), col_name);
         }
     }
-// 修改一列
-    private void alterColumn(List<alterColumn>alterColumn) {
-        if (alterColumn.size()==0)return;
-        for (alterColumn alter:alterColumn) {
-            if (Objects.equals(alter.getCol_name(),"PK")){
+
+    // 修改一列
+    private void alterColumn(List<alterColumn> alterColumn) {
+        if (alterColumn.size() == 0) return;
+
+        for (alterColumn alter : alterColumn) {
+
+            if (Objects.equals(alter.getCol_name(), "PK")) {
+
                 setIsAlterPK(alter.getCol_id(), (Boolean) alter.getNew_Value());
-            }else if (Objects.equals(alter.getCol_name(),"not_null")){
-                setNotNull(alter.getDb_name(),alter.getTb_name(),alter.getCol_name(), (Boolean) alter.getNew_Value());
-            }else if (Objects.equals(alter.getCol_name(),"uni")){
-                alterUnique();
-            }else {
+
+            } else if (Objects.equals(alter.getCol_name(), "not_null")) {
+
+                String col_name = tbManage.query("col_name", "col_id", alter.getCol_id()).get(0);
+
+                setNotNull(alter.getDb_name(), alter.getTb_name(), col_name, (Boolean) alter.getNew_Value());
+
+            } else if (Objects.equals(alter.getCol_name(), "uni")) {
+
+                String col_name = tbManage.query("col_name", "col_id", alter.getCol_id()).get(0);
+
+                alterUnique(alter.getDb_name(), alter.getTb_name(), col_name, (Boolean) alter.getNew_Value());
+
+            } else {
                 changeColumn();
             }
         }
     }
-// 修改列名或者数据类型
+
+    // 修改列名或者数据类型
     private void changeColumn() {
         tbManage.changeColumn();
     }
-// 修改唯一性约束
-    private void alterUnique() {
-        JSONObject json=tbManage.showKeys("","","");
+
+    // 修改唯一性约束
+    private void alterUnique(String db_name, String tb_name, String col_name, boolean uni) {
+        JSONObject json = tbManage.showKeys(db_name, tb_name, col_name);
         tbManage.dropUnique();
         tbManage.addUnique();
     }
 
-    private void setNotNull(String db_name,String tb_name,String col_name,boolean not_null){
-        tbManage.setNotNull(db_name,tb_name,col_name,not_null);
+    private void setNotNull(String db_name, String tb_name, String col_name, boolean not_null) {
+        tbManage.setNotNull(db_name, tb_name, col_name, not_null);
     }
 
-    private void alterPK(String db_name,String tb_name) {
-        tbManage.dropPK(db_name,tb_name);
-        List<String>pks=tbManage.getPKs(db_name,tb_name);
-        if (pks.size()==0)return;
+    private void alterPK(String db_name, String tb_name) {
+        tbManage.dropPK(db_name, tb_name);
+        List<String> pks = tbManage.getPKs(db_name, tb_name);
+        if (pks.size() == 0) return;
         tbManage.addPK(pks);
     }
-    private void setIsAlterPK(int col_id,boolean isPK){
-        if (!isAlterPK){
-            isAlterPK=true;
+
+    private void setIsAlterPK(int col_id, boolean isPK) {
+        if (!isAlterPK) {
+            isAlterPK = true;
         }
-        tbManage.setColumnInfo("PK",isPK,col_id);
+        tbManage.setColumnInfo("PK", isPK, col_id);
     }
 }
