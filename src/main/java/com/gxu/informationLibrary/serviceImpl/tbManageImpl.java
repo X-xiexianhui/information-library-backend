@@ -86,7 +86,6 @@ public class tbManageImpl implements tbManageServer {
                 break;
             }
         }
-
     }
 // 删除一列
     private void dropColumn(List<column>remove) {
