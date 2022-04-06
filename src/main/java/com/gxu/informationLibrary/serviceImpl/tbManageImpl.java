@@ -63,7 +63,7 @@ public class tbManageImpl implements tbManageServer {
         String tb_name = json.getString("tb_name");
         List<column> insert = new Columns(json.getJSONArray("insert"), db_name, tb_name).getColumns();
         List<column> remove = new Columns(json.getJSONArray("remove"), db_name, tb_name, true).getColumns();
-        List<alterColumn> update = new alterColumns(json.getJSONArray("update")).getAlterColumns();
+        List<alterColumn> update = new alterColumns(json.getJSONArray("update"),db_name,tb_name).getAlterColumns();
         addColumn(insert);
         dropColumn(remove);
         alterColumn(update);
@@ -141,8 +141,11 @@ public class tbManageImpl implements tbManageServer {
     // 修改唯一性约束
     private void alterUnique(String db_name, String tb_name, String col_name, boolean uni) {
         JSONObject json = tbManage.showKeys(db_name, tb_name, col_name);
-        tbManage.dropUnique();
-        tbManage.addUnique();
+        if (uni){
+            tbManage.addUnique();
+        }else {
+            tbManage.dropUnique();
+        }
     }
 
     private void setNotNull(String db_name, String tb_name, String col_name, boolean not_null) {
