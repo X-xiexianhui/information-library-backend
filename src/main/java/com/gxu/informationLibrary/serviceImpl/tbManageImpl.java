@@ -127,15 +127,19 @@ public class tbManageImpl implements tbManageServer {
 //        修改列名
         if (alter.getEdit_field().equals("col_name")) {
             tbManage.changeColumn(db_name, tb_name, col_name, (String) alter.getNew_Value(), data_type, len, place);
+            tbManage.setColumnInfo("col_name",alter.getNew_Value(),col_id);
 //            修改数据类型
         } else if (alter.getEdit_field().equals("data_type")) {
             tbManage.changeColumn(db_name, tb_name, col_name, col_name, (String) alter.getNew_Value(), len, place);
+            tbManage.setColumnInfo("data_type",alter.getNew_Value(),col_id);
 //            修改长度
         } else if (alter.getEdit_field().equals("len")) {
             tbManage.changeColumn(db_name, tb_name, col_name, col_name, data_type, (Integer) alter.getNew_Value(), place);
+            tbManage.setColumnInfo("len",alter.getNew_Value(),col_id);
 //            修改小数位数
         } else {
             tbManage.changeColumn(db_name, tb_name, col_name, col_name, data_type, len, (Integer) alter.getNew_Value());
+            tbManage.setColumnInfo("place",alter.getNew_Value(),col_id);
         }
     }
 
