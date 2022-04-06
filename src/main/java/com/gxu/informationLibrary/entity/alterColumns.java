@@ -19,7 +19,7 @@ public class alterColumns {
             JSONObject jsonObject = jsonArray.getJSONObject(i);
             int col_id = jsonObject.getIntValue("col_id");
             String col_name = jsonObject.getString("col_name");
-            if (Objects.equals(col_name, "PK") || Objects.equals(col_name, "not_null") || Objects.equals(col_name, "nui")) {
+            if (col_name.equals("PK") || col_name.equals("not_null") || col_name.equals("uni")) {
                 boolean new_value = jsonObject.getBooleanValue("new_value");
                 alterColumns.add(new alterColumn<>(col_id,db_name, tb_name, col_name, new_value));
             } else {

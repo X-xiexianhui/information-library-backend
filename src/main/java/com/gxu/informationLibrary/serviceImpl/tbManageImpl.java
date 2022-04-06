@@ -107,6 +107,7 @@ public class tbManageImpl implements tbManageServer {
             } else if (alter.getCol_name().equals("not_null")) {
                 setNotNull(alter.getDb_name(), alter.getTb_name(), alter.getCol_name(), (Boolean) alter.getNew_Value());
             } else if (alter.getCol_name().equals("uni")) {
+
                 alterUnique(alter.getDb_name(), alter.getTb_name(), alter.getCol_name(), (Boolean) alter.getNew_Value());
             } else {
                 changeColumn(alter);
