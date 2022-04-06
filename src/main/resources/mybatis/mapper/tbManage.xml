@@ -198,4 +198,9 @@
         set ${col_name} = #{new_value}
         where tb_id = #{col_id};
     </update>
+    <select id="getPrimaryKey" resultType="int">
+        select count(*) PrimaryNum
+        from INFORMATION_SCHEMA.KEY_COLUMN_USAGE t
+        where t.TABLE_NAME = concat(#{db_name},'.',#{tb_name})
+    </select>
 </mapper>

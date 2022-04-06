@@ -164,7 +164,10 @@ public class tbManageImpl implements tbManageServer {
     }
 
     private void alterPK(String db_name, String tb_name) {
-        tbManage.dropPK(db_name, tb_name);
+        int hasPK = tbManage.getPrimaryKey(db_name,tb_name);
+        if (hasPK>0){
+            tbManage.dropPK(db_name, tb_name);
+        }
         List<String> pks = tbManage.getPKs(db_name, tb_name);
         if (pks.size() == 0) return;
         tbManage.addPK(db_name,tb_name,pks);
