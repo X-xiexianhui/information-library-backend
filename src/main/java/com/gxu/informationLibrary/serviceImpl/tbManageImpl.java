@@ -107,7 +107,7 @@ public class tbManageImpl implements tbManageServer {
             } else if (alter.getCol_name().equals("not_null")) {
                 setNotNull(alter.getDb_name(), alter.getTb_name(), alter.getCol_name(), (Boolean) alter.getNew_Value());
             } else if (alter.getCol_name().equals("uni")) {
-                alterUnique(alter.getDb_name(), alter.getTb_name(), alter.getCol_name(), (Boolean) alter.getNew_Value());
+                alterUnique(alter.getDb_name(), alter.getTb_name(), alter.getCol_id(), (Boolean) alter.getNew_Value());
             } else {
                 changeColumn(alter);
             }
@@ -138,9 +138,10 @@ public class tbManageImpl implements tbManageServer {
     }
 
     // 修改唯一性约束
-    private void alterUnique(String db_name, String tb_name, String col_name, boolean uni) {
+    private void alterUnique(String db_name, String tb_name, int col_id, boolean uni) {
+        String col_name=tbManage.query("col_name","col_id",col_id).get(0);
+        System.out.println(col_name);
         JSONObject json = tbManage.showKeys(db_name, tb_name, col_name);
-
         if (uni){
             tbManage.addUnique(db_name,tb_name,col_name);
         }else {
