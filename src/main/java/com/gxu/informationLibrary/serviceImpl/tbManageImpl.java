@@ -11,7 +11,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 @Service
 @Transactional(rollbackFor = Exception.class)
@@ -102,11 +101,11 @@ public class tbManageImpl implements tbManageServer {
     private void alterColumn(List<alterColumn> alterColumn) {
         if (alterColumn.size() == 0) return;
         for (alterColumn alter : alterColumn) {
-            if (alter.getCol_name().equals("PK")) {
+            if (alter.getEdit_field().equals("PK")) {
                 setIsAlterPK(alter.getCol_id(), (Boolean) alter.getNew_Value());
-            } else if (alter.getCol_name().equals("not_null")) {
-                setNotNull(alter.getDb_name(), alter.getTb_name(), alter.getCol_name(), (Boolean) alter.getNew_Value());
-            } else if (alter.getCol_name().equals("uni")) {
+            } else if (alter.getEdit_field().equals("not_null")) {
+                setNotNull(alter.getDb_name(), alter.getTb_name(), alter.getEdit_field(), (Boolean) alter.getNew_Value());
+            } else if (alter.getEdit_field().equals("uni")) {
                 alterUnique(alter.getDb_name(), alter.getTb_name(), alter.getCol_id(), (Boolean) alter.getNew_Value());
             } else {
                 changeColumn(alter);
@@ -118,18 +117,21 @@ public class tbManageImpl implements tbManageServer {
     private void changeColumn(alterColumn alter) {
         String db_name = alter.getDb_name();
         String tb_name = alter.getTb_name();
-        String col_name = alter.getCol_name();
-        String data_type =tbManage.query("data_type","col_id",alter.getCol_id()).get(0);
-        int len =tbManage.queryInt("len","col_id",alter.getCol_id());
-        int place =tbManage.queryInt("place","col_id",alter.getCol_id());
+        int col_id = alter.getCol_id();
+        String col_name=tbManage.query("col_name","col_id",col_id).get(0);
+        String data_type =tbManage.query("data_type","col_id",col_id).get(0);
+        int len =tbManage.queryInt("len","col_id",col_id);
+        int place =tbManage.queryInt("place","col_id",col_id);
+        System.out.println(len);
+        System.out.println(place);
 //        修改列名
-        if (Objects.equals(alter.getCol_name(), "col_name")) {
+        if (alter.getEdit_field().equals("col_name")) {
             tbManage.changeColumn(db_name, tb_name, col_name, (String) alter.getNew_Value(), data_type, len, place);
 //            修改数据类型
-        } else if (alter.getCol_name().equals("data_type")) {
+        } else if (alter.getEdit_field().equals("data_type")) {
             tbManage.changeColumn(db_name, tb_name, col_name, col_name, (String) alter.getNew_Value(), len, place);
 //            修改长度
-        } else if (alter.getCol_name().equals("len")) {
+        } else if (alter.getEdit_field().equals("len")) {
             tbManage.changeColumn(db_name, tb_name, col_name, col_name, data_type, (Integer) alter.getNew_Value(), place);
 //            修改小数位数
         } else {
@@ -140,7 +142,6 @@ public class tbManageImpl implements tbManageServer {
     // 修改唯一性约束
     private void alterUnique(String db_name, String tb_name, int col_id, boolean uni) {
         String col_name=tbManage.query("col_name","col_id",col_id).get(0);
-        System.out.println(col_name);
         JSONObject json = tbManage.showKeys(db_name, tb_name, col_name);
         if (uni){
             tbManage.addUnique(db_name,tb_name,col_name);

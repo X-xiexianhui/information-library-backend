@@ -171,6 +171,12 @@
         where ${query_name} = #{query_value};
     </select>
 
+    <select id="queryInt" resultType="int">
+        select ${query_col}
+        from column_info
+        where ${query_name} = #{query_value};
+    </select>
+
     <select id="getPKs" resultType="String">
         select PK
         from column_info
