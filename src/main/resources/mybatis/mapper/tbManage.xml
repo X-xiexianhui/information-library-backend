@@ -172,7 +172,7 @@
     </update>
 
     <select id="showKeys" resultType="com.alibaba.fastjson.JSONObject">
-        show keys from ${db_name}.${tb_name} where Column_name = #{col_name} and Non_unique = 0;
+        show keys from ${db_name}.${tb_name} where Column_name = #{col_name};
     </select>
 
     <select id="query" resultType="String">
