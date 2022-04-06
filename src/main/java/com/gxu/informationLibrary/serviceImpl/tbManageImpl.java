@@ -141,10 +141,12 @@ public class tbManageImpl implements tbManageServer {
     // 修改唯一性约束
     private void alterUnique(String db_name, String tb_name, String col_name, boolean uni) {
         JSONObject json = tbManage.showKeys(db_name, tb_name, col_name);
+
         if (uni){
-            tbManage.addUnique();
+            tbManage.addUnique(db_name,tb_name,col_name);
         }else {
-            tbManage.dropUnique();
+            String key = json.getString("Key_name");
+            tbManage.dropUnique(db_name,tb_name,key);
         }
     }
 

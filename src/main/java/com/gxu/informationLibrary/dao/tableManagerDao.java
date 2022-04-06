@@ -37,9 +37,9 @@ public interface tableManagerDao {
 
     void setNotNull(@Param("db_name")String db_name,@Param("tb_name")String tb_name,@Param("col_name")String col_name,@Param("not_null")boolean not_null);
 
-    void addUnique();
+    void addUnique(@Param("db_name") String db_name,@Param("tb_name") String tb_name,@Param("col_name") String col_name);
 
-    void dropUnique();
+    void dropUnique(@Param("db_name") String db_name,@Param("tb_name") String tb_name,@Param("key_name") String key_name);
 
     JSONObject showKeys(@Param("db_name") String db_name, @Param("tb_name") String tb_name, @Param("col_name") String col_name);
 
