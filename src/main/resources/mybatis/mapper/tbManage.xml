@@ -136,6 +136,9 @@
     <update id="dropUnique">
         alter table ${db_name}.${tb_name}
             drop index ${key_name};
+        update column_info
+        set uni = false
+            where tb_id = (select tb_id from tb_info where db_name = #{db_name} and tb_name = #{tb_name})
     </update>
 
     <update id="setNotNull">
