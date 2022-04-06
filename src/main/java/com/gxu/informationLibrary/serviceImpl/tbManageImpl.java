@@ -157,7 +157,10 @@ public class tbManageImpl implements tbManageServer {
 
     private void setNotNull(String db_name, String tb_name, int col_id, boolean not_null) {
         String col_name=tbManage.query("col_name","col_id",col_id).get(0);
-        tbManage.setNotNull(db_name, tb_name, col_name, not_null);
+        String data_type =tbManage.query("data_type","col_id",col_id).get(0);
+        int len =tbManage.queryInt("len","col_id",col_id);
+        int place =tbManage.queryInt("place","col_id",col_id);
+        tbManage.setNotNull(db_name, tb_name, col_name,data_type,len,place,not_null);
     }
 
     private void alterPK(String db_name, String tb_name) {

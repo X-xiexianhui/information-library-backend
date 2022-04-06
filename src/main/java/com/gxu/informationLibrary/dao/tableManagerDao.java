@@ -35,7 +35,7 @@ public interface tableManagerDao {
 
     void addPK(List<String>pks);
 
-    void setNotNull(@Param("db_name")String db_name,@Param("tb_name")String tb_name,@Param("col_name")String col_name,@Param("not_null")boolean not_null);
+    void setNotNull(@Param("db_name")String db_name,@Param("tb_name") String tb_name,@Param("col_name") String col_name,@Param("data_type") String data_type,@Param("len") int len,@Param("place") int place,@Param("not_null")boolean not_null);
 
     void addUnique(@Param("db_name") String db_name,@Param("tb_name") String tb_name,@Param("col_name") String col_name);
 

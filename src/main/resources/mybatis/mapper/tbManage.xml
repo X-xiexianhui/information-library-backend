@@ -116,12 +116,13 @@
         change ${col_name} ${new_column} ${data_type}
         <choose>
             <when test="data_type=='numeric'">
-                (${len},${place});
+                (${len},${place})
             </when>
             <otherwise>
                 (${len})
             </otherwise>
         </choose>
+        ;
     </update>
 
     <update id="addUnique">
@@ -141,7 +142,17 @@
     </update>
 
     <update id="setNotNull">
-        alter table ${db_name}.${tb_name} modify ${col_name} <if test="not_null==true">not</if> null;
+        alter table ${db_name}.${tb_name} modify ${col_name} ${data_type}
+        <choose>
+            <when test="data_type=='numeric'">
+                (${len},${place})
+            </when>
+            <otherwise>
+                (${len})
+            </otherwise>
+        </choose>
+        <if test="not_null==true">not</if>
+        null;
         update column_info
         set not_null = #{not_null}
         where tb_id = (select tb_id from tb_info where db_name = #{db_name} and tb_name = #{tb_name});
