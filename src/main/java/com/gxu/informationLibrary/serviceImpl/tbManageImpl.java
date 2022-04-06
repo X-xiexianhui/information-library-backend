@@ -104,7 +104,7 @@ public class tbManageImpl implements tbManageServer {
             if (alter.getEdit_field().equals("PK")) {
                 setIsAlterPK(alter.getCol_id(), (Boolean) alter.getNew_Value());
             } else if (alter.getEdit_field().equals("not_null")) {
-                setNotNull(alter.getDb_name(), alter.getTb_name(), alter.getEdit_field(), (Boolean) alter.getNew_Value());
+                setNotNull(alter.getDb_name(), alter.getTb_name(), alter.getCol_id(), (Boolean) alter.getNew_Value());
             } else if (alter.getEdit_field().equals("uni")) {
                 alterUnique(alter.getDb_name(), alter.getTb_name(), alter.getCol_id(), (Boolean) alter.getNew_Value());
             } else {
@@ -155,7 +155,8 @@ public class tbManageImpl implements tbManageServer {
         }
     }
 
-    private void setNotNull(String db_name, String tb_name, String col_name, boolean not_null) {
+    private void setNotNull(String db_name, String tb_name, int col_id, boolean not_null) {
+        String col_name=tbManage.query("col_name","col_id",col_id).get(0);
         tbManage.setNotNull(db_name, tb_name, col_name, not_null);
     }
 
