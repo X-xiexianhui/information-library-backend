@@ -33,7 +33,7 @@ public interface tableManagerDao {
 
     void dropPK(@Param("db_name")String db_name,@Param("tb_name") String tb_name);
 
-    void addPK(List<String>pks);
+    void addPK(@Param("db_name") String db_name,@Param("tb_name") String tb_name,@Param("pks") List<String>pks);
 
     void setNotNull(@Param("db_name")String db_name,@Param("tb_name") String tb_name,@Param("col_name") String col_name,@Param("data_type") String data_type,@Param("len") int len,@Param("place") int place,@Param("not_null")boolean not_null);
 

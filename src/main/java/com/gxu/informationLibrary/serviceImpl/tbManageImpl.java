@@ -167,7 +167,7 @@ public class tbManageImpl implements tbManageServer {
         tbManage.dropPK(db_name, tb_name);
         List<String> pks = tbManage.getPKs(db_name, tb_name);
         if (pks.size() == 0) return;
-        tbManage.addPK(pks);
+        tbManage.addPK(db_name,tb_name,pks);
     }
 
     private void setIsAlterPK(int col_id, boolean isPK) {
