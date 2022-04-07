@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface indexManageDao {
     List<String> getColumns(@Param("dbName")String dbName, @Param("tbName")String tbName);
+    void addIndex();
+    void dropIndex();
 }
