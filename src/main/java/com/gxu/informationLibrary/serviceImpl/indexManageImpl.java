@@ -1,5 +1,6 @@
 package com.gxu.informationLibrary.serviceImpl;
 
+import com.gxu.informationLibrary.dao.tableManagerDao;
 import com.gxu.informationLibrary.entity.index;
 import com.gxu.informationLibrary.server.indexManage;
 import org.springframework.stereotype.Service;
@@ -27,6 +28,9 @@ public class indexManageImpl implements indexManage {
 
     }
     private List<index> getIndex(){
+        return null;
+    }
+    public List<String>getColumns(String db_name,String tb_name){
         return null;
     }
 }

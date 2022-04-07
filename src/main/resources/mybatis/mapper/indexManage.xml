@@ -2,21 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gxu.informationLibrary.dao.indexManageDao">
-<update id="createIndex">
-    <foreach item="idx" index="index" collection="ides" separator=",">
-   <choose>
-       <when test="idx.type=='普通索引'">create index #{idx.indexName} on ${dbName}.${tbName}(${field})</when>
-       <when test="idx.type=='唯一索引'">create index #{idx.indexName} on ${dbName}.${tbName}(${field})</when>
-    <otherwise>
-create index #{indexName} on ${dbName}.${tbName}(<foreach item="fd" index="id" collection="field" separator=",">${fd}</foreach>)
-    </otherwise>
-   </choose>
-    </foreach>
-</update>
-    <select id="getColumns" resultType="String">
-        select col_name from column_info
-        where tb=(select tb_id from tb_info
-        where tb_name =#{tbName} and db=(select db_id from db_info
-        where db_name=#{dbName}));
-    </select>
+<select id="getColumns" resultType="String">
+    select col_name from column_info where tb_id=(select tb_id from tb_info where db_name=#{db_name} and tb_name=#{tb_name});
+</select>
+
 </mapper>
