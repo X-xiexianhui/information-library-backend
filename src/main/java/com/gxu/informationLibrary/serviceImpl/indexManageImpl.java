@@ -1,5 +1,7 @@
 package com.gxu.informationLibrary.serviceImpl;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.gxu.informationLibrary.dao.indexManageDao;
 import com.gxu.informationLibrary.entity.index;
 import com.gxu.informationLibrary.server.indexManage;
@@ -17,6 +19,8 @@ public class indexManageImpl implements indexManage {
 
     @Override
     public List<index> alterIndex(String Parma) {
+        JSONObject indexJson = JSON.parseObject(Parma);
+
         addIndex();
         deleteIndex();
         updateIndex();

@@ -12,7 +12,7 @@ public class index {
     String db_name;
     String tb_name;
     List<String>fields;
-    Boolean uni;
+    boolean uni;
 
     public index(String db_name,String tb_name,List<String> fields, Boolean uni) {
         this.db_name=db_name;
