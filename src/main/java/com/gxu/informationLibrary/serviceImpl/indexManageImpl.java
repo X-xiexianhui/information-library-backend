@@ -7,10 +7,12 @@ import com.gxu.informationLibrary.entity.index;
 import com.gxu.informationLibrary.entity.indexList;
 import com.gxu.informationLibrary.server.indexManage;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
+@Transactional
 public class indexManageImpl implements indexManage {
     final indexManageDao indexManage;
 
@@ -36,14 +38,16 @@ public class indexManageImpl implements indexManage {
 
     }
     private void deleteIndex(List<index>remove){
-
+        for (index i:remove) {
+            indexManage.dropIndex(i.getIndex_id());
+        }
     }
     private void updateIndex(List<index>update){
         deleteIndex(update);
         addIndex(update);
     }
     private List<index> getIndex(String db_name,String tb_name){
-        return null;
+        return indexManage.getIndex(db_name,tb_name);
     }
     public List<String>getColumns(String db_name,String tb_name){
         return indexManage.getColumns(db_name,tb_name);
