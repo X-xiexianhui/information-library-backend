@@ -1,10 +1,9 @@
 package com.gxu.informationLibrary.controller;
 
-import com.alibaba.fastjson.JSONObject;
+
 import com.gxu.informationLibrary.entity.index;
 import com.gxu.informationLibrary.entity.response;
 import com.gxu.informationLibrary.serviceImpl.indexManageImpl;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
