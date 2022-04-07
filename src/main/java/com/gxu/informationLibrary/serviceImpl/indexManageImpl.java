@@ -21,13 +21,15 @@ public class indexManageImpl implements indexManage {
     @Override
     public List<index> alterIndex(String Parma) {
         JSONObject indexJson = JSON.parseObject(Parma);
+        String db_name=indexJson.getString("db_name");
+        String tb_name=indexJson.getString("tb_name");
         List<index>insert=new indexList(indexJson.getJSONArray("insert")).getIndexes();
         List<index>remove=new indexList(indexJson.getJSONArray("remove")).getIndexes();
         List<index>update=new indexList(indexJson.getJSONArray("update")).getIndexes();
         addIndex(insert);
         deleteIndex(remove);
         updateIndex(update);
-        return getIndex();
+        return getIndex(db_name,tb_name);
     }
 
     private void addIndex(List<index>insert) {
@@ -40,7 +42,7 @@ public class indexManageImpl implements indexManage {
         deleteIndex(update);
         addIndex(update);
     }
-    private List<index> getIndex(){
+    private List<index> getIndex(String db_name,String tb_name){
         return null;
     }
     public List<String>getColumns(String db_name,String tb_name){
