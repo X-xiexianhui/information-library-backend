@@ -4,9 +4,10 @@ package com.gxu.informationLibrary.controller;
 import com.gxu.informationLibrary.entity.index;
 import com.gxu.informationLibrary.entity.response;
 import com.gxu.informationLibrary.serviceImpl.indexManageImpl;
-import com.gxu.informationLibrary.serviceImpl.tbManageImpl;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.ArrayList;
@@ -30,7 +31,8 @@ public class indexManageController {
         }
         return new response<>(data);
     }
-    public List<String>getColumns(String db_name,String tb_name){
-        return null;
+    @GetMapping("/index/column")
+    public List<String>getColumns(@RequestParam("db_name") String db_name,@RequestParam("tb_name") String tb_name){
+        return indexManage.getColumns(db_name,tb_name);
     }
 }
