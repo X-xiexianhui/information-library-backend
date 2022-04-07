@@ -6,5 +6,5 @@ import com.gxu.informationLibrary.entity.index;
 import java.util.List;
 
 public interface indexManage {
-    List<index> alterIndex();
+    List<index> alterIndex(String Param);
 }

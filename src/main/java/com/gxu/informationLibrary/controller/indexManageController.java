@@ -25,7 +25,7 @@ public class indexManageController {
     public response<List<index>> indexManage(String Parma){
         List<index>data=new ArrayList<>();
         try {
-            data=indexManage.alterIndex();
+            data=indexManage.alterIndex(Parma);
         }catch (Exception e) {
             return new response<>(500, e.getCause().getMessage(), data);
         }

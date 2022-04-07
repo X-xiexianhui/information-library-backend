@@ -16,7 +16,7 @@ public class indexManageImpl implements indexManage {
     }
 
     @Override
-    public List<index> alterIndex() {
+    public List<index> alterIndex(String Parma) {
         addIndex();
         deleteIndex();
         updateIndex();
