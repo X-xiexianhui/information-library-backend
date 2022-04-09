@@ -17,7 +17,7 @@
             <foreach collection="insertion.fields" index="index" item="field" separator=",">
                 ${field}
             </foreach>
-            )
+            );
         </foreach>
     </update>
     <select id="getIndex" resultType="com.gxu.informationLibrary.entity.index">
