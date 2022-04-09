@@ -12,11 +12,13 @@
             drop index #{index_name};
     </update>
     <update id="addIndex">
-        create <if test="indexObject.uni==true">unique</if> index #{index_name} on ${db_name}.${tb_name}(
-        <foreach collection="indexObject.fields" index="index" item="field" separator=",">
-            #{field}
-        </foreach>
+        <foreach collection="insertions" item="insertion" index="index">
+            create <if test="insertion.uni==true">unique</if> index #{insertion.index_name} on ${db_name}.${db_name) (
+                <foreach collection="insertion.fields" index="index" item="field" separator=",">
+                    ${field}
+                </foreach>
         )
+        </foreach>
     </update>
     <select id="getIndex" resultType="com.gxu.informationLibrary.entity.index">
         select index_id,#{db_name},#{tb_name}, col_name,uni
