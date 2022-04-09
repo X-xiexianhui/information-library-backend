@@ -61,7 +61,7 @@ public class tbManageImpl implements tbManageServer {
         String db_name = json.getString("db_name");
         String tb_name = json.getString("tb_name");
         List<column> insert = new Columns(json.getJSONArray("insert"), db_name, tb_name).getColumns();
-        List<column> remove = new Columns(json.getJSONArray("remove"), db_name, tb_name, true).getColumns();
+        List<column> remove = new Columns(json.getJSONArray("remove"), db_name, tb_name).getColumns();
         List<alterColumn> update = new alterColumns(json.getJSONArray("update"),db_name,tb_name).getAlterColumns();
         addColumn(insert);
         dropColumn(remove);
