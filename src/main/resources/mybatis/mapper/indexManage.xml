@@ -18,4 +18,9 @@
         </foreach>
         )
     </update>
+    <select id="getIndex" resultType="com.gxu.informationLibrary.entity.index">
+        select index_id,#{db_name},#{tb_name}, col_name,uni
+        from index_info
+        where tb_id = (select tb_id from tb_info where tb_name = #{tb_name} and db_name = #{db_name});
+    </select>
 </mapper>
