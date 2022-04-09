@@ -42,8 +42,7 @@ public class indexManageImpl implements indexManage {
     private void deleteIndex(@NotNull List<index>remove){
         if (remove.size()==0)return;
         for (index i:remove) {
-            String index_name=indexManage.getIndexName(i.getIndex_id());
-            indexManage.dropIndex(i.getDb_name(),i.getTb_name(),index_name);
+
         }
     }
     private void updateIndex(List<index>update){
