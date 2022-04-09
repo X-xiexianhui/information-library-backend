@@ -32,7 +32,13 @@ public class indexManageController {
         return new response<>(data);
     }
     @GetMapping("/index/column")
-    public List<String>getColumns(@RequestParam("db_name") String db_name,@RequestParam("tb_name") String tb_name){
-        return indexManage.getColumns(db_name,tb_name);
+    public response<List<String>>getColumns(@RequestParam("db_name") String db_name,@RequestParam("tb_name") String tb_name){
+        List<String>data=new ArrayList<>();
+        try {
+            data=indexManage.getColumns(db_name,tb_name);
+        } catch (Exception e){
+            return new response<>(500,e.getCause().getMessage(),data);
+        }
+        return new response<>(data);
     }
 }
