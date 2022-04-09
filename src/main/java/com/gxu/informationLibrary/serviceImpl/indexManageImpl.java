@@ -39,7 +39,7 @@ public class indexManageImpl implements indexManage {
     }
     private void deleteIndex(List<index>remove){
         for (index i:remove) {
-            indexManage.dropIndex(i.getIndex_id());
+            indexManage.dropIndex("","","");
         }
     }
     private void updateIndex(List<index>update){

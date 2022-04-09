@@ -2,8 +2,20 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gxu.informationLibrary.dao.indexManageDao">
-<select id="getColumns" resultType="String">
-    select col_name from column_info where tb_id=(select tb_id from tb_info where db_name=#{db_name} and tb_name=#{tb_name});
-</select>
-
+    <select id="getColumns" resultType="String">
+        select col_name
+        from column_info
+        where tb_id = (select tb_id from tb_info where db_name = #{db_name} and tb_name = #{tb_name});
+    </select>
+    <update id="dropIndex">
+        alter table ${db_name}.${tb_name}
+            drop index #{index_name};
+    </update>
+    <update id="addIndex">
+        create <if test="indexObject.uni==true">unique</if> index #{index_name} on ${db_name}.${tb_name}(
+        <foreach collection="indexObject.fields" index="index" item="field" separator=",">
+            #{field}
+        </foreach>
+        )
+    </update>
 </mapper>

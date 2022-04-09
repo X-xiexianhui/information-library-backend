@@ -9,7 +9,7 @@ import java.util.List;
 @Repository
 public interface indexManageDao {
     void addIndex();
-    void dropIndex(int index_id);
+    void dropIndex(String db_name,String tb_name,String index_name);
     List<String>getColumns(String db_name,String tb_name);
     List<index> getIndex(String db_name, String tb_name);
 }
