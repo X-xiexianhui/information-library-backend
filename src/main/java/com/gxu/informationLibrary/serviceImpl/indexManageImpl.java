@@ -6,6 +6,7 @@ import com.gxu.informationLibrary.dao.indexManageDao;
 import com.gxu.informationLibrary.entity.index;
 import com.gxu.informationLibrary.entity.indexList;
 import com.gxu.informationLibrary.server.indexManage;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -35,11 +36,14 @@ public class indexManageImpl implements indexManage {
     }
 
     private void addIndex(List<index>insert) {
+        if (insert.size()==0)return;
         indexManage.addIndex(insert);
     }
-    private void deleteIndex(List<index>remove){
+    private void deleteIndex(@NotNull List<index>remove){
+        if (remove.size()==0)return;
         for (index i:remove) {
-            indexManage.dropIndex("","","");
+            String index_name=indexManage.getIndexName(i.getIndex_id());
+            indexManage.dropIndex(i.getDb_name(),i.getTb_name(),index_name);
         }
     }
     private void updateIndex(List<index>update){

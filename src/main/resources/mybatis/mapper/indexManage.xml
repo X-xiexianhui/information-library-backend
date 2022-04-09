@@ -25,4 +25,7 @@
         from index_info
         where tb_id = (select tb_id from tb_info where tb_name = #{tb_name} and db_name = #{db_name});
     </select>
+    <select id="getIndexName" resultType="String">
+        select index_name from index_info where index_id=#{index_id};
+    </select>
 </mapper>

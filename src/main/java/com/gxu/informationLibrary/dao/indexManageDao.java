@@ -13,4 +13,5 @@ public interface indexManageDao {
     void dropIndex(@Param("db_name") String db_name,@Param("tb_name") String tb_name,@Param("index_name") String index_name);
     List<String>getColumns(@Param("db_name") String db_name,@Param("tb_name") String tb_name);
     List<index> getIndex(@Param("db_name") String db_name,@Param("tb_name") String tb_name);
+    String getIndexName(@Param("index_id") int index_id);
 }
