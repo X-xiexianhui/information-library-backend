@@ -12,7 +12,7 @@ import java.util.Objects;
 @Getter
 @Setter
 public class alterColumns {
-    public List<alterColumn> alterColumns = new ArrayList<>();
+    public List<alterColumn<Object>> alterColumns = new ArrayList<>();
 
     public alterColumns(JSONArray jsonArray,String db_name,String tb_name) {
         for (int i = 0; i < jsonArray.size(); i++) {

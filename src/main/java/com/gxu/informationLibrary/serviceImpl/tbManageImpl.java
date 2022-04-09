@@ -62,7 +62,7 @@ public class tbManageImpl implements tbManageServer {
         String tb_name = json.getString("tb_name");
         List<column> insert = new Columns(json.getJSONArray("insert"), db_name, tb_name).getColumns();
         List<column> remove = new Columns(json.getJSONArray("remove"), db_name, tb_name).getColumns();
-        List<alterColumn> update = new alterColumns(json.getJSONArray("update"),db_name,tb_name).getAlterColumns();
+        List<alterColumn<Object>> update = new alterColumns(json.getJSONArray("update"),db_name,tb_name).getAlterColumns();
         addColumn(insert);
         dropColumn(remove);
         alterColumn(update);
@@ -98,9 +98,9 @@ public class tbManageImpl implements tbManageServer {
     }
 
     // 修改一列
-    private void alterColumn(List<alterColumn> alterColumn) {
+    private void alterColumn(List<alterColumn<Object>> alterColumn) {
         if (alterColumn.size() == 0) return;
-        for (alterColumn alter : alterColumn) {
+        for (alterColumn<Object> alter : alterColumn) {
             switch (alter.getEdit_field()) {
                 case "PK":
                     setIsAlterPK(alter.getCol_id(), (Boolean) alter.getNew_Value());
@@ -119,7 +119,7 @@ public class tbManageImpl implements tbManageServer {
     }
 
     // 修改列名或者数据类型
-    private void changeColumn(alterColumn alter) {
+    private void changeColumn(alterColumn<Object> alter) {
         String db_name = alter.getDb_name();
         String tb_name = alter.getTb_name();
         int col_id = alter.getCol_id();
