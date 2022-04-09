@@ -35,7 +35,7 @@ public class indexManageImpl implements indexManage {
     }
 
     private void addIndex(List<index>insert) {
-
+        indexManage.addIndex();
     }
     private void deleteIndex(List<index>remove){
         for (index i:remove) {
