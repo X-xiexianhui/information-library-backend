@@ -17,7 +17,6 @@ public class indexList {
         for (int i = 0; i < indexArray.size(); i++) {
             JSONObject object=indexArray.getJSONObject(i);
             String index_name= object.getString("index_name");
-            String tb_name=object.getString("tb_name");
             List<String>fields= object.getJSONArray("fields").toJavaList(String.class);
             boolean uni=object.getBoolean("uni");
             indexes.add(new index(index_name,fields,uni));
