@@ -101,14 +101,19 @@ public class tbManageImpl implements tbManageServer {
     private void alterColumn(List<alterColumn> alterColumn) {
         if (alterColumn.size() == 0) return;
         for (alterColumn alter : alterColumn) {
-            if (alter.getEdit_field().equals("PK")) {
-                setIsAlterPK(alter.getCol_id(), (Boolean) alter.getNew_Value());
-            } else if (alter.getEdit_field().equals("not_null")) {
-                setNotNull(alter.getDb_name(), alter.getTb_name(), alter.getCol_id(), (Boolean) alter.getNew_Value());
-            } else if (alter.getEdit_field().equals("uni")) {
-                alterUnique(alter.getDb_name(), alter.getTb_name(), alter.getCol_id(), (Boolean) alter.getNew_Value());
-            } else {
-                changeColumn(alter);
+            switch (alter.getEdit_field()) {
+                case "PK":
+                    setIsAlterPK(alter.getCol_id(), (Boolean) alter.getNew_Value());
+                    break;
+                case "not_null":
+                    setNotNull(alter.getDb_name(), alter.getTb_name(), alter.getCol_id(), (Boolean) alter.getNew_Value());
+                    break;
+                case "uni":
+                    alterUnique(alter.getDb_name(), alter.getTb_name(), alter.getCol_id(), (Boolean) alter.getNew_Value());
+                    break;
+                default:
+                    changeColumn(alter);
+                    break;
             }
         }
     }
@@ -125,21 +130,26 @@ public class tbManageImpl implements tbManageServer {
         System.out.println(len);
         System.out.println(place);
 //        修改列名
-        if (alter.getEdit_field().equals("col_name")) {
-            tbManage.changeColumn(db_name, tb_name, col_name, (String) alter.getNew_Value(), data_type, len, place);
-            tbManage.setColumnInfo("col_name",alter.getNew_Value(),col_id);
+        switch (alter.getEdit_field()) {
+            case "col_name":
+                tbManage.changeColumn(db_name, tb_name, col_name, (String) alter.getNew_Value(), data_type, len, place);
+                tbManage.setColumnInfo("col_name", alter.getNew_Value(), col_id);
 //            修改数据类型
-        } else if (alter.getEdit_field().equals("data_type")) {
-            tbManage.changeColumn(db_name, tb_name, col_name, col_name, (String) alter.getNew_Value(), len, place);
-            tbManage.setColumnInfo("data_type",alter.getNew_Value(),col_id);
+                break;
+            case "data_type":
+                tbManage.changeColumn(db_name, tb_name, col_name, col_name, (String) alter.getNew_Value(), len, place);
+                tbManage.setColumnInfo("data_type", alter.getNew_Value(), col_id);
 //            修改长度
-        } else if (alter.getEdit_field().equals("len")) {
-            tbManage.changeColumn(db_name, tb_name, col_name, col_name, data_type, (Integer) alter.getNew_Value(), place);
-            tbManage.setColumnInfo("len",alter.getNew_Value(),col_id);
+                break;
+            case "len":
+                tbManage.changeColumn(db_name, tb_name, col_name, col_name, data_type, (Integer) alter.getNew_Value(), place);
+                tbManage.setColumnInfo("len", alter.getNew_Value(), col_id);
 //            修改小数位数
-        } else {
-            tbManage.changeColumn(db_name, tb_name, col_name, col_name, data_type, len, (Integer) alter.getNew_Value());
-            tbManage.setColumnInfo("place",alter.getNew_Value(),col_id);
+                break;
+            default:
+                tbManage.changeColumn(db_name, tb_name, col_name, col_name, data_type, len, (Integer) alter.getNew_Value());
+                tbManage.setColumnInfo("place", alter.getNew_Value(), col_id);
+                break;
         }
     }
 
