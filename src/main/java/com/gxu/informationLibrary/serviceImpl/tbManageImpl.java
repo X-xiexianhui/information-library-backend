@@ -127,8 +127,6 @@ public class tbManageImpl implements tbManageServer {
         String data_type =tbManage.query("data_type","col_id",col_id).get(0);
         int len =tbManage.queryInt("len","col_id",col_id);
         int place =tbManage.queryInt("place","col_id",col_id);
-        System.out.println(len);
-        System.out.println(place);
 //        修改列名
         switch (alter.getEdit_field()) {
             case "col_name":
