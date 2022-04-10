@@ -29,25 +29,25 @@ public class indexManageImpl implements indexManage {
         List<index>insert=new indexList(indexJson.getJSONArray("insert")).getIndexes();
         List<index>remove=new indexList(indexJson.getJSONArray("remove")).getIndexes();
         List<index>update=new indexList(indexJson.getJSONArray("update")).getIndexes();
-        addIndex(insert);
-        deleteIndex(remove);
-        updateIndex(update);
+        addIndex(insert,db_name,tb_name);
+        deleteIndex(remove,db_name,tb_name);
+        updateIndex(update,db_name,tb_name);
         return getIndex(db_name,tb_name);
     }
 
-    private void addIndex(List<index>insert) {
+    private void addIndex(List<index>insert,String db_name,String tb_name) {
         if (insert.size()==0)return;
-        indexManage.addIndex(insert);
+        indexManage.addIndex(insert,db_name,tb_name);
     }
-    private void deleteIndex(@NotNull List<index>remove){
+    private void deleteIndex(@NotNull List<index>remove,String db_name,String tb_name){
         if (remove.size()==0)return;
         for (index i:remove) {
-
+            indexManage.dropIndex(db_name,tb_name,i.getIndex_name());
         }
     }
-    private void updateIndex(List<index>update){
-        deleteIndex(update);
-        addIndex(update);
+    private void updateIndex(List<index>update,String db_name,String tb_name){
+        deleteIndex(update,db_name,tb_name);
+        addIndex(update,db_name,tb_name);
     }
     private List<index> getIndex(String db_name,String tb_name){
         return indexManage.getIndex(db_name,tb_name);
