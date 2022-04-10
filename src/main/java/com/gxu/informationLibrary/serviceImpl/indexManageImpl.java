@@ -41,7 +41,7 @@ public class indexManageImpl implements indexManage {
         if (insert.size()==0)return;
         for (index in: insert) {
             String index_name= getIndexName(in.getFields(),in.isUni());
-            indexManage.addIndex("",db_name,tb_name);
+            indexManage.addIndex(index_name,db_name,tb_name);
         }
     }
     private void deleteIndex(@NotNull List<index>remove,String db_name,String tb_name){
