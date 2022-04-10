@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="">
+    <select id="getRefTable" resultType="String">
+        select concat(db_name, '.', tb_name)
+        from tb_info;
+    </select>
+    <select id="getRefColumn" resultType="String">
+        select col_name
+        from column_info
+        where tb_id = (select tb_id from tb_info where concat(db_name, '.', tb_name) = #{table} );
+    </select>
+</mapper>
