@@ -9,7 +9,6 @@ import java.util.List;
 public class index {
     String index_name;
     List<String>fields;
-    int tb_id;
     boolean uni;
 
     public index(String index_name,List<String> fields, Boolean uni) {
