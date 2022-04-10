@@ -19,7 +19,7 @@ public class indexList {
             List<String>fields= object.getJSONArray("fields").toJavaList(String.class);
             boolean uni= object.getBoolean("uni");
             String index_name;
-            if (isAdd){
+            if (!isAdd){
                 index_name=object.getString("index_name");
             }else {
                 index_name=getIndexName(fields,uni);
