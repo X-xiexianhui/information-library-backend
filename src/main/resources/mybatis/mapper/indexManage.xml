@@ -8,7 +8,7 @@
         where tb_id = (select tb_id from tb_info where db_name = #{db_name} and tb_name = #{tb_name});
     </select>
     <update id="dropIndex">
-        alter table ${db_name}.${tb_name}
+         alter table ${db_name}.${tb_name}
             drop index ${index_name};
         delete
         from index_info
