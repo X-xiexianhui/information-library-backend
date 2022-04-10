@@ -17,16 +17,14 @@ import static com.gxu.informationLibrary.util.utils.getString;
 public class indexList {
     List<index>indexes=new ArrayList<>();
 
-    public indexList(@NotNull JSONArray indexArray,boolean isAdd) {
+    public indexList(@NotNull JSONArray indexArray) {
         for (int i = 0; i < indexArray.size(); i++) {
             JSONObject object=indexArray.getJSONObject(i);
             List<String>fields= object.getJSONArray("fields").toJavaList(String.class);
             boolean uni= object.getBoolean("uni");
-            String index_name;
-            if (!isAdd){
+            String index_name="";
+            if (object.containsKey("index_name")){
                 index_name=object.getString("index_name");
-            }else {
-                index_name=getIndexName(fields,uni);
             }
             indexes.add(new index(index_name,fields,uni));
         }

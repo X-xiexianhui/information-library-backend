@@ -28,9 +28,9 @@ public class indexManageImpl implements indexManage {
         JSONObject indexJson = JSON.parseObject(Parma);
         String db_name=indexJson.getString("db_name");
         String tb_name=indexJson.getString("tb_name");
-        List<index>insert=new indexList(indexJson.getJSONArray("insert"),true).getIndexes();
-        List<index>remove=new indexList(indexJson.getJSONArray("remove"),false).getIndexes();
-        List<index>update=new indexList(indexJson.getJSONArray("update"),false).getIndexes();
+        List<index>insert=new indexList(indexJson.getJSONArray("insert")).getIndexes();
+        List<index>remove=new indexList(indexJson.getJSONArray("remove")).getIndexes();
+        List<index>update=new indexList(indexJson.getJSONArray("update")).getIndexes();
         addIndex(insert,db_name,tb_name);
         deleteIndex(remove,db_name,tb_name);
         updateIndex(update,db_name,tb_name);
