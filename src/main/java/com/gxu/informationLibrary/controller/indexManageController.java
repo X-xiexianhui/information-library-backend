@@ -20,7 +20,6 @@ public class indexManageController {
 
     @PostMapping("/index/alter")
     public response<List<index>> indexManage(@RequestBody String Parma){
-        System.out.println(Parma);
         List<index>data=new ArrayList<>();
         try {
             data=indexManage.alterIndex(Parma);
