@@ -10,6 +10,7 @@ import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -32,7 +33,8 @@ public class indexManageImpl implements indexManage {
         addIndex(insert,db_name,tb_name);
         deleteIndex(remove,db_name,tb_name);
         updateIndex(update,db_name,tb_name);
-        return getIndex(db_name,tb_name);
+//        return getIndex(db_name,tb_name);
+        return new ArrayList<>();
     }
 
     private void addIndex(List<index>insert,String db_name,String tb_name) {
