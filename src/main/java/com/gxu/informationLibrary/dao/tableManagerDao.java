@@ -1,4 +1,4 @@
-package com.gxu.informationLibrary.entity.dao;
+package com.gxu.informationLibrary.dao;
 
 
 import com.alibaba.fastjson.JSONObject;

@@ -2,7 +2,7 @@ package com.gxu.informationLibrary.serviceImpl;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.gxu.informationLibrary.entity.dao.indexManageDao;
+import com.gxu.informationLibrary.dao.indexManageDao;
 import com.gxu.informationLibrary.entity.index;
 import com.gxu.informationLibrary.entity.indexList;
 import com.gxu.informationLibrary.server.indexManage;

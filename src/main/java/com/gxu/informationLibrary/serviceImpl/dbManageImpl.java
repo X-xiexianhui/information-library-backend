@@ -1,6 +1,6 @@
 package com.gxu.informationLibrary.serviceImpl;
 
-import com.gxu.informationLibrary.entity.dao.dbManageDao;
+import com.gxu.informationLibrary.dao.dbManageDao;
 import com.gxu.informationLibrary.entity.dbInfo;
 import com.gxu.informationLibrary.server.dbManageServer;
 import org.springframework.stereotype.Service;
