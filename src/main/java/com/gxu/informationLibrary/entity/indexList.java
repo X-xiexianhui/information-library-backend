@@ -9,7 +9,8 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.gxu.informationLibrary.serviceImpl.indexManageImpl.getString;
+import static com.gxu.informationLibrary.util.utils.getString;
+
 
 @Getter
 @Setter
@@ -30,7 +31,7 @@ public class indexList {
             indexes.add(new index(index_name,fields,uni));
         }
     }
-    private String getIndexName(List<String>fields,boolean uni){
+    private @NotNull String getIndexName(List<String>fields, boolean uni){
         return getString(fields, uni);
     }
 }

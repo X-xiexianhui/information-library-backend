@@ -1,4 +1,4 @@
-package com.gxu.informationLibrary.dao;
+package com.gxu.informationLibrary.entity.dao;
 
 import com.gxu.informationLibrary.entity.index;
 import org.apache.ibatis.annotations.Mapper;

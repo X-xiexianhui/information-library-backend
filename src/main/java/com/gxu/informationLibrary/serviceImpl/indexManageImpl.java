@@ -2,7 +2,7 @@ package com.gxu.informationLibrary.serviceImpl;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.gxu.informationLibrary.dao.indexManageDao;
+import com.gxu.informationLibrary.entity.dao.indexManageDao;
 import com.gxu.informationLibrary.entity.index;
 import com.gxu.informationLibrary.entity.indexList;
 import com.gxu.informationLibrary.server.indexManage;
@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+
+import static com.gxu.informationLibrary.util.utils.getString;
 
 @Service
 @Transactional
@@ -58,22 +60,7 @@ public class indexManageImpl implements indexManage {
     public List<String>getColumns(String db_name,String tb_name){
         return indexManage.getColumns(db_name,tb_name);
     }
-    private String getIndexName(List<String>fields,boolean uni){
+    private @NotNull String getIndexName(List<String>fields, boolean uni){
         return getString(fields, uni);
-    }
-
-    @NotNull
-    public static String getString(List<String> fields, boolean uni) {
-        StringBuilder index_name= new StringBuilder();
-        for (String str:fields) {
-            index_name.append(str);
-            index_name.append("_");
-        }
-        if (uni){
-            index_name.append("uni_index");
-        }else {
-            index_name.append("index");
-        }
-        return index_name.toString();
     }
 }

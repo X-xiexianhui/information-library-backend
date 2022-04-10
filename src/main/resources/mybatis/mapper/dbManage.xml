@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.gxu.informationLibrary.dao.dbManageDao">
+<mapper namespace="com.gxu.informationLibrary.entity.dao.dbManageDao">
     <update id="createDb">
         create database ${db_name};
         insert into db_info(db_name) values (#{db_name});
