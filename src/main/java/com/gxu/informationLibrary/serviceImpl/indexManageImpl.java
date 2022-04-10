@@ -37,7 +37,10 @@ public class indexManageImpl implements indexManage {
 
     private void addIndex(List<index>insert,String db_name,String tb_name) {
         if (insert.size()==0)return;
-        indexManage.addIndex(insert,db_name,tb_name);
+        for (index in: insert) {
+            String index_name= getIndexName(in.getFields(),in.isUni());
+            indexManage.addIndex("",db_name,tb_name);
+        }
     }
     private void deleteIndex(@NotNull List<index>remove,String db_name,String tb_name){
         if (remove.size()==0)return;
@@ -54,5 +57,23 @@ public class indexManageImpl implements indexManage {
     }
     public List<String>getColumns(String db_name,String tb_name){
         return indexManage.getColumns(db_name,tb_name);
+    }
+    private String getIndexName(List<String>fields,boolean uni){
+        return getString(fields, uni);
+    }
+
+    @NotNull
+    public static String getString(List<String> fields, boolean uni) {
+        StringBuilder index_name= new StringBuilder();
+        for (String str:fields) {
+            index_name.append(str);
+            index_name.append("_");
+        }
+        if (uni){
+            index_name.append("uni_index");
+        }else {
+            index_name.append("index");
+        }
+        return index_name.toString();
     }
 }

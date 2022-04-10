@@ -16,18 +16,16 @@
           and tb_id = (select tb_id from tb_info where db_name = #{db_name} and tb_name = #{tb_name});
     </update>
     <update id="addIndex">
-        <foreach collection="insertions" item="insertion" index="index">
-            alter table ${db_name}.${tb_name} add <if test="insertion.uni==true">unique</if> index ${insertion.index_name}(
-            <foreach collection="insertion.fields" index="index" item="field" separator=",">
+            alter table ${db_name}.${tb_name} add <if test="uni==true">unique</if> index ${index_name}(
+            <foreach collection="fields" index="index" item="field" separator=",">
                 ${field}
             </foreach>
             );
             insert into index_info(index_name, seq_in_index, col_name, tb_id, uni)
-            <foreach collection="insertion.fields" index="seq" item="field" separator="union all">
-                select #{insertion.index_name},#{seq},#{field},tb_id,#{insertion.uni} from tb_info where db_name=#{db_name} and
+            <foreach collection="fields" index="seq" item="field" separator="union all">
+                select #{index_name},#{seq},#{field},tb_id,#{uni} from tb_info where db_name=#{db_name} and
                 tb_name=#{tb_name}
             </foreach>
-        </foreach>
     </update>
     <resultMap id="indexListMap" type="com.gxu.informationLibrary.entity.index">
         <result column="index_name" property="index_name"/>
