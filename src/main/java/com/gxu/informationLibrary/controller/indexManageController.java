@@ -21,7 +21,7 @@ public class indexManageController {
         this.indexManage = indexManage;
     }
 
-    @PostMapping("/index/edit")
+    @PostMapping("/index/alter")
     public response<List<index>> indexManage(String Parma){
         List<index>data=new ArrayList<>();
         try {
