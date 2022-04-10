@@ -17,7 +17,7 @@
     </update>
     <update id="addIndex">
         <foreach collection="insertions" item="insertion" index="index">
-            create <if test="insertion.uni==true">unique</if> index #{insertion.index_name} on ${db_name}.${tb_name) (
+            alter ${db_name}.${tb_name) add <if test="insertion.uni==true">unique</if> index #{insertion.index_name}(
             <foreach collection="insertion.fields" index="index" item="field" separator=",">
                 ${field}
             </foreach>
