@@ -41,4 +41,14 @@ public class indexManageController {
         }
         return new response<>(data);
     }
+    @GetMapping("/index/get")
+    public response<List<index>>getIndex(@RequestParam("db_name") String db_name,@RequestParam("tb_name") String tb_name){
+        List<index>data=new ArrayList<>();
+        try {
+            data=indexManage.getIndex(db_name,tb_name);
+        }catch (Exception e){
+            return new response<>(500,e.getCause().getMessage(),data);
+        }
+        return new response<>(data);
+    }
 }

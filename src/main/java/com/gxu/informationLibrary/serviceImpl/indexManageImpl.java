@@ -49,7 +49,7 @@ public class indexManageImpl implements indexManage {
         deleteIndex(update,db_name,tb_name);
         addIndex(update,db_name,tb_name);
     }
-    private List<index> getIndex(String db_name,String tb_name){
+    public List<index> getIndex(String db_name,String tb_name){
         return indexManage.getIndex(db_name,tb_name);
     }
     public List<String>getColumns(String db_name,String tb_name){
