@@ -16,8 +16,9 @@
           and tb_id = (select tb_id from tb_info where db_name = #{db_name} and tb_name = #{tb_name});
     </update>
     <update id="addIndex">
-        <foreach collection="insertions" item="insertion" index="index">
-            alter ${db_name}.${tb_name) add <if test="insertion.uni==true">unique</if> index #{insertion.index_name}(
+        alter ${db_name}.${tb_name)
+        <foreach collection="insertions" item="insertion" index="index" separator="union all">
+             add <if test="insertion.uni==true">unique</if> index #{insertion.index_name}(
             <foreach collection="insertion.fields" index="index" item="field" separator=",">
                 ${field}
             </foreach>
