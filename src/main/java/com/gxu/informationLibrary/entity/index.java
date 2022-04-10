@@ -16,4 +16,5 @@ public class index {
         this.fields = fields;
         this.uni = uni;
     }
+    public index(){}
 }

@@ -20,8 +20,15 @@
             );
         </foreach>
     </update>
-    <select id="getIndex" resultType="com.gxu.informationLibrary.entity.index">
-        select index_id, #{db_name}, #{tb_name}, col_name, uni
+    <resultMap id="indexList" type="com.gxu.informationLibrary.entity.index">
+        <result column="index_name" property="index_name"/>
+        <result column="uni" property="uni"/>
+        <collection property="fields" ofType="string" javaType="java.util.List">
+            <result column="col_name" property="col_name"/>
+        </collection>
+    </resultMap>
+    <select id="getIndex" resultType="indexList">
+        select  index_name,col_name, uni
         from index_info
         where tb_id = (select tb_id from tb_info where tb_name = #{tb_name} and db_name = #{db_name});
     </select>
