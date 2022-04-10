@@ -24,7 +24,7 @@
             );
             insert into index_info(index_name, seq_in_index, col_name, tb_id, uni)
             <foreach collection="insertion.fields" index="seq" item="field" separator="union all">
-                select #{index_name},#{seq},#{field},tb_id,#{uni} from tb_info where db_name=#{db_name} and
+                select #{insertion.index_name},#{seq},#{field},tb_id,#{insertion.uni} from tb_info where db_name=#{db_name} and
                 tb_name=#{tb_name}
             </foreach>
         </foreach>
