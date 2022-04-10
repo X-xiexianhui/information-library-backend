@@ -13,10 +13,12 @@ public class index {
     List<String>fields;
     boolean uni;
 
+    public index(){}
+
     public index(String index_name,List<String> fields, Boolean uni) {
         this.index_name=index_name;
         this.fields = fields;
         this.uni = uni;
     }
-    public index(){}
+
 }

@@ -29,16 +29,15 @@
             </foreach>
         </foreach>
     </update>
-    <resultMap id="indexList" type="com.gxu.informationLibrary.entity.index">
+    <resultMap id="indexListMap" type="com.gxu.informationLibrary.entity.index">
         <result column="index_name" property="index_name"/>
         <result column="uni" property="uni"/>
-        <collection property="fields" ofType="String" javaType="java.util.ArrayList">
-            <constructor>
-                <arg column="col_name"/>
-            </constructor>
-        </collection>
+        <collection property="fields" resultMap="fieldsMap"/>
     </resultMap>
-    <select id="getIndex" resultType="indexList">
+    <resultMap id="fieldsMap" type="String">
+        <result column="col_name" />
+    </resultMap>
+    <select id="getIndex" resultMap="indexListMap">
         select index_name,col_name, uni
         from index_info
         where tb_id = (select tb_id from tb_info where tb_name = #{tb_name} and db_name = #{db_name});
