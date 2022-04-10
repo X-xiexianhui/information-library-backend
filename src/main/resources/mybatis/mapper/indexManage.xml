@@ -37,7 +37,7 @@
         </collection>
     </resultMap>
     <select id="getIndex" resultType="indexList">
-        select index_name, col_name, uni
+        select index_name,seq_in_index, col_name, uni
         from index_info
         where tb_id = (select tb_id from tb_info where tb_name = #{tb_name} and db_name = #{db_name});
     </select>

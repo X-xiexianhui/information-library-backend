@@ -33,8 +33,8 @@ public class indexManageImpl implements indexManage {
         addIndex(insert,db_name,tb_name);
         deleteIndex(remove,db_name,tb_name);
         updateIndex(update,db_name,tb_name);
-//        return getIndex(db_name,tb_name);
-        return new ArrayList<>();
+        return getIndex(db_name,tb_name);
+//        return new ArrayList<>();
     }
 
     private void addIndex(List<index>insert,String db_name,String tb_name) {
