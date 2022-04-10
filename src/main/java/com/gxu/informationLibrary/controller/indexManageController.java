@@ -5,10 +5,7 @@ import com.gxu.informationLibrary.entity.index;
 import com.gxu.informationLibrary.entity.response;
 import com.gxu.informationLibrary.serviceImpl.indexManageImpl;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +19,8 @@ public class indexManageController {
     }
 
     @PostMapping("/index/alter")
-    public response<List<index>> indexManage(String Parma){
+    public response<List<index>> indexManage(@RequestBody String Parma){
+        System.out.println(Parma);
         List<index>data=new ArrayList<>();
         try {
             data=indexManage.alterIndex(Parma);
