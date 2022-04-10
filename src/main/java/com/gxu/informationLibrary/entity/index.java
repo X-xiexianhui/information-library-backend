@@ -7,7 +7,6 @@ import lombok.Setter;
 import java.util.List;
 @Getter
 @Setter
-@NoArgsConstructor
 public class index {
     String index_name;
     List<String>fields;
@@ -18,4 +17,5 @@ public class index {
         this.fields = fields;
         this.uni = uni;
     }
+    public index(){}
 }
