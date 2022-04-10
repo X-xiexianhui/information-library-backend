@@ -32,8 +32,10 @@
     <resultMap id="indexList" type="com.gxu.informationLibrary.entity.index">
         <result column="index_name" property="index_name"/>
         <result column="uni" property="uni"/>
-        <collection property="fields" ofType="string" javaType="java.util.ArrayList">
-            <result column="col_name" property="fields"/>
+        <collection property="fields" ofType="String" javaType="java.util.ArrayList">
+            <constructor>
+                <arg column="col_name"/>
+            </constructor>
         </collection>
     </resultMap>
     <select id="getIndex" resultType="indexList">
