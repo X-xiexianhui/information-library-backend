@@ -9,7 +9,7 @@
     </select>
     <update id="dropIndex">
         alter table ${db_name}.${tb_name}
-            drop index #{index_name};
+            drop index ${index_name};
         delete
         from index_info
         where index_name = #{index_name}
