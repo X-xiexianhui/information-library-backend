@@ -28,7 +28,8 @@ public class fkManageImpl implements fkManageServer {
     public List<String>getFkColumn(String db_nam,String tb_name){
         return fkManage.getFkColumn(db_nam,tb_name);
     }
-    public void addFk(String db_name, String tb_name, @NotNull List<fk> insert) {
+    public void addFk(String db_name, String tb_name,List<fk> insert) {
+        if (insert.size()==0)return;
         for (fk in: insert) {
             in.setFk_name(getFkName(in));
             fkManage.addFk(db_name,tb_name,in.getFk_name(),in.getFk_column(),in.getRef_table(),in.getRef_column());
@@ -38,7 +39,8 @@ public class fkManageImpl implements fkManageServer {
         }
     }
 
-    public void deleteFk(String db_name, String tb_name, @NotNull List<fk> remove) {
+    public void deleteFk(String db_name, String tb_name,List<fk> remove) {
+        if (remove.size()==0)return;
         for (fk re: remove) {
             fkManage.deleteFk(db_name,tb_name,re.getFk_name());
             int fk_table=fkManage.queryTable(db_name+"."+tb_name);
