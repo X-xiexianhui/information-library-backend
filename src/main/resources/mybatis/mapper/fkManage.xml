@@ -39,6 +39,6 @@
         select fk_name, fk_column, concat(db_name, '.', tb_name) as ref_table, ref_column
         from fk_info,
              tb_info
-        where tb_id = fk_info.ref_table;
+        where fk_info.ref_table=(select tb_id from tb_info where db_name=#{db_name} and tb_name=#{tb_name});
     </select>
 </mapper>
