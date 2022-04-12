@@ -12,7 +12,7 @@
         where tb_id = (select tb_id from tb_info where concat(db_name, '.', tb_name) = #{ref_table})
           and (PK = true or uni = true);
     </select>
-    <update id="addFk">
+    <update id="createFK">
         alter table ${db_name}.${tb_name}
             add foreign key ${fk_name}(${fk_column}) references ${ref_table}(${ref_column});
     </update>

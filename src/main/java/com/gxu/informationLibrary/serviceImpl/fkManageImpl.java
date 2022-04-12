@@ -13,19 +13,20 @@ import java.util.List;
 
 @Service
 public class fkManageImpl implements fkManageServer {
-    private final fkManagerDao fkManage;
+    private fkManagerDao fkManager;
 
-    public fkManageImpl(fkManagerDao fkManage) {
-        this.fkManage = fkManage;
+    public fkManageImpl(fkManagerDao fkManager) {
+        this.fkManager = fkManager;
     }
+
     public List<String>getRefTable(){
-        return fkManage.getRefTable();
+        return fkManager.getRefTable();
     }
     public List<String>getRefColumn(String ref_table){
-       return fkManage.getRefColumn(ref_table);
+       return fkManager.getRefColumn(ref_table);
     }
     public List<String>getFkColumn(String db_nam,String tb_name){
-        return fkManage.getFkColumn(db_nam,tb_name);
+        return fkManager.getFkColumn(db_nam,tb_name);
     }
     @Override
     @Transactional
@@ -45,19 +46,19 @@ public class fkManageImpl implements fkManageServer {
         if (insert.size()==0)return;
         for (fk in: insert) {
             in.setFk_name(getFkName(in));
-            fkManage.addFk(db_name,tb_name,in.getFk_name(),in.getFk_column(),in.getRef_table(),in.getRef_column());
-            int fk_table=fkManage.queryTable(db_name+"."+tb_name);
-            int ref_table=fkManage.queryTable(in.getRef_table());
-            fkManage.insertFkInfo(fk_table,in.getFk_column(),in.getFk_name(),ref_table,in.getRef_column());
+            fkManager.createFK(db_name,tb_name,in.getFk_name(),in.getFk_column(),in.getRef_table(),in.getRef_column());
+            int fk_table=fkManager.queryTable(db_name+"."+tb_name);
+            int ref_table=fkManager.queryTable(in.getRef_table());
+            fkManager.insertFkInfo(fk_table,in.getFk_column(),in.getFk_name(),ref_table,in.getRef_column());
         }
     }
 
     public void deleteFk(String db_name, String tb_name,List<fk> remove) {
         if (remove.size()==0)return;
         for (fk re: remove) {
-            fkManage.deleteFk(db_name,tb_name,re.getFk_name());
-            int fk_table=fkManage.queryTable(db_name+"."+tb_name);
-            fkManage.deleteFkInfo(fk_table,re.getFk_column());
+            fkManager.deleteFk(db_name,tb_name,re.getFk_name());
+            int fk_table=fkManager.queryTable(db_name+"."+tb_name);
+            fkManager.deleteFkInfo(fk_table,re.getFk_column());
         }
     }
 
@@ -67,7 +68,7 @@ public class fkManageImpl implements fkManageServer {
     }
     @Override
     public List<fk> getFk(String db_name,String tb_name) {
-        return fkManage.getFk(db_name,tb_name);
+        return fkManager.getFk(db_name,tb_name);
     }
     private @NotNull String getFkName(fk fkInfo){
         return fkInfo.getFk_column() +
