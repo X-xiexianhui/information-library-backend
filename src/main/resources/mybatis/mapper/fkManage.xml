@@ -9,12 +9,24 @@
     <select id="getRefColumn" resultType="String">
         select col_name
         from column_info
-        where tb_id = (select tb_id from tb_info where concat(db_name, '.', tb_name) = #{table} );
+        where tb_id = (select tb_id from tb_info where concat(db_name, '.', tb_name) = #{table});
     </select>
     <update id="addFk">
-        alter table ${db_name}.${tb_name} add foreign key ${fk_name} (${fk_column}) references ${ref_table} ($(ref_column));
+        alter table ${db_name}.${tb_name}
+            add foreign key ${fk_name} (${fk_column}) references ${ref_table} ($(ref_column));
     </update>
     <insert id="insertFkInfo">
-        insert into fk_info values (#{ref_table},#{fk_name},#{fk_column},#{ref_table},#{ref_column});
+        insert into fk_info
+        values (#{ref_table}, #{fk_name}, #{fk_column}, #{ref_table}, #{ref_column});
     </insert>
+    <update id="deleteFk">
+        alter table ${db_name}.${tb_name}
+            drop foreign key ${fk_name};
+    </update>
+    <delete id="deleteFk">
+        delete
+        from fk_info
+        where fk_table = (select tb_id from tb_info where db_name = #{db_name} and tb_name = #{tb_name})
+          and fk_column = #{fk_column};
+    </delete>
 </mapper>
