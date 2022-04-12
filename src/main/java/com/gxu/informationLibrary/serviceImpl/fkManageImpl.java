@@ -31,8 +31,9 @@ public class fkManageImpl implements fkManageServer {
 
     public void deleteFk(String db_name, String tb_name, @NotNull List<fk> remove) {
         for (fk re: remove) {
-            fkManage.deleteFk();
-            fkManage.deleteFkInfo();
+            fkManage.deleteFk(db_name,tb_name,re.getFk_name());
+            int fk_table=fkManage.queryTable(db_name+"."+tb_name);
+            fkManage.deleteFkInfo(fk_table,re.getFk_column());
         }
     }
 
