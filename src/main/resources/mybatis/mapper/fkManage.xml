@@ -31,6 +31,14 @@
           and fk_column = #{fk_column};
     </delete>
     <select id="queryTable" resultType="int">
-        select tb_id from tb_info where concat(db_name,'.',tb_id)=#{table};
+        select tb_id
+        from tb_info
+        where concat(db_name, '.', tb_id) = #{table};
+    </select>
+    <select id="getFk" resultType="com.gxu.informationLibrary.entity.fk">
+        select fk_name, fk_column, concat(db_name, '.', tb_name) as ref_table, ref_column
+        from fk_info,
+             tb_info
+        where tb_id = fk_info.ref_table;
     </select>
 </mapper>
