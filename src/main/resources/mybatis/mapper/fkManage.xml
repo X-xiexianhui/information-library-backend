@@ -14,7 +14,7 @@
     </select>
     <update id="addFk">
         alter table ${db_name}.${tb_name}
-            add foreign key ${fk_name} (${fk_column}) references ${ref_table} ($(ref_column));
+            add foreign key ${fk_name}(${fk_column}) references ${ref_table}($(ref_column));
     </update>
     <insert id="insertFkInfo">
         insert into fk_info
