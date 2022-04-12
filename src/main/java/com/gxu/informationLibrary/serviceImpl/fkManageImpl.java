@@ -13,7 +13,7 @@ import java.util.List;
 
 @Service
 public class fkManageImpl implements fkManageServer {
-    private fkManagerDao fkManager;
+    private final fkManagerDao fkManager;
 
     public fkManageImpl(fkManagerDao fkManager) {
         this.fkManager = fkManager;
