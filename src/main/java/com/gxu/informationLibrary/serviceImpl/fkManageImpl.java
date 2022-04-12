@@ -19,7 +19,7 @@ public class fkManageImpl implements fkManageServer {
     public void addFk(String db_name, String tb_name, List<fk> insert) {
         for (fk in: insert) {
             in.setFk_name(getFkName(in));
-            fkManage.addFk();
+            fkManage.addFk(db_name,tb_name,in.getFk_name(),in.getFk_column(),in.getRef_table(),in.getRef_column());
         }
     }
 

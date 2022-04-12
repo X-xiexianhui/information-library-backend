@@ -6,7 +6,7 @@ import org.apache.ibatis.annotations.Param;
 import java.util.List;
 
 public interface fkManagerDao {
-    void addFk();
+    void addFk(String db_name,String tb_name,String fk_name,String fk_column,String ref_table,String ref_column);
     void deleteFk();
     void insertFkInfo();
     void deleteFkInfo();
