@@ -73,6 +73,6 @@ public class fkManageImpl implements fkManageServer {
     private @NotNull String getFkName(fk fkInfo){
         return fkInfo.getFk_column() +
                 "_" +
-                fkInfo.getRef_column();
+                fkInfo.getRef_column()+"fk";
     }
 }
