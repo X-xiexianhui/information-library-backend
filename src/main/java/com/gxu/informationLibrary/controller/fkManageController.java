@@ -5,9 +5,7 @@ import com.gxu.informationLibrary.entity.refInfo;
 import com.gxu.informationLibrary.entity.response;
 import com.gxu.informationLibrary.serviceImpl.fkManageImpl;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -44,6 +42,16 @@ public class fkManageController {
         List<fk>data=new ArrayList<>();
         try {
             data=fkManage.getFk(db_name,tb_name);
+        }catch (Exception e){
+            return new response<>(500,e.getCause().getMessage(),data);
+        }
+        return new response<>(data);
+    }
+    @PostMapping("/fk/alter")
+    public response<List<fk>>alterFk(@RequestBody String parma){
+        List<fk>data=new ArrayList<>();
+        try {
+            data=fkManage.alterFk(parma);
         }catch (Exception e){
             return new response<>(500,e.getCause().getMessage(),data);
         }
