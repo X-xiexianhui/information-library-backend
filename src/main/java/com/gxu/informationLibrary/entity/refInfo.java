@@ -14,5 +14,5 @@ import java.util.Map;
 @NoArgsConstructor
 public class refInfo {
     List<String>ref_table;
-    List<Map<String,String>>ref_column;
+    Map<String,List<String>>ref_column;
 }
