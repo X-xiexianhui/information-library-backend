@@ -17,4 +17,5 @@ public interface fkManagerDao {
     List<String>getRefColumn(@Param("ref_table") String ref_table);
     List<fk>getFk(@Param("db_name") String db_name,@Param("tb_name") String tb_name);
     int queryTable(String table);
+    List<String>getFkColumn(@Param("db_name") String db_name,@Param("tb_name") String tb_name);
 }

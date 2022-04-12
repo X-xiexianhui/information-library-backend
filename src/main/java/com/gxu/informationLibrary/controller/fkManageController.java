@@ -26,6 +26,7 @@ public class fkManageController {
         refInfo data=new refInfo();
         try {
             List<String>ref_table=fkManage.getRefTable();
+            data.setRef_table(ref_table);
             for (String ref:ref_table) {
                 List<String>ref_column=fkManage.getRefColumn(ref);
                 Map<String,List<String>>column=new HashMap<>();
@@ -52,6 +53,16 @@ public class fkManageController {
         List<fk>data=new ArrayList<>();
         try {
             data=fkManage.alterFk(parma);
+        }catch (Exception e){
+            return new response<>(500,e.getCause().getMessage(),data);
+        }
+        return new response<>(data);
+    }
+    @GetMapping("/fk/column")
+    public response<List<String>>getFkColumn(@RequestParam("db_name") String db_name, @RequestParam("tb_name") String tb_name){
+        List<String>data=new ArrayList<>();
+        try {
+            data=fkManage.getFkColumn(db_name,tb_name);
         }catch (Exception e){
             return new response<>(500,e.getCause().getMessage(),data);
         }

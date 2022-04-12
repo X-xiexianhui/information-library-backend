@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="">
+<mapper namespace="com.gxu.informationLibrary.dao.fkManagerDao">
     <select id="getRefTable" resultType="String">
         select concat(db_name, '.', tb_name) as ref_table
         from tb_info;
@@ -39,6 +39,11 @@
         select fk_name, fk_column, concat(db_name, '.', tb_name) as ref_table, ref_column
         from fk_info,
              tb_info
-        where fk_info.ref_table=(select tb_id from tb_info where db_name=#{db_name} and tb_name=#{tb_name});
+        where fk_info.ref_table = (select tb_id from tb_info where db_name = #{db_name} and tb_name = #{tb_name});
+    </select>
+    <select id="getFkColumn" resultType="String">
+        select col_name
+        from column_info
+        where tb_id = (select tb_id from tb_info where db_name = #{db_name} and tb_name = #{tb_name});
     </select>
 </mapper>
