@@ -18,7 +18,7 @@
     </update>
     <insert id="insertFkInfo">
         insert into fk_info
-        values (#{ref_table}, #{fk_name}, #{fk_column}, #{ref_table}, #{ref_column});
+        values (#{fk_table}, #{fk_name}, #{fk_column}, #{ref_table}, #{ref_column});
     </insert>
     <update id="deleteFk">
         alter table ${db_name}.${tb_name}

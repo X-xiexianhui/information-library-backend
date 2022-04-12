@@ -1,12 +1,15 @@
 package com.gxu.informationLibrary.dao;
 
 import com.gxu.informationLibrary.entity.fk;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
-
+@Mapper
+@Repository
 public interface fkManagerDao {
-    void addFk(String db_name,String tb_name,String fk_name,String fk_column,String ref_table,String ref_column);
+    void addFk(@Param("db_name") String db_name,@Param("tb_name") String tb_name,@Param("fk_name") String fk_name,@Param("fk_column") String fk_column,@Param("ref_table") String ref_table,@Param("ref_column") String ref_column);
     void deleteFk();
     void insertFkInfo();
     void deleteFkInfo();

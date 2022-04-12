@@ -6,9 +6,12 @@ import com.gxu.informationLibrary.dao.fkManagerDao;
 import com.gxu.informationLibrary.entity.fk;
 import com.gxu.informationLibrary.server.fkManageServer;
 import org.jetbrains.annotations.NotNull;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-
+@Service
+@Transactional
 public class fkManageImpl implements fkManageServer {
     final fkManagerDao fkManage;
 
@@ -20,11 +23,15 @@ public class fkManageImpl implements fkManageServer {
         for (fk in: insert) {
             in.setFk_name(getFkName(in));
             fkManage.addFk(db_name,tb_name,in.getFk_name(),in.getFk_column(),in.getRef_table(),in.getRef_column());
+            fkManage.insertFkInfo();
         }
     }
 
     public void deleteFk(String db_name, String tb_name, List<fk> remove) {
-
+        for (fk re: remove) {
+            fkManage.deleteFk();
+            fkManage.deleteFkInfo();
+        }
     }
 
     public void updateFk(String db_name, String tb_name, List<fk> update){
