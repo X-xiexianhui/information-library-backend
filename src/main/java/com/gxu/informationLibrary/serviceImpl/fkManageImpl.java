@@ -24,10 +24,8 @@ public class fkManageImpl implements fkManageServer {
     public List<String>getRefTable(){
         return fkManage.getRefTable();
     }
-    public Map<String,List<String>>getRefColumn(String ref_table){
-        Map<String,List<String>> ref_column =new HashMap<>();
-        ref_column.put(ref_table,fkManage.getRefColumn(ref_table));
-        return ref_column;
+    public List<String>getRefColumn(String ref_table){
+       return fkManage.getRefColumn(ref_table);
     }
     public void addFk(String db_name, String tb_name, @NotNull List<fk> insert) {
         for (fk in: insert) {
