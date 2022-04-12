@@ -3,7 +3,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="">
     <select id="getRefTable" resultType="String">
-        select concat(db_name, '.', tb_name)
+        select concat(db_name, '.', tb_name) as ref_table
         from tb_info;
     </select>
     <select id="getRefColumn" resultType="String">
