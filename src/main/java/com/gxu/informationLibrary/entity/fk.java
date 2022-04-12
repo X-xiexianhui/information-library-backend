@@ -10,8 +10,8 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class fk {
-    String fk_column;
     String fk_name;
+    String fk_column;
     String ref_table;
     String ref_column;
 }
