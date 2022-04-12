@@ -7,9 +7,11 @@
         from tb_info;
     </select>
     <select id="getRefColumn" resultType="String">
-        select col_name
-        from column_info
-        where tb_id = (select tb_id from tb_info where concat(db_name, '.', tb_name) = #{table}) and (uni=true or PK=true);
+        select concat(db_name, '.', tb_name), col_name
+        from tb_info,
+             column_info
+        where tb_info.tb_id = column_info.tb_id
+          and (PK = true or uni = true);
     </select>
     <update id="addFk">
         alter table ${db_name}.${tb_name}
