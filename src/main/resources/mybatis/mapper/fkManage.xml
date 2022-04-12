@@ -30,4 +30,7 @@
         where fk_table = #{fk_table}
           and fk_column = #{fk_column};
     </delete>
+    <select id="queryRefTable" resultType="String">
+        select *from ${table};
+    </select>
 </mapper>

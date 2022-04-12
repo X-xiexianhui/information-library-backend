@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.gxu.informationLibrary.dao.fkManagerDao;
 import com.gxu.informationLibrary.entity.fk;
 import com.gxu.informationLibrary.server.fkManageServer;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
@@ -16,7 +17,10 @@ public class fkManageImpl implements fkManageServer {
     }
 
     public void addFk(String db_name, String tb_name, List<fk> insert) {
-
+        for (fk in: insert) {
+            in.setFk_name(getFkName(in));
+            fkManage.addFk();
+        }
     }
 
     public void deleteFk(String db_name, String tb_name, List<fk> remove) {
@@ -44,5 +48,10 @@ public class fkManageImpl implements fkManageServer {
     @Override
     public List<fk> getFk() {
         return fkManage.getFk();
+    }
+    private @NotNull String getFkName(fk fkInfo){
+        return fkInfo.getFk_column() +
+                "_" +
+                fkInfo.getRef_column();
     }
 }
