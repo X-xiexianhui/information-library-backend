@@ -19,7 +19,7 @@ public class fkManageImpl implements fkManageServer {
         this.fkManage = fkManage;
     }
 
-    public void addFk(String db_name, String tb_name, List<fk> insert) {
+    public void addFk(String db_name, String tb_name, @NotNull List<fk> insert) {
         for (fk in: insert) {
             in.setFk_name(getFkName(in));
             fkManage.addFk(db_name,tb_name,in.getFk_name(),in.getFk_column(),in.getRef_table(),in.getRef_column());
@@ -27,7 +27,7 @@ public class fkManageImpl implements fkManageServer {
         }
     }
 
-    public void deleteFk(String db_name, String tb_name, List<fk> remove) {
+    public void deleteFk(String db_name, String tb_name, @NotNull List<fk> remove) {
         for (fk re: remove) {
             fkManage.deleteFk();
             fkManage.deleteFkInfo();
