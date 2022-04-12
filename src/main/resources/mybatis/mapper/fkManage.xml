@@ -23,7 +23,7 @@
         alter table ${db_name}.${tb_name}
             drop foreign key ${fk_name};
     </update>
-    <delete id="deleteFk">
+    <delete id="deleteFkInfo">
         delete
         from fk_info
         where fk_table = (select tb_id from tb_info where db_name = #{db_name} and tb_name = #{tb_name})
