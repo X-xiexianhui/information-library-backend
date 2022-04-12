@@ -7,7 +7,6 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @SpringBootApplication
 @EnableTransactionManagement
-@MapperScan("com.gxu.informationLibrary.dao")
 public class InformationLibraryApplication {
 
 	public static void main(String[] args) {
