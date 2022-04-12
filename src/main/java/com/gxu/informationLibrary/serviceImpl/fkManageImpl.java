@@ -9,7 +9,10 @@ import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 @Service
 @Transactional
 public class fkManageImpl implements fkManageServer {
@@ -18,7 +21,14 @@ public class fkManageImpl implements fkManageServer {
     public fkManageImpl(fkManagerDao fkManage) {
         this.fkManage = fkManage;
     }
-
+    public List<String>getRefTable(){
+        return fkManage.getRefTable();
+    }
+    public Map<String,List<String>>getRefColumn(String ref_table){
+        Map<String,List<String>>res=new HashMap<>();
+        res.put(ref_table,fkManage.getRefColumn(ref_table));
+        return res;
+    }
     public void addFk(String db_name, String tb_name, @NotNull List<fk> insert) {
         for (fk in: insert) {
             in.setFk_name(getFkName(in));
