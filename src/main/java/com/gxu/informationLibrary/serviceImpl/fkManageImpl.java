@@ -9,9 +9,7 @@ import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Service
 @Transactional
@@ -60,11 +58,11 @@ public class fkManageImpl implements fkManageServer {
         addFk(db_name,tb_name,insert);
         deleteFk(db_name,tb_name,remove);
         updateFk(db_name,tb_name,update);
-        return getFk();
+        return getFk(db_name,tb_name);
     }
 
     @Override
-    public List<fk> getFk() {
+    public List<fk> getFk(String db_name,String tb_name) {
         return fkManage.getFk();
     }
     private @NotNull String getFkName(fk fkInfo){

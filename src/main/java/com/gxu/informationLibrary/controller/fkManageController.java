@@ -1,12 +1,15 @@
 package com.gxu.informationLibrary.controller;
 
+import com.gxu.informationLibrary.entity.fk;
 import com.gxu.informationLibrary.entity.refInfo;
 import com.gxu.informationLibrary.entity.response;
 import com.gxu.informationLibrary.serviceImpl.fkManageImpl;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -32,6 +35,15 @@ public class fkManageController {
                 data.setRef_column(column);
             }
         } catch (Exception e){
+            return new response<>(500,e.getCause().getMessage(),data);
+        }
+        return new response<>(data);
+    }
+    public response<List<fk>>getFk(@RequestParam("db_name") String db_name, @RequestParam("tb_name") String tb_name){
+        List<fk>data=new ArrayList<>();
+        try {
+            data=fkManage.getFk(db_name,tb_name);
+        }catch (Exception e){
             return new response<>(500,e.getCause().getMessage(),data);
         }
         return new response<>(data);

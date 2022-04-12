@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface fkManageServer {
     List<fk>alterFk(String param);
-    List<fk>getFk();
+    List<fk>getFk(String db_name,String tb_name);
 }
