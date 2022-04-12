@@ -1,5 +1,6 @@
 package com.gxu.informationLibrary.dao;
 
+import com.gxu.informationLibrary.entity.fk;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -11,4 +12,5 @@ public interface fkManagerDao {
     void deleteFkInfo();
     List<String>getRefTable();
     List<String>getRefColumn(@Param("ref_table") String ref_table);
+    List<fk>getFk();
 }
