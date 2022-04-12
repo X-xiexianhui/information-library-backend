@@ -7,7 +7,7 @@
         from tb_info;
     </select>
     <select id="getRefColumn" resultType="String">
-        select concat(db_name, '.', tb_name), col_name
+        select concat(db_name, '.', tb_name) as ref_table, col_name
         from tb_info,
              column_info
         where tb_info.tb_id = column_info.tb_id
