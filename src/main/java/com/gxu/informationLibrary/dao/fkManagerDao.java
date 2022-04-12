@@ -15,6 +15,6 @@ public interface fkManagerDao {
     void deleteFkInfo(@Param("fk_table") int fk_table,@Param("fk_column") String fk_column);
     List<String>getRefTable();
     List<String>getRefColumn(@Param("ref_table") String ref_table);
-    List<fk>getFk();
+    List<fk>getFk(@Param("db_name") String db_name,@Param("tb_name") String tb_name);
     int queryTable(String table);
 }

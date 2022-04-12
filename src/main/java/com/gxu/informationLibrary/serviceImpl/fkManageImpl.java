@@ -63,7 +63,7 @@ public class fkManageImpl implements fkManageServer {
 
     @Override
     public List<fk> getFk(String db_name,String tb_name) {
-        return fkManage.getFk();
+        return fkManage.getFk(db_name,tb_name);
     }
     private @NotNull String getFkName(fk fkInfo){
         return fkInfo.getFk_column() +
