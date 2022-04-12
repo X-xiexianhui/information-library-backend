@@ -39,6 +39,7 @@ public class fkManageController {
         }
         return new response<>(data);
     }
+    @GetMapping("/fk/get")
     public response<List<fk>>getFk(@RequestParam("db_name") String db_name, @RequestParam("tb_name") String tb_name){
         List<fk>data=new ArrayList<>();
         try {
