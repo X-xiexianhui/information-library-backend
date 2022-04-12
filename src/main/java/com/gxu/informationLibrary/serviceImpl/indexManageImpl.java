@@ -6,13 +6,12 @@ import com.gxu.informationLibrary.dao.indexManageDao;
 import com.gxu.informationLibrary.entity.index;
 import com.gxu.informationLibrary.entity.indexList;
 import com.gxu.informationLibrary.server.indexManage;
+import com.gxu.informationLibrary.util.utils;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-
-import static com.gxu.informationLibrary.util.utils.getString;
 
 @Service
 @Transactional
@@ -61,6 +60,6 @@ public class indexManageImpl implements indexManage {
         return indexManage.getColumns(db_name,tb_name);
     }
     private @NotNull String getIndexName(List<String>fields, boolean uni){
-        return getString(fields, uni);
+        return utils.getIndexName(fields, uni);
     }
 }
