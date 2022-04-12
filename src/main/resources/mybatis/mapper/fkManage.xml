@@ -11,4 +11,8 @@
         from column_info
         where tb_id = (select tb_id from tb_info where concat(db_name, '.', tb_name) = #{table} );
     </select>
+    <update id="addFk">
+        alter table ${db_name}.${tb_name} add foreign key ${fk_name} (${fk_column}) references ${ref_table} ($(ref_column));
+        insert into fk_info values (#{ref_table},#{fk_name},#{fk_column},#{ref_table},#{ref_column});
+    </update>
 </mapper>
