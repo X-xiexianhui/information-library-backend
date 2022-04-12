@@ -30,7 +30,7 @@
         where fk_table = #{fk_table}
           and fk_column = #{fk_column};
     </delete>
-    <select id="queryRefTable" resultType="String">
-        select *from ${table};
+    <select id="queryTable" resultType="int">
+        select tb_id from tb_info where concat(db_name,'.',tb_id)=#{table};
     </select>
 </mapper>

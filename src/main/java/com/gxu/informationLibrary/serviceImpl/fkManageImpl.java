@@ -23,7 +23,9 @@ public class fkManageImpl implements fkManageServer {
         for (fk in: insert) {
             in.setFk_name(getFkName(in));
             fkManage.addFk(db_name,tb_name,in.getFk_name(),in.getFk_column(),in.getRef_table(),in.getRef_column());
-            fkManage.insertFkInfo();
+            int fk_table=fkManage.queryTable(db_name+"."+tb_name);
+            int ref_table=fkManage.queryTable(in.getRef_table());
+            fkManage.insertFkInfo(fk_table,in.getFk_column(),in.getFk_name(),ref_table,in.getRef_column());
         }
     }
 
