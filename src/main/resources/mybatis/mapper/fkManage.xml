@@ -14,7 +14,7 @@
     </select>
     <update id="createFK">
         alter table ${db_name}.${tb_name}
-            add foreign key ${fk_name}(${fk_column}) references ${ref_db}.${ref_table}(${ref_column});
+            add constraint ${fk_name} foreign key (${fk_column}) references ${ref_db}.${ref_table}(${ref_column});
     </update>
     <insert id="insertFkInfo">
         insert into fk_info
@@ -39,7 +39,7 @@
         select fk_name, fk_column, concat(db_name, '.', tb_name) as ref_table, ref_column
         from fk_info,
              tb_info
-        where fk_info.ref_table = (select tb_id from tb_info where db_name = #{db_name} and tb_name = #{tb_name});
+        where fk_info.fk_table = (select tb_id from tb_info where db_name = #{db_name} and tb_name = #{tb_name});
     </select>
     <select id="getFkColumn" resultType="String">
         select col_name
