@@ -4,7 +4,7 @@
 <mapper namespace="com.gxu.informationLibrary.dao.fkManagerDao">
     <select id="getRefTable" resultType="String">
         select concat(db_name, '.', tb_name) as ref_table
-        from tb_info;
+        from tb_info where not (db_name=#{db_name} and tb_name=#{tb_name});
     </select>
     <select id="getRefColumn" resultType="String">
         select col_name

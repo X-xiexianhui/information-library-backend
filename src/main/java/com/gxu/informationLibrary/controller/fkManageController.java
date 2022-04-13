@@ -4,6 +4,7 @@ import com.gxu.informationLibrary.entity.fk;
 import com.gxu.informationLibrary.entity.refInfo;
 import com.gxu.informationLibrary.entity.response;
 import com.gxu.informationLibrary.serviceImpl.fkManageImpl;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,10 +23,10 @@ public class fkManageController {
     }
 
     @GetMapping("/fk/ref")
-    public response<refInfo>getRefInfo(){
+    public response<refInfo>getRefInfo(@RequestParam("db_name") String db_name,@Param("tb_name") String tb_name){
         refInfo data=new refInfo();
         try {
-            List<String>ref_table=fkManage.getRefTable();
+            List<String>ref_table=fkManage.getRefTable(db_name,tb_name);
             data.setRef_table(ref_table);
             Map<String,List<String>>column=new HashMap<>();
             for (String ref:ref_table) {

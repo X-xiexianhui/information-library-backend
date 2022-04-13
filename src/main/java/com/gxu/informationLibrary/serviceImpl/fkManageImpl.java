@@ -19,8 +19,8 @@ public class fkManageImpl implements fkManageServer {
         this.fkManager = fkManager;
     }
 
-    public List<String>getRefTable(){
-        return fkManager.getRefTable();
+    public List<String>getRefTable(String db_name,String tb_name){
+        return fkManager.getRefTable(db_name,tb_name );
     }
     public List<String>getRefColumn(String ref_table){
        return fkManager.getRefColumn(ref_table);
