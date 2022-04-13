@@ -44,7 +44,6 @@ public class fkManageController {
         List<fk>data=new ArrayList<>();
         try {
             data=fkManage.getFk(db_name,tb_name);
-            System.out.println(data.get(0));
         }catch (Exception e){
             return new response<>(500,e.getCause().getMessage(),data);
         }
