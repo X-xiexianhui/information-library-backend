@@ -38,7 +38,7 @@
     <select id="getFk" resultType="com.gxu.informationLibrary.entity.fk">
         select fk_column,fk_name,concat(#{db_name}, '.', #{tb_name}) as ref_table, ref_column
         from fk_info
-        where fk_info.fk_table = (select tb_id from tb_info where db_name = #{db_name} and tb_name = #{tb_name});
+        where fk_table = (select tb_id from tb_info where db_name = #{db_name} and tb_name = #{tb_name});
     </select>
     <select id="getFkColumn" resultType="String">
         select col_name
