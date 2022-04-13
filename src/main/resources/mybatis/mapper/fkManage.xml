@@ -18,7 +18,7 @@
     </update>
     <insert id="insertFkInfo">
         insert into fk_info
-        values (#{fk_table}, #{fk_name}, #{fk_column}, #{ref_table}, #{ref_column});
+        values (#{fk_table},#{fk_column},#{fk_name}, #{ref_table}, #{ref_column});
     </insert>
     <update id="deleteFk">
         alter table ${db_name}.${tb_name}
@@ -33,7 +33,7 @@
     <select id="queryTable" resultType="int">
         select tb_id
         from tb_info
-        where concat(db_name, '.', tb_id) = #{table};
+        where db_name=#{ref_db} and tb_name=#{ref_table};
     </select>
     <select id="getFk" resultType="com.gxu.informationLibrary.entity.fk">
         select fk_name, fk_column, concat(db_name, '.', tb_name) as ref_table, ref_column

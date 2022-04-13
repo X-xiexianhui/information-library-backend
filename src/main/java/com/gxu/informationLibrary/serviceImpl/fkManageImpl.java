@@ -46,9 +46,10 @@ public class fkManageImpl implements fkManageServer {
         if (insert.size()==0)return;
         for (fk in: insert) {
             in.setFk_name(getFkName(in));
-            fkManager.createFK(db_name,tb_name,in.getFk_name(),in.getFk_column(),in.getRef_table(),in.getRef_column());
-            int fk_table=fkManager.queryTable(db_name+"."+tb_name);
-            int ref_table=fkManager.queryTable(in.getRef_table());
+            String[]ref_info=in.getRef_table().split("\\.");
+            fkManager.createFK(db_name,tb_name,in.getFk_name(),in.getFk_column(),ref_info[0],ref_info[1],in.getRef_column());
+            int fk_table=fkManager.queryTable(db_name,tb_name);
+            int ref_table=fkManager.queryTable(ref_info[0],ref_info[1]);
             fkManager.insertFkInfo(fk_table,in.getFk_column(),in.getFk_name(),ref_table,in.getRef_column());
         }
     }
@@ -57,7 +58,7 @@ public class fkManageImpl implements fkManageServer {
         if (remove.size()==0)return;
         for (fk re: remove) {
             fkManager.deleteFk(db_name,tb_name,re.getFk_name());
-            int fk_table=fkManager.queryTable(db_name+"."+tb_name);
+            int fk_table=fkManager.queryTable(db_name,tb_name);
             fkManager.deleteFkInfo(fk_table,re.getFk_column());
         }
     }
@@ -73,6 +74,6 @@ public class fkManageImpl implements fkManageServer {
     private @NotNull String getFkName(fk fkInfo){
         return fkInfo.getFk_column() +
                 "_" +
-                fkInfo.getRef_column()+"fk";
+                fkInfo.getRef_column()+"_fk";
     }
 }

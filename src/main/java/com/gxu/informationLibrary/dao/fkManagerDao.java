@@ -10,7 +10,7 @@ import java.util.List;
 @Mapper
 @Repository
 public interface fkManagerDao {
-    void createFK(@Param("db_name") String db_name, @Param("tb_name") String tb_name, @Param("fk_name") String fk_name, @Param("fk_column") String fk_column, @Param("ref_table") String ref_table, @Param("ref_column") String ref_column);
+    void createFK(@Param("db_name") String db_name, @Param("tb_name") String tb_name, @Param("fk_name") String fk_name, @Param("fk_column") String fk_column, @Param("ref_db") String ref_db,@Param("ref_table") String ref_table, @Param("ref_column") String ref_column);
 
     void deleteFk(@Param("db_name") String db_name, @Param("tb_name") String tb_name, @Param("fk_name") String fk_name);
 
@@ -24,7 +24,7 @@ public interface fkManagerDao {
 
     List<fk> getFk(@Param("db_name") String db_name, @Param("tb_name") String tb_name);
 
-    int queryTable(@Param("table") String table);
+    int queryTable(@Param("ref_db") String ref_db,@Param("ref_table") String ref_table);
 
     List<String> getFkColumn(@Param("db_name") String db_name, @Param("tb_name") String tb_name);
 }
