@@ -4,7 +4,8 @@
 <mapper namespace="com.gxu.informationLibrary.dao.fkManagerDao">
     <select id="getRefTable" resultType="String">
         select concat(db_name, '.', tb_name) as ref_table
-        from tb_info where not (db_name=#{db_name} and tb_name=#{tb_name});
+        from tb_info
+        where not (db_name = #{db_name} and tb_name = #{tb_name});
     </select>
     <select id="getRefColumn" resultType="String">
         select col_name
@@ -14,11 +15,11 @@
     </select>
     <update id="createFK">
         alter table ${db_name}.${tb_name}
-            add constraint ${fk_name} foreign key (${fk_column}) references ${ref_db}.${ref_table}(${ref_column}) on update cascade ;
+            add constraint ${fk_name} foreign key (${fk_column}) references ${ref_db}.${ref_table} (${ref_column}) on update cascade;
     </update>
     <insert id="insertFkInfo">
         insert into fk_info
-        values (#{fk_table},#{fk_column},#{fk_name}, #{ref_table}, #{ref_column});
+        values (#{fk_table}, #{fk_column}, #{fk_name}, #{ref_table}, #{ref_column});
     </insert>
     <update id="deleteFk">
         alter table ${db_name}.${tb_name}
@@ -33,12 +34,15 @@
     <select id="queryTable" resultType="int">
         select tb_id
         from tb_info
-        where db_name=#{ref_db} and tb_name=#{ref_table};
+        where db_name = #{ref_db}
+          and tb_name = #{ref_table};
     </select>
     <select id="getFk" resultType="com.gxu.informationLibrary.entity.fk">
-        select fk_column,fk_name,concat(#{db_name}, '.', #{tb_name}) as ref_table, ref_column
-        from fk_info
-        where fk_table = (select tb_id from tb_info where db_name = #{db_name} and tb_name = #{tb_name});
+        select fk_name, fk_column, concat(db_name, '.', tb_name), ref_column
+        from fk_info,
+             tb_info
+        where fk_table = (select tb_id from tb_info where db_name = #{db_name} and tb_name = #{tb_name})
+          and tb_id = fk_info.ref_table;
     </select>
     <select id="getFkColumn" resultType="String">
         select col_name
