@@ -23,7 +23,7 @@ public class fkManageController {
     }
 
     @GetMapping("/fk/ref")
-    public response<refInfo>getRefInfo(@RequestParam("db_name") String db_name,@Param("tb_name") String tb_name){
+    public response<refInfo>getRefInfo(@RequestParam("db_name") String db_name,@RequestParam("tb_name") String tb_name){
         refInfo data=new refInfo();
         try {
             List<String>ref_table=fkManage.getRefTable(db_name,tb_name);
