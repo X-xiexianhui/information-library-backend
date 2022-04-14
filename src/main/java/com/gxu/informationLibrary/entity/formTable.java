@@ -6,5 +6,5 @@ import lombok.Data;
 public class formTable {
     int form_id;
     String form_name;
-    String table;
+    String tb_name;
 }

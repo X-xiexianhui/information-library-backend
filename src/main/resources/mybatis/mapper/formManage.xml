@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gxu.informationLibrary.dao.formManageDao">
+    <resultMap id="formTableMap" type="com.gxu.informationLibrary.entity.formTable">
+        <result column="form_id" property="form_id"/>
+        <result column="form_name" property="form_name"/>
+        <result column="tb_name" property="tb_name"/>
+    </resultMap>
+    <select id="query" resultMap="formTableMap">
+        select form_id, form_name, concat(db_name, tb_name) as tb_name
+        from form_info,
+             tb_info
+        where form_info.tb_id = tb_info.tb_id;
+    </select>
+</mapper>
