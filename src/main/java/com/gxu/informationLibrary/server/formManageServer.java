@@ -6,8 +6,6 @@ import com.gxu.informationLibrary.entity.formTable;
 import java.util.List;
 
 public interface formManageServer {
-    List<formTable> deleteForm();
-
     List<formTable> queryForm();
 
     List<formTable> renameForm();
