@@ -52,4 +52,5 @@ public interface tableManagerDao {
     List<String> getPKs(@Param("db_name") String db_name, @Param("tb_name") String tb_name);
 
     int getPrimaryKey(@Param("db_name") String db_name, @Param("tb_name") String tb_name);
+    int count(@Param("db_name") String db_name, @Param("tb_name") String tb_name);
 }

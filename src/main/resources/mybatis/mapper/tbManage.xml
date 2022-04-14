@@ -227,4 +227,7 @@
         from INFORMATION_SCHEMA.KEY_COLUMN_USAGE t
         where t.TABLE_NAME = concat(#{db_name}, '.', #{tb_name})
     </select>
+    <select id="count" resultType="int">
+        select count(record_id) as sum from ${db_name}.${tb_name};
+    </select>
 </mapper>
