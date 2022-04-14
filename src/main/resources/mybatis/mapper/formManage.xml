@@ -11,7 +11,7 @@
         select form_id, form_name, concat(db_name, tb_name) as tb_name
         from form_info,
              tb_info
-        where form_info.tb_id = tb_info.tb_id;
+        where form_info.tb_id = (select tb_id from tb_info where db_name = #{db_name} and tb_name = #{tb_name});
     </select>
     <update id="renameForm">
         update form_info
