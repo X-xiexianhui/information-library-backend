@@ -8,7 +8,9 @@ import java.util.List;
 public interface formManageServer {
     List<formTable> queryForm();
 
-    List<formTable> renameForm();
+    void renameForm();
 
-    List<formStruct> editForm();
+    void editForm();
+
+    List<formStruct> getFormStruct();
 }

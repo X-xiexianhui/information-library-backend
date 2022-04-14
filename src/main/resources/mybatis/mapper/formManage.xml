@@ -13,4 +13,20 @@
              tb_info
         where form_info.tb_id = tb_info.tb_id;
     </select>
+    <update id="renameForm">
+        update form_info
+        set form_name=#{newName}
+        where form_id = #{form_id};
+    </update>
+    <resultMap id="formStructMap" type="com.gxu.informationLibrary.entity.formStruct">
+        <result column="form_id" property="form_id"/>
+        <result column="col_name" property="col_name"/>
+        <result column="label_name" property="label_name"/>
+    </resultMap>
+    <select id="getFormStruct" resultMap="formStructMap">
+        select form_id, col_name, label_name
+        from form_struct,
+             column_info
+        where form_struct.col_id = column_info.col_id;
+    </select>
 </mapper>
