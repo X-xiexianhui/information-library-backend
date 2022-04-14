@@ -20,42 +20,45 @@ public class fkManageController {
     }
 
     @GetMapping("/fk/ref")
-    public response<refInfo>getRefInfo(@RequestParam("db_name") String db_name,@RequestParam("tb_name") String tb_name){
-        refInfo data=new refInfo();
+    public response<refInfo> getRefInfo(@RequestParam("db_name") String db_name, @RequestParam("tb_name") String tb_name) {
+        refInfo data = new refInfo();
         try {
-            data=fkManage.getRef(db_name,tb_name);
-        } catch (Exception e){
-            return new response<>(500,e.getCause().getMessage(),data);
+            data = fkManage.getRef(db_name, tb_name);
+        } catch (Exception e) {
+            return new response<>(500, e.getCause().getMessage(), data);
         }
         return new response<>(data);
     }
+
     @GetMapping("/fk/get")
-    public response<List<fk>>getFk(@RequestParam("db_name") String db_name, @RequestParam("tb_name") String tb_name){
-        List<fk>data=new ArrayList<>();
+    public response<List<fk>> getFk(@RequestParam("db_name") String db_name, @RequestParam("tb_name") String tb_name) {
+        List<fk> data = new ArrayList<>();
         try {
-            data=fkManage.getFk(db_name,tb_name);
-        }catch (Exception e){
-            return new response<>(500,e.getCause().getMessage(),data);
+            data = fkManage.getFk(db_name, tb_name);
+        } catch (Exception e) {
+            return new response<>(500, e.getCause().getMessage(), data);
         }
         return new response<>(data);
     }
+
     @PostMapping("/fk/alter")
-    public response<List<fk>>alterFk(@RequestBody String parma){
-        List<fk>data=new ArrayList<>();
+    public response<List<fk>> alterFk(@RequestBody String parma) {
+        List<fk> data = new ArrayList<>();
         try {
-            data=fkManage.alterFk(parma);
-        }catch (Exception e){
-            return new response<>(500,e.getCause().getMessage(),data);
+            data = fkManage.alterFk(parma);
+        } catch (Exception e) {
+            return new response<>(500, e.getCause().getMessage(), data);
         }
         return new response<>(data);
     }
+
     @GetMapping("/fk/column")
-    public response<List<String>>getFkColumn(@RequestParam("db_name") String db_name, @RequestParam("tb_name") String tb_name){
-        List<String>data=new ArrayList<>();
+    public response<List<String>> getFkColumn(@RequestParam("db_name") String db_name, @RequestParam("tb_name") String tb_name) {
+        List<String> data = new ArrayList<>();
         try {
-            data=fkManage.getFkColumn(db_name,tb_name);
-        }catch (Exception e){
-            return new response<>(500,e.getCause().getMessage(),data);
+            data = fkManage.getFkColumn(db_name, tb_name);
+        } catch (Exception e) {
+            return new response<>(500, e.getCause().getMessage(), data);
         }
         return new response<>(data);
     }
