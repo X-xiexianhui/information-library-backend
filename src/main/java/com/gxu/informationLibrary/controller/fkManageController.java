@@ -25,14 +25,7 @@ public class fkManageController {
     public response<refInfo>getRefInfo(@RequestParam("db_name") String db_name,@RequestParam("tb_name") String tb_name){
         refInfo data=new refInfo();
         try {
-            List<String>ref_table=fkManage.getRefTable(db_name,tb_name);
-            data.setRef_table(ref_table);
-            Map<String,List<String>>column=new HashMap<>();
-            for (String ref:ref_table) {
-                List<String> ref_column = fkManage.getRefColumn(ref);
-                column.put(ref, ref_column);
-            }
-            data.setRef_column(column);
+            data=fkManage.getRef(db_name,tb_name);
         } catch (Exception e){
             return new response<>(500,e.getCause().getMessage(),data);
         }

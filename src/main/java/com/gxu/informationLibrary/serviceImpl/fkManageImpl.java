@@ -4,12 +4,15 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.gxu.informationLibrary.dao.fkManagerDao;
 import com.gxu.informationLibrary.entity.fk;
+import com.gxu.informationLibrary.entity.refInfo;
 import com.gxu.informationLibrary.server.fkManageServer;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class fkManageImpl implements fkManageServer {
@@ -19,14 +22,26 @@ public class fkManageImpl implements fkManageServer {
         this.fkManager = fkManager;
     }
 
-    public List<String>getRefTable(String db_name,String tb_name){
+    private List<String>getRefTable(String db_name,String tb_name){
         return fkManager.getRefTable(db_name,tb_name );
     }
-    public List<String>getRefColumn(String ref_table){
+    private List<String>getRefColumn(String ref_table){
        return fkManager.getRefColumn(ref_table);
     }
     public List<String>getFkColumn(String db_nam,String tb_name){
         return fkManager.getFkColumn(db_nam,tb_name);
+    }
+    public refInfo getRef(String db_name,String tb_name){
+        refInfo data=new refInfo();
+        List<String>ref_table=getRefTable(db_name,tb_name);
+        data.setRef_table(ref_table);
+        Map<String,List<String>> column=new HashMap<>();
+        for (String ref:ref_table) {
+            List<String> ref_column = getRefColumn(ref);
+            column.put(ref, ref_column);
+        }
+        data.setRef_column(column);
+        return data;
     }
     @Override
     @Transactional
