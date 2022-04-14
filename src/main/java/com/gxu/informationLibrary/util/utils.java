@@ -5,7 +5,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.List;
 
 public class utils {
-    public static @NotNull String getIndexName(List<String> fields, boolean uni) {
+    public static @NotNull String getIndexName(@NotNull List<String> fields, boolean uni) {
         StringBuilder index_name= new StringBuilder();
         for (String str:fields) {
             index_name.append(str);
