@@ -29,4 +29,9 @@
              column_info
         where form_struct.col_id = column_info.col_id;
     </select>
+    <update id="editForm">
+        <foreach collection="formStructList" item="item" index="index">
+            update form_struct set label_name=#{item.label_name} where col_id=#{item.col_id};
+        </foreach>
+    </update>
 </mapper>
