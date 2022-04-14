@@ -1,12 +1,13 @@
 package com.gxu.informationLibrary.server;
 
+import com.gxu.informationLibrary.entity.formStruct;
 import com.gxu.informationLibrary.entity.formTable;
 
 import java.util.List;
 
 public interface formManageServer {
-    void addForm();
+    List<formStruct> addForm();
     List<formTable> deleteForm();
     List<formTable> queryForm();
-    void editForm();
+    List<formStruct> editForm();
 }
