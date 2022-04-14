@@ -62,7 +62,7 @@ public class fkManageImpl implements fkManageServer {
         return getFk(db_name, tb_name);
     }
 
-    public void addFk(String db_name, String tb_name, List<fk> insert) {
+    private void addFk(String db_name, String tb_name, List<fk> insert) {
         if (insert.size() == 0) return;
         for (fk in : insert) {
             in.setFk_name(getFkName(in));
@@ -74,7 +74,7 @@ public class fkManageImpl implements fkManageServer {
         }
     }
 
-    public void deleteFk(String db_name, String tb_name, List<fk> remove) {
+    private void deleteFk(String db_name, String tb_name, List<fk> remove) {
         if (remove.size() == 0) return;
         for (fk re : remove) {
             fkManager.deleteFk(db_name, tb_name, re.getFk_name());
@@ -83,7 +83,7 @@ public class fkManageImpl implements fkManageServer {
         }
     }
 
-    public void updateFk(String db_name, String tb_name, List<fk> update) {
+    private void updateFk(String db_name, String tb_name, List<fk> update) {
         deleteFk(db_name, tb_name, update);
         addFk(db_name, tb_name, update);
     }
