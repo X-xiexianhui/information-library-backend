@@ -7,7 +7,10 @@ import java.util.List;
 
 public interface formManageServer {
     List<formStruct> addForm();
+
     List<formTable> deleteForm();
+
     List<formTable> queryForm();
+
     List<formStruct> editForm();
 }
