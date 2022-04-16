@@ -27,7 +27,8 @@
         select form_id, col_name, label_name
         from form_struct,
              column_info
-        where form_struct.col_id = column_info.col_id;
+        where form_struct.form_id = #{form_id}
+          and form_struct.col_id = column_info.col_id;
     </select>
     <update id="editForm">
         <foreach collection="formStructList" item="item" index="index">
