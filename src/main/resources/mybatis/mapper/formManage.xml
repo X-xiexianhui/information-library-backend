@@ -33,7 +33,8 @@
     <update id="editForm">
         <foreach collection="formStructList" item="item" index="index">
             update form_struct set label_name=#{item.label_name} where col_id=(select col_id from column_info where
-            tb_id=(select tb_id from form_info where form_info.form_id=#{item.form_id}));
+            col_name=#{item.col_name} and
+            column_info.tb_id=(select form_info.tb_id from form_info where form_info.form_id=#{item.form_id}));
         </foreach>
     </update>
 </mapper>
