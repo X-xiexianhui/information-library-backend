@@ -1,5 +1,6 @@
 package com.gxu.informationLibrary.controller;
 
+import com.gxu.informationLibrary.entity.formStruct;
 import com.gxu.informationLibrary.entity.formTable;
 import com.gxu.informationLibrary.entity.response;
 import com.gxu.informationLibrary.serviceImpl.formManageImpl;
@@ -32,6 +33,26 @@ public class formManageController {
         List<formTable>data=new ArrayList<>();
         try {
             data=formManage.renameForm(param);
+        }catch (Exception e){
+            return new response<>(500,e.getCause().getMessage(),data);
+        }
+        return new response<>(data);
+    }
+    @GetMapping("/form/struct")
+    public response<List<formStruct>>getFormStruct(@RequestParam("form_id") int form_id){
+        List<formStruct>data=new ArrayList<>();
+        try {
+            data=formManage.getFormStruct(form_id);
+        }catch (Exception e){
+            return new response<>(500,e.getCause().getMessage(),data);
+        }
+        return new response<>(data);
+    }
+    @PostMapping("/form/edit")
+    public response<List<formStruct>>editForm(@RequestBody String param){
+        List<formStruct>data=new ArrayList<>();
+        try {
+            data=formManage.editForm(param);
         }catch (Exception e){
             return new response<>(500,e.getCause().getMessage(),data);
         }

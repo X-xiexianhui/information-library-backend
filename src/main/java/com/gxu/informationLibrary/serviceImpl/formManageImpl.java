@@ -30,8 +30,11 @@ public class formManageImpl implements formManageServer {
     }
 
     @Override
-    public void editForm(List<formStruct>formStructs) {
+    public List<formStruct> editForm(String param) {
+        JSONObject structList=JSON.parseObject(param);
+        List<formStruct>formStructs=structList.getJSONArray("update").toJavaList(formStruct.class);
         formManage.editForm(formStructs);
+        return formManage.getFormStruct(structList.getInteger("form_id"));
     }
 
     @Override

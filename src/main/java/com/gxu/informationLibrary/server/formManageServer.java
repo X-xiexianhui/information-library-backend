@@ -10,7 +10,7 @@ public interface formManageServer {
 
     List<formTable> renameForm(String param);
 
-    void editForm(List<formStruct>formStructs);
+    List<formStruct> editForm(String param);
 
     List<formStruct> getFormStruct(int form_id);
 }
