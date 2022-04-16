@@ -106,6 +106,7 @@
             insert into form_info (form_name, tb_id) select concat(#{item.db_name},'.',#{item.tb_name}),tb_id from tb_info where
             db_name=#{item.db_name} and tb_name=#{item.tb_name};
         </foreach>;
+
         insert into column_info(tb_id, col_name, data_type, len, place, PK, not_null, uni)
         <foreach item="item" collection="insert" index="index" separator="union all">
             select tb_id,
