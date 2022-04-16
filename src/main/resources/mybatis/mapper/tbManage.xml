@@ -36,18 +36,16 @@
             select tb_id,
             #{item.col_name},#{item.data_type},#{item.len},#{item.place},#{item.PK},#{item.not_null},#{item.uni}
             from tb_info where db_name=#{db_name} and tb_name=#{tb_name}
-        </foreach>
-        # 修改form_info
+        </foreach>;
         insert into form_info (form_name, tb_id) select concat(#{db_name},'.',#{tb_name}),tb_id from tb_info where
         db_name=#{db_name} and tb_name=#{tb_name};
-        # 向form_struct插入记录
         insert into form_struct
         <foreach item="item" collection="column" index="index" separator="union all">
             select form_id,col_id,#{item.col_name} from form_info,column_info
             where
             concat(#{db_name},'.',#{tb_name})=form_name and column_info.tb_id=form_info.tb_id and
-            col_name=#{item.col_name};
-        </foreach>
+            col_name=#{item.col_name}
+        </foreach>;
     </update>
 
     <update id="deleteTable">
