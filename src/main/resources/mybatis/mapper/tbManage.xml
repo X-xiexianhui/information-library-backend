@@ -113,7 +113,6 @@
             from tb_info where db_name=#{item.db_name} and tb_name=#{item.tb_name}
         </foreach>
 
-        # 向form_struct插入记录
         insert into form_struct
         <foreach item="item" collection="insert" index="index" separator="union all">
             select form_id,col_id,#{item.col_name} from form_info,column_info
