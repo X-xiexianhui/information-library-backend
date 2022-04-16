@@ -15,7 +15,7 @@
     </select>
     <update id="renameForm">
         update form_info
-        set form_name=#{newName}
+        set form_name=#{new_name}
         where form_id = #{form_id};
     </update>
     <resultMap id="formStructMap" type="com.gxu.informationLibrary.entity.formStruct">
