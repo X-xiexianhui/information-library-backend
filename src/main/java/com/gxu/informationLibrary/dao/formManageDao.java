@@ -13,7 +13,7 @@ import java.util.List;
 public interface formManageDao {
     List<formTable>query(@Param("tb_name")String tb_name);
 
-    void renameForm(@Param("old_name") String old_name,@Param("new_name") String new_name);
+    void renameForm(@Param("old_name") String old_name,@Param("new_name") String new_name,@Param("form_id") int form_id);
 
     void editForm(@Param("formStructList") List<formStruct>formStructList);
 

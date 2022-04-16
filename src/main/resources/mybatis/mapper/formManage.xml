@@ -24,7 +24,7 @@
         <result column="label_name" property="label_name"/>
     </resultMap>
     <select id="getFormStruct" resultMap="formStructMap">
-        select form_id, col_name, label_name
+        select form_id, label_name,col_name
         from form_struct,
              column_info
         where form_struct.form_id = #{form_id}

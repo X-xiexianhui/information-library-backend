@@ -25,7 +25,7 @@ public class formManageImpl implements formManageServer {
     @Override
     public List<formTable> renameForm(String param) {
         JSONObject nameBody= JSON.parseObject(param);
-        formManage.renameForm(nameBody.getString("old_name"),nameBody.getString("new_name"));
+        formManage.renameForm(nameBody.getString("old_name"),nameBody.getString("new_name"), nameBody.getIntValue("form_id") );
         return queryForm("");
     }
 
