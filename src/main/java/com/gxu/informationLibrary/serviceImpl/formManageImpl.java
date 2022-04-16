@@ -26,12 +26,12 @@ public class formManageImpl implements formManageServer {
     }
 
     @Override
-    public void editForm() {
-
+    public void editForm(List<formStruct>formStructs) {
+        formManage.editForm(formStructs);
     }
 
     @Override
-    public List<formStruct> getFormStruct() {
-        return null;
+    public List<formStruct> getFormStruct(int form_id) {
+        return formManage.getFormStruct(form_id);
     }
 }

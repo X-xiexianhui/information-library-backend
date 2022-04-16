@@ -15,7 +15,7 @@ public interface formManageDao {
 
     void renameForm(@Param("old_name") String old_name,@Param("new_name") String new_name);
 
-    void editForm();
+    void editForm(@Param("formStructList") List<formStruct>formStructList);
 
-    List<formStruct> getFormStruct();
+    List<formStruct> getFormStruct(@Param("form_id") int form_id);
 }
