@@ -4,9 +4,7 @@ import com.gxu.informationLibrary.entity.formTable;
 import com.gxu.informationLibrary.entity.response;
 import com.gxu.informationLibrary.serviceImpl.formManageImpl;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +18,7 @@ public class formManageController {
         this.formManage = formManage;
     }
     @GetMapping("/form/list")
-    public response<List<formTable>> queryForm(String tb_name){
+    public response<List<formTable>> queryForm(@RequestParam("tb_name") String tb_name){
         List<formTable>data=new ArrayList<>();
         try {
             data=formManage.queryForm(tb_name);
@@ -30,10 +28,10 @@ public class formManageController {
         return new response<>(data);
     }
     @PostMapping("/form/rename")
-    public response<List<formTable>>renameForm(String old_name,String new_name){
+    public response<List<formTable>>renameForm(@RequestBody String param){
         List<formTable>data=new ArrayList<>();
         try {
-            data=formManage.renameForm(old_name,new_name);
+            data=formManage.renameForm(param);
         }catch (Exception e){
             return new response<>(500,e.getCause().getMessage(),data);
         }

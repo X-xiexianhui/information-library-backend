@@ -1,5 +1,7 @@
 package com.gxu.informationLibrary.serviceImpl;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.gxu.informationLibrary.dao.formManageDao;
 import com.gxu.informationLibrary.entity.formStruct;
 import com.gxu.informationLibrary.entity.formTable;
@@ -21,8 +23,9 @@ public class formManageImpl implements formManageServer {
     }
 
     @Override
-    public List<formTable> renameForm(String old_name, String new_name) {
-        formManage.renameForm(old_name,new_name);
+    public List<formTable> renameForm(String param) {
+        JSONObject nameBody= JSON.parseObject(param);
+        formManage.renameForm(nameBody.getString("old_name"),nameBody.getString("new_name"));
         return queryForm("");
     }
 
