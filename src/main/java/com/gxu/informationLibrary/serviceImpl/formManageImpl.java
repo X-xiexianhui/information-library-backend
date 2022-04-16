@@ -21,8 +21,9 @@ public class formManageImpl implements formManageServer {
     }
 
     @Override
-    public void renameForm(String old_name,String new_name) {
+    public List<formTable> renameForm(String old_name, String new_name) {
         formManage.renameForm(old_name,new_name);
+        return queryForm("");
     }
 
     @Override
