@@ -8,10 +8,10 @@
         <result column="tb_name" property="tb_name"/>
     </resultMap>
     <select id="query" resultMap="formTableMap">
-        select form_id, form_name, concat(db_name,'.',tb_name) as tb_name
+        select form_id, form_name, concat(db_name, '.', tb_name) as tb_name
         from form_info,
              tb_info
-        where form_info.tb_id in (select tb_id from tb_info where tb_name like concat('%',#{tb_name},'%'));
+        where form_info.tb_id in (select tb_id from tb_info where tb_name like concat('%', #{tb_name}, '%'));
     </select>
     <update id="renameForm">
         update form_info
@@ -24,7 +24,7 @@
         <result column="label_name" property="label_name"/>
     </resultMap>
     <select id="getFormStruct" resultMap="formStructMap">
-        select form_id, label_name,col_name
+        select form_id, label_name, col_name
         from form_struct,
              column_info
         where form_struct.form_id = #{form_id}
@@ -32,7 +32,8 @@
     </select>
     <update id="editForm">
         <foreach collection="formStructList" item="item" index="index">
-            update form_struct set label_name=#{item.label_name} where col_id=#{item.col_id};
+            update form_struct set label_name=#{item.label_name} where col_id=(select col_id from column_info where
+            tb_id=(select tb_id from form_info where form_info.form_id=#{item.form_id}));
         </foreach>
     </update>
 </mapper>
