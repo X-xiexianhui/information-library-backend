@@ -21,7 +21,7 @@ public class tableManageController {
         this.tbManage = tbManage;
     }
 
-    @PostMapping("/tb/add")
+    @PostMapping("api/tb/add")
     public response<List<JSONObject>> addTable(@RequestBody String Param){
         List<JSONObject>data=new ArrayList<>();
         try {
@@ -31,7 +31,7 @@ public class tableManageController {
         }
         return new response<>(data);
     }
-    @DeleteMapping("/tb/delete")
+    @DeleteMapping("api/tb/delete")
     public response<String>deleteTable(@RequestParam("db_name")String db_name, @RequestParam("tb_name")String tb_name){
         try {
             tbManage.deleteTable(db_name, tb_name);
@@ -40,7 +40,7 @@ public class tableManageController {
         }
         return new response<>("");
     }
-    @GetMapping("/tb/search")
+    @GetMapping("api/tb/search")
     public response<List<table>>searchTables(@RequestParam("query_name")String tb_name){
         List<table>data= new ArrayList<>();
         try {
@@ -50,7 +50,7 @@ public class tableManageController {
         }
         return new response<>(data);
     }
-    @PostMapping("/tb/rename")
+    @PostMapping("api/tb/rename")
     public response<String>renameTable(@RequestBody String Param){
         try {
             tbManage.renameTable(Param);
@@ -59,7 +59,7 @@ public class tableManageController {
         }
         return new response<>("");
     }
-    @PostMapping("/tb/alter")
+    @PostMapping("api/tb/alter")
     public response<List<JSONObject>>alterTable(@RequestBody String Param){
         List<JSONObject>data=new ArrayList<>();
         try {
@@ -69,7 +69,7 @@ public class tableManageController {
         }
         return new response<>(data);
     }
-    @GetMapping("/tb/column")
+    @GetMapping("api/tb/column")
     public response<List<JSONObject>>gettableColumn(@RequestParam("db_name")String db_name,@RequestParam("tb_name")String tb_name){
         List<JSONObject>data= new ArrayList<>();
         try {

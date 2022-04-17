@@ -19,7 +19,7 @@ public class dbManageController {
     }
 
     //    新建数据库
-    @PostMapping("/db/add")
+    @PostMapping("api/db/add")
     public response<String> createDB(@RequestParam("db_name") String db_name) {
         try {
             dbManage.createDB(db_name);
@@ -30,7 +30,7 @@ public class dbManageController {
     }
 
     //    删除数据库
-    @DeleteMapping("/db/delete")
+    @DeleteMapping("api/db/delete")
     public response<String> deleteDB(@RequestParam("db_name") String db_name) {
         try {
             int tbs =dbManage.getTables(db_name);
@@ -45,7 +45,7 @@ public class dbManageController {
     }
 
     //    查询数据库
-    @GetMapping("/db/search")
+    @GetMapping("api/db/search")
     public response<List<dbInfo>> searchDB(@RequestParam("query_name") String db_name) {
         List<dbInfo> data = new ArrayList<>();
         try {

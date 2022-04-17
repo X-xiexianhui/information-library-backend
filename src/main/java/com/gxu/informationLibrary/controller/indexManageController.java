@@ -18,7 +18,7 @@ public class indexManageController {
         this.indexManage = indexManage;
     }
 
-    @PostMapping("/index/alter")
+    @PostMapping("api/index/alter")
     public response<List<index>> indexManage(@RequestBody String Parma){
         List<index>data=new ArrayList<>();
         try {
@@ -28,7 +28,7 @@ public class indexManageController {
         }
         return new response<>(data);
     }
-    @GetMapping("/index/column")
+    @GetMapping("api/index/column")
     public response<List<String>>getColumns(@RequestParam("db_name") String db_name,@RequestParam("tb_name") String tb_name){
         List<String>data=new ArrayList<>();
         try {
@@ -38,7 +38,7 @@ public class indexManageController {
         }
         return new response<>(data);
     }
-    @GetMapping("/index/get")
+    @GetMapping("api/index/get")
     public response<List<index>>getIndex(@RequestParam("db_name") String db_name,@RequestParam("tb_name") String tb_name){
         List<index>data=new ArrayList<>();
         try {

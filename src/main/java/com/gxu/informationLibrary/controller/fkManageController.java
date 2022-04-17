@@ -19,7 +19,7 @@ public class fkManageController {
         this.fkManage = fkManage;
     }
 
-    @GetMapping("/fk/ref")
+    @GetMapping("api/fk/ref")
     public response<refInfo> getRefInfo(@RequestParam("db_name") String db_name, @RequestParam("tb_name") String tb_name) {
         refInfo data = new refInfo();
         try {
@@ -30,7 +30,7 @@ public class fkManageController {
         return new response<>(data);
     }
 
-    @GetMapping("/fk/get")
+    @GetMapping("api/fk/get")
     public response<List<fk>> getFk(@RequestParam("db_name") String db_name, @RequestParam("tb_name") String tb_name) {
         List<fk> data = new ArrayList<>();
         try {
@@ -41,7 +41,7 @@ public class fkManageController {
         return new response<>(data);
     }
 
-    @PostMapping("/fk/alter")
+    @PostMapping("api/fk/alter")
     public response<List<fk>> alterFk(@RequestBody String parma) {
         List<fk> data = new ArrayList<>();
         try {
@@ -52,7 +52,7 @@ public class fkManageController {
         return new response<>(data);
     }
 
-    @GetMapping("/fk/column")
+    @GetMapping("api/fk/column")
     public response<List<String>> getFkColumn(@RequestParam("db_name") String db_name, @RequestParam("tb_name") String tb_name) {
         List<String> data = new ArrayList<>();
         try {
