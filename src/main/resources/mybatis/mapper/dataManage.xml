@@ -19,9 +19,12 @@
         </foreach>
     </update>
     <delete id="deleteData">
-        delete from ${db_name}.${tb_name} where record_id=#{record_id};
+        delete
+        from ${db_name}.${tb_name}
+        where record_id = #{record_id};
     </delete>
     <select id="queryData">
-        select * from ${db_name}.${tb_name} <if test="onlyAuth==true">where user_id=#{user_id}</if>
+        select * from ${db_name}.${tb_name}
+        <if test="onlyAuth==true">where user_id=#{user_id}</if>
     </select>
 </mapper>
