@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @ResponseBody
@@ -52,6 +53,15 @@ public class menuController {
         List<menuInfo>data=new ArrayList<>();
         try {
             data=menu.editMenu(param);
+        }catch (Exception e){
+            return new response<>(500,e.getCause().getMessage(),data);
+        }
+        return new response<>(data);
+    }
+    public response<List<Map<String,Object>>>getMenuSelect(){
+        List<Map<String,Object>>data=new ArrayList<>();
+        try {
+            data=menu.queryMenu();
         }catch (Exception e){
             return new response<>(500,e.getCause().getMessage(),data);
         }
