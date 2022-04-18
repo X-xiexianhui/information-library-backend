@@ -7,6 +7,16 @@
         VALUES (#{menu.menu_name}, #{menu.menu_level}, #{menu.father_menu}, #{menu.context_form});
     </insert>
     <delete id="deleteMenu">
-        delete from menu_info where menu_id=#{menu};
+        delete
+        from menu_info
+        where menu_id = #{menu};
     </delete>
+    <select id="query" resultType="com.gxu.informationLibrary.entity.menuInfo">
+        select menu_id,
+               menu_name,
+               menu_level,
+               (select menu_name from menu_info where father_menu = menu_info.menu_id)  as father_menu,
+               (select form_name from form_info where context_form = form_info.form_id) as context_form
+        from menu_info;
+    </select>
 </mapper>
