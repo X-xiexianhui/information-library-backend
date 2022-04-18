@@ -44,7 +44,7 @@ public class menuImpl implements menuServer {
     }
 
     @Override
-    public List<menuInfo> editMenu() {
+    public List<menuInfo> editMenu(String param) {
         menu.editMenu();
         return menu.query("");
     }

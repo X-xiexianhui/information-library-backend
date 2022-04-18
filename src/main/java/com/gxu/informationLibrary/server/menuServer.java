@@ -11,5 +11,5 @@ public interface menuServer {
 
     List<menuInfo>queryMenu(String menu_name);
 
-    List<menuInfo>editMenu();
+    List<menuInfo>editMenu(String param);
 }

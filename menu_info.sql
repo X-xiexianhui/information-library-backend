@@ -8,6 +8,8 @@ create table menu_info
     context_form int         null,
     constraint menu_info_menu_name_uindex
         unique (menu_name),
+    constraint menu_info_form_info_form_id_fk
+        foreign key (context_form) references form_info (form_id),
     constraint menu_info_menu_info_menu_id_fk
         foreign key (father_menu) references menu_info (menu_id)
 );
