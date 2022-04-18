@@ -58,10 +58,21 @@ public class menuController {
         }
         return new response<>(data);
     }
+    @GetMapping("api/menu/select")
     public response<List<Map<String,Object>>>getMenuSelect(){
         List<Map<String,Object>>data=new ArrayList<>();
         try {
             data=menu.queryMenu();
+        }catch (Exception e){
+            return new response<>(500,e.getCause().getMessage(),data);
+        }
+        return new response<>(data);
+    }
+    @GetMapping("api/menu/form")
+    public response<List<Map<String,Object>>>getFormSelect(){
+        List<Map<String,Object>>data=new ArrayList<>();
+        try {
+            data=menu.getFormSelect();
         }catch (Exception e){
             return new response<>(500,e.getCause().getMessage(),data);
         }
