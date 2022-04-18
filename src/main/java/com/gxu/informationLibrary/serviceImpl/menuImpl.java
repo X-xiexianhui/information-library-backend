@@ -19,13 +19,13 @@ public class menuImpl implements menuServer {
     }
 
     @Override
-    public List<menuInfo> addMenu() {
+    public List<menuInfo> addMenu(String param) {
         menu.addMenu();
         return menu.query("");
     }
 
     @Override
-    public List<menuInfo> deleteMenu() {
+    public List<menuInfo> deleteMenu(String param) {
         menu.deleteMenu();
         return menu.query("");
     }

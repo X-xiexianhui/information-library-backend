@@ -1,8 +1,13 @@
 package com.gxu.informationLibrary.controller;
 
+import com.gxu.informationLibrary.entity.menuInfo;
+import com.gxu.informationLibrary.entity.response;
 import com.gxu.informationLibrary.serviceImpl.menuImpl;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 @ResponseBody
@@ -11,5 +16,35 @@ public class menuController {
 
     public menuController(menuImpl menu) {
         this.menu = menu;
+    }
+    @PostMapping("api/menu/add")
+    public response<List<menuInfo>>addMenu(@RequestBody String Param){
+        List<menuInfo>data=new ArrayList<>();
+        try {
+            data=menu.addMenu(Param);
+        }catch (Exception e){
+            return new response<>(500,e.getCause().getMessage(),data);
+        }
+        return new response<>(data);
+    }
+    @PostMapping("api/menu/delete")
+    public response<List<menuInfo>>deleteMenu(@RequestBody String Param){
+        List<menuInfo>data=new ArrayList<>();
+        try {
+            data=menu.deleteMenu(Param);
+        }catch (Exception e){
+            return new response<>(500,e.getCause().getMessage(),data);
+        }
+        return new response<>(data);
+    }
+    @GetMapping("api/menu/query")
+    public response<List<menuInfo>>query(@RequestParam("menu_name") String menu_name){
+        List<menuInfo>data=new ArrayList<>();
+        try {
+            data=menu.queryMenu(menu_name);
+        }catch (Exception e){
+            return new response<>(500,e.getCause().getMessage(),data);
+        }
+        return new response<>(data);
     }
 }

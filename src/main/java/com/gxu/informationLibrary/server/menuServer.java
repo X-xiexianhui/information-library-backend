@@ -5,9 +5,9 @@ import com.gxu.informationLibrary.entity.menuInfo;
 import java.util.List;
 
 public interface menuServer {
-    List<menuInfo>addMenu();
+    List<menuInfo>addMenu(String param);
 
-    List<menuInfo>deleteMenu();
+    List<menuInfo>deleteMenu(String param);
 
     List<menuInfo>queryMenu(String menu_name);
 
