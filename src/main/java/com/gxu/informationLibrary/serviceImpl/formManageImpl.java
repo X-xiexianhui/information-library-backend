@@ -7,9 +7,11 @@ import com.gxu.informationLibrary.entity.formStruct;
 import com.gxu.informationLibrary.entity.formTable;
 import com.gxu.informationLibrary.server.formManageServer;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 @Service
+@Transactional(rollbackFor=Exception.class)
 public class formManageImpl implements formManageServer {
     final formManageDao formManage;
 

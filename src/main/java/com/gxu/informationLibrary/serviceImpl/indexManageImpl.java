@@ -14,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
-@Transactional
+@Transactional(rollbackFor=Exception.class)
 public class indexManageImpl implements indexManage {
     final indexManageDao indexManage;
 
