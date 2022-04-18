@@ -1,12 +1,8 @@
 package com.gxu.informationLibrary.entity;
 
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 
 @Data
-@Getter
-@Setter
 public class response<T> {
     private int code;
     private String msg;
