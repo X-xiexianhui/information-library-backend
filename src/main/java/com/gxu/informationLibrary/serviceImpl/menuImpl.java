@@ -28,7 +28,8 @@ public class menuImpl implements menuServer {
 
     @Override
     public List<menuInfo> deleteMenu(String param) {
-        menu.deleteMenu();
+        int menu_id=JSON.parseObject(param).getIntValue("menu_id");
+        menu.deleteMenu(menu_id);
         return menu.query("");
     }
 

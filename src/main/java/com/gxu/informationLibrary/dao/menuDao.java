@@ -13,7 +13,7 @@ import java.util.Map;
 public interface menuDao {
     void addMenu(@Param("menu") menuInfo menu);
 
-    void deleteMenu();
+    void deleteMenu(@Param("menu_id") int menu_id);
 
     List<menuInfo>query(@Param("menu_name") String menu_name);
 
