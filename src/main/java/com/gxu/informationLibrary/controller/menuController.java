@@ -78,4 +78,14 @@ public class menuController {
         }
         return new response<>(data);
     }
+    @GetMapping("api/menu/id")
+    public response<menuInfo>getMenu(@RequestParam("form_id") int menu_id){
+        menuInfo data=new menuInfo();
+        try {
+            data=menu.queryMenu(menu_id);
+        }catch (Exception e){
+            return new response<>(500,e.getCause().getMessage(),data);
+        }
+        return new response<>(data);
+    }
 }
