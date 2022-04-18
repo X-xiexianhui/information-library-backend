@@ -45,6 +45,10 @@ public class menuImpl implements menuServer {
 
     @Override
     public List<menuInfo> editMenu() {
-        return null;
+        menu.editMenu();
+        return menu.query("");
+    }
+    public List<Map<String,Object>>getFormSelect() {
+        return menu.getFormSelect();
     }
 }
