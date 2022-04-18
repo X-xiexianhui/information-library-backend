@@ -9,7 +9,7 @@ public interface menuServer {
 
     List<menuInfo>deleteMenu();
 
-    List<menuInfo>queryMenu();
+    List<menuInfo>queryMenu(String menu_name);
 
     List<menuInfo>editMenu();
 }
