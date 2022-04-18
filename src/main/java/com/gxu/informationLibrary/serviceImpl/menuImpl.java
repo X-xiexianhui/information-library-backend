@@ -1,5 +1,7 @@
 package com.gxu.informationLibrary.serviceImpl;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.gxu.informationLibrary.dao.menuDao;
 import com.gxu.informationLibrary.entity.menuInfo;
 import com.gxu.informationLibrary.server.menuServer;
@@ -20,7 +22,8 @@ public class menuImpl implements menuServer {
 
     @Override
     public List<menuInfo> addMenu(String param) {
-        menu.addMenu();
+        menuInfo menuObject=JSON.parseObject(param).toJavaObject(menuInfo.class);
+        menu.addMenu(menuObject);
         return menu.query("");
     }
 

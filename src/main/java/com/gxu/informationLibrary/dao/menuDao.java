@@ -11,7 +11,7 @@ import java.util.Map;
 @Mapper
 @Repository
 public interface menuDao {
-    void addMenu();
+    void addMenu(@Param("menu") menuInfo menu);
 
     void deleteMenu();
 
