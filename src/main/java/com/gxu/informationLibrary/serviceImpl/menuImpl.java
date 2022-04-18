@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Map;
 
 @Service
-@Transactional(rollbackFor=Exception.class)
+@Transactional(rollbackFor = Exception.class)
 public class menuImpl implements menuServer {
     final menuDao menu;
 
@@ -39,7 +39,7 @@ public class menuImpl implements menuServer {
         return menu.getMenuById(menu_id);
     }
 
-    public List<Map<String,Object>> queryMenu() {
+    public List<Map<String, Object>> queryMenu() {
         return menu.getMenuSelect();
     }
 
@@ -48,7 +48,8 @@ public class menuImpl implements menuServer {
         menu.editMenu();
         return menu.query("");
     }
-    public List<Map<String,Object>>getFormSelect() {
+
+    public List<Map<String, Object>> getFormSelect() {
         return menu.getFormSelect();
     }
 }
