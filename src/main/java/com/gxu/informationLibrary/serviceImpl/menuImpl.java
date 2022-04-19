@@ -51,8 +51,4 @@ public class menuImpl implements menuServer {
         menu.editMenu();
         return menu.query("");
     }
-
-    public List<Map<String, Object>> getFormSelect() {
-        return menu.getFormSelect();
-    }
 }

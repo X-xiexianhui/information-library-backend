@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 @Repository
@@ -18,4 +19,6 @@ public interface formManageDao {
     void editForm(@Param("formStructList") List<formStruct>formStructList);
 
     List<formStruct> getFormStruct(@Param("form_id") int form_id);
+
+    List<Map<String, Object>>getFormSelect();
 }

@@ -37,4 +37,11 @@
             column_info.tb_id=(select form_info.tb_id from form_info where form_info.form_id=#{item.form_id}));
         </foreach>
     </update>
+    <resultMap id="formSelectMap" type="Map">
+        <result column="form_name" property="label"/>
+        <result column="form_id" property="value"/>
+    </resultMap>
+    <select id="getFormSelect" resultMap="formSelectMap">
+        select form_name,form_id from form_info;
+    </select>
 </mapper>

@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Map;
+
 @Service
 @Transactional(rollbackFor=Exception.class)
 public class formManageImpl implements formManageServer {
@@ -42,5 +44,9 @@ public class formManageImpl implements formManageServer {
     @Override
     public List<formStruct> getFormStruct(int form_id) {
         return formManage.getFormStruct(form_id);
+    }
+
+    public List<Map<String, Object>> getFormSelect() {
+        return formManage.getFormSelect();
     }
 }

@@ -21,7 +21,5 @@ public interface menuDao {
 
     List<Map<String,Object>>getMenuSelect();
 
-    List<Map<String, Object>>getFormSelect();
-
     void editMenu();
 }

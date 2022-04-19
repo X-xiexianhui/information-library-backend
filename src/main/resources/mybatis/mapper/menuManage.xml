@@ -39,11 +39,4 @@
     <select id="getMenuSelect" resultMap="menuSelectMap">
         select menu_name,menu_id from menu_info;
     </select>
-    <resultMap id="formSelectMap" type="Map">
-        <result column="form_name" property="label"/>
-        <result column="form_id" property="value"/>
-    </resultMap>
-    <select id="getFormSelect" resultMap="formSelectMap">
-        select form_name,form_id from form_info;
-    </select>
 </mapper>

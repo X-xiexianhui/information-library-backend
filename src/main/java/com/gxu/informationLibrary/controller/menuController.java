@@ -2,6 +2,7 @@ package com.gxu.informationLibrary.controller;
 
 import com.gxu.informationLibrary.entity.menuInfo;
 import com.gxu.informationLibrary.entity.response;
+import com.gxu.informationLibrary.serviceImpl.formManageImpl;
 import com.gxu.informationLibrary.serviceImpl.menuImpl;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -14,9 +15,11 @@ import java.util.Map;
 @ResponseBody
 public class menuController {
     final menuImpl menu;
+    final formManageImpl formManage;
 
-    public menuController(menuImpl menu) {
+    public menuController(menuImpl menu, formManageImpl formManage) {
         this.menu = menu;
+        this.formManage = formManage;
     }
 
     @PostMapping("api/menu/add")
@@ -78,7 +81,7 @@ public class menuController {
     public response<List<Map<String, Object>>> getFormSelect() {
         List<Map<String, Object>> data = new ArrayList<>();
         try {
-            data = menu.getFormSelect();
+            data=formManage.getFormSelect();
         } catch (Exception e) {
             return new response<>(500, e.getCause().getMessage(), data);
         }
