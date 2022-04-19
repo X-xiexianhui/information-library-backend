@@ -28,4 +28,7 @@
     <select id="getRoleSelect" resultMap="roleSelectMap">
         select role_id,role_name from role_info;
     </select>
+    <update id="editRole">
+        update role_info set ${col_name}=#{value};
+    </update>
 </mapper>
