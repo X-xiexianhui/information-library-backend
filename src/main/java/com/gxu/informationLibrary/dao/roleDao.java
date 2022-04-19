@@ -17,7 +17,7 @@ public interface roleDao {
 
     List<roleInfo>queryRole(@Param("role_name") String role_name);
 
-    List<roleInfo>queryById(@Param("role_id") int role_id);
+    roleInfo queryById(@Param("role_id") int role_id);
 
     List<Map<String,Object>>getRoleSelect();
 

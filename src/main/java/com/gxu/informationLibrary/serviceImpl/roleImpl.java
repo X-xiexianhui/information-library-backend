@@ -8,6 +8,8 @@ import com.gxu.informationLibrary.server.roleServer;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
+
 @Service
 public class roleImpl implements roleServer {
     final roleDao roleManager;
@@ -31,7 +33,15 @@ public class roleImpl implements roleServer {
 
     @Override
     public List<roleInfo> queryRole(String role_name) {
-        return null;
+        return roleManager.queryRole(role_name);
+    }
+
+    public roleInfo queryRole(int role_id){
+        return roleManager.queryById(role_id);
+    }
+
+    public List<Map<String,Object>>queryRole(){
+        return roleManager.getRoleSelect();
     }
 
     @Override
