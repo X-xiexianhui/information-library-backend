@@ -21,5 +21,5 @@ public interface menuDao {
 
     List<Map<String,Object>>getMenuSelect();
 
-    void editMenu();
+    void editMenu(@Param("col_name") String col_name,@Param("value") String value);
 }
