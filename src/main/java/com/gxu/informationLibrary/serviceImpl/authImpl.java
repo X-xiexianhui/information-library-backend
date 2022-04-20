@@ -14,7 +14,7 @@ import java.util.List;
 
 @Service
 public class authImpl implements authServer {
-    final authDao auth;
+    private final authDao auth;
     private final StringRedisTemplate redisTemplate;
 
     public authImpl(authDao auth, StringRedisTemplate redisTemplate) {
