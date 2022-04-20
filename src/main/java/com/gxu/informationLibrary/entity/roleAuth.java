@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class roleAuth {
    int role_id;
-   int form_id;
+   String role_name;
    String add;
    String del;
    String search;
