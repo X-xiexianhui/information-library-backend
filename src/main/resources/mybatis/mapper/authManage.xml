@@ -3,7 +3,14 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gxu.informationLibrary.dao.authDao">
     <select id="getAuth" resultType="com.gxu.informationLibrary.entity.roleAuth">
-        select role_id,role_auth.role_name, `add`, del, search, edit
-        from role_auth,role_info where role_auth.role_name=role_info.role_name;
+        select role_id, role_auth.role_name, `add`, del, search, edit
+        from role_auth,
+             role_info
+        where role_auth.role_name = role_info.role_name
+          and role_auth.role_name like concat('%', #{role_name}, '%');
     </select>
+    <update id="editAuth">
+        update role_auth
+        set ${col_name}=#{value};
+    </update>
 </mapper>
