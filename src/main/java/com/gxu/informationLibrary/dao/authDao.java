@@ -13,4 +13,6 @@ public interface authDao {
     List<roleAuth>getAuth(@Param("role_name") String role_name);
 
     void editAuth();
+
+    roleAuth queryByName(@Param("role_name") String role_name);
 }

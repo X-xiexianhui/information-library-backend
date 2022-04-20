@@ -13,4 +13,11 @@
         update role_auth
         set ${col_name}=#{value};
     </update>
+    <select id="queryByName" resultType="com.gxu.informationLibrary.entity.roleAuth">
+    select role_id, role_auth.role_name, `add`, del, search, edit
+    from role_auth,
+    role_info
+    where role_auth.role_name = role_info.role_name
+    and role_auth.role_name like concat('%', #{role_name}, '%');
+    </select>
 </mapper>
