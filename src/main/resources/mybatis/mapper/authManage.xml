@@ -18,6 +18,6 @@
     from role_auth,
     role_info
     where role_auth.role_name = role_info.role_name
-    and role_auth.role_name like concat('%', #{role_name}, '%');
+    and role_auth.role_name =#{role_name};
     </select>
 </mapper>
