@@ -7,5 +7,5 @@ import java.util.List;
 public interface authServer {
     List<roleAuth>getAuth(String role_name);
 
-    void editAuth();
+    void editAuth(String parma);
 }

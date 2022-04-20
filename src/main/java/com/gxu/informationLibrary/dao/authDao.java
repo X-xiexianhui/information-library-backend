@@ -12,7 +12,7 @@ import java.util.List;
 public interface authDao {
     List<roleAuth>getAuth(@Param("role_name") String role_name);
 
-    void editAuth();
+    void editAuth(@Param("col_name") String col_name,@Param("value") String value);
 
     roleAuth queryByName(@Param("role_name") String role_name);
 }
