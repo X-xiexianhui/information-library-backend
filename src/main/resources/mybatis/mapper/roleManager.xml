@@ -5,6 +5,8 @@
     <insert id="addRole">
         insert into role_info(role_name, role_description)
         VALUES (#{role.role_name}, #{role.role_description});
+        insert into role_auth
+        values (#{role_name}, 'a1', 'd1', 's1', 'u1');
     </insert>
     <delete id="deleteRole">
         delete
@@ -26,9 +28,11 @@
         <result column="role_id" property="value"/>
     </resultMap>
     <select id="getRoleSelect" resultMap="roleSelectMap">
-        select role_id,role_name from role_info;
+        select role_id, role_name
+        from role_info;
     </select>
     <update id="editRole">
-        update role_info set ${col_name}=#{value};
+        update role_info
+        set ${col_name}=#{value};
     </update>
 </mapper>
