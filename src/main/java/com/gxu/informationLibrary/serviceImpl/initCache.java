@@ -24,7 +24,7 @@ public class initCache {
 
     @PostConstruct
     public void initCacheFunc(){
-        List<roleAuth>cache=auth.getAuth();
+        List<roleAuth>cache=auth.getAuth("");
         HashOperations<String,String,String> hashOps = redisTemplate.opsForHash();
         for (roleAuth r:cache) {
             String key="auth_"+r.getRole_name();
