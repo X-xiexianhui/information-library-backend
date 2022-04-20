@@ -30,7 +30,7 @@ public class authImpl implements authServer {
         return auth.queryByName(role_name);
     }
     @Override
-    public void editAuth(String parma) {
+    public List<roleAuth> editAuth(String parma) {
         JSONObject editObject= JSON.parseObject(parma);
         String role_name=editObject.getString("role_name");
         JSONArray array=editObject.getJSONArray("update");
@@ -40,5 +40,6 @@ public class authImpl implements authServer {
             auth.editAuth(edit.getString("col_name"),edit.getString("value"));
             hashOps.delete("auth_"+role_name,edit.getString("col_name"));
         }
+        return auth.getAuth("");
     }
 }
