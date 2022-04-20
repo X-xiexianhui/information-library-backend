@@ -11,9 +11,5 @@ import java.util.List;
 public interface authDao {
     List<roleAuth>getAuth();
 
-    void deleteAuth();
-
-    void addAuth();
-
     void editAuth();
 }
