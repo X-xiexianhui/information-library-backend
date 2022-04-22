@@ -14,7 +14,7 @@ import java.util.List;
 @Mapper
 @Repository
 public interface tableManagerDao {
-    void createTable(@Param("column") List column, @Param("pks") List pks, @Param("db_name") String db_name, @Param("tb_name") String tb_name);
+    void createTable(@Param("column") List<column> column, @Param("pks") List<String> pks, @Param("db_name") String db_name, @Param("tb_name") String tb_name);
 
     void deleteTable(@Param("db_name") String db_name, @Param("tb_name") String tb_name);
 
@@ -53,4 +53,5 @@ public interface tableManagerDao {
 
     int getPrimaryKey(@Param("db_name") String db_name, @Param("tb_name") String tb_name);
     int count(@Param("db_name") String db_name, @Param("tb_name") String tb_name);
+    void insertColumn(@Param("column") List<column> column,@Param("db_name") String db_name, @Param("tb_name") String tb_name);
 }

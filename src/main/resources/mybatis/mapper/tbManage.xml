@@ -33,12 +33,6 @@
         );
         update db_info set tables=tables+1 where db_name=#{db_name};
         insert into tb_info(db_name, tb_name) values (#{db_name},#{tb_name});
-        insert into column_info(tb_id, col_name, data_type, len, place, PK, not_null, uni)
-        <foreach item="item" collection="column" index="index" separator="union all">
-            select tb_id,
-            #{item.col_name},#{item.data_type},#{item.len},#{item.place},#{item.PK},#{item.not_null},#{item.uni}
-            from tb_info where db_name=#{db_name} and tb_name=#{tb_name}
-        </foreach>;
         insert into form_info (form_name, tb_id) select concat(#{db_name},'.',#{tb_name}),tb_id from tb_info where
         db_name=#{db_name} and tb_name=#{tb_name};
         insert into form_struct
@@ -91,7 +85,14 @@
                        where tb_name = #{tb_name}
                          and db_name = #{db_name});
     </select>
-
+    <insert id="insertColumn">
+        insert into column_info(tb_id, col_name, data_type, len, place, PK, not_null, uni)
+        <foreach item="item" collection="column" index="index" separator="union all">
+            select tb_id,
+            #{item.col_name},#{item.data_type},#{item.len},#{item.place},#{item.PK},#{item.not_null},#{item.uni}
+            from tb_info where db_name=#{item.db_name} and tb_name=#{item.tb_name}
+        </foreach>;
+    </insert>
     <update id="addColumn">
         <foreach collection="insert" item="item" index="index">
             alter table ${item.db_name}.${item.tb_name} add column ${item.col_name} ${item.data_type}
