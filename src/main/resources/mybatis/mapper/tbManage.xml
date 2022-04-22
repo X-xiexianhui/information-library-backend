@@ -17,6 +17,7 @@
             <if test="item.uni==true">unique</if>
             <if test="item.not_null==true">not null</if>,
         </foreach>
+        user varchar(18) not null,
         file varchar(64),
         record_id int auto_increment,
         <if test="pks!=null and pks.size()>0">
@@ -27,7 +28,8 @@
             ),
         </if>
         index (record_id),
-        index (file)
+        index (file),
+        foreign key (user) references user_info(user_id);
         );
         update db_info set tables=tables+1 where db_name=#{db_name};
         insert into tb_info(db_name, tb_name) values (#{db_name},#{tb_name});
