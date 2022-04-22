@@ -2,6 +2,7 @@ package com.gxu.informationLibrary.dao;
 
 import netscape.javascript.JSObject;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -9,7 +10,7 @@ import java.util.List;
 @Mapper
 @Repository
 public interface dataManageDao {
-    void insertData();
+    void insertData(@Param("col_name") List<String>col_name,@Param("value") List<Object>value);
 
     void updateData();
 
