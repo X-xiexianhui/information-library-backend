@@ -1,5 +1,6 @@
 package com.gxu.informationLibrary.dao;
 
+import com.gxu.informationLibrary.entity.column;
 import com.gxu.informationLibrary.entity.formStruct;
 import com.gxu.informationLibrary.entity.formTable;
 import org.apache.ibatis.annotations.Mapper;
@@ -23,4 +24,6 @@ public interface formManageDao {
     List<Map<String, Object>>getFormSelect();
 
     void insertFormInfo(@Param("db_name") String db_name,@Param("tb_name") String tb_name);
+
+    void insertFormStruct(@Param("column")List<column>columns,@Param("db_name") String db_name,@Param("tb_name") String tb_name);
 }

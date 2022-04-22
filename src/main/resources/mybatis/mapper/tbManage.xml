@@ -33,13 +33,6 @@
         );
         update db_info set tables=tables+1 where db_name=#{db_name};
         insert into tb_info(db_name, tb_name) values (#{db_name},#{tb_name});
-        insert into form_struct
-        <foreach item="item" collection="column" index="index" separator="union all">
-            select form_id,col_id,#{item.col_name} from form_info,column_info
-            where
-            concat(#{db_name},'.',#{tb_name})=form_name and column_info.tb_id=form_info.tb_id and
-            col_name=#{item.col_name}
-        </foreach>;
     </update>
 
     <update id="deleteTable">
