@@ -2,7 +2,7 @@ package com.gxu.informationLibrary.serviceImpl;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.alibaba.fastjson.parser.Feature;
+import com.gxu.informationLibrary.dao.formManageDao;
 import com.gxu.informationLibrary.dao.tableManagerDao;
 import com.gxu.informationLibrary.entity.*;
 import com.gxu.informationLibrary.server.tbManageServer;
@@ -16,11 +16,12 @@ import java.util.List;
 @Transactional(rollbackFor = Exception.class)
 public class tbManageImpl implements tbManageServer {
     final tableManagerDao tbManage;
-
+    final formManageDao formManage;
     private boolean isAlterPK = false;
 
-    public tbManageImpl(tableManagerDao tbManage) {
+    public tbManageImpl(tableManagerDao tbManage, formManageDao formManage) {
         this.tbManage = tbManage;
+        this.formManage = formManage;
     }
 
     @Override
@@ -37,6 +38,7 @@ public class tbManageImpl implements tbManageServer {
         }
         tbManage.createTable(columns, pks, db_name, tb_name);
         tbManage.insertColumn(columns,db_name,tb_name);
+        formManage.insertFormInfo(db_name,tb_name);
         return tbManage.getColumn(db_name, tb_name);
     }
 
