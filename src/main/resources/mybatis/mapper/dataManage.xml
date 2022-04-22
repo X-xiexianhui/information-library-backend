@@ -19,12 +19,16 @@
         </foreach>
     </update>
     <delete id="deleteData">
-        delete
-        from ${db_name}.${tb_name}
+        update ${db_name}.${tb_name}
+        set is_del=1
         where record_id = #{record_id};
     </delete>
     <select id="queryData">
         select * from ${db_name}.${tb_name}
-        <if test="onlyAuth==true">where user_id=#{user_id}</if>
+        where
+        <foreach collection="columns" item="item" index="index" separator="and">
+            ${item.col_name} like concat('%',#{item.value},'%')
+        </foreach>
+        <if test="onlyAuth==true">and user_id=#{user_id}</if>
     </select>
 </mapper>
