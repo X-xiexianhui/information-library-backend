@@ -39,6 +39,7 @@ public class tbManageImpl implements tbManageServer {
         tbManage.createTable(columns, pks, db_name, tb_name);
         tbManage.insertColumn(columns,db_name,tb_name);
         formManage.insertFormInfo(db_name,tb_name);
+        formManage.insertFormStruct(columns,db_name,tb_name);
         return tbManage.getColumn(db_name, tb_name);
     }
 
@@ -88,6 +89,7 @@ public class tbManageImpl implements tbManageServer {
         if (insert.size() == 0) return;
         tbManage.addColumn(insert);
         tbManage.insertColumn(insert,insert.get(0).getDb_name(),insert.get(0).getTb_name());
+        formManage.insertFormStruct(insert,insert.get(0).getDb_name(),insert.get(0).getTb_name());
         for (column c : insert) {
             if (c.isPK()) {
                 isAlterPK = true;
