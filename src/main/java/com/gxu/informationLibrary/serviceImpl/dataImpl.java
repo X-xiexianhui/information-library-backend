@@ -54,6 +54,7 @@ public class dataImpl implements dataServer {
         String db_name= updateJSON.getString("db_name");
         String tb_name=updateJSON.getString("tb_name");
         List<editEntity> updates=updateJSON.getJSONArray("update").toJavaList(editEntity.class);
-        return null;
+        dataManage.updateData(db_name,tb_name , updates);
+        return dataManage.queryData(db_name,tb_name , new ArrayList<>(), false);
     }
 }
