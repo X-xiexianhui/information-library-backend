@@ -7,7 +7,7 @@ import java.util.List;
 public interface dataServer {
     List<JSONObject>insertData(String parma);
 
-    List<JSONObject>deleteData(String record_id);
+    List<JSONObject>deleteData(String parma);
 
     List<JSONObject>queryData(String parma);
 

@@ -31,8 +31,13 @@ public class dataImpl implements dataServer {
     }
 
     @Override
-    public List<JSONObject> deleteData(String record_id) {
-        return null;
+    public List<JSONObject> deleteData(String parma) {
+        JSONObject deleteJSON=JSON.parseObject(parma);
+        String db_name=deleteJSON.getString("db_name");
+        String tb_name=deleteJSON.getString("tb_name");
+        String record_id=deleteJSON.getString("record_id");
+        dataManage.deleteData(db_name,tb_name,record_id);
+        return dataManage.queryData(db_name,tb_name , new ArrayList<>(), false);
     }
 
     @Override
