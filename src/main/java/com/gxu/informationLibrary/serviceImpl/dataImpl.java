@@ -25,12 +25,8 @@ public class dataImpl implements dataServer {
         JSONObject insert= JSON.parseObject(parma);
         String db_name=insert.getString("db_name");
         String tb_name=insert.getString("tb_name");
-        List<String> key=new ArrayList<>(insert.keySet());
-        List<Object>value=new ArrayList<>();
-        for (String k:key) {
-            value.add(insert.get(k));
-        }
-        dataManage.insertData(db_name, tb_name, key, value);
+        List<editEntity>columns=insert.getJSONArray("insert").toJavaList(editEntity.class);
+        dataManage.insertData(db_name, tb_name,columns);
         return dataManage.queryData(db_name,tb_name , new ArrayList<>(), false);
     }
 
