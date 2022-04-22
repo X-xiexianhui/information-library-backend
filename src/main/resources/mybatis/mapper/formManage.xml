@@ -42,6 +42,14 @@
         <result column="form_id" property="value"/>
     </resultMap>
     <select id="getFormSelect" resultMap="formSelectMap">
-        select form_name,form_id from form_info;
+        select form_name, form_id
+        from form_info;
     </select>
+    <insert id="insertFormInfo">
+        insert into form_info (form_name, tb_id)
+        select concat(#{db_name}, '.', #{tb_name}), tb_id
+        from tb_info
+        where db_name = #{db_name}
+          and tb_name = #{tb_name};
+    </insert>
 </mapper>

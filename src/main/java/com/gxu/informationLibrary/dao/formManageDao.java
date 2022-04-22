@@ -21,4 +21,6 @@ public interface formManageDao {
     List<formStruct> getFormStruct(@Param("form_id") int form_id);
 
     List<Map<String, Object>>getFormSelect();
+
+    void insertFormInfo();
 }
