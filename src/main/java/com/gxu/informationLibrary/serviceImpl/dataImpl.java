@@ -31,7 +31,7 @@ public class dataImpl implements dataServer {
             value.add(insert.get(k));
         }
         dataManage.insertData(db_name, tb_name, key, value);
-        return dataManage.queryData();
+        return dataManage.queryData(db_name,tb_name , new ArrayList<>(), false);
     }
 
     @Override

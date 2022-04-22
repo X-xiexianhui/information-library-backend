@@ -16,5 +16,5 @@ public interface dataManageDao {
 
     void deleteData();
 
-    List<JSObject>queryData();
+    List<JSObject>queryData(String db_name,String tb_name,List<String>columns,boolean onlyAuth);
 }
