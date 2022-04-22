@@ -85,6 +85,7 @@ public class tbManageImpl implements tbManageServer {
     private void addColumn(List<column> insert) {
         if (insert.size() == 0) return;
         tbManage.addColumn(insert);
+        tbManage.insertColumn(insert,insert.get(0).getDb_name(),insert.get(0).getTb_name());
         for (column c : insert) {
             if (c.isPK()) {
                 isAlterPK = true;
