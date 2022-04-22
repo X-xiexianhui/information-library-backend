@@ -1,4 +1,4 @@
-package com.gxu.informationLibrary.serviceImpl;
+package com.gxu.informationLibrary.entity;
 
 import lombok.Data;
 

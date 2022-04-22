@@ -1,6 +1,6 @@
 package com.gxu.informationLibrary.dao;
 
-import com.gxu.informationLibrary.serviceImpl.userInfo;
+import com.gxu.informationLibrary.entity.userInfo;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;

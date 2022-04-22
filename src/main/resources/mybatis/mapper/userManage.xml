@@ -9,9 +9,20 @@
         where role_name = #{user.user_role};
     </insert>
     <delete id="deleteUser">
-        update user_info set is_del=1 where user_id=#{user_id};
+        update user_info
+        set is_del=1
+        where user_id = #{user_id};
     </delete>
     <update id="updateUser">
-        update user_info set ${col_name}=#{value} where user_id=#{user_id};
+        update user_info
+        set ${col_name}=#{value}
+        where user_id = #{user_id};
     </update>
+    <select id="queryUser" resultType="com.gxu.informationLibrary.entity.userInfo">
+        select user_id, '******', user_name, user_email, role_name as user_role, is_del, is_use
+        from user_info,
+             role_info
+        where user_name like concat('%', #{user_name}, '%')
+          and user_role = role_info.role_id;
+    </select>
 </mapper>
