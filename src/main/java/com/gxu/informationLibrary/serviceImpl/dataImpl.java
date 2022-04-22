@@ -3,8 +3,8 @@ package com.gxu.informationLibrary.serviceImpl;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.gxu.informationLibrary.dao.dataManageDao;
+import com.gxu.informationLibrary.entity.editEntity;
 import com.gxu.informationLibrary.server.dataServer;
-import netscape.javascript.JSObject;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -44,12 +44,16 @@ public class dataImpl implements dataServer {
         JSONObject query=JSON.parseObject(parma);
         String db_name=query.getString("db_name");
         String tb_name=query.getString("tb_name");
-        List<String>columns=query.getJSONArray("columns").toJavaList(String.class);
+        List<editEntity>columns=query.getJSONArray("columns").toJavaList(editEntity.class);
         return dataManage.queryData(db_name,tb_name,columns,false);
     }
 
     @Override
     public List<JSONObject> updateData(String parma) {
+        JSONObject updateJSON =JSON.parseObject(parma);
+        String db_name= updateJSON.getString("db_name");
+        String tb_name=updateJSON.getString("tb_name");
+        List<editEntity> updates=updateJSON.getJSONArray("update").toJavaList(editEntity.class);
         return null;
     }
 }

@@ -4,11 +4,11 @@
 <mapper namespace="com.gxu.informationLibrary.dao.dataManageDao">
     <insert id="insertData">
         insert into ${db_name}.${tb_name}(
-        <foreach collection="col_names" index="index" item="item" separator=",">
+        <foreach collection="columns" index="index" item="item" separator=",">
             ${item.col_name}
         </foreach>
         ) values(
-        <foreach collection="values" index="index" item="item" separator=",">
+        <foreach collection="columns" index="index" item="item" separator=",">
             ${item.value}
         </foreach>
         )
