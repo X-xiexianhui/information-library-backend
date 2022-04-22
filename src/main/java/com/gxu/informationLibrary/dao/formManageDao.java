@@ -22,5 +22,5 @@ public interface formManageDao {
 
     List<Map<String, Object>>getFormSelect();
 
-    void insertFormInfo();
+    void insertFormInfo(@Param("db_name") String db_name,@Param("tb_name") String tb_name);
 }

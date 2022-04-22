@@ -25,7 +25,7 @@ public class tbManageImpl implements tbManageServer {
 
     @Override
     public List<JSONObject> createTable(String Param) {
-        JSONObject jsonParam = JSONObject.parseObject(Param, Feature.OrderedField);
+        JSONObject jsonParam = JSONObject.parseObject(Param);
         String db_name = jsonParam.getString("db_name");
         String tb_name = jsonParam.getString("tb_name");
         List<column> columns = new Columns(jsonParam.getJSONArray("column"), db_name, tb_name).getColumns();
