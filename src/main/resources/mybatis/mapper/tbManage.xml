@@ -106,8 +106,6 @@
             </choose>
             <if test="item.uni==true">unique</if>
             <if test="item.not_null==true">not null</if>;
-            insert into form_info (form_name, tb_id) select concat(#{item.db_name},'.',#{item.tb_name}),tb_id from tb_info where
-            db_name=#{item.db_name} and tb_name=#{item.tb_name};
         </foreach>;
         insert into form_struct
         <foreach item="item" collection="insert" index="index" separator="union all">
