@@ -10,7 +10,7 @@ import java.util.List;
 @Mapper
 @Repository
 public interface dataManageDao {
-    void insertData(@Param("col_name") List<String>col_name,@Param("value") List<Object>value);
+    void insertData(@Param("db_name") String db_name,@Param("tb_name") String tb_name,@Param("col_name") List<String>col_name,@Param("value") List<Object>value);
 
     void updateData();
 

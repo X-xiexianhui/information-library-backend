@@ -23,13 +23,15 @@ public class dataImpl implements dataServer {
     @Override
     public List<JSObject> insertData(String parma) {
         JSONObject insert= JSON.parseObject(parma);
+        String db_name=insert.getString("db_name");
+        String tb_name=insert.getString("tb_name");
         List<String> key=new ArrayList<>(insert.keySet());
         List<Object>value=new ArrayList<>();
         for (String k:key) {
             value.add(insert.get(k));
         }
-        dataManage.insertData(key, value);
-        return null;
+        dataManage.insertData(db_name, tb_name, key, value);
+        return dataManage.queryData();
     }
 
     @Override
