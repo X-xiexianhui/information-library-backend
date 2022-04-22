@@ -9,10 +9,12 @@ import com.gxu.informationLibrary.server.authServer;
 import org.springframework.data.redis.core.HashOperations;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
+@Transactional(rollbackFor = Exception.class)
 public class authImpl implements authServer {
     private final authDao auth;
     private final StringRedisTemplate redisTemplate;

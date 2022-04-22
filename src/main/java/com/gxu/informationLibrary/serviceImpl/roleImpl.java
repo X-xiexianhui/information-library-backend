@@ -6,11 +6,13 @@ import com.gxu.informationLibrary.dao.roleDao;
 import com.gxu.informationLibrary.entity.roleInfo;
 import com.gxu.informationLibrary.server.roleServer;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Map;
 
 @Service
+@Transactional(rollbackFor = Exception.class)
 public class roleImpl implements roleServer {
     final roleDao roleManager;
 
