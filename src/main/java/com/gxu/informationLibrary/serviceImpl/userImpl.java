@@ -1,6 +1,8 @@
 package com.gxu.informationLibrary.serviceImpl;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.gxu.informationLibrary.dao.userDao;
 import com.gxu.informationLibrary.entity.userInfo;
 import com.gxu.informationLibrary.server.userServer;
@@ -26,16 +28,22 @@ public class userImpl implements userServer {
 
     @Override
     public List<userInfo> deleteUser(String user_id) {
-        return null;
+        userManage.deleteUser(user_id);
+        return userManage.queryUser("");
     }
 
     @Override
     public List<userInfo> queryUser(String user_name) {
-        return null;
+        return userManage.queryUser(user_name);
     }
 
     @Override
-    public List<userInfo> editUser(String user) {
-        return null;
+    public List<userInfo> editUser(String param) {
+        JSONArray array=JSON.parseArray(param);
+        for (int i = 0; i < array.size(); i++) {
+            JSONObject object=array.getJSONObject(i);
+            userManage.editUser(object.getString("user_id"), object.getString("col_name"), object.getString("value") );
+        }
+        return userManage.queryUser("");
     }
 }
