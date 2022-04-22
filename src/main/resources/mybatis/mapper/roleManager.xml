@@ -6,7 +6,7 @@
         insert into role_info(role_name, role_description)
         VALUES (#{role.role_name}, #{role.role_description});
         insert into role_auth
-        values (#{role_name}, 'a1', 'd1', 's1', 'u1');
+        values (#{role.role_name}, 'a1', 'd1', 's1', 'u1');
     </insert>
     <delete id="deleteRole">
         delete
