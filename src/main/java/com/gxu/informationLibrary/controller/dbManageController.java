@@ -33,9 +33,9 @@ public class dbManageController {
     @DeleteMapping("api/db/delete")
     public response<String> deleteDB(@RequestParam("db_name") String db_name) {
         try {
-            int tbs =dbManage.getTables(db_name);
-            if (tbs>0){
-                return new response<>(500,"数据库非空，不允许删除",null);
+            int tbs = dbManage.getTables(db_name);
+            if (tbs > 0) {
+                return new response<>(500, "数据库非空，不允许删除", null);
             }
             dbManage.deleteDB(db_name);
         } catch (Exception e) {

@@ -19,42 +19,45 @@ public class userController {
     }
 
     @PostMapping("api/user/add")
-    public response<List<userInfo>>addUser(@RequestBody String param){
-        List<userInfo>data=new ArrayList<>();
+    public response<List<userInfo>> addUser(@RequestBody String param) {
+        List<userInfo> data = new ArrayList<>();
         try {
-            data=userManager.addUser(param);
-        }catch (Exception e){
-            return new response<>(500,e.getCause().getMessage(),data);
+            data = userManager.addUser(param);
+        } catch (Exception e) {
+            return new response<>(500, e.getCause().getMessage(), data);
         }
         return new response<>(data);
     }
+
     @PostMapping("api/user/delete")
-    public response<List<userInfo>>deleteUser(@RequestParam("user_id") String user_id){
-        List<userInfo>data=new ArrayList<>();
+    public response<List<userInfo>> deleteUser(@RequestParam("user_id") String user_id) {
+        List<userInfo> data = new ArrayList<>();
         try {
-            data=userManager.deleteUser(user_id);
-        }catch (Exception e){
-            return new response<>(500,e.getCause().getMessage(),data);
+            data = userManager.deleteUser(user_id);
+        } catch (Exception e) {
+            return new response<>(500, e.getCause().getMessage(), data);
         }
         return new response<>(data);
     }
+
     @GetMapping("pai/user/get")
-    public response<List<userInfo>>queryUser(@RequestParam("user_name")String user_name){
-        List<userInfo>data=new ArrayList<>();
+    public response<List<userInfo>> queryUser(@RequestParam("user_name") String user_name) {
+        List<userInfo> data = new ArrayList<>();
         try {
-            data=userManager.queryUser(user_name);
-        }catch (Exception e){
-            return new response<>(500,e.getCause().getMessage(),data);
+            data = userManager.queryUser(user_name);
+        } catch (Exception e) {
+            return new response<>(500, e.getCause().getMessage(), data);
         }
         return new response<>(data);
     }
+
     @PostMapping("api/user/edit")
-    public response<List<userInfo>>editUser(@RequestBody String param){
-        List<userInfo>data=new ArrayList<>();
+    public response<List<userInfo>> editUser(@RequestBody String param) {
+        List<userInfo> data = new ArrayList<>();
         try {
-            data=userManager.editUser(param);
-        }catch (Exception e){
-            return new response<>(500,e.getCause().getMessage(),data);
+            data = userManager.editUser(param);
+        } catch (Exception e) {
+            return new response<>(500, e.getCause().getMessage(), data);
         }
         return new response<>(data);
     }

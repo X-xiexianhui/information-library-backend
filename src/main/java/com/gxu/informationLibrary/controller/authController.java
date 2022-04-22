@@ -19,33 +19,34 @@ public class authController {
     }
 
     @GetMapping("api/auth/get")
-    public response<List<roleAuth>>getAuth(@RequestParam("role_name")String role_name){
-        List<roleAuth>data=new ArrayList<>();
+    public response<List<roleAuth>> getAuth(@RequestParam("role_name") String role_name) {
+        List<roleAuth> data = new ArrayList<>();
         try {
-            data=auth.getAuth(role_name);
-        }catch (Exception e){
-            return new response<>(500,e.getCause().getMessage(),data);
+            data = auth.getAuth(role_name);
+        } catch (Exception e) {
+            return new response<>(500, e.getCause().getMessage(), data);
         }
         return new response<>(data);
     }
+
     @GetMapping("api/auth/name")
-    public response<roleAuth>queryByName(@RequestParam("role_name")String role_name){
-        roleAuth data=new roleAuth();
+    public response<roleAuth> queryByName(@RequestParam("role_name") String role_name) {
+        roleAuth data = new roleAuth();
         try {
-            data=auth.queryByName(role_name);
-        }catch (Exception e){
-            return new response<>(500,e.getCause().getMessage(),data);
+            data = auth.queryByName(role_name);
+        } catch (Exception e) {
+            return new response<>(500, e.getCause().getMessage(), data);
         }
         return new response<>(data);
     }
 
     @PostMapping("api/auth/edit")
-    public response<List<roleAuth>>editAuth(@RequestBody String param){
-        List<roleAuth>data=new ArrayList<>();
+    public response<List<roleAuth>> editAuth(@RequestBody String param) {
+        List<roleAuth> data = new ArrayList<>();
         try {
-            data=auth.editAuth(param);
-        }catch (Exception e){
-            return new response<>(500,e.getCause().getMessage(),data);
+            data = auth.editAuth(param);
+        } catch (Exception e) {
+            return new response<>(500, e.getCause().getMessage(), data);
         }
         return new response<>(data);
     }

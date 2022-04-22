@@ -81,7 +81,7 @@ public class menuController {
     public response<List<Map<String, Object>>> getFormSelect() {
         List<Map<String, Object>> data = new ArrayList<>();
         try {
-            data=formManage.getFormSelect();
+            data = formManage.getFormSelect();
         } catch (Exception e) {
             return new response<>(500, e.getCause().getMessage(), data);
         }
