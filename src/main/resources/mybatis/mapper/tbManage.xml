@@ -98,13 +98,6 @@
             <if test="item.uni==true">unique</if>
             <if test="item.not_null==true">not null</if>;
         </foreach>;
-        insert into form_struct
-        <foreach item="item" collection="insert" index="index" separator="union all">
-            select form_id,col_id,#{item.col_name} from form_info,column_info
-            where
-            concat(#{item.db_name},'.',#{item.tb_name})=form_name and column_info.tb_id=form_info.tb_id and
-            col_name=#{item.col_name}
-        </foreach>;
     </update>
 
     <update id="dropColumn">
