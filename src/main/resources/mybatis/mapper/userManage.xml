@@ -8,4 +8,7 @@
         from role_info
         where role_name = #{user.user_role};
     </insert>
+    <delete id="deleteUser">
+        update user_info set is_del=1 where user_id=#{user_id};
+    </delete>
 </mapper>
