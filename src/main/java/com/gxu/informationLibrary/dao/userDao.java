@@ -10,7 +10,7 @@ import java.util.List;
 @Mapper
 @Repository
 public interface userDao {
-    void addUser();
+    void addUser(@Param("user") userInfo user);
 
     void deleteUser(@Param("user_id") String user_id);
 
