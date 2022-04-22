@@ -21,7 +21,7 @@ public class dataImpl implements dataServer {
     }
 
     @Override
-    public List<JSObject> insertData(String parma) {
+    public List<JSONObject> insertData(String parma) {
         JSONObject insert= JSON.parseObject(parma);
         String db_name=insert.getString("db_name");
         String tb_name=insert.getString("tb_name");
@@ -35,13 +35,17 @@ public class dataImpl implements dataServer {
     }
 
     @Override
-    public List<JSObject> deleteData(String record_id) {
+    public List<JSONObject> deleteData(String record_id) {
         return null;
     }
 
     @Override
     public List<JSONObject> queryData(String parma) {
-        return null;
+        JSONObject query=JSON.parseObject(parma);
+        String db_name=query.getString("db_name");
+        String tb_name=query.getString("tb_name");
+        List<String>columns=query.getJSONArray("columns").toJavaList(String.class);
+        return dataManage.queryData(db_name,tb_name,columns,false);
     }
 
     @Override

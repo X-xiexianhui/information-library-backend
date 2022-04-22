@@ -1,5 +1,6 @@
 package com.gxu.informationLibrary.dao;
 
+import com.alibaba.fastjson.JSONObject;
 import netscape.javascript.JSObject;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -16,5 +17,5 @@ public interface dataManageDao {
 
     void deleteData();
 
-    List<JSObject>queryData(String db_name,String tb_name,List<String>columns,boolean onlyAuth);
+    List<JSONObject>queryData(String db_name, String tb_name, List<String>columns, boolean onlyAuth);
 }
