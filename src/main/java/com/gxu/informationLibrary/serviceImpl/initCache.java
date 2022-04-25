@@ -27,7 +27,7 @@ public class initCache {
         List<roleAuth>cache=auth.getAuth("");
         HashOperations<String,String,String> hashOps = redisTemplate.opsForHash();
         for (roleAuth r:cache) {
-            String key="auth_"+r.getRole_name();
+            String key="auth_"+r.getRole_name()+"_"+r.getForm_name();
             hashOps.put(key,"add",r.getAdd());
             hashOps.put(key,"del",r.getDel());
             hashOps.put(key,"search",r.getSearch());
