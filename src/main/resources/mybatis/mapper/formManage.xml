@@ -66,4 +66,7 @@
         from form_info
         where form_name = #{form_name};
     </select>
+    <select id="getFormList" resultType="int">
+        select form_id from form_info;
+    </select>
 </mapper>
