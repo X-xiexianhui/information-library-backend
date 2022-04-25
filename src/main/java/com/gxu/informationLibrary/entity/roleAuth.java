@@ -9,5 +9,5 @@ public class roleAuth {
    String add;
    String del;
    String search;
-   String edit;
+   String editAuth;
 }
