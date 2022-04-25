@@ -1,6 +1,7 @@
 package com.gxu.informationLibrary.serviceImpl;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.gxu.informationLibrary.dao.authDao;
 import com.gxu.informationLibrary.dao.formManageDao;
@@ -63,8 +64,11 @@ public class roleImpl implements roleServer {
 
     @Override
     public List<roleInfo> editRole(String Param) {
-        JSONObject roleJSON=JSON.parseObject(Param);
-        roleManager.editRole(roleJSON.getString("col_name"),roleJSON.getString("value"));
+        JSONArray array = JSON.parseArray(Param);
+        for (int i = 0; i < array.size(); i++) {
+            JSONObject roleJSON=array.getJSONObject(i);
+            roleManager.editRole(roleJSON.getString("col_name"),roleJSON.getString("value"));
+        }
         return roleManager.queryRole("");
     }
 }
