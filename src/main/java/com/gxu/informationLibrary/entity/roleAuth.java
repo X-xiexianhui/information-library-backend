@@ -4,8 +4,8 @@ import lombok.Data;
 
 @Data
 public class roleAuth {
-   int role_id;
    String role_name;
+   String form_name;
    String add;
    String del;
    String search;
