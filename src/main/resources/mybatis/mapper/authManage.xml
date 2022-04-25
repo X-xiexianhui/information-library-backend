@@ -26,6 +26,12 @@
     </select>
     <insert id="addUserAuth">
         insert into role_auth(role_id, form_id, `add`, del, search, editAuth)
-        VALUES ();
+        VALUES
+        <foreach collection="roleList" index="roleIndex" item="roleItem" separator=",">
+            <foreach collection="formList" item="formItem" index="formIndex" separator=",">
+                (#{roleItem},#{formItem},'a1','d1','s1','u1')
+            </foreach>
+        </foreach>
+        ;
     </insert>
 </mapper>
