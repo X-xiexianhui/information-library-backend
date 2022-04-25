@@ -42,8 +42,9 @@ public class roleImpl implements roleServer {
     }
 
     @Override
-    public List<roleInfo> deleteRole(int role_id) {
-        roleManager.deleteRole(role_id);
+    public List<roleInfo> deleteRole(String parma) {
+        JSONObject deleteJSON = JSON.parseObject(parma);
+        roleManager.deleteRole(deleteJSON.getIntValue("role_id"));
         return roleManager.queryRole("");
     }
 

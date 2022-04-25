@@ -31,10 +31,10 @@ public class roleController {
     }
 
     @GetMapping("api/role/delete")
-    public response<List<roleInfo>> deleteRole(@RequestParam("role_id") int role_id) {
+    public response<List<roleInfo>> deleteRole(@RequestBody String parma) {
         List<roleInfo> data = new ArrayList<>();
         try {
-            data = roleManager.deleteRole(role_id);
+            data = roleManager.deleteRole(parma);
         } catch (Exception e) {
             return new response<>(500, e.getCause().getMessage(), data);
         }

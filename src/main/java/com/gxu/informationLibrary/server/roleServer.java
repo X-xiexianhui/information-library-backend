@@ -7,7 +7,7 @@ import java.util.List;
 public interface roleServer {
     List<roleInfo>addRole(String param);
 
-    List<roleInfo>deleteRole(int role_id);
+    List<roleInfo>deleteRole(String parma);
 
     List<roleInfo>queryRole(String role_name);
 
