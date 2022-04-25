@@ -3,7 +3,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gxu.informationLibrary.dao.authDao">
     <select id="getAuth" resultType="com.gxu.informationLibrary.entity.roleAuth">
-        select role_id, role_auth.role_name, `add`, del, search, edit as editAuth
+        select role_id, role_auth.role_name, `add`, del, search, editAuth
         from role_auth,
              role_info
         where role_auth.role_name = role_info.role_name
@@ -14,7 +14,7 @@
         set ${col_name}=#{value};
     </update>
     <select id="queryByName" resultType="com.gxu.informationLibrary.entity.roleAuth">
-    select role_id, role_auth.role_name, `add`, del, search, edit
+    select role_id, role_auth.role_name, `add`, del, search, editAuth
     from role_auth,
     role_info
     where role_auth.role_name = role_info.role_name
