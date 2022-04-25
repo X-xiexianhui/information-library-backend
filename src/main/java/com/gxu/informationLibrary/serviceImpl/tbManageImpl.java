@@ -49,7 +49,9 @@ public class tbManageImpl implements tbManageServer {
         List<Integer>roleList=roleManage.getRoleList();
         int form_id=formManage.queryFormId(db_name+"."+tb_name);
         List<Integer>formList=new ArrayList<>(form_id);
-        authManage.addRoleAuth(roleList,formList);
+        if (roleList.size()>0){
+            authManage.addRoleAuth(roleList,formList);
+        }
         return tbManage.getColumn(db_name, tb_name);
     }
 
