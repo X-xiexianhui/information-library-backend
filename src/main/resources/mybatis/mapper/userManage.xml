@@ -19,7 +19,7 @@
         where user_id = #{user_id};
     </update>
     <select id="queryUser" resultType="com.gxu.informationLibrary.entity.userInfo">
-        select user_id, '******', user_name, user_email, role_name as user_role, is_del, is_use
+        select user_id, '******', user_name, user_email, role_name as user_role, is_del, disabled
         from user_info,
              role_info
         where user_name like concat('%', #{user_name}, '%')
