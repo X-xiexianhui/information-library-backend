@@ -29,7 +29,7 @@
         values
         <foreach collection="roleList" index="roleIndex" item="roleItem" separator=",">
             <foreach collection="formList" item="formItem" index="formIndex" separator=",">
-                (#{roleItem},#{formItem},'a1','d1','s1','u1')
+                (#{roleItem},#{formItem},'w1','d1','s1','u1')
             </foreach>
         </foreach>
     </insert>
