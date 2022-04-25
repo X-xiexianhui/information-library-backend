@@ -12,6 +12,7 @@ import java.util.Map;
 
 @Controller
 @ResponseBody
+@CrossOrigin
 public class roleController {
     final roleImpl roleManager;
 
