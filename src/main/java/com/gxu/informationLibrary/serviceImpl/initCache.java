@@ -31,7 +31,7 @@ public class initCache {
             hashOps.put(key,"add",r.getAdd());
             hashOps.put(key,"del",r.getDel());
             hashOps.put(key,"search",r.getSearch());
-            hashOps.put(key,"edit",r.getEdit());
+            hashOps.put(key,"edit",r.getEditAuth());
         }
         log.info("Redis初始化成功");
     }
