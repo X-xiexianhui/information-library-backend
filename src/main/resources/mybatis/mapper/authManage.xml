@@ -2,7 +2,15 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gxu.informationLibrary.dao.authDao">
-    <select id="getAuth" resultType="com.gxu.informationLibrary.entity.roleAuth">
+    <resultMap id="authMap" type="com.gxu.informationLibrary.entity.roleAuth">
+        <result column="role_name" property="role_name"/>
+        <result column="form_name" property="form_name"/>
+        <result column="addAuth" property="addAuth"/>
+        <result column="del" property="del"/>
+        <result column="search" property="search"/>
+        <result column="editAuth" property="editAuth"/>
+    </resultMap>
+    <select id="getAuth" resultMap="authMap">
         select role_name, form_name, addAuth, del, search, editAuth
         from role_auth,
              role_info,

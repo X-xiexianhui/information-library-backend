@@ -18,7 +18,7 @@ public class authController {
         this.auth = auth;
     }
 
-    @GetMapping("api/auth/get")
+    @GetMapping("api/auth/query")
     public response<List<roleAuth>> getAuth(@RequestParam("role_name") String role_name) {
         List<roleAuth> data = new ArrayList<>();
         try {
