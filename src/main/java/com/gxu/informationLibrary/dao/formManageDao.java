@@ -27,5 +27,5 @@ public interface formManageDao {
 
     void insertFormStruct(@Param("column")List<column>columns,@Param("db_name") String db_name,@Param("tb_name") String tb_name);
 
-    int queryFormId(@Param("tb_name")String tb_name);
+    int queryFormId(@Param("form_name")String form_name);
 }

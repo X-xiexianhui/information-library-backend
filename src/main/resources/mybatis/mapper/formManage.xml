@@ -61,4 +61,9 @@
             col_name=#{item.col_name}
         </foreach>;
     </insert>
+    <select id="queryFormId" resultType="int">
+        select form_id
+        from form_info
+        where form_name = #{form_name};
+    </select>
 </mapper>
