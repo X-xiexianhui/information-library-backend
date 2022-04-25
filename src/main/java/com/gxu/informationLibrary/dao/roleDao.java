@@ -24,4 +24,6 @@ public interface roleDao {
     void editRole(@Param("col_name") String col_name,@Param("value") String value);
 
     List<Integer>getRoleList();
+
+    int queryRoleId(@Param("role_name") String role_name);
 }
