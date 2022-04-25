@@ -3,13 +3,13 @@ package com.gxu.informationLibrary.controller;
 import com.gxu.informationLibrary.entity.response;
 import com.gxu.informationLibrary.entity.roleAuth;
 import com.gxu.informationLibrary.serviceImpl.authImpl;
-import org.apache.ibatis.annotations.Mapper;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@Mapper
+@Controller
 @ResponseBody
 public class authController {
     private final authImpl authManage;
