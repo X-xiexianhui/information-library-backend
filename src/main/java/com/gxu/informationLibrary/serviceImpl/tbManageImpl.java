@@ -2,7 +2,9 @@ package com.gxu.informationLibrary.serviceImpl;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.gxu.informationLibrary.dao.authDao;
 import com.gxu.informationLibrary.dao.formManageDao;
+import com.gxu.informationLibrary.dao.roleDao;
 import com.gxu.informationLibrary.dao.tableManagerDao;
 import com.gxu.informationLibrary.entity.*;
 import com.gxu.informationLibrary.server.tbManageServer;
@@ -17,11 +19,15 @@ import java.util.List;
 public class tbManageImpl implements tbManageServer {
     final tableManagerDao tbManage;
     final formManageDao formManage;
+    final roleDao roleManage;
+    final authDao authManage;
     private boolean isAlterPK = false;
 
-    public tbManageImpl(tableManagerDao tbManage, formManageDao formManage) {
+    public tbManageImpl(tableManagerDao tbManage, formManageDao formManage, roleDao roleManage, authDao authManage) {
         this.tbManage = tbManage;
         this.formManage = formManage;
+        this.roleManage = roleManage;
+        this.authManage = authManage;
     }
 
     @Override
@@ -40,6 +46,10 @@ public class tbManageImpl implements tbManageServer {
         tbManage.insertColumn(columns,db_name,tb_name);
         formManage.insertFormInfo(db_name,tb_name);
         formManage.insertFormStruct(columns,db_name,tb_name);
+        List<Integer>roleList=roleManage.getRoleList();
+        int form_id=formManage.queryFormId(db_name+"."+tb_name);
+        List<Integer>formList=new ArrayList<>(form_id);
+        authManage.addRoleAuth(roleList,formList);
         return tbManage.getColumn(db_name, tb_name);
     }
 

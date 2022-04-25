@@ -22,4 +22,6 @@ public interface roleDao {
     List<Map<String,Object>>getRoleSelect();
 
     void editRole(@Param("col_name") String col_name,@Param("value") String value);
+
+    List<Integer>getRoleList();
 }

@@ -33,4 +33,7 @@
         update role_info
         set ${col_name}=#{value};
     </update>
+    <select id="getRoleList" resultType="int">
+        select role_id from role_info;
+    </select>
 </mapper>
