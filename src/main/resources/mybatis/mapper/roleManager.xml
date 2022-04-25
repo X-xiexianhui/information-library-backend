@@ -11,7 +11,12 @@
         from role_info
         where role_id = #{role_id};
     </delete>
-    <select id="queryRole" resultType="com.gxu.informationLibrary.entity.roleInfo">
+    <resultMap id="roleMap" type="com.gxu.informationLibrary.entity.roleInfo">
+        <result column="role_id" property="role_id"/>
+        <result column="role_name" property="role_name"/>
+        <result column="role_description" property="role_description"/>
+    </resultMap>
+    <select id="queryRole" resultMap="roleMap">
         select role_id, role_name, role_description
         from role_info
         where role_name like concat('%', #{role_name}, '%');
