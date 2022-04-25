@@ -12,7 +12,6 @@ import java.util.Map;
 
 @Controller
 @ResponseBody
-@CrossOrigin
 public class roleController {
     final roleImpl roleManager;
 
@@ -31,7 +30,7 @@ public class roleController {
         return new response<>(data);
     }
 
-    @GetMapping("api/role/delete")
+    @PostMapping("api/role/delete")
     public response<List<roleInfo>> deleteRole(@RequestBody String parma) {
         List<roleInfo> data = new ArrayList<>();
         try {
