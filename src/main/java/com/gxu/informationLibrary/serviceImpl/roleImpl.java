@@ -33,6 +33,7 @@ public class roleImpl implements roleServer {
         roleManager.addRole(role);
         List<Integer>formList=formManage.getFormList();
         int role_id=roleManager.queryRoleId(role.getRole_name());
+        System.out.println(role_id);
         List<Integer>roleList=new ArrayList<>(role_id);
         if (formList.size()>0){
             authManage.addRoleAuth(roleList,formList);

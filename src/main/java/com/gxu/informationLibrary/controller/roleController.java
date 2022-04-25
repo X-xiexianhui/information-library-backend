@@ -25,7 +25,7 @@ public class roleController {
         try {
             data = roleManager.addRole(param);
         } catch (Exception e) {
-            return new response<>(500, e.getCause().getMessage(), data);
+            return new response<>(500, e.getMessage(), data);
         }
         return new response<>(data);
     }
