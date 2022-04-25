@@ -12,17 +12,18 @@ import java.util.List;
 @Mapper
 @ResponseBody
 public class authController {
-    private final authImpl auth;
+    private final authImpl authManage;
 
-    public authController(authImpl auth) {
-        this.auth = auth;
+    public authController(authImpl authManage) {
+        this.authManage = authManage;
     }
 
+
     @GetMapping("api/auth/query")
-    public response<List<roleAuth>> getAuth(@RequestParam("role_name") String role_name) {
+    public response<List<roleAuth>>getAuth(@RequestParam("role_name") String role_name) {
         List<roleAuth> data = new ArrayList<>();
         try {
-            data = auth.getAuth(role_name);
+            data = authManage.getAuth(role_name);
         } catch (Exception e) {
             return new response<>(500, e.getCause().getMessage(), data);
         }
@@ -33,7 +34,7 @@ public class authController {
     public response<roleAuth> queryByName(@RequestParam("role_name") String role_name) {
         roleAuth data = new roleAuth();
         try {
-            data = auth.queryByName(role_name);
+            data = authManage.queryByName(role_name);
         } catch (Exception e) {
             return new response<>(500, e.getCause().getMessage(), data);
         }
@@ -44,7 +45,7 @@ public class authController {
     public response<List<roleAuth>> editAuth(@RequestBody String param) {
         List<roleAuth> data = new ArrayList<>();
         try {
-            data = auth.editAuth(param);
+            data = authManage.editAuth(param);
         } catch (Exception e) {
             return new response<>(500, e.getCause().getMessage(), data);
         }
