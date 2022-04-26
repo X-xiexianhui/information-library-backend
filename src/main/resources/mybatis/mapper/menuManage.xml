@@ -33,7 +33,7 @@
         select menu_id,
                menu_name,
                menu_level,
-               (select menu_name from menu_info where menu_id=father_menu)  as father_menu,
+               (select a.menu_name from menu_info a,menu_info b where a.father_menu=b.menu_id)  as father_menu,
                (select form_name from form_info where form_id=context_form) as context_form
         from menu_info;
     </select>
