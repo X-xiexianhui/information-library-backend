@@ -30,16 +30,13 @@
         <result column="context_form" property="context_form"/>
     </resultMap>
     <select id="query" resultMap="menuInfoMap">
-        select menu_id,
-               menu_name,
-               menu_level,
-               (select father_menu
-                from (select a.menu_id, a.menu_name, b.menu_name as father_menu
-                      from menu_info as a
-                               left join menu_info as b on a.father_menu = b.menu_id) as res
-                where res.menu_id = menu_info.menu_id)                        as father_menu,
-               (select form_name from form_info where form_id = context_form) as context_form
-        from menu_info;
+        select a.menu_id    as menu_id,
+               a.menu_name  as menu_name,
+               a.menu_level as menu_level,
+               b.menu_name  as father_menu,
+               form_name    as context_form
+        from (menu_info as a left join menu_info as b on a.father_menu = b.menu_id)
+                 left join form_info on a.context_form = form_id;
     </select>
     <update id="editMenu">
         update menu_info
