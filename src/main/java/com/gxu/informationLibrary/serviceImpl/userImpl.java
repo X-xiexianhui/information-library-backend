@@ -23,9 +23,9 @@ public class userImpl implements userServer {
     @Override
     public List<userInfo> addUser(String param) {
         userInfo user= JSON.parseObject(param).toJavaObject(userInfo.class);
-        user.setPwd("pwd"+user.getUser_id());
-        String md5Password = DigestUtils.md5DigestAsHex(user.getPwd().getBytes());
-        user.setPwd(md5Password);
+        user.setUser_pwd("user_pwd"+user.getUser_id());
+        String md5Password = DigestUtils.md5DigestAsHex(user.getUser_pwd().getBytes());
+        user.setUser_pwd(md5Password);
         userManage.addUser(user);
         return userManage.queryUser("");
     }
