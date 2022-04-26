@@ -21,7 +21,9 @@
     </select>
     <update id="editAuth">
         update role_auth
-        set ${col_name}=#{value};
+        set ${col_name}=#{value}
+        where role_id = (select role_id from role_info where role_name = #{role_name})
+          and form_id = (select form_id from form_info where form_name = #{form_name});
     </update>
     <select id="queryByName" resultType="com.gxu.informationLibrary.entity.roleAuth">
         select role_name, form_name, addAuth, del, search, editAuth

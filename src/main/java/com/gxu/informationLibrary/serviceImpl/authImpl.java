@@ -35,12 +35,13 @@ public class authImpl implements authServer {
     public List<roleAuth> editAuth(String parma) {
         JSONObject editObject= JSON.parseObject(parma);
         String role_name=editObject.getString("role_name");
+        String form_name=editObject.getString("form_name");
         JSONArray array=editObject.getJSONArray("update");
         HashOperations<String,String,String> hashOps = redisTemplate.opsForHash();
         for (int i = 0; i < array.size(); i++) {
             JSONObject edit=array.getJSONObject(i);
             auth.editAuth(edit.getString("col_name"),edit.getString("value"));
-            hashOps.delete("auth_"+role_name,edit.getString("col_name"));
+            hashOps.delete("auth_"+role_name+"_"+form_name,edit.getString("col_name"));
         }
         return auth.getAuth("");
     }
