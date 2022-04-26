@@ -29,7 +29,7 @@
         </if>
         index (record_id),
         index (file),
-        foreign key (user) references user_info(user_id);
+        foreign key (user) references user_info(user_id) on update cascade on delete no action ;
         );
         update db_info set tables=tables+1 where db_name=#{db_name};
         insert into tb_info(db_name, tb_name) values (#{db_name},#{tb_name});
