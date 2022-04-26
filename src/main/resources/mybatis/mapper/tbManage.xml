@@ -28,7 +28,8 @@
             ),
         </if>
         index (record_id),
-        index (file)
+        index (file),
+        index (user)
         );
         update db_info set tables=tables+1 where db_name=#{db_name};
         insert into tb_info(db_name, tb_name) values (#{db_name},#{tb_name});
