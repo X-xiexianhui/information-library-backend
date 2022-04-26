@@ -43,10 +43,12 @@ public class userImpl implements userServer {
 
     @Override
     public List<userInfo> editUser(String param) {
-        JSONArray array=JSON.parseArray(param);
+        JSONObject editJSON = JSON.parseObject(param);
+        String user_id =editJSON.getString("user_id");
+        JSONArray array=editJSON.getJSONArray("update");
         for (int i = 0; i < array.size(); i++) {
             JSONObject object=array.getJSONObject(i);
-            userManage.editUser(object.getString("user_id"), object.getString("col_name"), object.getString("value") );
+            userManage.editUser(user_id, object.getString("col_name"), object.getString("value") );
         }
         return userManage.queryUser("");
     }
