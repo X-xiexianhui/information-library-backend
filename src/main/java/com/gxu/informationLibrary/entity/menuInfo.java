@@ -7,6 +7,6 @@ public class menuInfo {
     int menu_id;
     String menu_name;
     String menu_level;
-    int father_menu;
-    int context_form;
+    String father_menu;
+    String context_form;
 }
