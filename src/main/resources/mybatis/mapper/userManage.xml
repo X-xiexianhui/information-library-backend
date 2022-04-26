@@ -30,6 +30,7 @@
         from user_info,
              role_info
         where user_name like concat('%', #{user_name}, '%')
-          and user_role = role_info.role_id;
+          and user_role = role_info.role_id
+and not is_del = 1;
     </select>
 </mapper>
