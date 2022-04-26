@@ -2,6 +2,7 @@ package com.gxu.informationLibrary.serviceImpl;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.gxu.informationLibrary.dao.formManageDao;
 import com.gxu.informationLibrary.dao.menuDao;
 import com.gxu.informationLibrary.entity.menuInfo;
 import com.gxu.informationLibrary.server.menuServer;
@@ -15,9 +16,11 @@ import java.util.Map;
 @Transactional(rollbackFor = Exception.class)
 public class menuImpl implements menuServer {
     final menuDao menu;
+    final formManageDao formManage;
 
-    public menuImpl(menuDao menu) {
+    public menuImpl(menuDao menu, formManageDao formManage) {
         this.menu = menu;
+        this.formManage = formManage;
     }
 
     @Override
@@ -30,6 +33,7 @@ public class menuImpl implements menuServer {
     @Override
     public List<menuInfo> deleteMenu(String param) {
         int menu_id=JSON.parseObject(param).getIntValue("menu_id");
+
         menu.deleteMenu(menu_id);
         return menu.query("");
     }
