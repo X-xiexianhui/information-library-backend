@@ -29,7 +29,7 @@
         <result column="father_menu" property="father_menu"/>
         <result column="context_form" property="context_form"/>
     </resultMap>
-    <select id="query" resultMap="menuInfoMap">
+    <select id="query" resultType="menuInfo">
         select menu_id,
                menu_name,
                menu_level,
