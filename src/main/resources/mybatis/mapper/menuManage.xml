@@ -33,8 +33,8 @@
         select menu_id,
                menu_name,
                menu_level,
-               (select menu_name from menu_info where father_menu = menu_info.menu_id)  as father_menu,
-               (select form_name from form_info where context_form = form_info.form_id) as context_form
+               (select menu_name from menu_info where menu_id=father_menu)  as father_menu,
+               (select form_name from form_info where form_id=context_form) as context_form
         from menu_info;
     </select>
     <update id="editMenu">
