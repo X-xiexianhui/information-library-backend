@@ -28,8 +28,7 @@
             ),
         </if>
         index (record_id),
-        index (file),
-        CONSTRAINT user_fk foreign key (user) references user_info(user_id) on update cascade on delete no action
+        index (file)
         );
         update db_info set tables=tables+1 where db_name=#{db_name};
         insert into tb_info(db_name, tb_name) values (#{db_name},#{tb_name});
