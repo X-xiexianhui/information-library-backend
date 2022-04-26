@@ -40,7 +40,7 @@ public class userController {
         return new response<>(data);
     }
 
-    @GetMapping("pai/user/get")
+    @GetMapping("api/user/get")
     public response<List<userInfo>> queryUser(@RequestParam("user_name") String user_name) {
         List<userInfo> data = new ArrayList<>();
         try {
