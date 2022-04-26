@@ -40,7 +40,7 @@ public class authImpl implements authServer {
         HashOperations<String,String,String> hashOps = redisTemplate.opsForHash();
         for (int i = 0; i < array.size(); i++) {
             JSONObject edit=array.getJSONObject(i);
-            auth.editAuth(edit.getString("col_name"),edit.getString("value"));
+            auth.editAuth(role_name,form_name , edit.getString("col_name"), edit.getString("value"));
             hashOps.delete("auth_"+role_name+"_"+form_name,edit.getString("col_name"));
         }
         return auth.getAuth("");
