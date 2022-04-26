@@ -36,7 +36,8 @@
                b.menu_name  as father_menu,
                form_name    as context_form
         from (menu_info as a left join menu_info as b on a.father_menu = b.menu_id)
-                 left join form_info on a.context_form = form_id;
+                 left join form_info on a.context_form = form_id
+        where a.menu_name like concat('%', #{menu_name}, '%');
     </select>
     <update id="editMenu">
         update menu_info
