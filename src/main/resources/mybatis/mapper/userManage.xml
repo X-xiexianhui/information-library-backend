@@ -13,7 +13,7 @@
         set is_del=1
         where user_id = #{user_id};
     </delete>
-    <update id="updateUser">
+    <update id="editUser">
         update user_info
         set ${col_name}=#{value}
         where user_id = #{user_id};
