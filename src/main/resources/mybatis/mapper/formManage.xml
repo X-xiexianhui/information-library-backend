@@ -10,8 +10,7 @@
     <select id="query" resultMap="formTableMap">
         select form_id, form_name, concat(db_name, '.', tb_name) as tb_name
         from form_info,
-             tb_info
-        where form_info.tb_id in (select tb_id from tb_info where tb_name like concat('%', #{tb_name}, '%'));
+             tb_info where form_info.tb_id = tb_info.tb_id and tb_name like concat('%',#{tb_name},'%');
     </select>
     <update id="renameForm">
         update form_info
