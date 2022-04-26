@@ -18,8 +18,17 @@
         set ${col_name}=#{value}
         where user_id = #{user_id};
     </update>
+    <resultMap id="userInfoMap" type="com.gxu.informationLibrary.entity.userInfo">
+        <result column="user_id" property="user_id"/>
+        <result column="user_pwd" property="user_pwd"/>
+        <result column="user_name" property="user_name"/>
+        <result column="user_email" property="user_email"/>
+        <result column="user_role" property="user_role"/>
+        <result column="is_del" property="is_del"/>
+        <result column="disabled" property="disabled"/>
+    </resultMap>
     <select id="queryUser" resultType="com.gxu.informationLibrary.entity.userInfo">
-        select user_id, '******', user_name, user_email, role_name as user_role, is_del, disabled
+        select user_id, '******' as user_pwd, user_name, user_email, role_name as user_role, is_del, disabled
         from user_info,
              role_info
         where user_name like concat('%', #{user_name}, '%')
