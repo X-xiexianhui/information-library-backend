@@ -24,10 +24,9 @@
         <result column="user_name" property="user_name"/>
         <result column="user_email" property="user_email"/>
         <result column="user_role" property="user_role"/>
-        <result column="disabled" property="disabled" javaType="boolean"/>
     </resultMap>
     <select id="queryUser" resultMap="userInfoMap">
-        select user_id, '******' as user_pwd, user_name, user_email, role_name as user_role,disabled
+        select user_id, '******' as user_pwd, user_name, user_email, role_name as user_role
         from user_info,
              role_info
         where user_name like concat('%', #{user_name}, '%')

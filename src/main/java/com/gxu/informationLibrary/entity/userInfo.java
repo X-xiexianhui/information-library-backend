@@ -9,5 +9,4 @@ public class userInfo {
     String user_pwd;
     String user_email;
     String user_role;
-    boolean disabled;
 }
