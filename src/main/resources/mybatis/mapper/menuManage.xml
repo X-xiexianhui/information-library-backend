@@ -25,7 +25,8 @@
     </select>
     <update id="editMenu">
         update menu_info
-        set ${col_name}=#{value};
+        set ${col_name}=#{value}
+        where menu_id = #{menu_id};
     </update>
     <select id="getMenuById" resultType="com.gxu.informationLibrary.entity.menuInfo">
         select menu_id,
