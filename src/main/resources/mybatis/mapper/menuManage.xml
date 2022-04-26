@@ -8,7 +8,7 @@
         from menu_info,
              form_info
         where menu_name = #{menu.menu_name}
-          and form_name = #{menu.context_name};
+          and form_name = #{menu.context_form};
     </insert>
     <delete id="deleteMenu">
         delete
