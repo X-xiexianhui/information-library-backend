@@ -31,7 +31,7 @@
     </resultMap>
     <select id="query" resultMap="menuInfoMap">
         select a.menu_id    as menu_id,
-               b.menu_name  as menu_name,
+               a.menu_name  as menu_name,
                a.menu_level as menu_level,
                b.menu_name  as father_menu,
                form_name    as context_form
