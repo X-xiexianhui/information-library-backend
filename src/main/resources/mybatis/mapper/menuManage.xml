@@ -8,7 +8,7 @@
                 insert into menu_info(menu_name, menu_level) values (#{menu.menu_name},
                 #{menu.menu_level});
             </when>
-            <otherwise>
+            <when test="menu.menu_level=='二级菜单'">
                 insert into menu_info(menu_name, menu_level, father_menu, context_form)
                 select #{menu.menu_name},
                 #{menu.menu_level},
@@ -18,7 +18,7 @@
                 form_info
                 where menu_name = #{menu.menu_name}
                 and form_name = #{menu.context_form};
-            </otherwise>
+            </when>
         </choose>
     </insert>
     <delete id="deleteMenu">
