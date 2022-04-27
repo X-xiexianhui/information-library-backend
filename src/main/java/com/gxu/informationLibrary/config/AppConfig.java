@@ -21,10 +21,10 @@ public class AppConfig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(@NotNull InterceptorRegistry registry) {
         List<String>pattern= Arrays.asList("/", "css/**", "js/**", "img/**", "json/**", "fonts/**","/*.html");
-        pattern.add("api/user/login");
-        pattern.add("api/user/logout");
-        pattern.add("api/pwd/reset");
-        registry.addInterceptor(interceptor()).excludePathPatterns();
+//        pattern.add("api/user/login");
+//        pattern.add("api/user/logout");
+//        pattern.add("api/pwd/reset");
+        registry.addInterceptor(interceptor()).excludePathPatterns(pattern);
     }
     @Override
     public void addCorsMappings(CorsRegistry registry) {
