@@ -22,7 +22,7 @@ public class CookieAndSessionInterceptor implements HandlerInterceptor {
     public boolean preHandle(@NotNull HttpServletRequest request, @NotNull HttpServletResponse response, @NotNull Object handler) throws Exception {
         String cookie = getCookieByName(request, "loginCookie");
         if (cookie == null) {
-            responseFunction(response);
+            response.sendRedirect("/");
             return false;
         }
         String[] cookieValue = cookie.split(";");
@@ -30,7 +30,7 @@ public class CookieAndSessionInterceptor implements HandlerInterceptor {
         ValueOperations<String, String> ops = new StringRedisTemplate().opsForValue();
         String cookieCache = ops.get("loginCookie_" + user_id);
         if (cookieCache == null || !cookieCache.equals(cookie)) {
-            responseFunction(response);
+            response.sendRedirect("/");
             return false;
         }
         return true;
