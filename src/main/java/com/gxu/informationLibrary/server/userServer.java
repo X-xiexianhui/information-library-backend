@@ -14,5 +14,5 @@ public interface userServer {
 
     List<userInfo>editUser(String param);
 
-    void login(String parma, HttpServletResponse response);
+    void login(String parma, HttpServletResponse response) throws Exception;
 }

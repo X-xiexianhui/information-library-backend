@@ -30,6 +30,7 @@ public class utils {
         cookie.setMaxAge(expiry);       //cookie过期时间
         cookie.setHttpOnly(true);
         cookie.setPath("/");
+        cookie.setSecure(false);
         response.addCookie(cookie);
     }
     public static @Nullable String getCookieByName(HttpServletRequest request, String name){

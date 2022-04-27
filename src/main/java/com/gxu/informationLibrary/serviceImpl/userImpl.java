@@ -58,9 +58,13 @@ public class userImpl implements userServer {
     }
 
     @Override
-    public void login(String parma, HttpServletResponse response) {
+    public void login(String parma, HttpServletResponse response) throws Exception {
         String uuid = UUID.randomUUID().toString().replaceAll("-", "");
         JSONObject userData=JSON.parseObject(parma);
         Map<String,String>user=userManage.checkUser(userData.getString("user_id"));
+        String md5Password = DigestUtils.md5DigestAsHex(userData.getString("user_pwd").getBytes());
+        if (!user.get("user_pwd").equals(md5Password)){
+            throw new Exception("密码错误");
+        }
     }
 }
