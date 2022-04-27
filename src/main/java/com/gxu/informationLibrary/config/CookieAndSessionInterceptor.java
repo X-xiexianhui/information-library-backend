@@ -23,7 +23,8 @@ public class CookieAndSessionInterceptor implements HandlerInterceptor {
         String []cookieValue=cookie.split(";");
         String user_id = cookieValue[1];
         ValueOperations<String,String> ops = new StringRedisTemplate().opsForValue();
-        return ops.get("loginCookie_"+user_id).equals(cookie);
+        String cookieCache=ops.get("loginCookie_"+user_id);
+        return cookieCache != null && cookieCache.equals(cookie);
     }
     @Override
     public void postHandle(@NotNull HttpServletRequest request, @NotNull HttpServletResponse response, @NotNull Object handler, ModelAndView modelAndView) throws Exception {
