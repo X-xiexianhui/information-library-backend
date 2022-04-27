@@ -22,13 +22,14 @@ public class CookieAndSessionInterceptor implements HandlerInterceptor {
     public boolean preHandle(@NotNull HttpServletRequest request, @NotNull HttpServletResponse response, @NotNull Object handler) throws Exception {
         String cookie=getCookieByName(request,"loginCookie");
         if (cookie == null){
+            responseFunction(response);
             return false;
         }
         String []cookieValue=cookie.split(";");
         String user_id = cookieValue[1];
         ValueOperations<String,String> ops = new StringRedisTemplate().opsForValue();
         String cookieCache=ops.get("loginCookie_"+user_id);
-        responseFunction(response);
+
         return cookieCache != null && cookieCache.equals(cookie);
     }
     @Override
