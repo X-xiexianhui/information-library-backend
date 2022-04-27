@@ -1,7 +1,5 @@
 package com.gxu.informationLibrary.config;
 
-import com.alibaba.fastjson.JSONObject;
-import com.gxu.informationLibrary.entity.response;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
@@ -11,7 +9,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 
 import static com.gxu.informationLibrary.util.utils.getCookieByName;
 
@@ -44,15 +41,5 @@ public class CookieAndSessionInterceptor implements HandlerInterceptor {
     @Override
     public void afterCompletion(@NotNull HttpServletRequest request, @NotNull HttpServletResponse response, @NotNull Object handler, Exception ex) throws Exception {
         HandlerInterceptor.super.afterCompletion(request,response,handler,ex);
-    }
-
-    private void responseFunction(HttpServletResponse response) throws IOException {
-        response.setHeader("Access-Control-Allow-Origin", "*");
-        response.setHeader("Cache-Control", "no-cache");
-        response.setCharacterEncoding("UTF-8");
-        response.setContentType("application/json");
-        JSONObject json = (JSONObject) JSONObject.toJSON(new response<>(403, "未登录，请重新登录", ""));
-        response.getWriter().println(json);
-        response.getWriter().flush();
     }
 }
