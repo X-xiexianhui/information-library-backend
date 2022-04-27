@@ -29,7 +29,6 @@ public class CookieAndSessionInterceptor implements HandlerInterceptor {
         String user_id = cookieValue[1];
         ValueOperations<String,String> ops = new StringRedisTemplate().opsForValue();
         String cookieCache=ops.get("loginCookie_"+user_id);
-
         return cookieCache != null && cookieCache.equals(cookie);
     }
     @Override
