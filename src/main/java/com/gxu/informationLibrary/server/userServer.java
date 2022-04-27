@@ -2,6 +2,7 @@ package com.gxu.informationLibrary.server;
 
 import com.gxu.informationLibrary.entity.userInfo;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 public interface userServer {
@@ -12,4 +13,6 @@ public interface userServer {
     List<userInfo>queryUser(String user_name);
 
     List<userInfo>editUser(String param);
+
+    void login(String parma, HttpServletResponse response);
 }

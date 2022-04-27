@@ -6,6 +6,7 @@ import com.gxu.informationLibrary.serviceImpl.userImpl;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -60,5 +61,14 @@ public class userController {
             return new response<>(500, e.getCause().getMessage(), data);
         }
         return new response<>(data);
+    }
+    @PostMapping("api/user/login")
+    public response<String>login(@RequestBody String parma, HttpServletResponse res) {
+        try {
+            userManager.login(parma,res);
+        }catch (Exception e){
+            return new response<>(500,e.getCause().getMessage(),"登录失败");
+        }
+        return new response<>("登录成功");
     }
 }

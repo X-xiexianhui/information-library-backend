@@ -10,7 +10,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.DigestUtils;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
+import java.util.UUID;
+
 @Service
 @Transactional(rollbackFor = Exception.class)
 public class userImpl implements userServer {
@@ -51,5 +54,10 @@ public class userImpl implements userServer {
             userManage.editUser(user_id, object.getString("col_name"), object.getString("value") );
         }
         return userManage.queryUser("");
+    }
+
+    @Override
+    public void login(String parma, HttpServletResponse response) {
+        String uuid = UUID.randomUUID().toString().replaceAll("-", "");
     }
 }
