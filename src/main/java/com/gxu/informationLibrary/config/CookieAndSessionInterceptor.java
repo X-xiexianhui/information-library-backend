@@ -43,7 +43,7 @@ public class CookieAndSessionInterceptor implements HandlerInterceptor {
         response.setHeader("Cache-Control", "no-cache");
         response.setCharacterEncoding("UTF-8");
         response.setContentType("application/json");
-        JSONObject json = (JSONObject) JSONObject.toJSON(new response<>(403,"未登录",""));
+        JSONObject json = (JSONObject) JSONObject.toJSON(new response<>(403,"未登录，请重新登录",""));
         response.getWriter().println(json);
         response.getWriter().flush();
     }
