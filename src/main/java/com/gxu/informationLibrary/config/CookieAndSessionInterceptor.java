@@ -11,43 +11,47 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import java.io.IOException;
 
 import static com.gxu.informationLibrary.util.utils.getCookieByName;
+
 @Component
 public class CookieAndSessionInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(@NotNull HttpServletRequest request, @NotNull HttpServletResponse response, @NotNull Object handler) throws Exception {
-        String cookie=getCookieByName(request,"loginCookie");
-        if (cookie == null){
+        String cookie = getCookieByName(request, "loginCookie");
+        if (cookie == null) {
             responseFunction(response);
             return false;
         }
-        String []cookieValue=cookie.split(";");
+        String[] cookieValue = cookie.split(";");
         String user_id = cookieValue[1];
-        ValueOperations<String,String> ops = new StringRedisTemplate().opsForValue();
-        String cookieCache=ops.get("loginCookie_"+user_id);
-        if (cookieCache == null||!cookieCache.equals(cookie)){
+        ValueOperations<String, String> ops = new StringRedisTemplate().opsForValue();
+        String cookieCache = ops.get("loginCookie_" + user_id);
+        if (cookieCache == null || !cookieCache.equals(cookie)) {
             responseFunction(response);
             return false;
         }
         return true;
     }
+
     @Override
     public void postHandle(@NotNull HttpServletRequest request, @NotNull HttpServletResponse response, @NotNull Object handler, ModelAndView modelAndView) throws Exception {
+        HandlerInterceptor.super.postHandle(request,response,handler,modelAndView);
     }
 
     @Override
     public void afterCompletion(@NotNull HttpServletRequest request, @NotNull HttpServletResponse response, @NotNull Object handler, Exception ex) throws Exception {
+        HandlerInterceptor.super.afterCompletion(request,response,handler,ex);
     }
+
     private void responseFunction(HttpServletResponse response) throws IOException {
         response.setHeader("Access-Control-Allow-Origin", "*");
         response.setHeader("Cache-Control", "no-cache");
         response.setCharacterEncoding("UTF-8");
         response.setContentType("application/json");
-        JSONObject json = (JSONObject) JSONObject.toJSON(new response<>(403,"未登录，请重新登录",""));
+        JSONObject json = (JSONObject) JSONObject.toJSON(new response<>(403, "未登录，请重新登录", ""));
         response.getWriter().println(json);
         response.getWriter().flush();
     }
