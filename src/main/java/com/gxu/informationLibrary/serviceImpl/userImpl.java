@@ -12,6 +12,7 @@ import org.springframework.util.DigestUtils;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 @Service
@@ -59,5 +60,7 @@ public class userImpl implements userServer {
     @Override
     public void login(String parma, HttpServletResponse response) {
         String uuid = UUID.randomUUID().toString().replaceAll("-", "");
+        JSONObject userData=JSON.parseObject(parma);
+        Map<String,String>user=userManage.checkUser(userData.getString("user_id"));
     }
 }
