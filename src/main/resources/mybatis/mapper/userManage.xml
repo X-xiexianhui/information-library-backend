@@ -33,15 +33,7 @@
           and user_role = role_info.role_id
           and not is_del = 1;
     </select>
-    <resultMap id="userMap" type="com.gxu.informationLibrary.entity.userInfo">
-        <result column="user_id" property="user_id"/>
-        <result column="user_pwd" property="user_pwd"/>
-        <result column="user_name" property="user_name"/>
-        <result column="user_email" property="user_email"/>
-        <result column="user_role" property="user_role"/>
-        <result column="is_del" property="is_del"/>
-    </resultMap>
-    <select id="checkUser" resultMap="userInfoMap">
+    <select id="checkUser" resultType="map">
         select user_id, user_pwd, user_name, user_email, role_name as user_role, is_del
         from user_info,
              role_info

@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 @Repository
@@ -18,5 +19,5 @@ public interface userDao {
 
     void editUser(@Param("user_id") String user_id,@Param("col_name") String col_name,@Param("value") String value);
 
-    userInfo checkUser(@Param("user_id") String user_id);
+    Map<String,String> checkUser(@Param("user_id") String user_id);
 }
