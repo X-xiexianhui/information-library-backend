@@ -65,7 +65,7 @@ public class userImpl implements userServer {
 
     @Override
     public void login(String parma, HttpServletResponse response) throws Exception {
-        String uuid = UUID.randomUUID().toString().replaceAll("-", "");
+        String uuid = UUID.randomUUID().toString();
         JSONObject userData=JSON.parseObject(parma);
         Map<String,String>user=userManage.checkUser(userData.getString("user_id"));
         String md5Password = DigestUtils.md5DigestAsHex(userData.getString("user_pwd").getBytes());
