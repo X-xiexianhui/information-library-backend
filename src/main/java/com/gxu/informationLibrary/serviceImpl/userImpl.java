@@ -4,7 +4,6 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.gxu.informationLibrary.dao.userDao;
-import com.gxu.informationLibrary.entity.response;
 import com.gxu.informationLibrary.entity.userInfo;
 import com.gxu.informationLibrary.server.userServer;
 import org.springframework.data.redis.core.StringRedisTemplate;
@@ -14,8 +13,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.DigestUtils;
 
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -67,33 +64,19 @@ public class userImpl implements userServer {
     }
 
     @Override
-    public void login(String parma, HttpServletResponse res) throws IOException {
-        response<String>data=new response<>();
-        PrintWriter out = res.getWriter();
+    public void login(String parma, HttpServletResponse response) throws Exception {
         String uuid = UUID.randomUUID().toString();
         JSONObject userData=JSON.parseObject(parma);
         Map<String,String>user=userManage.checkUser(userData.getString("user_id"));
         String md5Password = DigestUtils.md5DigestAsHex(userData.getString("user_pwd").getBytes());
         if (user == null){
-            data.setCode(403);
-            data.setMsg("用户不存在");
-            data.setData("");
-            JSONObject json= (JSONObject) JSON.toJSON(data);
-            out.print(json);
-            out.flush();
-            return;
+            throw new Exception("用户不存在");
         }
         if (!user.get("user_pwd").equals(md5Password)){
-            data.setCode(403);
-            data.setMsg("密码错误");
-            data.setData("");
-            JSONObject json= (JSONObject) JSON.toJSON(data);
-            out.print(json);
-            out.flush();
-            return;
+            throw new Exception("密码错误");
         }
         String value = uuid+";"+userData.getString("user_id")+";"+user.get("user_role");
-        setCookie(res,"loginCookie",value, 60 * 60);
+        setCookie(response,"loginCookie",value,30*24*60*60);
         ValueOperations<String,String> ops = redisTemplate.opsForValue();
         ops.set("loginCookie_"+userData.getString("user_id"),value,30*24*60*60);
     }
