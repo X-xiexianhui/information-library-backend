@@ -33,7 +33,6 @@ public class CookieAndSessionInterceptor implements HandlerInterceptor {
 
         ValueOperations<String, String> ops = this.redisTemplate.opsForValue();
         String cookieCache = ops.get("loginCookie_" + user_id);
-        log.info(String.valueOf(!cookieCache.equals(cookie)));
         log.info(cookieCache);
         if (cookieCache == null || !cookieCache.equals(cookie)) {
             response.sendRedirect("/");
