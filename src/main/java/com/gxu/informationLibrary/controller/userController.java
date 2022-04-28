@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Controller
-
 public class userController {
     final userImpl userManager;
 
