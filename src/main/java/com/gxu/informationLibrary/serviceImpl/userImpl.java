@@ -66,7 +66,7 @@ public class userImpl implements userServer {
 
     @Override
     public response<String> login(String parma, HttpServletResponse res) {
-        response<String>data=new response<>();
+        response<String>data=new response<>("");
         try {
             String uuid = UUID.randomUUID().toString();
             JSONObject userData=JSON.parseObject(parma);
