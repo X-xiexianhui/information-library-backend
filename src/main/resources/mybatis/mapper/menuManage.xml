@@ -60,19 +60,19 @@
         select menu_name, menu_id
         from menu_info;
     </select>
-    <resultMap id="menuMap" type="Map">
-        <result column="name"/>
-        <collection property="child" javaType="ArrayList">
+    <resultMap id="menuMap" type="com.gxu.informationLibrary.entity.initMenu">
+        <result column="name" property="name"/>
+        <collection property="child" resultMap="childMap" javaType="ArrayList"/>
+    </resultMap>
+    <resultMap id="childMap" type="com.gxu.informationLibrary.entity.childMenu">
             <result column="menu_id" property="menu_id" javaType="int"/>
             <result column="child_name" property="child_name" javaType="string"/>
             <result column="form_id" property="form_id" javaType="int"/>
-        </collection>
     </resultMap>
     <select id="initMenu" resultMap="menuMap">
         select parent.menu_name as name, child.menu_name as child_name, child.menu_id as menu_id, child.context_form as form_id
         from (menu_info as parent
                  left join menu_info as child on parent.menu_id = child.father_menu)
-        where parent.father_menu = 0
-          and child.menu_id is not null;
+        where parent.father_menu = 0;
     </select>
 </mapper>
