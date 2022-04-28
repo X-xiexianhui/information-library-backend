@@ -18,4 +18,7 @@ public class response<T> {
         this.msg="success";
         this.data=data;
     }
+    public response(){
+
+    }
 }
