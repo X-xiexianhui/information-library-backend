@@ -18,15 +18,15 @@ public class AppConfig implements WebMvcConfigurer {
         return new CookieAndSessionInterceptor();
     }
 
-//    @Override
-//    public void addInterceptors(@NotNull InterceptorRegistry registry) {
-//        List<String> pattern = Arrays.asList("/", "css/**", "js/**", "img/**", "json/**", "fonts/**", "/*.html", "api/user/login", "api/user/logout", "api/pwd/reset");
-//        registry.addInterceptor(interceptor()).excludePathPatterns(pattern);
-//    }
+    @Override
+    public void addInterceptors(@NotNull InterceptorRegistry registry) {
+        List<String> pattern = Arrays.asList("/", "css/**", "js/**", "img/**", "json/**", "fonts/**", "/*.html", "api/user/login", "api/user/logout", "api/pwd/reset");
+        registry.addInterceptor(interceptor()).excludePathPatterns(pattern);
+    }
 
     @Override
     public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/api/**")
+        registry.addMapping("/**")
                 .allowedOriginPatterns("*")
                 .allowCredentials(true)
                 .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
