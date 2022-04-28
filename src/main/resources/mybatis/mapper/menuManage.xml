@@ -60,4 +60,18 @@
         select menu_name, menu_id
         from menu_info;
     </select>
+    <resultMap id="menuMap" type="map">
+        <result column="name"/>
+        <collection property="child">
+            <result column="id" property="id" javaType="int"/>
+            <result column="child_name" property="child_name" javaType="string"/>
+            <result column="form_id" property="form_id" javaType="int"/>
+        </collection>
+    </resultMap>
+    <select id="initMenu" resultMap="menuMap">
+        select parent.menu_name as name, child.menu_name as child_name, child.menu_id as id, child.context_form as form_id
+        from (menu_info as parent
+                 left join menu_info as child on parent.menu_id = child.father_menu)
+        where parent.father_menu = 0;
+    </select>
 </mapper>
