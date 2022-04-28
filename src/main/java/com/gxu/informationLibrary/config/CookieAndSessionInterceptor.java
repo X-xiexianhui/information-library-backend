@@ -24,7 +24,7 @@ public class CookieAndSessionInterceptor implements HandlerInterceptor {
     public boolean preHandle(@NotNull HttpServletRequest request, @NotNull HttpServletResponse response, @NotNull Object handler) throws Exception {
         String cookie = getCookieByName(request, "loginCookie");
         if (cookie == null) {
-            response.sendRedirect("/");
+            response.sendRedirect("/#/");
             return false;
         }
         String[] cookieValue = cookie.split("_");
@@ -34,7 +34,7 @@ public class CookieAndSessionInterceptor implements HandlerInterceptor {
         String cookieCache = ops.get("loginCookie_" + user_id);
         log.info(cookieCache);
         if (cookieCache == null || !cookieCache.equals(cookie)) {
-            response.sendRedirect("/");
+            response.sendRedirect("/#/");
             return false;
         }
         return true;
