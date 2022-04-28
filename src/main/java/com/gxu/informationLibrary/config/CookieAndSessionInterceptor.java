@@ -27,7 +27,7 @@ public class CookieAndSessionInterceptor implements HandlerInterceptor {
     public boolean preHandle(@NotNull HttpServletRequest request, @NotNull HttpServletResponse response, @NotNull Object handler) throws Exception {
         String cookie = getCookieByName(request, "loginCookie");
         if (cookie == null) {
-            com.gxu.informationLibrary.entity.response<String>data=new response<>(403,"用户不存在","");
+            com.gxu.informationLibrary.entity.response<String>data=new response<>(403,"未登录，请先登录","");
             JSONObject json= (JSONObject) JSON.toJSON(data);
             response.getWriter().print(json);
             response.getWriter().flush();
