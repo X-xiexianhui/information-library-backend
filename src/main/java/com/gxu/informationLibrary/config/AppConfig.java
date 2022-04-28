@@ -21,7 +21,7 @@ public class AppConfig implements WebMvcConfigurer {
 
     @Override
     public void addInterceptors(@NotNull InterceptorRegistry registry) {
-        List<String> pattern = Arrays.asList("/", "css/**", "js/**", "img/**", "json/**", "fonts/**", "/*.html", "/api/user/login", "/api/user/logout", "/api/pwd/reset","/api/menu/init");
+        List<String> pattern = Arrays.asList("/", "css/**", "js/**", "img/**", "json/**", "fonts/**", "/*.html", "/api/user/login", "/api/user/logout", "/api/pwd/reset");
         registry.addInterceptor(interceptor()).excludePathPatterns(pattern);
     }
 
