@@ -58,6 +58,6 @@ public class menuImpl implements menuServer {
         return menu.query("");
     }
     public List<Map<String,Object>> Menu(){
-        return menu.Menu();
+        return menu.initMenu();
     }
 }
