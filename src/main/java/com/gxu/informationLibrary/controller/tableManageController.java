@@ -37,7 +37,7 @@ public class tableManageController {
         try {
             tbManage.deleteTable(db_name, tb_name);
         } catch (Exception e) {
-            return new response<>(500, e.getMessage(), "");
+            return new response<>(500, e.getCause().getMessage(), "");
         }
         return new response<>("");
     }
@@ -48,7 +48,7 @@ public class tableManageController {
         try {
             data = tbManage.searchTable(tb_name);
         } catch (Exception e) {
-            return new response<>(500, e.getMessage(), data);
+            return new response<>(500, e.getCause().getMessage(), data);
         }
         return new response<>(data);
     }
@@ -58,7 +58,7 @@ public class tableManageController {
         try {
             tbManage.renameTable(Param);
         } catch (Exception e) {
-            return new response<>(500, e.getMessage(), "");
+            return new response<>(500, e.getCause().getMessage(), "");
         }
         return new response<>("");
     }
@@ -80,7 +80,7 @@ public class tableManageController {
         try {
             data = tbManage.getColumn(db_name, tb_name);
         } catch (Exception e) {
-            return new response<>(500, e.getMessage(), data);
+            return new response<>(500, e.getCause().getMessage(), data);
         }
         return new response<>(data);
     }
