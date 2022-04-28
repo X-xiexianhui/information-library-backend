@@ -15,6 +15,7 @@ import org.springframework.util.DigestUtils;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -68,6 +69,7 @@ public class userImpl implements userServer {
     @Override
     public void login(String parma, HttpServletResponse res) throws IOException {
         response<String>data=new response<>();
+        PrintWriter out = res.getWriter();
         String uuid = UUID.randomUUID().toString();
         JSONObject userData=JSON.parseObject(parma);
         Map<String,String>user=userManage.checkUser(userData.getString("user_id"));
@@ -77,7 +79,8 @@ public class userImpl implements userServer {
             data.setMsg("用户不存在");
             data.setData("");
             JSONObject json= (JSONObject) JSON.toJSON(data);
-            res.getWriter().println(json);
+            out.print(json);
+            out.flush();
             return;
         }
         if (!user.get("user_pwd").equals(md5Password)){
@@ -85,7 +88,8 @@ public class userImpl implements userServer {
             data.setMsg("密码错误");
             data.setData("");
             JSONObject json= (JSONObject) JSON.toJSON(data);
-            res.getWriter().println(json);
+            out.print(json);
+            out.flush();
             return;
         }
         String value = uuid+";"+userData.getString("user_id")+";"+user.get("user_role");
