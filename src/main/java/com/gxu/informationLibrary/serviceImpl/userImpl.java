@@ -88,7 +88,6 @@ public class userImpl implements userServer {
             res.getWriter().println(json);
             return;
         }
-        System.out.println(user.get("user_pwd").equals(md5Password));
         String value = uuid+";"+userData.getString("user_id")+";"+user.get("user_role");
         setCookie(res,"loginCookie",value, 60 * 60);
         ValueOperations<String,String> ops = redisTemplate.opsForValue();
