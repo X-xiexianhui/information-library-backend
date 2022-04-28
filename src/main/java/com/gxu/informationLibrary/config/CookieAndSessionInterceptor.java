@@ -19,7 +19,6 @@ public class CookieAndSessionInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(@NotNull HttpServletRequest request, @NotNull HttpServletResponse response, @NotNull Object handler) throws Exception {
         String cookie = getCookieByName(request, "loginCookie");
-        log.info(cookie);
         if (cookie == null) {
             response.sendRedirect("/");
             return false;

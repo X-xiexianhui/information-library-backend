@@ -1,5 +1,6 @@
 package com.gxu.informationLibrary.util;
 
+import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -10,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
+@Slf4j
 public class utils {
     public static @NotNull String getIndexName(@NotNull List<String> fields, boolean uni) {
         StringBuilder index_name= new StringBuilder();
@@ -41,6 +42,7 @@ public class utils {
     private static @NotNull Map<String,String> ReadCookieMap(HttpServletRequest request){
         Map<String,String> cookieMap = new HashMap<>();
         Cookie[] cookies = request.getCookies();
+        log.info(String.valueOf(cookies));
         if(null!=cookies){
             for(Cookie cookie : cookies){
                 cookieMap.put(cookie.getName(), cookie.getValue());
