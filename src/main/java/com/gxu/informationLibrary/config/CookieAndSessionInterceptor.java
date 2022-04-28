@@ -3,7 +3,7 @@ package com.gxu.informationLibrary.config;
 import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -12,12 +12,14 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import java.util.Objects;
+
 import static com.gxu.informationLibrary.util.utils.getCookieByName;
 @Slf4j
 @Component
 public class CookieAndSessionInterceptor implements HandlerInterceptor {
     @Autowired
-    private RedisTemplate<String, String> redisTemplate;
+    private StringRedisTemplate redisTemplate;
 
     @Override
     public boolean preHandle(@NotNull HttpServletRequest request, @NotNull HttpServletResponse response, @NotNull Object handler) throws Exception {
@@ -28,9 +30,10 @@ public class CookieAndSessionInterceptor implements HandlerInterceptor {
         }
         String[] cookieValue = cookie.split("_");
         String user_id = cookieValue[1];
-        log.info(user_id);
+
         ValueOperations<String, String> ops = this.redisTemplate.opsForValue();
         String cookieCache = ops.get("loginCookie_" + user_id);
+        log.info(String.valueOf(Objects.equals(cookieCache, cookie)));
         if (cookieCache == null || !cookieCache.equals(cookie)) {
             response.sendRedirect("/");
             return false;
