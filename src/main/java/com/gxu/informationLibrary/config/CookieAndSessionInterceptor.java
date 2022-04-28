@@ -28,6 +28,7 @@ public class CookieAndSessionInterceptor implements HandlerInterceptor {
         }
         String[] cookieValue = cookie.split("_");
         String user_id = cookieValue[1];
+        log.info(user_id);
         ValueOperations<String, String> ops = this.redisTemplate.opsForValue();
         String cookieCache = ops.get("loginCookie_" + user_id);
         if (cookieCache == null || !cookieCache.equals(cookie)) {
