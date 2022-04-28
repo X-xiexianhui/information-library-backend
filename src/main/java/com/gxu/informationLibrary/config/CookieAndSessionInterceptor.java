@@ -1,5 +1,6 @@
 package com.gxu.informationLibrary.config;
 
+import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
@@ -11,13 +12,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import static com.gxu.informationLibrary.util.utils.getCookieByName;
-
+@Slf4j
 @Component
 public class CookieAndSessionInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(@NotNull HttpServletRequest request, @NotNull HttpServletResponse response, @NotNull Object handler) throws Exception {
         String cookie = getCookieByName(request, "loginCookie");
+        log.info(cookie);
         if (cookie == null) {
             response.sendRedirect("/");
             return false;
