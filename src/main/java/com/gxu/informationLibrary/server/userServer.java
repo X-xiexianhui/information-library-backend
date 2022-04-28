@@ -1,5 +1,6 @@
 package com.gxu.informationLibrary.server;
 
+import com.gxu.informationLibrary.entity.response;
 import com.gxu.informationLibrary.entity.userInfo;
 
 import javax.servlet.http.HttpServletResponse;
@@ -14,5 +15,5 @@ public interface userServer {
 
     List<userInfo>editUser(String param);
 
-    void login(String parma, HttpServletResponse response) throws Exception;
+    response<String> login(String parma, HttpServletResponse response) throws Exception;
 }

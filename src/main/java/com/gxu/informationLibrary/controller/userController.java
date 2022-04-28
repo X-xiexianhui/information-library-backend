@@ -64,11 +64,6 @@ public class userController {
     }
     @PostMapping("api/user/login")
     public response<String>login(@RequestBody String parma, HttpServletResponse res) {
-        try {
-            userManager.login(parma,res);
-        }catch (Exception e){
-            return new response<>(500,e.getCause().getMessage(),"登录失败");
-        }
-        return new response<>("登录成功");
+            return userManager.login(parma, res);
     }
 }
