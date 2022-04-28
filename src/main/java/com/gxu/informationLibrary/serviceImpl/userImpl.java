@@ -84,7 +84,8 @@ public class userImpl implements userServer {
                 data.setData("");
                 return data;
             }
-            String value = uuid+";"+userData.getString("user_id")+";"+user.get("user_role");
+            String value = uuid+"_"+userData.getString("user_id")+"_"+user.get("user_role");
+            System.out.println(value);
             setCookie(res,"loginCookie",value,30*24*60*60);
             ValueOperations<String,String> ops = redisTemplate.opsForValue();
             ops.set("loginCookie_"+userData.getString("user_id"),value,30*24*60*60);
