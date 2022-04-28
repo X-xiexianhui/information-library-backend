@@ -38,7 +38,6 @@ public class CookieAndSessionInterceptor implements HandlerInterceptor {
 
         ValueOperations<String, String> ops = this.redisTemplate.opsForValue();
         String cookieCache = ops.get("loginCookie_" + user_id);
-        log.info(cookieCache);
         if (cookieCache == null || !cookieCache.equals(cookie)) {
             com.gxu.informationLibrary.entity.response<String>data=new response<>(403,"密码错误","");
             JSONObject json= (JSONObject) JSON.toJSON(data);
