@@ -12,7 +12,6 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import java.util.Objects;
 
 import static com.gxu.informationLibrary.util.utils.getCookieByName;
 @Slf4j
