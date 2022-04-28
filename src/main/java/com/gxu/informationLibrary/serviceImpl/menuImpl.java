@@ -57,4 +57,7 @@ public class menuImpl implements menuServer {
         menu.editMenu(menuJSON.getString("col_name"), menuJSON.getString("value"));
         return menu.query("");
     }
+    public List<Map<String,Object>>initMenu(){
+        return menu.initMenu();
+    }
 }

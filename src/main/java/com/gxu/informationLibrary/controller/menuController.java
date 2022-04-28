@@ -98,4 +98,14 @@ public class menuController {
         }
         return new response<>(data);
     }
+    @GetMapping("api/menu/init")
+    public response<List<Map<String,Object>>>init(){
+        List<Map<String,Object>>data=new ArrayList<>();
+        try {
+            data=menu.initMenu();
+        }catch (Exception e){
+            return new response<>(500,e.getCause().getMessage(),data);
+        }
+        return new response<>(data);
+    }
 }
