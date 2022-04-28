@@ -1,5 +1,8 @@
 package com.gxu.informationLibrary.config;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+import com.gxu.informationLibrary.entity.response;
 import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +27,10 @@ public class CookieAndSessionInterceptor implements HandlerInterceptor {
     public boolean preHandle(@NotNull HttpServletRequest request, @NotNull HttpServletResponse response, @NotNull Object handler) throws Exception {
         String cookie = getCookieByName(request, "loginCookie");
         if (cookie == null) {
-            response.sendRedirect("/#/");
+            com.gxu.informationLibrary.entity.response<String>data=new response<>(403,"用户不存在","");
+            JSONObject json= (JSONObject) JSON.toJSON(data);
+            response.getWriter().print(json);
+            response.getWriter().flush();
             return false;
         }
         String[] cookieValue = cookie.split("_");
@@ -34,7 +40,10 @@ public class CookieAndSessionInterceptor implements HandlerInterceptor {
         String cookieCache = ops.get("loginCookie_" + user_id);
         log.info(cookieCache);
         if (cookieCache == null || !cookieCache.equals(cookie)) {
-            response.sendRedirect("/#/");
+            com.gxu.informationLibrary.entity.response<String>data=new response<>(403,"密码错误","");
+            JSONObject json= (JSONObject) JSON.toJSON(data);
+            response.getWriter().print(json);
+            response.getWriter().flush();
             return false;
         }
         return true;
