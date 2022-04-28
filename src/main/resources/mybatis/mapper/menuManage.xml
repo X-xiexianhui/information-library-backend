@@ -38,7 +38,7 @@
                  left join form_info on a.context_form = form_id
         where a.menu_name like concat('%', #{menu_name}, '%');
     </select>
-    <update id="editMenu">
+    <update id="Menu">
         update menu_info
         set ${col_name}=#{value}
         where menu_id = #{menu_id};
@@ -60,7 +60,7 @@
         select menu_name, menu_id
         from menu_info;
     </select>
-    <resultMap id="menuMap" type="map">
+    <resultMap id="menuMap" type="Map">
         <result column="name"/>
         <collection property="child">
             <result column="id" property="id" javaType="int"/>
