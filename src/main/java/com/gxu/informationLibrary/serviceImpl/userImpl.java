@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 import static com.gxu.informationLibrary.util.utils.setCookie;
 
@@ -87,7 +88,7 @@ public class userImpl implements userServer {
             String value = uuid+"_"+userData.getString("user_id")+"_"+user.get("user_role");
             setCookie(res,"loginCookie",value,5*60);
             ValueOperations<String,String> ops = redisTemplate.opsForValue();
-            ops.set("loginCookie_"+userData.getString("user_id"),value,5*60);
+            ops.set("loginCookie_"+userData.getString("user_id"),value,5*60, TimeUnit.MILLISECONDS);
         }catch (Exception e){
             data.setCode(500);
             data.setMsg(e.getCause().getMessage());
