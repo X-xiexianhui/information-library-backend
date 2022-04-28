@@ -8,6 +8,7 @@ import org.jetbrains.annotations.Nullable;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -42,7 +43,7 @@ public class utils {
     private static @NotNull Map<String,String> ReadCookieMap(HttpServletRequest request){
         Map<String,String> cookieMap = new HashMap<>();
         Cookie[] cookies = request.getCookies();
-        log.info(String.valueOf(cookies));
+        log.info(Arrays.toString(cookies));
         if(null!=cookies){
             for(Cookie cookie : cookies){
                 cookieMap.put(cookie.getName(), cookie.getValue());
