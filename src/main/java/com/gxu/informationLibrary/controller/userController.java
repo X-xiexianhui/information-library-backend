@@ -11,14 +11,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Controller
-@ResponseBody
+
 public class userController {
     final userImpl userManager;
 
     public userController(userImpl userManager) {
         this.userManager = userManager;
     }
-
+    @ResponseBody
     @PostMapping("api/user/add")
     public response<List<userInfo>> addUser(@RequestBody String param) {
         List<userInfo> data = new ArrayList<>();
@@ -29,7 +29,7 @@ public class userController {
         }
         return new response<>(data);
     }
-
+    @ResponseBody
     @PostMapping("api/user/delete")
     public response<List<userInfo>> deleteUser(@RequestParam("user_id") String user_id) {
         List<userInfo> data = new ArrayList<>();
@@ -40,7 +40,7 @@ public class userController {
         }
         return new response<>(data);
     }
-
+    @ResponseBody
     @GetMapping("api/user/get")
     public response<List<userInfo>> queryUser(@RequestParam("user_name") String user_name) {
         List<userInfo> data = new ArrayList<>();
@@ -51,7 +51,7 @@ public class userController {
         }
         return new response<>(data);
     }
-
+    @ResponseBody
     @PostMapping("api/user/edit")
     public response<List<userInfo>> editUser(@RequestBody String param) {
         List<userInfo> data = new ArrayList<>();
@@ -67,7 +67,7 @@ public class userController {
         try {
             userManager.login(parma,res);
         }catch (Exception e){
-            return new response<>(500,e.getCause().getMessage(),"登录失败");
+            return new response<>(403,e.getCause().getMessage(),"登录失败");
         }
         return new response<>("登录成功");
     }

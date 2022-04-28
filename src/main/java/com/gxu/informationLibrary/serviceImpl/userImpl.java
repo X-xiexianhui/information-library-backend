@@ -70,13 +70,14 @@ public class userImpl implements userServer {
         Map<String,String>user=userManage.checkUser(userData.getString("user_id"));
         String md5Password = DigestUtils.md5DigestAsHex(userData.getString("user_pwd").getBytes());
         if (user == null){
-            throw new Exception("用户不存在");
+            throw new RuntimeException("用户不存在");
         }
         if (!user.get("user_pwd").equals(md5Password)){
-            throw new Exception("密码错误");
+            throw new RuntimeException("密码错误");
         }
+        System.out.println(user.get("user_pwd").equals(md5Password));
         String value = uuid+";"+userData.getString("user_id")+";"+user.get("user_role");
-        setCookie(response,"loginCookie",value,30*24*60*60);
+        setCookie(response,"loginCookie",value, 60 * 60);
         ValueOperations<String,String> ops = redisTemplate.opsForValue();
         ops.set("loginCookie_"+userData.getString("user_id"),value,30*24*60*60);
     }
