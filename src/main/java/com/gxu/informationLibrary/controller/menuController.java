@@ -104,7 +104,7 @@ public class menuController {
         try {
             data=menu.Menu();
         }catch (Exception e){
-            return new response<>(500,e.getCause().getMessage(),data);
+            return new response<>(500,e.getMessage(),data);
         }
         return new response<>(data);
     }
