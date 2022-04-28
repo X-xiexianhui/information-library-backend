@@ -81,6 +81,11 @@ public class userImpl implements userServer {
             return;
         }
         if (!user.get("user_pwd").equals(md5Password)){
+            data.setCode(403);
+            data.setMsg("密码错误");
+            data.setData("");
+            JSONObject json= (JSONObject) JSON.toJSON(data);
+            res.getWriter().println(json);
             return;
         }
         System.out.println(user.get("user_pwd").equals(md5Password));

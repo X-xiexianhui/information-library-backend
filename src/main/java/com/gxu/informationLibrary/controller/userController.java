@@ -63,12 +63,11 @@ public class userController {
         return new response<>(data);
     }
     @PostMapping("api/user/login")
-    public response<String>login(@RequestBody String parma, HttpServletResponse res) {
+    public void login(@RequestBody String parma, HttpServletResponse res) {
         try {
             userManager.login(parma,res);
         }catch (Exception e){
-            return new response<>(403,e.getCause().getMessage(),"登录失败");
+            e.printStackTrace();
         }
-        return new response<>("登录成功");
     }
 }
