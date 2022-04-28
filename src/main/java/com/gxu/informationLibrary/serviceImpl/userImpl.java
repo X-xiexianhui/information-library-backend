@@ -67,26 +67,34 @@ public class userImpl implements userServer {
     @Override
     public response<String> login(String parma, HttpServletResponse res) {
         response<String>data=new response<>();
-        String uuid = UUID.randomUUID().toString();
-        JSONObject userData=JSON.parseObject(parma);
-        Map<String,String>user=userManage.checkUser(userData.getString("user_id"));
-        String md5Password = DigestUtils.md5DigestAsHex(userData.getString("user_pwd").getBytes());
-        if (user == null){
-            data.setCode(403);
-            data.setMsg("用户不存在");
+        try {
+            String uuid = UUID.randomUUID().toString();
+            JSONObject userData=JSON.parseObject(parma);
+            Map<String,String>user=userManage.checkUser(userData.getString("user_id"));
+            String md5Password = DigestUtils.md5DigestAsHex(userData.getString("user_pwd").getBytes());
+            if (user == null){
+                data.setCode(403);
+                data.setMsg("用户不存在");
+                data.setData("");
+                return data;
+            }
+            if (!user.get("user_pwd").equals(md5Password)){
+                data.setCode(403);
+                data.setMsg("密码错误");
+                data.setData("");
+                return data;
+            }
+            String value = uuid+";"+userData.getString("user_id")+";"+user.get("user_role");
+            setCookie(res,"loginCookie",value,30*24*60*60);
+            ValueOperations<String,String> ops = redisTemplate.opsForValue();
+            ops.set("loginCookie_"+userData.getString("user_id"),value,30*24*60*60);
+        }catch (Exception e){
+            data.setCode(500);
+            data.setMsg(e.getCause().getMessage());
             data.setData("");
             return data;
         }
-        if (!user.get("user_pwd").equals(md5Password)){
-            data.setCode(403);
-            data.setMsg("密码错误");
-            data.setData("");
-            return data;
-        }
-        String value = uuid+";"+userData.getString("user_id")+";"+user.get("user_role");
-        setCookie(res,"loginCookie",value,30*24*60*60);
-        ValueOperations<String,String> ops = redisTemplate.opsForValue();
-        ops.set("loginCookie_"+userData.getString("user_id"),value,30*24*60*60);
+
         return data;
     }
 }
