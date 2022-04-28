@@ -72,6 +72,7 @@
         select parent.menu_name as name, child.menu_name as child_name, child.menu_id as menu_id, child.context_form as form_id
         from (menu_info as parent
                  left join menu_info as child on parent.menu_id = child.father_menu)
-        where parent.father_menu = 0;
+        where parent.father_menu = 0
+          and child.menu_id is not null;
     </select>
 </mapper>
