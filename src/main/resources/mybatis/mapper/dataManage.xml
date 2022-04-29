@@ -29,7 +29,7 @@
         <foreach collection="columns" item="item" index="index" separator="and">
             ${item.col_name} like concat('%',#{item.value},'%')
         </foreach>
-        <if test="onlyAuth==true">and user_id=#{user_id}</if>;
+        <if test="onlyAuth==true">and user=#{user_id}</if>;
     </select>
     <select id="getTableColumn" resultType="map">
         select col_name as field, label_name as title
