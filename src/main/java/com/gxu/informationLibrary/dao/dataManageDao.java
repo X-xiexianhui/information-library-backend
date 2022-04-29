@@ -21,4 +21,6 @@ public interface dataManageDao {
     List<JSONObject>queryData(String db_name, String tb_name, List<editEntity>columns, boolean onlyAuth);
 
     List<Map<String,String>>getTableColumn(@Param("form_id") int form_id);
+
+    String getTableByFormId(@Param("form_id") int form_id);
 }

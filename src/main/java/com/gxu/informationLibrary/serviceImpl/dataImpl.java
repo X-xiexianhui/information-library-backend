@@ -35,7 +35,13 @@ public class dataImpl implements dataServer {
 
     @Override
     public response<List<JSONObject>> getTableData(int form_id) {
-        return null;
+        List<JSONObject>data=new ArrayList<>();
+        try {
+
+        }catch (Exception e){
+            return new response<>(500,e.getCause().getMessage(),data);
+        }
+        return new response<>(data);
     }
 
     @Override
