@@ -31,4 +31,7 @@
         </foreach>
         <if test="onlyAuth==true">and user_id=#{user_id}</if>;
     </select>
+    <select id="getTableColumn" resultType="map">
+        select col_name as field,label_name as title from column_info,form_struct where form_id=#{form_id} and form_struct.col_id=column_info.col_id;
+    </select>
 </mapper>
