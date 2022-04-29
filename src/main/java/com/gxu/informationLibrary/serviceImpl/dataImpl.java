@@ -91,7 +91,7 @@ public class dataImpl implements dataServer {
         if (!file.isEmpty()) {
             try {
                 BufferedOutputStream out = new BufferedOutputStream(
-                        new FileOutputStream("./files"));
+                        new FileOutputStream("./files/"));
                 out.write(file.getBytes());
                 out.flush();
                 out.close();
