@@ -4,12 +4,14 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.gxu.informationLibrary.dao.dataManageDao;
 import com.gxu.informationLibrary.entity.editEntity;
+import com.gxu.informationLibrary.entity.response;
 import com.gxu.informationLibrary.server.dataServer;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Service
 @Transactional(rollbackFor=Exception.class)
@@ -18,6 +20,11 @@ public class dataImpl implements dataServer {
 
     public dataImpl(dataManageDao dataManage) {
         this.dataManage = dataManage;
+    }
+
+    @Override
+    public response<List<Map<String, String>>> getTableColumn(int form_id) {
+        return null;
     }
 
     @Override

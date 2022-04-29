@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 @Repository
@@ -18,4 +19,6 @@ public interface dataManageDao {
     void deleteData(String db_name,String tb_name,String record_id);
 
     List<JSONObject>queryData(String db_name, String tb_name, List<editEntity>columns, boolean onlyAuth);
+
+    List<Map<String,String>>getTableColumn(@Param("form_id") int form_id);
 }
