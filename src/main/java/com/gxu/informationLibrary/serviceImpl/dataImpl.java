@@ -3,6 +3,7 @@ package com.gxu.informationLibrary.serviceImpl;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.gxu.informationLibrary.dao.dataManageDao;
+import com.gxu.informationLibrary.entity.dataEntity;
 import com.gxu.informationLibrary.entity.editEntity;
 import com.gxu.informationLibrary.entity.response;
 import com.gxu.informationLibrary.server.dataServer;
@@ -51,11 +52,10 @@ public class dataImpl implements dataServer {
 
     @Override
     public response<String> insertData(String parma) {
-        List<JSONObject>data=new ArrayList<>();
         JSONObject insert= JSON.parseObject(parma);
         int form_id = insert.getInteger("form_id");
         Map<String,String>tb=dataManage.getTableByFormId(form_id);
-        List<editEntity>columns=insert.getJSONArray("insert").toJavaList(editEntity.class);
+        List<dataEntity>columns=insert.getJSONArray("insert").toJavaList(dataEntity.class);
         try {
             dataManage.insertData(tb.get("db_name"), tb.get("tb_name"),columns);
         } catch (Exception e){

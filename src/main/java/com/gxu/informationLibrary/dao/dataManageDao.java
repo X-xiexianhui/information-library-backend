@@ -1,6 +1,7 @@
 package com.gxu.informationLibrary.dao;
 
 import com.alibaba.fastjson.JSONObject;
+import com.gxu.informationLibrary.entity.dataEntity;
 import com.gxu.informationLibrary.entity.editEntity;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -12,7 +13,7 @@ import java.util.Map;
 @Mapper
 @Repository
 public interface dataManageDao {
-    void insertData(@Param("db_name") String db_name,@Param("tb_name") String tb_name,List<editEntity>columns);
+    void insertData(@Param("db_name") String db_name,@Param("tb_name") String tb_name,List<dataEntity>columns);
 
     void updateData(String db_name,String tb_name,List<editEntity>updates);
 
