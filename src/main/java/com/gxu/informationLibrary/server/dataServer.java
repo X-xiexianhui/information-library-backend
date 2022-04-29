@@ -11,7 +11,7 @@ public interface dataServer {
 
     response<List<JSONObject>>getTableData(int form_id);
 
-    List<JSONObject>insertData(String parma);
+    response<String>insertData(String parma);
 
     List<JSONObject>deleteData(String parma);
 

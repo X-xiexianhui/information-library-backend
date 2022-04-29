@@ -50,13 +50,18 @@ public class dataImpl implements dataServer {
     }
 
     @Override
-    public List<JSONObject> insertData(String parma) {
+    public response<String> insertData(String parma) {
+        List<JSONObject>data=new ArrayList<>();
         JSONObject insert= JSON.parseObject(parma);
-        String db_name=insert.getString("db_name");
-        String tb_name=insert.getString("tb_name");
+        int form_id = insert.getInteger("form_id");
+        Map<String,String>tb=dataManage.getTableByFormId(form_id);
         List<editEntity>columns=insert.getJSONArray("insert").toJavaList(editEntity.class);
-        dataManage.insertData(db_name, tb_name,columns);
-        return dataManage.queryData(db_name,tb_name , new ArrayList<>(), false,"" );
+        try {
+            dataManage.insertData(tb.get("db_name"), tb.get("tb_name"),columns);
+        } catch (Exception e){
+            return new response<>(500,e.getCause().getMessage(),"");
+        }
+        return new response<>("");
     }
 
     @Override
