@@ -37,7 +37,8 @@ public class dataImpl implements dataServer {
     public response<List<JSONObject>> getTableData(int form_id) {
         List<JSONObject>data=new ArrayList<>();
         try {
-
+            Map<String,String>tb=dataManage.getTableByFormId(form_id);
+            data=dataManage.getData(tb.get("db_name"),tb.get("tb_name"),false);
         }catch (Exception e){
             return new response<>(500,e.getCause().getMessage(),data);
         }

@@ -23,4 +23,6 @@ public interface dataManageDao {
     List<Map<String,String>>getTableColumn(@Param("form_id") int form_id);
 
     Map<String,String> getTableByFormId(@Param("form_id") int form_id);
+
+    List<JSONObject>getData(String db_name,String tb_name,boolean onlyAuth);
 }
