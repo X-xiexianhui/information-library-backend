@@ -9,6 +9,8 @@ import java.util.Map;
 public interface dataServer {
     response<List<Map<String,String>>>getTableColumn(int form_id);
 
+    response<List<JSONObject>>getTableData(int form_id);
+
     List<JSONObject>insertData(String parma);
 
     List<JSONObject>deleteData(String parma);

@@ -34,6 +34,11 @@ public class dataImpl implements dataServer {
     }
 
     @Override
+    public response<List<JSONObject>> getTableData(int form_id) {
+        return null;
+    }
+
+    @Override
     public List<JSONObject> insertData(String parma) {
         JSONObject insert= JSON.parseObject(parma);
         String db_name=insert.getString("db_name");
