@@ -24,7 +24,13 @@ public class dataImpl implements dataServer {
 
     @Override
     public response<List<Map<String, String>>> getTableColumn(int form_id) {
-        return null;
+       List<Map<String,String>>data=new ArrayList<>();
+        try {
+            data=dataManage.getTableColumn(form_id);
+        } catch (Exception e){
+            return new response<>(500,e.getCause().getMessage(),data);
+        }
+        return new response<>(data);
     }
 
     @Override
