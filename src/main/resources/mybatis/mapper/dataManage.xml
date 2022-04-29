@@ -38,7 +38,7 @@
         where form_id = #{form_id}
           and form_struct.col_id = column_info.col_id;
     </select>
-    <select id="getTableByFormId" resultType="string">
-        select concat(db_name,'.',tb_name) as tb from tb_info where tb_id=(select tb_id from form_info where form_id= #{form_id});
+    <select id="getTableByFormId" resultType="map">
+        select db_name,tb_name from tb_info where tb_id=(select tb_id from form_info where form_id= #{form_id});
     </select>
 </mapper>

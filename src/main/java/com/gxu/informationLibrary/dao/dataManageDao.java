@@ -22,5 +22,5 @@ public interface dataManageDao {
 
     List<Map<String,String>>getTableColumn(@Param("form_id") int form_id);
 
-    String getTableByFormId(@Param("form_id") int form_id);
+    Map<String,String> getTableByFormId(@Param("form_id") int form_id);
 }
