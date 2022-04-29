@@ -31,6 +31,6 @@ public class dataController {
     }
     @PostMapping("api/file/add")
     public response<String>uploadFile(@RequestParam("file") MultipartFile file){
-       return dataManage.uploadFile(file);
+        return dataManage.uploadFile(file);
     }
 }
