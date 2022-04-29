@@ -58,7 +58,7 @@ public class dataImpl implements dataServer {
         try {
             dataManage.insertData(tb.get("db_name"), tb.get("tb_name"),columns);
         } catch (Exception e){
-            return new response<>(500,e.getCause().getMessage(),"");
+            return new response<>(500,e.getCause().getMessage(), "");
         }
         return new response<>("");
     }

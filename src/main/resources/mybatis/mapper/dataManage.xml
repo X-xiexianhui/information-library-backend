@@ -9,7 +9,7 @@
         </foreach>
         ) values(
         <foreach collection="columns" index="index" item="item" separator=",">
-            ${item.value}
+            #{item.value}
         </foreach>
         )
     </insert>
