@@ -92,7 +92,6 @@ public class dataImpl implements dataServer {
             try {
                 BufferedOutputStream out = new BufferedOutputStream(
                         new FileOutputStream(Objects.requireNonNull(file.getOriginalFilename())));
-//                System.out.println(file.getName());
                 out.write(file.getBytes());
                 out.flush();
                 out.close();
