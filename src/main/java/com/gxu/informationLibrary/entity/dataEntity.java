@@ -7,4 +7,5 @@ public class dataEntity {
     String field;
     String title;
     Object value;
+    String data_type;
 }
