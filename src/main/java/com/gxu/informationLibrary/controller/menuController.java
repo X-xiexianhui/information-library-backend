@@ -13,7 +13,6 @@ import java.util.Map;
 
 @Controller
 @ResponseBody
-@CrossOrigin
 public class menuController {
     final menuImpl menu;
     final formManageImpl formManage;
