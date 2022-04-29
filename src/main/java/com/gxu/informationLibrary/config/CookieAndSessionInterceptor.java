@@ -25,9 +25,6 @@ public class CookieAndSessionInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(@NotNull HttpServletRequest request, @NotNull HttpServletResponse response, @NotNull Object handler) throws Exception {
-        if ("OPTIONS".equals(request.getMethod().toLowerCase())){
-            return true;
-        }
         String cookie = getCookieByName(request, "loginCookie");
         if (cookie == null) {
             com.gxu.informationLibrary.entity.response<String>data=new response<>(401,"未登录，请先登录","");
