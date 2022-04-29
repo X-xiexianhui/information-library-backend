@@ -8,10 +8,13 @@ import com.gxu.informationLibrary.entity.response;
 import com.gxu.informationLibrary.server.dataServer;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 @Service
 @Transactional(rollbackFor=Exception.class)
@@ -82,5 +85,29 @@ public class dataImpl implements dataServer {
         List<editEntity> updates=updateJSON.getJSONArray("update").toJavaList(editEntity.class);
         dataManage.updateData(db_name,tb_name , updates);
         return dataManage.queryData(db_name,tb_name , new ArrayList<>(), false,"" );
+    }
+    public response<String> uploadFile(MultipartFile file){
+        response<String> res =new response<>("");
+        if (!file.isEmpty()) {
+            try {
+                BufferedOutputStream out = new BufferedOutputStream(
+                        new FileOutputStream(Objects.requireNonNull(file.getOriginalFilename())));
+//                System.out.println(file.getName());
+                out.write(file.getBytes());
+                out.flush();
+                out.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+                res.setCode(500);
+                res.setMsg("上传失败," + e.getMessage());
+                return res;
+            }
+            res.setMsg("上传成功");
+
+        } else {
+            res.setCode(405);
+            res.setMsg("上传失败，因为文件是空的.");
+        }
+        return res;
     }
 }
