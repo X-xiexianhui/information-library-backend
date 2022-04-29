@@ -81,7 +81,7 @@ public class userImpl implements userServer {
             }
             if (!user.get("user_pwd").equals(md5Password)){
                 data.setCode(403);
-                data.setMsg("密码错误");
+                data.setMsg("账号或密码错误");
                 data.setData("");
                 return data;
             }
