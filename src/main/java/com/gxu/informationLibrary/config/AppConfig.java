@@ -24,17 +24,6 @@ public class AppConfig implements WebMvcConfigurer {
         List<String> pattern = Arrays.asList("/", "css/**", "js/**", "img/**", "json/**", "fonts/**", "/*.html", "/api/user/login", "/api/user/logout", "/api/pwd/reset");
         registry.addInterceptor(interceptor()).excludePathPatterns(pattern);
     }
-
-    @Override
-    public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/**")
-                .allowedOriginPatterns("*")
-                .allowCredentials(true)
-                .allowedMethods("*")
-                .allowedHeaders("*")
-                .maxAge(3600);
-    }
-
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/static/**");
