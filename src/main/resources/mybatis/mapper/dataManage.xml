@@ -41,4 +41,7 @@
     <select id="getTableByFormId" resultType="map">
         select db_name,tb_name from tb_info where tb_id=(select tb_id from form_info where form_id= #{form_id});
     </select>
+    <select id="getData" resultType="com.alibaba.fastjson.JSONObject">
+        select * from ${db_name}.${tb_name}
+    </select>
 </mapper>

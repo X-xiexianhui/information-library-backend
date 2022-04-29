@@ -52,7 +52,7 @@ public class dataImpl implements dataServer {
         String tb_name=insert.getString("tb_name");
         List<editEntity>columns=insert.getJSONArray("insert").toJavaList(editEntity.class);
         dataManage.insertData(db_name, tb_name,columns);
-        return dataManage.queryData(db_name,tb_name , new ArrayList<>(), false);
+        return dataManage.queryData(db_name,tb_name , new ArrayList<>(), false,1 );
     }
 
     @Override
@@ -62,7 +62,7 @@ public class dataImpl implements dataServer {
         String tb_name=deleteJSON.getString("tb_name");
         String record_id=deleteJSON.getString("record_id");
         dataManage.deleteData(db_name,tb_name,record_id);
-        return dataManage.queryData(db_name,tb_name , new ArrayList<>(), false);
+        return dataManage.queryData(db_name,tb_name , new ArrayList<>(), false, 1);
     }
 
     @Override
@@ -71,7 +71,7 @@ public class dataImpl implements dataServer {
         String db_name=query.getString("db_name");
         String tb_name=query.getString("tb_name");
         List<editEntity>columns=query.getJSONArray("columns").toJavaList(editEntity.class);
-        return dataManage.queryData(db_name,tb_name,columns,false);
+        return dataManage.queryData(db_name,tb_name,columns,false, 1);
     }
 
     @Override
@@ -81,6 +81,6 @@ public class dataImpl implements dataServer {
         String tb_name=updateJSON.getString("tb_name");
         List<editEntity> updates=updateJSON.getJSONArray("update").toJavaList(editEntity.class);
         dataManage.updateData(db_name,tb_name , updates);
-        return dataManage.queryData(db_name,tb_name , new ArrayList<>(), false);
+        return dataManage.queryData(db_name,tb_name , new ArrayList<>(), false,1 );
     }
 }
