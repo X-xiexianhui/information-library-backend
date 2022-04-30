@@ -15,7 +15,7 @@
     </select>
     <update id="createFK">
         alter table ${db_name}.${tb_name}
-            add constraint ${fk_name} foreign key (${fk_column}) references ${ref_db}.${ref_table} (${ref_column}) on update cascade;
+            add constraint ${fk_name} foreign key (${fk_column}) references ${ref_db}.${ref_table} (${ref_column});
     </update>
     <insert id="insertFkInfo">
         insert into fk_info
