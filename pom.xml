@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.gxu</groupId>
-	<artifactId>information-library-system</artifactId>
+	<artifactId>information-library</artifactId>
 	<version>0.0.1</version>
 	<name>information-library-system</name>
 	<description>information-library-system project for Spring Boot</description>
