@@ -185,5 +185,7 @@ INSERT INTO information_library.auth_info (auth_level, `option`, auth_mean) VALU
 INSERT INTO information_library.auth_info (auth_level, `option`, auth_mean) VALUES ('u2', '修改', '允许修改所有数据');
 INSERT INTO information_library.auth_info (auth_level, `option`, auth_mean) VALUES ('w0', '添加', '不允许添加数据');
 INSERT INTO information_library.auth_info (auth_level, `option`, auth_mean) VALUES ('w1', '添加', '允许添加数据');
+INSERT INTO information_library.role_info (role_id, role_name, role_description) VALUES (1, '系统管理员', '系统管理员，可以进入管理后台，拥有对所有数据的全部修改权限，不可删除，不可修改');
+
 
 
