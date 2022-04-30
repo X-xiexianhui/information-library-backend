@@ -174,18 +174,32 @@ create table user_info
         foreign key (user_role) references role_info (role_id)
             on update cascade
 );
-INSERT INTO information_library.auth_info (auth_level, `option`, auth_mean) VALUES ('d0', '删除', '不允许删除数据');
-INSERT INTO information_library.auth_info (auth_level, `option`, auth_mean) VALUES ('d1', '删除', '仅允许删除由该用户添加的数据');
-INSERT INTO information_library.auth_info (auth_level, `option`, auth_mean) VALUES ('d2', '删除', '允许删除所有数据');
-INSERT INTO information_library.auth_info (auth_level, `option`, auth_mean) VALUES ('s0', '查询', '不允许查询数据');
-INSERT INTO information_library.auth_info (auth_level, `option`, auth_mean) VALUES ('s1', '查询', '仅允许查询由该用户提交的数据');
-INSERT INTO information_library.auth_info (auth_level, `option`, auth_mean) VALUES ('s2', '查询', '允许查询所有数据');
-INSERT INTO information_library.auth_info (auth_level, `option`, auth_mean) VALUES ('u0', '修改', '不允许修改数据');
-INSERT INTO information_library.auth_info (auth_level, `option`, auth_mean) VALUES ('u1', '修改', '仅允许修改由该用户提交的数据');
-INSERT INTO information_library.auth_info (auth_level, `option`, auth_mean) VALUES ('u2', '修改', '允许修改所有数据');
-INSERT INTO information_library.auth_info (auth_level, `option`, auth_mean) VALUES ('w0', '添加', '不允许添加数据');
-INSERT INTO information_library.auth_info (auth_level, `option`, auth_mean) VALUES ('w1', '添加', '允许添加数据');
-INSERT INTO information_library.role_info (role_id, role_name, role_description) VALUES (1, '系统管理员', '系统管理员，可以进入管理后台，拥有对所有数据的全部修改权限，不可删除，不可修改');
+INSERT INTO information_library.auth_info (auth_level, `option`, auth_mean)
+VALUES ('d0', '删除', '不允许删除数据');
+INSERT INTO information_library.auth_info (auth_level, `option`, auth_mean)
+VALUES ('d1', '删除', '仅允许删除由该用户添加的数据');
+INSERT INTO information_library.auth_info (auth_level, `option`, auth_mean)
+VALUES ('d2', '删除', '允许删除所有数据');
+INSERT INTO information_library.auth_info (auth_level, `option`, auth_mean)
+VALUES ('s0', '查询', '不允许查询数据');
+INSERT INTO information_library.auth_info (auth_level, `option`, auth_mean)
+VALUES ('s1', '查询', '仅允许查询由该用户提交的数据');
+INSERT INTO information_library.auth_info (auth_level, `option`, auth_mean)
+VALUES ('s2', '查询', '允许查询所有数据');
+INSERT INTO information_library.auth_info (auth_level, `option`, auth_mean)
+VALUES ('u0', '修改', '不允许修改数据');
+INSERT INTO information_library.auth_info (auth_level, `option`, auth_mean)
+VALUES ('u1', '修改', '仅允许修改由该用户提交的数据');
+INSERT INTO information_library.auth_info (auth_level, `option`, auth_mean)
+VALUES ('u2', '修改', '允许修改所有数据');
+INSERT INTO information_library.auth_info (auth_level, `option`, auth_mean)
+VALUES ('w0', '添加', '不允许添加数据');
+INSERT INTO information_library.auth_info (auth_level, `option`, auth_mean)
+VALUES ('w1', '添加', '允许添加数据');
+INSERT INTO information_library.role_info (role_id, role_name, role_description)
+VALUES (1, '系统管理员', '系统管理员，可以进入管理后台，拥有对所有数据的全部修改权限，不可删除，不可修改');
+INSERT INTO information_library.user_info (user_id, user_pwd, user_name, user_email, user_role, is_del)
+VALUES ('admin', '601cea768fb9c2ce3b028391c442e072', '系统管理员', '1281715740@qq.com', 1, 0);
 
 
 
