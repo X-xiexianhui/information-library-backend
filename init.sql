@@ -187,4 +187,3 @@ INSERT INTO information_library.auth_info (auth_level, `option`, auth_mean) VALU
 INSERT INTO information_library.auth_info (auth_level, `option`, auth_mean) VALUES ('w1', '添加', '允许添加数据');
 
 
-
