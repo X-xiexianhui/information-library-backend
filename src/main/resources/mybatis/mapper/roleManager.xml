@@ -40,7 +40,7 @@
     </update>
     <select id="getRoleList" resultType="int">
         select role_id
-        from role_info;
+        from role_info where not role_name='系统管理员';
     </select>
     <select id="queryRoleId" resultType="int">
         select role_id
