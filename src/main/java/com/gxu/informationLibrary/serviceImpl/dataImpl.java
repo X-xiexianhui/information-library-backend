@@ -121,8 +121,4 @@ public class dataImpl implements dataServer {
         }
         return res;
     }
-    private String[] getUserCookie(HttpServletRequest request){
-        String[] userCookie = Objects.requireNonNull(getCookieByName(request, "loginCookie")).split("_");
-        return userCookie;
-    }
 }
