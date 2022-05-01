@@ -34,14 +34,17 @@ public class dataController {
     public response<String> editData(@RequestBody String parma) {
         return dataManage.updateData(parma);
     }
+
     @PostMapping("api/data/delete")
-    public response<String>deleteData(@RequestBody String parma){
+    public response<String> deleteData(@RequestBody String parma) {
         return dataManage.deleteData(parma);
     }
+
     @PostMapping("api/data/query")
-    public response<List<JSONObject>>queryData(@RequestBody String parma, HttpServletRequest request){
-        return dataManage.queryData(parma,request);
+    public response<List<JSONObject>> queryData(@RequestBody String parma, HttpServletRequest request) {
+        return dataManage.queryData(parma, request);
     }
+
     @PostMapping("api/file/add")
     public response<String> uploadFile(@RequestParam("file") MultipartFile file) {
         return dataManage.uploadFile(file);
