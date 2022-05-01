@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.gxu.informationLibrary.dao.authDao;
+import com.gxu.informationLibrary.entity.response;
 import com.gxu.informationLibrary.entity.roleAuth;
 import com.gxu.informationLibrary.server.authServer;
 import org.springframework.data.redis.core.HashOperations;
@@ -11,6 +12,7 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Service
@@ -44,5 +46,12 @@ public class authImpl implements authServer {
             hashOps.delete("auth_"+role_name+"_"+form_name,edit.getString("col_name"));
         }
         return auth.getAuth("");
+    }
+    public response<String>checkAuth(String parma, HttpServletRequest request){
+        String[] userCookie;
+        JSONObject authJSON = JSON.parseObject(parma);
+        String user =authJSON.getString("user");
+        String option =authJSON.getString("option");
+        return new response<>("");
     }
 }
