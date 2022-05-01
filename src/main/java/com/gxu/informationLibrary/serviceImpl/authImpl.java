@@ -65,9 +65,12 @@ public class authImpl implements authServer {
             hashOps.put(key,"del",cache.getDel());
             hashOps.put(key,"search",cache.getSearch());
             hashOps.put(key,"edit",cache.getEditAuth());
+            auth = hashOps.get("auth_"+userCookie[2],option);
         }
-        switch (auth){
 
+        switch (Objects.requireNonNull(auth)){
+            case "w0":
+                return new response<>(403,"您没有添加数据权限","");
         }
         return new response<>("");
     }
