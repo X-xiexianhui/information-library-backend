@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.Map;
 
 @Service
-@Transactional(rollbackFor=Exception.class)
+@Transactional(rollbackFor = Exception.class)
 public class dataImpl implements dataServer {
     final dataManageDao dataManage;
 
@@ -29,80 +29,81 @@ public class dataImpl implements dataServer {
 
     @Override
     public response<List<Map<String, String>>> getTableColumn(int form_id) {
-       List<Map<String,String>>data=new ArrayList<>();
+        List<Map<String, String>> data = new ArrayList<>();
         try {
-            data=dataManage.getTableColumn(form_id);
-        } catch (Exception e){
-            return new response<>(500,e.getCause().getMessage(),data);
+            data = dataManage.getTableColumn(form_id);
+        } catch (Exception e) {
+            return new response<>(500, e.getCause().getMessage(), data);
         }
         return new response<>(data);
     }
 
     @Override
     public response<List<JSONObject>> getTableData(int form_id) {
-        List<JSONObject>data=new ArrayList<>();
+        List<JSONObject> data = new ArrayList<>();
         try {
-            Map<String,String>tb=dataManage.getTableByFormId(form_id);
-            data=dataManage.getData(tb.get("db_name"),tb.get("tb_name"),false);
-        }catch (Exception e){
-            return new response<>(500,e.getCause().getMessage(),data);
+            Map<String, String> tb = dataManage.getTableByFormId(form_id);
+            data = dataManage.getData(tb.get("db_name"), tb.get("tb_name"), false);
+        } catch (Exception e) {
+            return new response<>(500, e.getCause().getMessage(), data);
         }
         return new response<>(data);
     }
 
     @Override
     public response<String> insertData(String parma) {
-        JSONObject insert= JSON.parseObject(parma);
+        JSONObject insert = JSON.parseObject(parma);
         int form_id = insert.getInteger("form_id");
-        Map<String,String>tb=dataManage.getTableByFormId(form_id);
-        List<editEntity>columns=insert.getJSONArray("insert").toJavaList(editEntity.class);
+        Map<String, String> tb = dataManage.getTableByFormId(form_id);
+        List<editEntity> columns = insert.getJSONArray("insert").toJavaList(editEntity.class);
         try {
-            dataManage.insertData(tb.get("db_name"), tb.get("tb_name"),columns);
-        } catch (Exception e){
-            return new response<>(500,e.getCause().getMessage(), "");
+            dataManage.insertData(tb.get("db_name"), tb.get("tb_name"), columns);
+        } catch (Exception e) {
+            return new response<>(500, e.getCause().getMessage(), "");
         }
         return new response<>("");
     }
 
     @Override
     public response<String> deleteData(String parma) {
-        JSONObject deleteJSON=JSON.parseObject(parma);
+        JSONObject deleteJSON = JSON.parseObject(parma);
         int form_id = deleteJSON.getIntValue("form_id");
-        Map<String,String>tb=dataManage.getTableByFormId(form_id);
-        int record_id=deleteJSON.getIntValue("record_id");
-        dataManage.deleteData(tb.get("db_name"),tb.get("tb_name"),record_id);
+        Map<String, String> tb = dataManage.getTableByFormId(form_id);
+        int record_id = deleteJSON.getIntValue("record_id");
+        dataManage.deleteData(tb.get("db_name"), tb.get("tb_name"), record_id);
         return null;
     }
 
     @Override
     public response<List<JSONObject>> queryData(String parma) {
-        JSONObject query=JSON.parseObject(parma);
-        String db_name=query.getString("db_name");
-        String tb_name=query.getString("tb_name");
-        List<editEntity>columns=query.getJSONArray("columns").toJavaList(editEntity.class);
+        JSONObject query = JSON.parseObject(parma);
+        String db_name = query.getString("db_name");
+        String tb_name = query.getString("tb_name");
+        List<editEntity> columns = query.getJSONArray("columns").toJavaList(editEntity.class);
         return null;
     }
 
     @Override
     public response<String> updateData(String parma) {
         try {
-            JSONObject updateJSON =JSON.parseObject(parma);
+            JSONObject updateJSON = JSON.parseObject(parma);
             int form_id = updateJSON.getIntValue("form_id");
-            Map<String,String>tb=dataManage.getTableByFormId(form_id);
-            int record_id =updateJSON.getIntValue("record_id");
-            List<editEntity> updates=updateJSON.getJSONArray("update").toJavaList(editEntity.class);
-            dataManage.updateData(tb.get("db_name"),tb.get("tb_name"), record_id, updates);
-        }catch (Exception e){
-            return new response<>(500,e.getCause().getMessage(), "");
+            Map<String, String> tb = dataManage.getTableByFormId(form_id);
+            int record_id = updateJSON.getIntValue("record_id");
+            List<editEntity> updates = updateJSON.getJSONArray("update").toJavaList(editEntity.class);
+            dataManage.updateData(tb.get("db_name"), tb.get("tb_name"), record_id, updates);
+        } catch (Exception e) {
+            return new response<>(500, e.getCause().getMessage(), "");
         }
         return new response<>("");
     }
-    public response<String> uploadFile(@NotNull MultipartFile file){
-        response<String> res =new response<>("");
+
+    public response<String> uploadFile(@NotNull MultipartFile file) {
+        response<String> res = new response<>("");
         if (!file.isEmpty()) {
             try {
                 BufferedOutputStream out = new BufferedOutputStream(
-                        new FileOutputStream("./files/"+file.getOriginalFilename()));
+                        new FileOutputStream("./files/" + file.getOriginalFilename()));
                 out.write(file.getBytes());
                 out.flush();
                 out.close();
