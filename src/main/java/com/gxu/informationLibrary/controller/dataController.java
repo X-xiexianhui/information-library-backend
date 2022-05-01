@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Map;
 
@@ -41,6 +42,10 @@ public class dataController {
     @PostMapping("api/data/delete")
     public response<String>deleteData(@RequestBody String parma){
         return dataManage.deleteData(parma);
+    }
+    @PostMapping("api/data/query")
+    public response<List<JSONObject>>queryData(@RequestBody String parma, HttpServletRequest request){
+        return dataManage.queryData(parma,request);
     }
     @PostMapping("api/file/add")
     public response<String> uploadFile(@RequestParam("file") MultipartFile file) {

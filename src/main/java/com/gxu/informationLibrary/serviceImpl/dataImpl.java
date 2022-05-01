@@ -102,12 +102,17 @@ public class dataImpl implements dataServer {
             List<editEntity> columns = query.getJSONArray("columns").toJavaList(editEntity.class);
             String[] userCookie = Objects.requireNonNull(getCookieByName(request, "loginCookie")).split("_");
             HashOperations<String, String, String> hashOps = redisTemplate.opsForHash();
-            String auth = hashOps.get("auth_" + userCookie[2], "search");
+            String auth= "";
+            if (!"系统管理员".equals(userCookie[2])){
+                auth = hashOps.get("auth_" + userCookie[2], "search");
+            }else {
+                auth="s1";
+            }
             if (auth == null) {
                 updateCache(userCookie, hashOps, authManage);
                 auth = hashOps.get("auth_" + userCookie[2], "search");
             }
-            data = dataManage.queryData(tb.get("db_name"), tb.get("tb_name"), columns, "s0".equals(auth), userCookie[1]);
+            data = dataManage.queryData(tb.get("db_name"), tb.get("tb_name"), columns,"s0".equals(auth) , userCookie[1]);
         } catch (Exception e) {
             return new response<>(500, e.getCause().getMessage(), data);
         }
