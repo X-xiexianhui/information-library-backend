@@ -11,12 +11,16 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.BufferedOutputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
+
+import static com.gxu.informationLibrary.util.utils.getCookieByName;
 
 @Service
 @Transactional(rollbackFor=Exception.class)
@@ -51,7 +55,7 @@ public class dataImpl implements dataServer {
     }
 
     @Override
-    public response<String> insertData(String parma) {
+    public response<String> insertData(String parma, HttpServletRequest request) {
         JSONObject insert= JSON.parseObject(parma);
         int form_id = insert.getInteger("form_id");
         Map<String,String>tb=dataManage.getTableByFormId(form_id);
@@ -117,7 +121,8 @@ public class dataImpl implements dataServer {
         }
         return res;
     }
-    private String getUserByCookie(){
-        return null;
+    private String[] getUserCookie(HttpServletRequest request){
+        String[] userCookie = Objects.requireNonNull(getCookieByName(request, "loginCookie")).split("_");
+        return userCookie;
     }
 }
