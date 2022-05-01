@@ -6,6 +6,7 @@ import com.gxu.informationLibrary.serviceImpl.authImpl;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -50,5 +51,9 @@ public class authController {
             return new response<>(500, e.getCause().getMessage(), data);
         }
         return new response<>(data);
+    }
+    @PostMapping("api/auth/check")
+    public response<String>checkAuth(@RequestBody String param, HttpServletRequest request){
+        return authManage.checkAuth(param,request);
     }
 }
