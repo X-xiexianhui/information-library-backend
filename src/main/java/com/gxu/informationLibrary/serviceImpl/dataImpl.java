@@ -55,7 +55,8 @@ public class dataImpl implements dataServer {
         List<JSONObject> data = new ArrayList<>();
         try {
             Map<String, String> tb = dataManage.getTableByFormId(form_id);
-            data = dataManage.getData(tb.get("db_name"), tb.get("tb_name"), false);
+//            data = dataManage.getData(tb.get("db_name"), tb.get("tb_name"), false);
+            data=dataManage.queryData(tb.get("db_name"), tb.get("tb_name"), new ArrayList<>(),false,"admin");
         } catch (Exception e) {
             return new response<>(500, e.getCause().getMessage(), data);
         }
