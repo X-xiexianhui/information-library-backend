@@ -29,5 +29,7 @@ public interface formManageDao {
 
     int queryFormId(@Param("form_name")String form_name);
 
+    String queryFormName(@Param("form_id") int form_id);
+
     List<Integer>getFormList();
 }

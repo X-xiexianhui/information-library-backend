@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.gxu.informationLibrary.dao.authDao;
 import com.gxu.informationLibrary.dao.dataManageDao;
+import com.gxu.informationLibrary.dao.formManageDao;
 import com.gxu.informationLibrary.entity.editEntity;
 import com.gxu.informationLibrary.entity.response;
 import com.gxu.informationLibrary.server.dataServer;
@@ -32,11 +33,13 @@ public class dataImpl implements dataServer {
     final dataManageDao dataManage;
     private final StringRedisTemplate redisTemplate;
     private final authDao authManage;
+    private final formManageDao formManage;
 
-    public dataImpl(dataManageDao dataManage, StringRedisTemplate redisTemplate, authDao authManage) {
+    public dataImpl(dataManageDao dataManage, StringRedisTemplate redisTemplate, authDao authManage, formManageDao formManage) {
         this.dataManage = dataManage;
         this.redisTemplate = redisTemplate;
         this.authManage = authManage;
+        this.formManage = formManage;
     }
 
     @Override
@@ -98,19 +101,20 @@ public class dataImpl implements dataServer {
         try {
             JSONObject query = JSON.parseObject(parma);
             int form_id = query.getIntValue("form_id");
+            String form_name = formManage.queryFormName(form_id);
             Map<String, String> tb = dataManage.getTableByFormId(form_id);
             List<editEntity> columns = query.getJSONArray("columns").toJavaList(editEntity.class);
             String[] userCookie = Objects.requireNonNull(getCookieByName(request, "loginCookie")).split("_");
             HashOperations<String, String, String> hashOps = redisTemplate.opsForHash();
-            String auth= "";
+            String auth;
             if (!"系统管理员".equals(userCookie[2])){
-                auth = hashOps.get("auth_" + userCookie[2], "search");
+                auth = hashOps.get("auth_" + userCookie[2]+"_"+form_name, "search");
             }else {
                 auth="s1";
             }
             if (auth == null) {
                 updateCache(userCookie, hashOps, authManage);
-                auth = hashOps.get("auth_" + userCookie[2], "search");
+                auth = hashOps.get("auth_" + userCookie[2]+"_"+form_name, "search");
             }
             data = dataManage.queryData(tb.get("db_name"), tb.get("tb_name"), columns,"s0".equals(auth) , userCookie[1]);
         } catch (Exception e) {
