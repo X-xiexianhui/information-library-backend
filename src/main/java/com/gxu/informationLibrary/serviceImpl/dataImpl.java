@@ -85,14 +85,17 @@ public class dataImpl implements dataServer {
 
     @Override
     public response<String> updateData(String parma) {
-        JSONObject updateJSON =JSON.parseObject(parma);
-        int form_id = updateJSON.getIntValue("form_id");
-        Map<String,String>tb=dataManage.getTableByFormId(form_id);
-        int record_id =updateJSON.getIntValue("record_id");
-        List<editEntity> updates=updateJSON.getJSONArray("update").toJavaList(editEntity.class);
-        dataManage.updateData(tb.get("db_name"),tb.get("tb_name"), record_id, updates);
-        dataManage.queryData(tb.get("db_name"),tb.get("tb_name") , new ArrayList<>(), false,"" );
-        return null;
+        try {
+            JSONObject updateJSON =JSON.parseObject(parma);
+            int form_id = updateJSON.getIntValue("form_id");
+            Map<String,String>tb=dataManage.getTableByFormId(form_id);
+            int record_id =updateJSON.getIntValue("record_id");
+            List<editEntity> updates=updateJSON.getJSONArray("update").toJavaList(editEntity.class);
+            dataManage.updateData(tb.get("db_name"),tb.get("tb_name"), record_id, updates);
+        }catch (Exception e){
+            return new response<>(500,e.getCause().getMessage(), "");
+        }
+        return new response<>("");
     }
     public response<String> uploadFile(@NotNull MultipartFile file){
         response<String> res =new response<>("");
