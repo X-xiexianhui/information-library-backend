@@ -99,7 +99,8 @@
             </choose>
             <if test="item.uni==true">unique</if>
             <if test="item.not_null==true">not null</if>;
-        </foreach>;
+        </foreach>
+        ;
     </update>
 
     <update id="dropColumn">
@@ -143,14 +144,16 @@
 
     <update id="setNotNull">
         alter table ${db_name}.${tb_name} modify ${col_name} ${data_type}
-        <choose>
-            <when test="data_type=='numeric'">
-                (${len},${place})
-            </when>
-            <otherwise>
-                (${len})
-            </otherwise>
-        </choose>
+        <if test="data_type!='date' and data_type!='time' and data_type!='datetime'">
+            <choose>
+                <when test="data_type=='numeric'">
+                    (${len},${place})
+                </when>
+                <otherwise>
+                    (${len})
+                </otherwise>
+            </choose>
+        </if>
         <if test="not_null==true">not</if>
         null;
         update column_info
@@ -204,6 +207,7 @@
         where t.TABLE_NAME = concat(#{db_name}, '.', #{tb_name})
     </select>
     <select id="count" resultType="int">
-        select count(record_id) as sum from ${db_name}.${tb_name};
+        select count(record_id) as sum
+        from ${db_name}.${tb_name};
     </select>
 </mapper>
