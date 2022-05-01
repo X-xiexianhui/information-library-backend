@@ -2,29 +2,41 @@ package com.gxu.informationLibrary.serviceImpl;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.gxu.informationLibrary.dao.authDao;
 import com.gxu.informationLibrary.dao.dataManageDao;
 import com.gxu.informationLibrary.entity.editEntity;
 import com.gxu.informationLibrary.entity.response;
+import com.gxu.informationLibrary.entity.roleAuth;
 import com.gxu.informationLibrary.server.dataServer;
 import org.jetbrains.annotations.NotNull;
+import org.springframework.data.redis.core.HashOperations;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.BufferedOutputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
+
+import static com.gxu.informationLibrary.util.utils.getCookieByName;
 
 @Service
 @Transactional(rollbackFor = Exception.class)
 public class dataImpl implements dataServer {
     final dataManageDao dataManage;
+    private final StringRedisTemplate redisTemplate;
+    private final authDao authManage;
 
-    public dataImpl(dataManageDao dataManage) {
+    public dataImpl(dataManageDao dataManage, StringRedisTemplate redisTemplate, authDao authManage) {
         this.dataManage = dataManage;
+        this.redisTemplate = redisTemplate;
+        this.authManage = authManage;
     }
 
     @Override
@@ -80,12 +92,27 @@ public class dataImpl implements dataServer {
     }
 
     @Override
-    public response<List<JSONObject>> queryData(String parma) {
+    public response<List<JSONObject>> queryData(String parma, HttpServletRequest request) {
         JSONObject query = JSON.parseObject(parma);
-        String db_name = query.getString("db_name");
-        String tb_name = query.getString("tb_name");
+        int form_id=query.getIntValue("form_id");
+        String []userCookie= Objects.requireNonNull(getCookieByName(request, "loginCookie")).split("_");
         List<editEntity> columns = query.getJSONArray("columns").toJavaList(editEntity.class);
+        HashOperations<String,String,String> hashOps = redisTemplate.opsForHash();
+        String auth = hashOps.get("auth_"+userCookie[2],"search");
+        if (auth==null){
+            updateCache(userCookie, hashOps, authManage);
+            auth = hashOps.get("auth_"+userCookie[2],"search");
+        }
         return null;
+    }
+
+    public static void updateCache(String[] userCookie, HashOperations<String, String, String> hashOps, authDao authManage) {
+        roleAuth cache= authManage.queryByName(userCookie[2]);
+        String key="auth_"+cache.getRole_name()+"_"+cache.getForm_name();
+        hashOps.put(key,"add",cache.getAddAuth());
+        hashOps.put(key,"del",cache.getDel());
+        hashOps.put(key,"search",cache.getSearch());
+        hashOps.put(key,"edit",cache.getEditAuth());
     }
 
     @Override

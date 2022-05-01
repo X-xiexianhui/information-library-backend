@@ -59,12 +59,7 @@ public class authImpl implements authServer {
         String option =authJSON.getString("option");
         String auth = hashOps.get("auth_"+userCookie[2],option);
         if (auth==null){
-            roleAuth cache=authManage.queryByName(userCookie[2]);
-            String key="auth_"+cache.getRole_name()+"_"+cache.getForm_name();
-            hashOps.put(key,"add",cache.getAddAuth());
-            hashOps.put(key,"del",cache.getDel());
-            hashOps.put(key,"search",cache.getSearch());
-            hashOps.put(key,"edit",cache.getEditAuth());
+            dataImpl.updateCache(userCookie, hashOps, authManage);
             auth = hashOps.get("auth_"+userCookie[2],option);
         }
         if (auth.equals("w0")){
