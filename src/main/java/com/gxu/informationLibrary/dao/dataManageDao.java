@@ -24,5 +24,5 @@ public interface dataManageDao {
 
     Map<String,String> getTableByFormId(@Param("form_id") int form_id);
 
-    List<JSONObject>getData(String db_name,String tb_name,boolean onlyAuth);
+    List<JSONObject>getData(@Param("DB_NAME") String db_name,@Param("tb_name") String tb_name,@Param("onlyAuth") boolean onlyAuth);
 }
