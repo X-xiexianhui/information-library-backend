@@ -6,16 +6,16 @@
         create table ${db_name}.${tb_name}(
         <foreach item="item" index="index" collection="column">
             ${item.col_name} ${item.data_type}
-                <if test="item.data_type!='date' and item.data_type!='time' and item.data_type!='datetime'">
-                    <choose>
-                        <when test="item.data_type=='numeric'">
-                            (${item.len},${item.place})
-                        </when>
-                        <otherwise>
-                            (${item.len})
-                        </otherwise>
-                    </choose>
-                </if>
+            <if test="item.data_type!='date' and item.data_type!='time' and item.data_type!='datetime' and item.data_type!='bool'">
+                <choose>
+                    <when test="item.data_type=='numeric'">
+                        (${item.len},${item.place})
+                    </when>
+                    <otherwise>
+                        (${item.len})
+                    </otherwise>
+                </choose>
+            </if>
             <if test="item.uni==true">unique</if>
             <if test="item.not_null==true">not null</if>,
         </foreach>
@@ -91,7 +91,7 @@
     <update id="addColumn">
         <foreach collection="insert" item="item" index="index">
             alter table ${item.db_name}.${item.tb_name} add column ${item.col_name} ${item.data_type}
-            <if test="item.data_type!='date' and item.data_type!='time' and item.data_type!='datetime'">
+            <if test="item.data_type!='date' and item.data_type!='time' and item.data_type!='datetime' and item.data_type!='bool'">
                 <choose>
                     <when test="item.data_type=='numeric'">
                         (${item.len},${item.place})
@@ -119,7 +119,7 @@
     <update id="changeColumn">
         alter table ${db_name}.${tb_name}
         change ${col_name} ${new_column} ${data_type}
-        <if test="item.data_type!='date' and item.data_type!='time' and item.data_type!='datetime'">
+        <if test="item.data_type!='date' and item.data_type!='time' and item.data_type!='datetime' and item.data_type!='bool'">
             <choose>
                 <when test="item.data_type=='numeric'">
                     (${item.len},${item.place})
@@ -128,7 +128,8 @@
                     (${item.len})
                 </otherwise>
             </choose>
-        </if>;
+        </if>
+        ;
     </update>
 
     <update id="addUnique">
@@ -149,7 +150,7 @@
 
     <update id="setNotNull">
         alter table ${db_name}.${tb_name} modify ${col_name} ${data_type}
-        <if test="data_type!='date' and data_type!='time' and data_type!='datetime'">
+        <if test="item.data_type!='date' and item.data_type!='time' and item.data_type!='datetime' and item.data_type!='bool'">
             <choose>
                 <when test="data_type=='numeric'">
                     (${len},${place})
