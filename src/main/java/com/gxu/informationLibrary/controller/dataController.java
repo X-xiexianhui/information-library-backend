@@ -25,11 +25,6 @@ public class dataController {
         return dataManage.getTableColumn(form_id);
     }
 
-    @GetMapping("api/data/get")
-    public response<List<JSONObject>> getTableData(@RequestParam("form_id") int form_id) {
-        return dataManage.getTableData(form_id);
-    }
-
     @PostMapping("api/data/add")
     public response<String> insertData(@RequestBody String parma) {
         return dataManage.insertData(parma);
