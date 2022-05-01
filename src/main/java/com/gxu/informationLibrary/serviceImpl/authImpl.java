@@ -14,24 +14,27 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.util.Objects;
+
+import static com.gxu.informationLibrary.util.utils.getCookieByName;
 
 @Service
 @Transactional(rollbackFor = Exception.class)
 public class authImpl implements authServer {
-    private final authDao auth;
+    private final authDao authManage;
     private final StringRedisTemplate redisTemplate;
 
-    public authImpl(authDao auth, StringRedisTemplate redisTemplate) {
-        this.auth = auth;
+    public authImpl(authDao authManage, StringRedisTemplate redisTemplate) {
+        this.authManage = authManage;
         this.redisTemplate = redisTemplate;
     }
 
     @Override
     public List<roleAuth> getAuth(String role_name) {
-        return auth.getAuth(role_name);
+        return authManage.getAuth(role_name);
     }
     public roleAuth queryByName(String role_name) {
-        return auth.queryByName(role_name);
+        return authManage.queryByName(role_name);
     }
     @Override
     public List<roleAuth> editAuth(String parma) {
@@ -42,16 +45,30 @@ public class authImpl implements authServer {
         HashOperations<String,String,String> hashOps = redisTemplate.opsForHash();
         for (int i = 0; i < array.size(); i++) {
             JSONObject edit=array.getJSONObject(i);
-            auth.editAuth(role_name,form_name , edit.getString("col_name"), edit.getString("value"));
+            authManage.editAuth(role_name,form_name , edit.getString("col_name"), edit.getString("value"));
             hashOps.delete("auth_"+role_name+"_"+form_name,edit.getString("col_name"));
         }
-        return auth.getAuth("");
+        return authManage.getAuth("");
     }
     public response<String>checkAuth(String parma, HttpServletRequest request){
-        String[] userCookie;
+        HashOperations<String,String,String> hashOps = redisTemplate.opsForHash();
+        String[] userCookie = Objects.requireNonNull(getCookieByName(request, "loginCookie")).split("_") ;
         JSONObject authJSON = JSON.parseObject(parma);
+        String user_id =userCookie[1];
         String user =authJSON.getString("user");
         String option =authJSON.getString("option");
+        String auth = hashOps.get("auth_"+userCookie[2],option);
+        if (auth==null){
+            roleAuth cache=authManage.queryByName(userCookie[2]);
+            String key="auth_"+cache.getRole_name()+"_"+cache.getForm_name();
+            hashOps.put(key,"add",cache.getAddAuth());
+            hashOps.put(key,"del",cache.getDel());
+            hashOps.put(key,"search",cache.getSearch());
+            hashOps.put(key,"edit",cache.getEditAuth());
+        }
+        switch (auth){
+
+        }
         return new response<>("");
     }
 }
