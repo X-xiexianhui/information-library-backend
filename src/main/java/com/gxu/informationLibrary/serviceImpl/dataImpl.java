@@ -84,8 +84,8 @@ public class dataImpl implements dataServer {
             Map<String, String> tb = dataManage.getTableByFormId(form_id);
             int record_id = deleteJSON.getIntValue("record_id");
             dataManage.deleteData(tb.get("db_name"), tb.get("tb_name"), record_id);
-        }catch (Exception e){
-            return new response<>(500,e.getCause().getMessage(),"");
+        } catch (Exception e) {
+            return new response<>(500, e.getCause().getMessage(), "");
         }
 
         return new response<>("");
@@ -93,22 +93,22 @@ public class dataImpl implements dataServer {
 
     @Override
     public response<List<JSONObject>> queryData(String parma, HttpServletRequest request) {
-        List<JSONObject>data=new ArrayList<>();
+        List<JSONObject> data = new ArrayList<>();
         try {
             JSONObject query = JSON.parseObject(parma);
-            int form_id=query.getIntValue("form_id");
-            Map<String,String>tb=dataManage.getTableByFormId(form_id);
+            int form_id = query.getIntValue("form_id");
+            Map<String, String> tb = dataManage.getTableByFormId(form_id);
             List<editEntity> columns = query.getJSONArray("columns").toJavaList(editEntity.class);
-            String []userCookie= Objects.requireNonNull(getCookieByName(request, "loginCookie")).split("_");
-            HashOperations<String,String,String> hashOps = redisTemplate.opsForHash();
-            String auth = hashOps.get("auth_"+userCookie[2],"search");
-            if (auth==null){
+            String[] userCookie = Objects.requireNonNull(getCookieByName(request, "loginCookie")).split("_");
+            HashOperations<String, String, String> hashOps = redisTemplate.opsForHash();
+            String auth = hashOps.get("auth_" + userCookie[2], "search");
+            if (auth == null) {
                 updateCache(userCookie, hashOps, authManage);
-                auth = hashOps.get("auth_"+userCookie[2],"search");
+                auth = hashOps.get("auth_" + userCookie[2], "search");
             }
-            data=dataManage.queryData(tb.get("db_name"),tb.get("tb_name"),columns,"s0".equals(auth),userCookie[1]);
-        }catch (Exception e){
-            return new response<>(500,e.getCause().getMessage(),data);
+            data = dataManage.queryData(tb.get("db_name"), tb.get("tb_name"), columns, "s0".equals(auth), userCookie[1]);
+        } catch (Exception e) {
+            return new response<>(500, e.getCause().getMessage(), data);
         }
 
         return new response<>(data);
