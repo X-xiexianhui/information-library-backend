@@ -95,8 +95,8 @@ public class dataImpl implements dataServer {
     public response<List<JSONObject>> queryData(String parma, HttpServletRequest request) {
         JSONObject query = JSON.parseObject(parma);
         int form_id=query.getIntValue("form_id");
-        String []userCookie= Objects.requireNonNull(getCookieByName(request, "loginCookie")).split("_");
         List<editEntity> columns = query.getJSONArray("columns").toJavaList(editEntity.class);
+        String []userCookie= Objects.requireNonNull(getCookieByName(request, "loginCookie")).split("_");
         HashOperations<String,String,String> hashOps = redisTemplate.opsForHash();
         String auth = hashOps.get("auth_"+userCookie[2],"search");
         if (auth==null){
