@@ -181,11 +181,9 @@ VALUES ('d1', '删除', '仅允许删除由该用户添加的数据');
 INSERT INTO information_library.auth_info (auth_level, `option`, auth_mean)
 VALUES ('d2', '删除', '允许删除所有数据');
 INSERT INTO information_library.auth_info (auth_level, `option`, auth_mean)
-VALUES ('s0', '查询', '不允许查询数据');
+VALUES ('s0', '查询', '仅允许查询由该用户提交的数据');
 INSERT INTO information_library.auth_info (auth_level, `option`, auth_mean)
-VALUES ('s1', '查询', '仅允许查询由该用户提交的数据');
-INSERT INTO information_library.auth_info (auth_level, `option`, auth_mean)
-VALUES ('s2', '查询', '允许查询所有数据');
+VALUES ('s1', '查询', '允许查询所有数据');
 INSERT INTO information_library.auth_info (auth_level, `option`, auth_mean)
 VALUES ('u0', '修改', '不允许修改数据');
 INSERT INTO information_library.auth_info (auth_level, `option`, auth_mean)
