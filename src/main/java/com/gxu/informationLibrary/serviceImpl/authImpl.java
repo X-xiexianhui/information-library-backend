@@ -67,7 +67,7 @@ public class authImpl implements authServer {
             hashOps.put(key,"edit",cache.getEditAuth());
             auth = hashOps.get("auth_"+userCookie[2],option);
         }
-        if (auth.equals("a0")){
+        if (auth.equals("w0")){
             return new response<>(403,"您没有添加数据权限","");
         }
         if (auth.equals("u0")){
