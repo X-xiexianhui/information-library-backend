@@ -20,6 +20,7 @@
         user varchar(18) not null,
         file varchar(64),
         record_id int auto_increment,
+        is_del tinyint(1)default 0,
         <if test="pks!=null and pks.size()>0">
             primary key (
             <foreach item="pk" index="index" collection="pks" separator=",">
