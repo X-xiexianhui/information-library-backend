@@ -80,7 +80,6 @@ public class authImpl implements authServer {
                 return new response<>(403,"您没有删除其他用户数据权限","");
             }
         }
-
         return new response<>("");
     }
 }
