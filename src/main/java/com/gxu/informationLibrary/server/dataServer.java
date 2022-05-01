@@ -17,5 +17,5 @@ public interface dataServer {
 
     List<JSONObject>queryData(String parma);
 
-    response<List<JSONObject>>updateData(String parma);
+    response<String>updateData(String parma);
 }

@@ -30,6 +30,10 @@ public class dataController {
     public response<String>insertData(@RequestBody String parma){
         return dataManage.insertData(parma);
     }
+    @PostMapping("api/data/edit")
+    public response<String>editData(@RequestBody String parma){
+        return dataManage.updateData(parma);
+    }
     @PostMapping("api/file/add")
     public response<String>uploadFile(@RequestParam("file") MultipartFile file){
         return dataManage.uploadFile(file);

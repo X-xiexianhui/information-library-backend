@@ -84,7 +84,7 @@ public class dataImpl implements dataServer {
     }
 
     @Override
-    public response<List<JSONObject>> updateData(String parma) {
+    public response<String> updateData(String parma) {
         JSONObject updateJSON =JSON.parseObject(parma);
         int form_id = updateJSON.getIntValue("form_id");
         Map<String,String>tb=dataManage.getTableByFormId(form_id);
