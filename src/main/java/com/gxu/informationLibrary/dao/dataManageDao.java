@@ -14,7 +14,7 @@ import java.util.Map;
 public interface dataManageDao {
     void insertData(@Param("db_name") String db_name,@Param("tb_name") String tb_name,List<editEntity>columns);
 
-    void updateData(String db_name,String tb_name,List<editEntity>updates);
+    void updateData(String db_name,String tb_name,int record_id,List<editEntity>updates);
 
     void deleteData(String db_name,String tb_name,String record_id);
 
