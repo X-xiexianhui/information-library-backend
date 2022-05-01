@@ -16,7 +16,7 @@ public interface dataManageDao {
 
     void updateData(String db_name,String tb_name,int record_id,List<editEntity>updates);
 
-    void deleteData(String db_name,String tb_name,String record_id);
+    void deleteData(String db_name,String tb_name,int record_id);
 
     List<JSONObject>queryData(String db_name, String tb_name, List<editEntity>columns, @Param("onlyAuth") boolean onlyAuth,@Param("user_id") String user_id);
 

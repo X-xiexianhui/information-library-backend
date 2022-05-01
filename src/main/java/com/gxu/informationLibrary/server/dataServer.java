@@ -13,9 +13,9 @@ public interface dataServer {
 
     response<String>insertData(String parma);
 
-    List<JSONObject>deleteData(String parma);
+    response<String>deleteData(String parma);
 
-    List<JSONObject>queryData(String parma);
+    response<List<JSONObject>>queryData(String parma);
 
     response<String>updateData(String parma);
 }

@@ -65,22 +65,22 @@ public class dataImpl implements dataServer {
     }
 
     @Override
-    public List<JSONObject> deleteData(String parma) {
+    public response<String> deleteData(String parma) {
         JSONObject deleteJSON=JSON.parseObject(parma);
-        String db_name=deleteJSON.getString("db_name");
-        String tb_name=deleteJSON.getString("tb_name");
-        String record_id=deleteJSON.getString("record_id");
-        dataManage.deleteData(db_name,tb_name,record_id);
-        return dataManage.queryData(db_name,tb_name , new ArrayList<>(), false, "");
+        int form_id = deleteJSON.getIntValue("form_id");
+        Map<String,String>tb=dataManage.getTableByFormId(form_id);
+        int record_id=deleteJSON.getIntValue("record_id");
+        dataManage.deleteData(tb.get("db_name"),tb.get("tb_name"),record_id);
+        return null;
     }
 
     @Override
-    public List<JSONObject> queryData(String parma) {
+    public response<List<JSONObject>> queryData(String parma) {
         JSONObject query=JSON.parseObject(parma);
         String db_name=query.getString("db_name");
         String tb_name=query.getString("tb_name");
         List<editEntity>columns=query.getJSONArray("columns").toJavaList(editEntity.class);
-        return dataManage.queryData(db_name,tb_name,columns,false, "");
+        return null;
     }
 
     @Override
