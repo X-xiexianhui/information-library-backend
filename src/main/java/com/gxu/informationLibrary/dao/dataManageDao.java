@@ -18,7 +18,7 @@ public interface dataManageDao {
 
     void deleteData(@Param("db_name") String db_name,@Param("tb_name") String tb_name,@Param("record_id") int record_id);
 
-    List<JSONObject>queryData(String db_name, String tb_name, List<editEntity>columns, @Param("onlyAuth") boolean onlyAuth,@Param("user_id") String user_id);
+    List<JSONObject>queryData(@Param("db_name") String db_name,@Param("tb_name") String tb_name,@Param("columns") List<editEntity>columns, @Param("onlyAuth") boolean onlyAuth,@Param("user_id") String user_id);
 
     List<Map<String,String>>getTableColumn(@Param("form_id") int form_id);
 
