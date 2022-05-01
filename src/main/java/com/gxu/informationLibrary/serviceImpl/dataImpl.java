@@ -93,17 +93,25 @@ public class dataImpl implements dataServer {
 
     @Override
     public response<List<JSONObject>> queryData(String parma, HttpServletRequest request) {
-        JSONObject query = JSON.parseObject(parma);
-        int form_id=query.getIntValue("form_id");
-        List<editEntity> columns = query.getJSONArray("columns").toJavaList(editEntity.class);
-        String []userCookie= Objects.requireNonNull(getCookieByName(request, "loginCookie")).split("_");
-        HashOperations<String,String,String> hashOps = redisTemplate.opsForHash();
-        String auth = hashOps.get("auth_"+userCookie[2],"search");
-        if (auth==null){
-            updateCache(userCookie, hashOps, authManage);
-            auth = hashOps.get("auth_"+userCookie[2],"search");
+        List<JSONObject>data=new ArrayList<>();
+        try {
+            JSONObject query = JSON.parseObject(parma);
+            int form_id=query.getIntValue("form_id");
+            Map<String,String>tb=dataManage.getTableByFormId(form_id);
+            List<editEntity> columns = query.getJSONArray("columns").toJavaList(editEntity.class);
+            String []userCookie= Objects.requireNonNull(getCookieByName(request, "loginCookie")).split("_");
+            HashOperations<String,String,String> hashOps = redisTemplate.opsForHash();
+            String auth = hashOps.get("auth_"+userCookie[2],"search");
+            if (auth==null){
+                updateCache(userCookie, hashOps, authManage);
+                auth = hashOps.get("auth_"+userCookie[2],"search");
+            }
+            data=dataManage.queryData(tb.get("db_name"),tb.get("tb_name"),columns, Objects.equals(auth, "s0"),userCookie[1]);
+        }catch (Exception e){
+            return new response<>(500,e.getCause().getMessage(),data);
         }
-        return null;
+
+        return new response<>(data);
     }
 
     @Override
