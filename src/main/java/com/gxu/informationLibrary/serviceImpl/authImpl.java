@@ -67,10 +67,23 @@ public class authImpl implements authServer {
             hashOps.put(key,"edit",cache.getEditAuth());
             auth = hashOps.get("auth_"+userCookie[2],option);
         }
-
-        switch (Objects.requireNonNull(auth)){
-            case "w0":
-                return new response<>(403,"您没有添加数据权限","");
+        if (auth.equals("a0")){
+            return new response<>(403,"您没有添加数据权限","");
+        }
+        if (auth.equals("w0")){
+            return new response<>(403,"您没有修改数据权限","");
+        }
+        if (auth.equals("s0")){
+            return new response<>(403,"您没有查询数据权限","");
+        }
+        if (auth.equals("d0")){
+            return new response<>(403,"您没有删除数据权限","");
+        }
+        if (auth.equals("w1")&&!user_id.equals(user)){
+            return new response<>(403,"您没有修改其他用户数据权限","");
+        }
+        if (auth.equals("d1")){
+            return new response<>(403,"您没有删除其他用户数据权限","");
         }
         return new response<>("");
     }
