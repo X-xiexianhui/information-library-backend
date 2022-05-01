@@ -106,7 +106,7 @@ public class dataImpl implements dataServer {
                 updateCache(userCookie, hashOps, authManage);
                 auth = hashOps.get("auth_"+userCookie[2],"search");
             }
-            data=dataManage.queryData(tb.get("db_name"),tb.get("tb_name"),columns, Objects.equals(auth, "s0"),userCookie[1]);
+            data=dataManage.queryData(tb.get("db_name"),tb.get("tb_name"),columns,"s0".equals(auth),userCookie[1]);
         }catch (Exception e){
             return new response<>(500,e.getCause().getMessage(),data);
         }

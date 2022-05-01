@@ -63,19 +63,19 @@ public class authImpl implements authServer {
             updateCache(userCookie, hashOps, authManage);
             auth = hashOps.get("auth_"+userCookie[2],option);
         }
-        if (auth.equals("w0")){
+        if ("w0".equals(auth)){
             return new response<>(403,"您没有添加数据权限","");
         }
-        if (auth.equals("u0")){
+        if ("u0".equals(auth)){
             return new response<>(403,"您没有修改数据权限","");
         }
-        if (auth.equals("d0")){
+        if ("d0".equals(auth)){
             return new response<>(403,"您没有删除数据权限","");
         }
-        if (auth.equals("u1")&&!user_id.equals(user)){
+        if ("u1".equals(auth)&&!user_id.equals(user)){
             return new response<>(403,"您没有修改其他用户数据权限","");
         }
-        if (auth.equals("d1")&&!user_id.equals(user)){
+        if ("d1".equals(auth)&&!user_id.equals(user)){
             return new response<>(403,"您没有删除其他用户数据权限","");
         }
         return new response<>("");
