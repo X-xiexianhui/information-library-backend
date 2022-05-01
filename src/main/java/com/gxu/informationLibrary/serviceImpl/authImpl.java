@@ -17,6 +17,7 @@ import java.util.List;
 import java.util.Objects;
 
 import static com.gxu.informationLibrary.util.utils.getCookieByName;
+import static com.gxu.informationLibrary.util.utils.updateCache;
 
 @Service
 @Transactional(rollbackFor = Exception.class)
@@ -59,7 +60,7 @@ public class authImpl implements authServer {
         String option =authJSON.getString("option");
         String auth = hashOps.get("auth_"+userCookie[2],option);
         if (auth==null){
-            dataImpl.updateCache(userCookie, hashOps, authManage);
+            updateCache(userCookie, hashOps, authManage);
             auth = hashOps.get("auth_"+userCookie[2],option);
         }
         if (auth.equals("w0")){

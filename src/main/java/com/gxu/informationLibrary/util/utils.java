@@ -1,8 +1,11 @@
 package com.gxu.informationLibrary.util;
 
+import com.gxu.informationLibrary.dao.authDao;
+import com.gxu.informationLibrary.entity.roleAuth;
 import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.springframework.data.redis.core.HashOperations;
 
 
 import javax.servlet.http.Cookie;
@@ -40,7 +43,7 @@ public class utils {
         return cookieMap.getOrDefault(name, null);
     }
 
-    private static @NotNull Map<String,String> ReadCookieMap(HttpServletRequest request){
+    private static @NotNull Map<String,String> ReadCookieMap(@NotNull HttpServletRequest request){
         Map<String,String> cookieMap = new HashMap<>();
         Cookie[] cookies = request.getCookies();
         if(null!=cookies){
@@ -49,5 +52,13 @@ public class utils {
             }
         }
         return cookieMap;
+    }
+    public static void updateCache(String @NotNull [] userCookie, @NotNull HashOperations<String, String, String> hashOps, @NotNull authDao authManage) {
+        roleAuth cache= authManage.queryByName(userCookie[2]);
+        String key="auth_"+cache.getRole_name()+"_"+cache.getForm_name();
+        hashOps.put(key,"add",cache.getAddAuth());
+        hashOps.put(key,"del",cache.getDel());
+        hashOps.put(key,"search",cache.getSearch());
+        hashOps.put(key,"edit",cache.getEditAuth());
     }
 }

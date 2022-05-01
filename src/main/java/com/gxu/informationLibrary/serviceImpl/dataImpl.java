@@ -6,7 +6,6 @@ import com.gxu.informationLibrary.dao.authDao;
 import com.gxu.informationLibrary.dao.dataManageDao;
 import com.gxu.informationLibrary.entity.editEntity;
 import com.gxu.informationLibrary.entity.response;
-import com.gxu.informationLibrary.entity.roleAuth;
 import com.gxu.informationLibrary.server.dataServer;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.data.redis.core.HashOperations;
@@ -25,6 +24,7 @@ import java.util.Map;
 import java.util.Objects;
 
 import static com.gxu.informationLibrary.util.utils.getCookieByName;
+import static com.gxu.informationLibrary.util.utils.updateCache;
 
 @Service
 @Transactional(rollbackFor = Exception.class)
@@ -104,15 +104,6 @@ public class dataImpl implements dataServer {
             auth = hashOps.get("auth_"+userCookie[2],"search");
         }
         return null;
-    }
-
-    public static void updateCache(String[] userCookie, HashOperations<String, String, String> hashOps, authDao authManage) {
-        roleAuth cache= authManage.queryByName(userCookie[2]);
-        String key="auth_"+cache.getRole_name()+"_"+cache.getForm_name();
-        hashOps.put(key,"add",cache.getAddAuth());
-        hashOps.put(key,"del",cache.getDel());
-        hashOps.put(key,"search",cache.getSearch());
-        hashOps.put(key,"edit",cache.getEditAuth());
     }
 
     @Override
