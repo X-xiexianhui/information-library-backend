@@ -28,8 +28,8 @@ public class dataController {
         return dataManage.getTableData(form_id);
     }
     @PostMapping("api/data/add")
-    public response<String>insertData(@RequestBody String parma, HttpServletRequest request){
-        return dataManage.insertData(parma, request);
+    public response<String>insertData(@RequestBody String parma){
+        return dataManage.insertData(parma);
     }
     @PostMapping("api/file/add")
     public response<String>uploadFile(@RequestParam("file") MultipartFile file){

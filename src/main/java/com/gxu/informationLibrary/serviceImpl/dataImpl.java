@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.HttpServletRequest;
 import java.io.BufferedOutputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -52,7 +51,7 @@ public class dataImpl implements dataServer {
     }
 
     @Override
-    public response<String> insertData(String parma, HttpServletRequest request) {
+    public response<String> insertData(String parma) {
         JSONObject insert= JSON.parseObject(parma);
         int form_id = insert.getInteger("form_id");
         Map<String,String>tb=dataManage.getTableByFormId(form_id);
