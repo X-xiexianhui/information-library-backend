@@ -6,6 +6,7 @@
         create table ${db_name}.${tb_name}(
         <foreach item="item" index="index" collection="column">
             ${item.col_name} ${item.data_type}
+                <if test="item.data_type!='date' and item.data_type!='time' and item.data_type!='datetime'"></if>
             <choose>
                 <when test="item.data_type=='numeric'">
                     (${item.len},${item.place})
