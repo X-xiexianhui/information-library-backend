@@ -82,7 +82,7 @@ public class authImpl implements authServer {
         if (auth.equals("w1")&&!user_id.equals(user)){
             return new response<>(403,"您没有修改其他用户数据权限","");
         }
-        if (auth.equals("d1")){
+        if (auth.equals("d1")&&!user_id.equals(user)){
             return new response<>(403,"您没有删除其他用户数据权限","");
         }
         return new response<>("");
