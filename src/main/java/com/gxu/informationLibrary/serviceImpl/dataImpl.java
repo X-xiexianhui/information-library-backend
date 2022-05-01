@@ -6,6 +6,7 @@ import com.gxu.informationLibrary.dao.dataManageDao;
 import com.gxu.informationLibrary.entity.editEntity;
 import com.gxu.informationLibrary.entity.response;
 import com.gxu.informationLibrary.server.dataServer;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -93,7 +94,7 @@ public class dataImpl implements dataServer {
         dataManage.queryData(tb.get("db_name"),tb.get("tb_name") , new ArrayList<>(), false,"" );
         return null;
     }
-    public response<String> uploadFile(MultipartFile file){
+    public response<String> uploadFile(@NotNull MultipartFile file){
         response<String> res =new response<>("");
         if (!file.isEmpty()) {
             try {
@@ -115,5 +116,8 @@ public class dataImpl implements dataServer {
             res.setMsg("上传失败，因为文件是空的.");
         }
         return res;
+    }
+    private String getUserByCookie(){
+        return null;
     }
 }

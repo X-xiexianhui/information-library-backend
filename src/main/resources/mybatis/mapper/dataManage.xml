@@ -15,7 +15,7 @@
     </insert>
     <update id="updateData">
         <foreach collection="updates" item="item" index="index">
-            update ${db_name}.${tb_name} set ${item.col_name}=#{item.value};
+            update ${db_name}.${tb_name} set ${item.col_name}=#{item.value} where record_id =#{record_id};
         </foreach>
     </update>
     <delete id="deleteData">
