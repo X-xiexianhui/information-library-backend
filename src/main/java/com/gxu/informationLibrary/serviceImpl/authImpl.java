@@ -58,26 +58,29 @@ public class authImpl implements authServer {
         String user_id =userCookie[1];
         String user =authJSON.getString("user");
         String option =authJSON.getString("option");
-        String auth = hashOps.get("auth_"+userCookie[2],option);
-        if (auth==null){
-            updateCache(userCookie, hashOps, authManage);
-            auth = hashOps.get("auth_"+userCookie[2],option);
+        if (!"系统管理员".equals(userCookie[2])){
+            String auth = hashOps.get("auth_"+userCookie[2],option);
+            if (auth==null){
+                updateCache(userCookie, hashOps, authManage);
+                auth = hashOps.get("auth_"+userCookie[2],option);
+            }
+            if ("w0".equals(auth)){
+                return new response<>(403,"您没有添加数据权限","");
+            }
+            if ("u0".equals(auth)){
+                return new response<>(403,"您没有修改数据权限","");
+            }
+            if ("d0".equals(auth)){
+                return new response<>(403,"您没有删除数据权限","");
+            }
+            if ("u1".equals(auth)&&!user_id.equals(user)){
+                return new response<>(403,"您没有修改其他用户数据权限","");
+            }
+            if ("d1".equals(auth)&&!user_id.equals(user)){
+                return new response<>(403,"您没有删除其他用户数据权限","");
+            }
         }
-        if ("w0".equals(auth)){
-            return new response<>(403,"您没有添加数据权限","");
-        }
-        if ("u0".equals(auth)){
-            return new response<>(403,"您没有修改数据权限","");
-        }
-        if ("d0".equals(auth)){
-            return new response<>(403,"您没有删除数据权限","");
-        }
-        if ("u1".equals(auth)&&!user_id.equals(user)){
-            return new response<>(403,"您没有修改其他用户数据权限","");
-        }
-        if ("d1".equals(auth)&&!user_id.equals(user)){
-            return new response<>(403,"您没有删除其他用户数据权限","");
-        }
+
         return new response<>("");
     }
 }
