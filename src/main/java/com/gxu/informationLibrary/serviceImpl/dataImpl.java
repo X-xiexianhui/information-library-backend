@@ -66,12 +66,17 @@ public class dataImpl implements dataServer {
 
     @Override
     public response<String> deleteData(String parma) {
-        JSONObject deleteJSON = JSON.parseObject(parma);
-        int form_id = deleteJSON.getIntValue("form_id");
-        Map<String, String> tb = dataManage.getTableByFormId(form_id);
-        int record_id = deleteJSON.getIntValue("record_id");
-        dataManage.deleteData(tb.get("db_name"), tb.get("tb_name"), record_id);
-        return null;
+        try {
+            JSONObject deleteJSON = JSON.parseObject(parma);
+            int form_id = deleteJSON.getIntValue("form_id");
+            Map<String, String> tb = dataManage.getTableByFormId(form_id);
+            int record_id = deleteJSON.getIntValue("record_id");
+            dataManage.deleteData(tb.get("db_name"), tb.get("tb_name"), record_id);
+        }catch (Exception e){
+            return new response<>(500,e.getCause().getMessage(),"");
+        }
+
+        return new response<>("");
     }
 
     @Override
