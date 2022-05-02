@@ -1,5 +1,7 @@
 package com.gxu.informationLibrary.serviceImpl;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.gxu.informationLibrary.dao.userDao;
 import com.gxu.informationLibrary.entity.response;
 import org.springframework.data.redis.core.StringRedisTemplate;
@@ -50,6 +52,21 @@ public class mailServer {
             mailSender.send(mailMessage);//发送
         }catch (Exception e){
             e.printStackTrace();
+            return new response<>(500,e.getCause().getMessage(),false);
+        }
+        return new response<>(true);
+    }
+    public response<Boolean>checkAuthCode(String parma){
+        try {
+            JSONObject emailJSON= JSON.parseObject(parma);
+            String user_id=emailJSON.getString("user_id");
+            String auth_code=emailJSON.getString("auth_code");
+            ValueOperations<String, String> ops = redisTemplate.opsForValue();
+            String code = ops.get("auth_"+user_id);
+            if (!auth_code.equals(code)){
+                return new response<>(404,"验证码错误",false);
+            }
+        }catch (Exception e){
             return new response<>(500,e.getCause().getMessage(),false);
         }
         return new response<>(true);
