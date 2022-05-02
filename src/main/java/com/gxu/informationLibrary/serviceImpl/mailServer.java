@@ -46,7 +46,7 @@ public class mailServer {
             ValueOperations<String, String> ops = redisTemplate.opsForValue();
             ops.set("email_" + user_id, code, 5 * 60, TimeUnit.SECONDS);
 
-            mailMessage.setText("您正在恢复密码，给您发送的的验证码是：" + code + "，验证码5分钟内有效。");//内容
+            mailMessage.setText("尊敬的用户"+user_id+"，\n"+"您正在进行找回密码操作，本次的验证码是：" + code + "，验证码5分钟内有效，请及时输入。");//内容
 
             mailMessage.setTo(email);//发给谁
 
