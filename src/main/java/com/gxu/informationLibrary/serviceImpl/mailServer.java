@@ -1,5 +1,7 @@
 package com.gxu.informationLibrary.serviceImpl;
 
+import com.gxu.informationLibrary.dao.userDao;
+import com.gxu.informationLibrary.entity.response;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.mail.SimpleMailMessage;
@@ -13,27 +15,32 @@ import java.util.concurrent.TimeUnit;
 public class mailServer {
     private final JavaMailSender mailSender;//一定要用@Autowired
     private final StringRedisTemplate redisTemplate;
-    public mailServer(JavaMailSender mailSender, StringRedisTemplate redisTemplate) {
+    private final userDao userManage;
+    public mailServer(JavaMailSender mailSender, StringRedisTemplate redisTemplate, userDao userManage) {
         this.mailSender = mailSender;
         this.redisTemplate = redisTemplate;
+        this.userManage = userManage;
     }
 
     /**
      * 给前端输入的邮箱，发送验证码
      */
-    public boolean sendMimeMail(String email,String user_id) {
+    public response<Boolean> sendMimeMail(String user_id) {
         try {
             SimpleMailMessage mailMessage = new SimpleMailMessage();
 
             mailMessage.setSubject("验证码邮件");//主题
             //生成随机数
             String code = randomCode();
-
+            String email = userManage.queryEmail(user_id);
+            if (email == null){
+                return new response<>(404,"账号未绑定邮箱，请找管理员重置密码",false);
+            }
             //将随机数放置到redis中
             ValueOperations<String, String> ops = redisTemplate.opsForValue();
-            ops.set("email_"+user_id,code,5*60, TimeUnit.SECONDS);
+            ops.set("email_" + user_id, code, 5 * 60, TimeUnit.SECONDS);
 
-            mailMessage.setText("您正在恢复密码，给您发送的的验证码是："+code+"，验证码5分钟内有效。");//内容
+            mailMessage.setText("您正在恢复密码，给您发送的的验证码是：" + code + "，验证码5分钟内有效。");//内容
 
             mailMessage.setTo(email);//发给谁
 
@@ -41,11 +48,11 @@ public class mailServer {
             mailMessage.setFrom(from);//你自己的邮箱
 
             mailSender.send(mailMessage);//发送
-            return  true;
         }catch (Exception e){
             e.printStackTrace();
-            return false;
+            return new response<>(500,e.getCause().getMessage(),false);
         }
+        return new response<>(true);
     }
     /**
      * 随机生成4位数的验证码

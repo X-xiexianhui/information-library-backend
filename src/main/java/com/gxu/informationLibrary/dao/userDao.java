@@ -20,4 +20,6 @@ public interface userDao {
     void editUser(@Param("user_id") String user_id,@Param("col_name") String col_name,@Param("value") String value);
 
     Map<String,String> checkUser(@Param("user_id") String user_id);
+
+    String queryEmail(@Param("user_id") String user_id);
 }
