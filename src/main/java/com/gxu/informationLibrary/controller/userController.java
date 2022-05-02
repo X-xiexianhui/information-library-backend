@@ -73,8 +73,14 @@ public class userController {
     }
 
     @PostMapping("api/user/check")
-    public response<Boolean> checkUser(@RequestParam("user_id") String user_id) throws ExecutionException, InterruptedException {
-        return mail.sendMimeMail(user_id).get();
+    public response<Boolean> checkUser(@RequestParam("user_id") String user_id){
+        response<Boolean>res;
+        try {
+            res=mail.sendMimeMail(user_id).get();
+        }catch (Exception e){
+            return new response<>(500,e.getCause().getMessage(),false);
+        }
+        return res;
     }
 
     @PostMapping("api/email/check")
