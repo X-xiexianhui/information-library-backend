@@ -62,7 +62,9 @@ public class mailServer {
             String user_id=emailJSON.getString("user_id");
             String auth_code=emailJSON.getString("auth_code");
             ValueOperations<String, String> ops = redisTemplate.opsForValue();
-            String code = ops.get("auth_"+user_id);
+            String code = ops.get("email_"+user_id);
+            System.out.println(code);
+            System.out.println(auth_code);
             if (!auth_code.equals(code)){
                 return new response<>(404,"验证码错误",false);
             }
