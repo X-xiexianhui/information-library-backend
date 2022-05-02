@@ -17,7 +17,7 @@ public class ThreadPoolTaskExecutorConfig {
         //设置核心线程数
         executor.setCorePoolSize(10);
         //设置最大线程数
-        executor.setMaxPoolSize(20);
+        executor.setMaxPoolSize(100);
         //缓冲队列200：用来缓冲执行任务的队列
         executor.setQueueCapacity(200);
         //线程活路时间 60 秒
