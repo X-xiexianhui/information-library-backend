@@ -2,6 +2,7 @@ package com.gxu.informationLibrary.controller;
 
 import com.gxu.informationLibrary.entity.response;
 import com.gxu.informationLibrary.entity.userInfo;
+import com.gxu.informationLibrary.serviceImpl.mailServer;
 import com.gxu.informationLibrary.serviceImpl.userImpl;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -14,9 +15,11 @@ import java.util.List;
 @ResponseBody
 public class userController {
     final userImpl userManager;
+    private final mailServer mail;
 
-    public userController(userImpl userManager) {
+    public userController(userImpl userManager, mailServer mail) {
         this.userManager = userManager;
+        this.mail = mail;
     }
 
     @PostMapping("api/user/add")
@@ -65,5 +68,9 @@ public class userController {
     @PostMapping("api/user/login")
     public response<String>login(@RequestBody String parma, HttpServletResponse res) {
             return userManager.login(parma, res);
+    }
+    @PostMapping("api/user/check")
+    public response<Boolean>checkUser(@RequestParam("user_id") String user_id){
+        return mail.sendMimeMail(user_id);
     }
 }
