@@ -65,16 +65,24 @@ public class userController {
         }
         return new response<>(data);
     }
+
     @PostMapping("api/user/login")
-    public response<String>login(@RequestBody String parma, HttpServletResponse res) {
-            return userManager.login(parma, res);
+    public response<String> login(@RequestBody String parma, HttpServletResponse res) {
+        return userManager.login(parma, res);
     }
+
     @PostMapping("api/user/check")
-    public response<Boolean>checkUser(@RequestParam("user_id") String user_id){
+    public response<Boolean> checkUser(@RequestParam("user_id") String user_id) {
         return mail.sendMimeMail(user_id);
     }
+
     @PostMapping("api/email/check")
-    public response<Boolean>checkEmailCode(@RequestBody String parma){
+    public response<Boolean> checkEmailCode(@RequestBody String parma) {
         return mail.checkAuthCode(parma);
+    }
+
+    @PostMapping("api/pwd/reset")
+    public response<Boolean> resetPwd(@RequestBody String parma) {
+        return userManager.resetPwd(parma);
     }
 }

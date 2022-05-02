@@ -22,4 +22,5 @@ public interface userDao {
     Map<String,String> checkUser(@Param("user_id") String user_id);
 
     String queryEmail(@Param("user_id") String user_id);
+    <T> void updateUser(String column,T value,String user_id);
 }

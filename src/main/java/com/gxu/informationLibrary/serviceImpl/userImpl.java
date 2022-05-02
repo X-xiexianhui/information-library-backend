@@ -98,4 +98,15 @@ public class userImpl implements userServer {
 
         return data;
     }
+    public response<Boolean>resetPwd(String parma){
+        try {
+            JSONObject pwdJSON=JSON.parseObject(parma);
+            String user_id=pwdJSON.getString("user_id");
+            String md5Password = DigestUtils.md5DigestAsHex(pwdJSON.getString("pwd").getBytes());
+            userManage.updateUser("user_pwd",md5Password,user_id);
+        }catch (Exception e){
+            return new response<>(500,e.getCause().getMessage(),false);
+        }
+        return new response<>(true);
+    }
 }
