@@ -103,8 +103,6 @@ public class userImpl implements userServer {
             JSONObject pwdJSON=JSON.parseObject(parma);
             String user_id=pwdJSON.getString("user_id");
             String md5Password = DigestUtils.md5DigestAsHex(pwdJSON.getString("user_pwd").getBytes());
-            System.out.println(user_id);
-            System.out.println(md5Password);
             userManage.updateUser("user_pwd",md5Password,user_id);
         }catch (Exception e){
             return new response<>(500,e.getCause().getMessage(),false);
