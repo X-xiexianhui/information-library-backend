@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 @Controller
 @ResponseBody
@@ -72,8 +73,8 @@ public class userController {
     }
 
     @PostMapping("api/user/check")
-    public response<Boolean> checkUser(@RequestParam("user_id") String user_id) {
-        return mail.sendMimeMail(user_id);
+    public response<Boolean> checkUser(@RequestParam("user_id") String user_id) throws ExecutionException, InterruptedException {
+        return mail.sendMimeMail(user_id).get();
     }
 
     @PostMapping("api/email/check")

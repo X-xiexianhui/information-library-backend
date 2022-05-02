@@ -8,9 +8,12 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.scheduling.annotation.Async;
+import org.springframework.scheduling.annotation.AsyncResult;
 import org.springframework.stereotype.Service;
 
 import java.util.Random;
+import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 
 @Service
@@ -27,7 +30,8 @@ public class mailServer {
     /**
      * 给前端输入的邮箱，发送验证码
      */
-    public response<Boolean> sendMimeMail(String user_id) {
+    @Async("taskExecutor")
+    public Future<response<Boolean>> sendMimeMail(String user_id) {
         try {
             SimpleMailMessage mailMessage = new SimpleMailMessage();
 
@@ -36,7 +40,7 @@ public class mailServer {
             String code = randomCode();
             String email = userManage.queryEmail(user_id);
             if (email == null){
-                return new response<>(404,"账号未绑定邮箱，请找管理员重置密码",false);
+                return new AsyncResult<>(new response<>(500,"用户未绑定邮箱，请联系管理员重置密码",false));
             }
             //将随机数放置到redis中
             ValueOperations<String, String> ops = redisTemplate.opsForValue();
@@ -52,9 +56,9 @@ public class mailServer {
             mailSender.send(mailMessage);//发送
         }catch (Exception e){
             e.printStackTrace();
-            return new response<>(500,e.getCause().getMessage(),false);
+            return new AsyncResult<>(new response<>(500,e.getCause().getMessage(),false));
         }
-        return new response<>(true);
+        return new AsyncResult<>(new response<>(true));
     }
     public response<Boolean>checkAuthCode(String parma){
         try {
