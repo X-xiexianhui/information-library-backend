@@ -17,7 +17,7 @@ public class dataBaseDump {
     @Scheduled(cron = "0 0 12 ? * 7")
     public void dump(){
         log.info("备份数据库");
-        dataBaseDumpTask(new ArrayList<>());
+        log.info(dataBaseDumpTask(new ArrayList<>()));
     }
 
     //mysqldump db.. > ./dump/back.sql
