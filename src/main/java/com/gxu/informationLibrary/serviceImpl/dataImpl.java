@@ -7,6 +7,7 @@ import com.gxu.informationLibrary.dao.dataManageDao;
 import com.gxu.informationLibrary.dao.formManageDao;
 import com.gxu.informationLibrary.entity.editEntity;
 import com.gxu.informationLibrary.entity.response;
+import com.gxu.informationLibrary.entity.statisticsResult;
 import com.gxu.informationLibrary.server.dataServer;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.data.redis.core.HashOperations;
@@ -124,6 +125,11 @@ public class dataImpl implements dataServer {
             return new response<>(500, e.getCause().getMessage(), "");
         }
         return new response<>("");
+    }
+
+    @Override
+    public response<statisticsResult> statistics(String parma) {
+        return null;
     }
 
     public response<String> uploadFile(@NotNull MultipartFile file) {

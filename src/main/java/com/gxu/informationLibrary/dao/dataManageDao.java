@@ -2,6 +2,7 @@ package com.gxu.informationLibrary.dao;
 
 import com.alibaba.fastjson.JSONObject;
 import com.gxu.informationLibrary.entity.editEntity;
+import com.gxu.informationLibrary.entity.statisticsResult;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
@@ -24,5 +25,5 @@ public interface dataManageDao {
 
     Map<String,String> getTableByFormId(@Param("form_id") int form_id);
 
-    List<JSONObject>getData(@Param("DB_NAME") String db_name,@Param("tb_name") String tb_name,@Param("onlyAuth") boolean onlyAuth);
+    statisticsResult statistics();
 }
