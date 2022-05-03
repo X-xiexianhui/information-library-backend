@@ -9,6 +9,7 @@ import com.gxu.informationLibrary.entity.editEntity;
 import com.gxu.informationLibrary.entity.response;
 import com.gxu.informationLibrary.entity.statisticsResult;
 import com.gxu.informationLibrary.server.dataServer;
+import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.data.redis.core.HashOperations;
 import org.springframework.data.redis.core.StringRedisTemplate;
@@ -18,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.BufferedOutputStream;
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -27,7 +29,7 @@ import java.util.Objects;
 
 import static com.gxu.informationLibrary.util.utils.getCookieByName;
 import static com.gxu.informationLibrary.util.utils.updateCache;
-
+@Slf4j
 @Service
 @Transactional(rollbackFor = Exception.class)
 public class dataImpl implements dataServer {
@@ -134,10 +136,14 @@ public class dataImpl implements dataServer {
 
     public response<String> uploadFile(@NotNull MultipartFile file) {
         response<String> res = new response<>("");
+        File filePath = new File("./files");
+        if (!filePath.exists()) {
+            log.info("文件夹./files创建："+filePath.mkdir());
+        }
         if (!file.isEmpty()) {
             try {
                 BufferedOutputStream out = new BufferedOutputStream(
-                        new FileOutputStream("./files/" + file.getOriginalFilename()));
+                        new FileOutputStream(filePath + file.getOriginalFilename()));
                 out.write(file.getBytes());
                 out.flush();
                 out.close();
