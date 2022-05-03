@@ -1,7 +1,9 @@
 package com.gxu.informationLibrary.serviceImpl;
 
+import com.gxu.informationLibrary.dao.dbManageDao;
 import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -15,11 +17,18 @@ import java.util.List;
 @Component
 @Slf4j
 public class dataBaseDump {
-//    每周五5点备份
+    private final dbManageDao dbManager;
+
+    public dataBaseDump(dbManageDao dbManager) {
+        this.dbManager = dbManager;
+    }
+
+    //    每周五5点备份
     @Scheduled(cron = "0 0 17 ? * 7")
     public void dump(){
         log.info("备份数据库");
-        log.info(dataBaseDumpTask(new ArrayList<>()));
+        List<String>database=dbManager.getDatabaseList();
+        log.info(dataBaseDumpTask(database));
     }
 
     //mysqldump --database db.. > ./dump/back.sql

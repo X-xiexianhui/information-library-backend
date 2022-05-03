@@ -16,4 +16,7 @@
     <select id="getTables" resultType="int">
         select tables from db_info where db_name=#{db_name};
     </select>
+    <select id="getDatabaseList">
+        select db_name from db_info;
+    </select>
 </mapper>
