@@ -44,7 +44,7 @@ public class dataBaseDump {
             newCmd.append(" ").append(database);
         }
         File datafile = new File(file + File.separator+"backup_"+backTime+ ".sql");
-        newCmd.append(">").append(datafile);
+        newCmd.append(" >").append(datafile);
         if (datafile.exists()) {
             return "backup_"+backTime+ ".sql" + "文件名已存在";
         }
