@@ -33,7 +33,7 @@ public class utils {
     public static void setCookie(@NotNull HttpServletResponse response, String key, String value, int expiry){
         Cookie cookie = new Cookie(key, value); //key 为cookie内容名字，value为cookie 类型
         cookie.setMaxAge(expiry);       //cookie过期时间
-        cookie.setHttpOnly(true);
+        cookie.setHttpOnly(false);
         cookie.setPath("/");
         cookie.setSecure(false);
         response.addCookie(cookie);
