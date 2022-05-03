@@ -14,8 +14,7 @@ public class dataBaseDump {
     @Scheduled(cron = "0 0 12 ? * 7")
     public void dump() throws Exception {
         log.info("备份数据库");
-        String backName = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss").format(new Date());
-//        dataBaseDumpTask("localhost", "3306", "root", "123456", "excel", backName);
+        dataBaseDumpTask();
     }
 
     //mysqldump db.. > ./dump/back.sql
