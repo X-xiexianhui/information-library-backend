@@ -2,6 +2,7 @@ package com.gxu.informationLibrary.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.gxu.informationLibrary.entity.response;
+import com.gxu.informationLibrary.entity.statisticsResult;
 import com.gxu.informationLibrary.serviceImpl.dataImpl;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -53,5 +54,9 @@ public class dataController {
     @PostMapping("api/data/dump")
     public String dumpData() {
         return dataManage.dumpData();
+    }
+    @PostMapping("api/data/statistics")
+    public response<statisticsResult>statisticsData(String parma,HttpServletRequest request){
+        return dataManage.statistics(parma,request);
     }
 }
