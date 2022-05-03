@@ -63,11 +63,13 @@ public class dataImpl implements dataServer {
     }
 
     @Override
-    public response<String> insertData(String parma) {
+    public response<String> insertData(String parma,HttpServletRequest request) {
         JSONObject insert = JSON.parseObject(parma);
         int form_id = insert.getInteger("form_id");
         Map<String, String> tb = dataManage.getTableByFormId(form_id);
         List<editEntity> columns = insert.getJSONArray("insert").toJavaList(editEntity.class);
+        String[] userCookie = Objects.requireNonNull(getCookieByName(request, "loginCookie")).split("_");
+        columns.add(new editEntity("user",userCookie[1]));
         try {
             dataManage.insertData(tb.get("db_name"), tb.get("tb_name"), columns);
         } catch (Exception e) {

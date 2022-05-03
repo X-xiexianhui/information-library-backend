@@ -27,8 +27,8 @@ public class dataController {
     }
 
     @PostMapping("api/data/add")
-    public response<String> insertData(@RequestBody String parma) {
-        return dataManage.insertData(parma);
+    public response<String> insertData(@RequestBody String parma,HttpServletRequest request) {
+        return dataManage.insertData(parma,request);
     }
 
     @PostMapping("api/data/edit")

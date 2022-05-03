@@ -11,7 +11,7 @@ import java.util.Map;
 public interface dataServer {
     response<List<Map<String,String>>>getTableColumn(int form_id);
 
-    response<String>insertData(String parma);
+    response<String>insertData(String parma,HttpServletRequest request);
 
     response<String>deleteData(String parma);
 
