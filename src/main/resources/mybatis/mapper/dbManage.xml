@@ -16,7 +16,7 @@
     <select id="getTables" resultType="int">
         select tables from db_info where db_name=#{db_name};
     </select>
-    <select id="getDatabaseList">
+    <select id="getDatabaseList" resultType="string">
         select db_name from db_info;
     </select>
     <insert id="dumpDataBase">
