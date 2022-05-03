@@ -29,7 +29,7 @@ public class dataBaseDump {
         BufferedReader bufferedReader = null;
         String backTime = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss").format(new Date());
         File file = new File("./dump");
-        StringBuilder newCmd = new StringBuilder("mysqldump --databases");
+        StringBuilder newCmd = new StringBuilder("mysqldump --databases information_library");
         for (String database: databaseList) {
             newCmd.append(" ").append(database);
         }
