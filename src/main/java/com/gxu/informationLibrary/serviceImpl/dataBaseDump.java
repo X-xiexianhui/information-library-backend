@@ -29,7 +29,7 @@ public class dataBaseDump {
         log.info(dataBaseDumpTask(database));
     }
 
-    //mysqldump --database db.. > ./dump/back.sql
+    //mysqldump --database db...  > ./dump/back.sql
     //备份
     public @NotNull String dataBaseDumpTask(@NotNull List<String>databaseList) {
         PrintWriter printWriter = null;
