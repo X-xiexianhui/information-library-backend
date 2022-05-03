@@ -55,8 +55,9 @@ public class dataController {
     public String dumpData() {
         return dataManage.dumpData();
     }
+
     @PostMapping("api/data/statistics")
-    public response<statisticsResult>statisticsData(String parma,HttpServletRequest request){
-        return dataManage.statistics(parma,request);
+    public response<statisticsResult> statisticsData(String parma, HttpServletRequest request) {
+        return dataManage.statistics(parma, request);
     }
 }
