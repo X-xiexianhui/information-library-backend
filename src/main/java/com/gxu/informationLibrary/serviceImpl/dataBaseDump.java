@@ -31,7 +31,7 @@ public class dataBaseDump {
 
     //mysqldump --database db.. > ./dump/back.sql
     //备份
-    public static @NotNull String dataBaseDumpTask(@NotNull List<String>databaseList) {
+    public @NotNull String dataBaseDumpTask(@NotNull List<String>databaseList) {
         PrintWriter printWriter = null;
         BufferedReader bufferedReader = null;
         String backTime = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss").format(new Date());
@@ -72,6 +72,7 @@ public class dataBaseDump {
             //0 表示线程正常终止。
             if (process.waitFor() == 0) {
                 // 线程正常执行
+                dbManager.dumpDataBase(file + File.separator+"backup_"+backTime+ ".sql",backTime);
                 log.info("【备份数据库】SUCCESS，SQL文件：{}", datafile);
             }
         }catch (Exception e) {
@@ -91,7 +92,7 @@ public class dataBaseDump {
         }
         return "【备份数据库】--END";
     }
-    public static String rollBack(String fileName){
+    public String rollBack(String fileName){
         try {
             String newCmd="mysql<"+fileName;
             Process process;

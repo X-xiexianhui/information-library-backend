@@ -19,4 +19,6 @@ public interface dbManageDao {
     int getTables(@Param("db_name") String db_name);
 
     List<String>getDatabaseList();
+
+    void dumpDataBase(@Param("file_name") String file_name,@Param("dump_time") String dump_time);
 }
