@@ -43,7 +43,14 @@
         from tb_info
         where tb_id = (select tb_id from form_info where form_id = #{form_id});
     </select>
-    <select id="getData" resultType="com.alibaba.fastjson.JSONObject">
-        select * from ${db_name}.${tb_name} where not is_del=1 <if test="onlyAuth==true">and user=#{user_id}</if>;
+    <select id="statistics">
+        <choose>
+            <when test="option=='count'">select count(#{field}) as resutl,#{group_field}</when>
+            <when test="option=='sum'">select sum(#{field}) as result,#{group_field}</when>
+            <when test="option=='avg'">select avg(#{field}) as reult,#{group_field}</when>
+        </choose>
+        from ${db_name}.${tb_name}
+        group by #{group_field}
+        order by #{group_field};
     </select>
 </mapper>
