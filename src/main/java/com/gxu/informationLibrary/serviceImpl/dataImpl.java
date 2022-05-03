@@ -154,7 +154,7 @@ public class dataImpl implements dataServer {
         } catch (Exception e) {
             return new response<>(500, e.getCause().getMessage(), data);
         }
-        return null;
+        return new response<>(data);
     }
 
     public response<String> uploadFile(@NotNull MultipartFile file) {
