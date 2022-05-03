@@ -25,7 +25,7 @@ public class CookieAndSessionInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(@NotNull HttpServletRequest request, @NotNull HttpServletResponse response, @NotNull Object handler) throws Exception {
-        String cookie = getCookieByName(request, "loginCookie");
+        String cookie = getCookieByName(request, "login_cookie");
         if (cookie == null) {
             com.gxu.informationLibrary.entity.response<String>data=new response<>(401,"未登录，请先登录","");
             JSONObject json= (JSONObject) JSON.toJSON(data);
@@ -37,7 +37,7 @@ public class CookieAndSessionInterceptor implements HandlerInterceptor {
         String user_id = cookieValue[1];
 
         ValueOperations<String, String> ops = this.redisTemplate.opsForValue();
-        String cookieCache = ops.get("loginCookie_" + user_id);
+        String cookieCache = ops.get("login_cookie_" + user_id);
         if (cookieCache == null || !cookieCache.equals(cookie)) {
             com.gxu.informationLibrary.entity.response<String>data=new response<>(402,"密码错误","");
             JSONObject json= (JSONObject) JSON.toJSON(data);

@@ -67,7 +67,7 @@ public class dataImpl implements dataServer {
         int form_id = insert.getInteger("form_id");
         Map<String, String> tb = dataManage.getTableByFormId(form_id);
         List<editEntity> columns = insert.getJSONArray("insert").toJavaList(editEntity.class);
-        String[] userCookie = Objects.requireNonNull(getCookieByName(request, "loginCookie")).split("_");
+        String[] userCookie = Objects.requireNonNull(getCookieByName(request, "login_cookie")).split("_");
         columns.add(new editEntity("user",userCookie[1]));
         try {
             dataManage.insertData(tb.get("db_name"), tb.get("tb_name"), columns);
@@ -101,7 +101,7 @@ public class dataImpl implements dataServer {
             String form_name = formManage.queryFormName(form_id);
             Map<String, String> tb = dataManage.getTableByFormId(form_id);
             List<editEntity> columns = query.getJSONArray("columns").toJavaList(editEntity.class);
-            String[] userCookie = Objects.requireNonNull(getCookieByName(request, "loginCookie")).split("_");
+            String[] userCookie = Objects.requireNonNull(getCookieByName(request, "login_cookie")).split("_");
             HashOperations<String, String, String> hashOps = redisTemplate.opsForHash();
             String auth;
             if (!"系统管理员".equals(userCookie[2])) {
@@ -144,7 +144,7 @@ public class dataImpl implements dataServer {
             JSONObject statisticsJSON = JSON.parseObject(parma);
             int form_id = statisticsJSON.getIntValue("form_id");
             Map<String, String> tb = dataManage.getTableByFormId(form_id);
-            String[] userCookie = Objects.requireNonNull(getCookieByName(request, "loginCookie")).split("_");
+            String[] userCookie = Objects.requireNonNull(getCookieByName(request, "login_cookie")).split("_");
             data = dataManage.statistics(
                     statisticsJSON.getString("option"),
                     tb.get("db_name"), tb.get("db_name"),
