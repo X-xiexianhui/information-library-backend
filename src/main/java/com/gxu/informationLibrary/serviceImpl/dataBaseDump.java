@@ -43,7 +43,7 @@ public class dataBaseDump {
         File datafile = new File(file + File.separator+"backup_"+backTime+ ".sql");
         newCmd.append(">").append(datafile);
         if (datafile.exists()) {
-            return "backup_"+backTime+ ".sql" + "文件名已存在，请更换";
+            log.info("backup_"+backTime+ ".sql" + "文件名已存在，请更换");
         }
         if (!file.exists()) {
             log.info("文件夹./dump创建："+file.mkdir());
