@@ -1,6 +1,7 @@
 package com.gxu.informationLibrary.serviceImpl;
 
 import lombok.extern.slf4j.Slf4j;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -21,9 +22,9 @@ public class dataBaseDump {
         log.info(dataBaseDumpTask(new ArrayList<>()));
     }
 
-    //mysqldump db.. > ./dump/back.sql
+    //mysqldump --database db.. > ./dump/back.sql
     //备份
-    public static String dataBaseDumpTask(List<String>databaseList) {
+    public static @NotNull String dataBaseDumpTask(@NotNull List<String>databaseList) {
         PrintWriter printWriter = null;
         BufferedReader bufferedReader = null;
         String backTime = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss").format(new Date());
@@ -68,7 +69,7 @@ public class dataBaseDump {
             }
         }catch (Exception e) {
             e.printStackTrace();
-            log.info("【备份数据库】FAILURE");
+            return "【备份数据库】FAILURE";
         } finally {
             try {
                 if (bufferedReader != null) {
