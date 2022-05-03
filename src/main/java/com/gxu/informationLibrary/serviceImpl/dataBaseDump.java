@@ -24,7 +24,7 @@ public class dataBaseDump {
     }
 
     //    每周五5点备份
-    @Scheduled(cron = "0 0 17 ? * 7")
+    @Scheduled(cron = "0 0 17 ? * 6")
     public void dump(){
         log.info("备份数据库");
         List<String>database=dbManager.getDatabaseList();
