@@ -19,4 +19,7 @@
     <select id="getDatabaseList">
         select db_name from db_info;
     </select>
+    <insert id="dumpDataBase">
+        insert into data_base_dump_info(file_name, dump_time) VALUES (#{file_name},#{dump_time});
+    </insert>
 </mapper>
