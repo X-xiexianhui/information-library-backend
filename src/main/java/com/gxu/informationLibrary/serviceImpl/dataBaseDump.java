@@ -38,7 +38,7 @@ public class dataBaseDump {
             return;
         }
         if (!file.exists()) {
-            log.info("文件夹创建："+file.mkdir());
+            log.info("文件夹./dump创建："+file.mkdir());
         }
         try {
             printWriter = new PrintWriter(new OutputStreamWriter(new FileOutputStream(datafile), StandardCharsets.UTF_8));
