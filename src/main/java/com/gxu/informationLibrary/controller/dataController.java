@@ -27,8 +27,8 @@ public class dataController {
     }
 
     @PostMapping("api/data/add")
-    public response<String> insertData(@RequestBody String parma,HttpServletRequest request) {
-        return dataManage.insertData(parma,request);
+    public response<String> insertData(@RequestBody String parma, HttpServletRequest request) {
+        return dataManage.insertData(parma, request);
     }
 
     @PostMapping("api/data/edit")
@@ -55,9 +55,14 @@ public class dataController {
     public String dumpData() {
         return dataManage.dumpData();
     }
+
     @PostMapping("api/data/roll")
-    public String rollData(@RequestParam String file_name){
+    public String rollData(@RequestParam String file_name) {
         return dataManage.rollBack(file_name);
+    }
+    @GetMapping("api/dump/get")
+    public response<List<JSONObject>> getDumpList(){
+        return dataManage.getDumpList();
     }
     @PostMapping("api/data/statistics")
     public response<statisticsResult> statisticsData(String parma, HttpServletRequest request) {

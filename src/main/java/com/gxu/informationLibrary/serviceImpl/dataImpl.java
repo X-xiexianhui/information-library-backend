@@ -193,4 +193,13 @@ public class dataImpl implements dataServer {
     public String rollBack (String file_name) {
         return dataDump.rollBack(file_name);
     }
+    public response<List<JSONObject>>getDumpList(){
+        List<JSONObject>data=new ArrayList<>();
+        try {
+            data=dataManage.getDumpList();
+        }catch (Exception e){
+            return new response<>(500,e.getCause().getMessage(),data);
+        }
+        return new response<>(data);
+    }
 }

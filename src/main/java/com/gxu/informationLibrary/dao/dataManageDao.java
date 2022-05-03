@@ -31,4 +31,6 @@ public interface dataManageDao {
                                 @Param("tb_name") String tb_name, @Param("field") String field,
                                 @Param("group_field") String group_field, @Param("onlyUser") boolean onlyUser,
                                 @Param("user_id") String user_id);
+
+    List<JSONObject> getDumpList();
 }
