@@ -15,23 +15,24 @@ public class dataBaseDump {
     public void dump() throws Exception {
         log.info("备份数据库");
         String backName = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss").format(new Date());
-        dataBaseDump("localhost", "3306", "root", "123456", "excel", backName);
+//        dataBaseDumpTask("localhost", "3306", "root", "123456", "excel", backName);
     }
 
-    //mysqldump -hlocalhost -P3306 -uroot -p123456 db > E:/back.sql
+    //mysqldump db.. > ./dump/back.sql
     //备份
-    public static void dataBaseDump(String host, String port, String username, String password, String databasename, String sqlname) throws Exception {
+    public static void dataBaseDumpTask() throws Exception {
+        String backTime = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss").format(new Date());
         File file = new File("./dump");
         if (!file.exists()) {
             file.mkdir();
         }
-        File datafile = new File(file + File.separator + sqlname + ".sql");
+        File datafile = new File(file + File.separator+"backup_"+backTime+ ".sql");
         if (datafile.exists()) {
-            System.out.println(sqlname + "文件名已存在，请更换");
+            System.out.println("backup_"+backTime+ ".sql" + "文件名已存在，请更换");
             return;
         }
         //拼接cmd命令
-        Process exec = Runtime.getRuntime().exec("/bin/sh -c mysqldump -h" + host + " -P" + port + " -u " + username + " -p" + password + " " + databasename + " > " + datafile);
+        Process exec = Runtime.getRuntime().exec("/bin/sh -c mysqldump" + "db_name"+">"+datafile);
         if (exec.waitFor() == 0) {
             System.out.println("数据库备份成功,备份路径为：" + datafile);
         }
