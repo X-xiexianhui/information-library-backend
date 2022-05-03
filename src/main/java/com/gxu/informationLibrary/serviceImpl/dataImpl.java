@@ -159,7 +159,7 @@ public class dataImpl implements dataServer {
 
     public response<String> uploadFile(@NotNull MultipartFile file) {
         response<String> res = new response<>("");
-        File filePath = new File("./files");
+        File filePath = new File("./files/");
         if (!filePath.exists()) {
             log.info("文件夹./files创建：" + filePath.mkdir());
         }
