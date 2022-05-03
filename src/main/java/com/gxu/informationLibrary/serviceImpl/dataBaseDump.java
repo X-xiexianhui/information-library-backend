@@ -36,6 +36,9 @@ public class dataBaseDump {
         BufferedReader bufferedReader = null;
         String backTime = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss").format(new Date());
         File file = new File("./dump");
+        if (!file.exists()) {
+            log.info("文件夹./dump创建："+file.mkdir());
+        }
         StringBuilder newCmd = new StringBuilder("mysqldump --databases information_library");
         for (String database: databaseList) {
             newCmd.append(" ").append(database);
@@ -45,9 +48,7 @@ public class dataBaseDump {
         if (datafile.exists()) {
             log.info("backup_"+backTime+ ".sql" + "文件名已存在");
         }
-        if (!file.exists()) {
-            log.info("文件夹./dump创建："+file.mkdir());
-        }
+
         try {
             printWriter = new PrintWriter(new OutputStreamWriter(new FileOutputStream(datafile), StandardCharsets.UTF_8));
             Process process;
