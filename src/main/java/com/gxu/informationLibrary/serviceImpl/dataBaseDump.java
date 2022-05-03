@@ -46,9 +46,8 @@ public class dataBaseDump {
         File datafile = new File(file + File.separator+"backup_"+backTime+ ".sql");
         newCmd.append(">").append(datafile);
         if (datafile.exists()) {
-            log.info("backup_"+backTime+ ".sql" + "文件名已存在");
+            return "backup_"+backTime+ ".sql" + "文件名已存在";
         }
-
         try {
             printWriter = new PrintWriter(new OutputStreamWriter(new FileOutputStream(datafile), StandardCharsets.UTF_8));
             Process process;
