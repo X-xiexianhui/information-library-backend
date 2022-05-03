@@ -23,7 +23,7 @@ public class dataBaseDump {
         this.dbManager = dbManager;
     }
 
-    //    每周五5点备份
+    //    每周五下午5点备份
     @Scheduled(cron = "0 0 17 ? * 6")
     public void dump(){
         log.info("备份数据库");
