@@ -8,6 +8,16 @@ create table auth_info
         unique (auth_level)
 );
 
+create table data_base_dump_info
+(
+    id        int auto_increment
+        primary key,
+    file_name varchar(64) not null,
+    dump_time datetime    not null,
+    constraint data_base_dump_info_file_name_uindex
+        unique (file_name)
+);
+
 create table db_info
 (
     db_id   int auto_increment
@@ -167,9 +177,11 @@ create table user_info
         primary key,
     user_pwd   varchar(32)       not null,
     user_name  varchar(64)       not null,
-    user_email varchar(64)       not null,
+    user_email varchar(64)       null,
     user_role  int               not null,
     is_del     tinyint default 0 null,
+    constraint user_info_user_email_uindex
+        unique (user_email),
     constraint user_info_role_info_role_id_fk
         foreign key (user_role) references role_info (role_id)
             on update cascade
@@ -197,7 +209,7 @@ VALUES ('w1', '添加', '允许添加数据');
 INSERT INTO information_library.role_info (role_id, role_name, role_description)
 VALUES (1, '系统管理员', '系统管理员，可以进入管理后台，拥有对所有数据的全部修改权限，不可删除，不可修改');
 INSERT INTO information_library.user_info (user_id, user_pwd, user_name, user_email, user_role, is_del)
-VALUES ('admin', '601cea768fb9c2ce3b028391c442e072', '系统管理员', '1281715740@qq.com', 1, 0);
+VALUES ('admin', 'bff8af1fe092a663b838c4c7c0c90f11', '系统管理员', '2769530016@qq.com', 1, 0);
 
 
 
