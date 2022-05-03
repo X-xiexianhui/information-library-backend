@@ -72,10 +72,10 @@ public class dataBaseDump {
             //0 表示线程正常终止。
             if (process.waitFor() == 0) {
                 // 线程正常执行
-                dbManager.dumpDataBase(file + File.separator + "backup_" + backTime + ".sql",
-                        new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(dump_tine));
                 log.info("【备份数据库】SUCCESS，SQL文件：{}", datafile);
             }
+            dbManager.dumpDataBase("backup_" + backTime + ".sql",
+                    new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(dump_tine));
         } catch (Exception e) {
             e.printStackTrace();
             return "【备份数据库】FAILURE:" + e.getCause().getMessage();

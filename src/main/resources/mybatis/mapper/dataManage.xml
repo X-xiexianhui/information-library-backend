@@ -57,6 +57,6 @@
         order by #{group_field};
     </select>
     <select id="getDumpList" resultType="com.alibaba.fastjson.JSONObject">
-        select file_name,dump_time from data_base_dump_info where date_format(dump_time, '%Y-%m-%d %H:%i:%s') like ('%',#{dump_time},'%') order by dump_time desc;
+         select file_name,dump_time from data_base_dump_info where date_format(dump_time, '%Y-%m-%d %H:%i:%s') like '2022'; # like ('%','2022','%') order by dump_time desc;
     </select>
 </mapper>
