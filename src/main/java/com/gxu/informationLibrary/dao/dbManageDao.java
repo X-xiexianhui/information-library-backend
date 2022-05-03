@@ -17,4 +17,6 @@ public interface dbManageDao {
     List<dbInfo> searchDb(@Param("query_name") String db_name);
 
     int getTables(@Param("db_name") String db_name);
+
+    List<String>getDatabaseList();
 }
