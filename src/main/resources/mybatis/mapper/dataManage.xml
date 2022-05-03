@@ -56,4 +56,7 @@
         group by #{group_field}
         order by #{group_field};
     </select>
+    <select id="getDumpList">
+        select file_name,dump_time from data_base_dump_info where dump_time like ('%',#{dump_time},'%');
+    </select>
 </mapper>

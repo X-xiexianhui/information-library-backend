@@ -62,8 +62,8 @@ public class dataController {
     }
 
     @GetMapping("api/dump/get")
-    public response<List<JSONObject>> getDumpList() {
-        return dataManage.getDumpList();
+    public response<List<JSONObject>> getDumpList(@RequestParam("dump_time") String dump_time) {
+        return dataManage.getDumpList(dump_time);
     }
 
     @PostMapping("api/data/statistics")
