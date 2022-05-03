@@ -25,5 +25,5 @@ public interface dataManageDao {
 
     Map<String,String> getTableByFormId(@Param("form_id") int form_id);
 
-    statisticsResult statistics();
+    statisticsResult statistics(@Param("db_name"));
 }
