@@ -59,7 +59,6 @@ public class dataBaseDump {
             } else {
                 // 本地win
                 process=Runtime.getRuntime().exec("docker exec -it mysql "+newCmd);
-                System.out.println("docker exec -it mysql "+newCmd);
             }
             InputStreamReader inputStreamReader = new InputStreamReader(process.getInputStream(), StandardCharsets.UTF_16LE);
             bufferedReader = new BufferedReader(inputStreamReader);
