@@ -50,6 +50,9 @@
             <when test="option=='avg'">select avg(#{field}) as reult,#{group_field}</when>
         </choose>
         from ${db_name}.${tb_name}
+        <if test="onlyUser==true">
+            where user=#{user_id}
+        </if>
         group by #{group_field}
         order by #{group_field};
     </select>
