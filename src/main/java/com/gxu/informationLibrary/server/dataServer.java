@@ -18,5 +18,5 @@ public interface dataServer {
     response<List<JSONObject>>queryData(String parma, HttpServletRequest request);
 
     response<String>updateData(String parma);
-    response<statisticsResult>statistics(String parma);
+    response<statisticsResult>statistics(String parma,HttpServletRequest request);
 }

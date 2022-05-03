@@ -30,6 +30,7 @@ import java.util.Objects;
 
 import static com.gxu.informationLibrary.util.utils.getCookieByName;
 import static com.gxu.informationLibrary.util.utils.updateCache;
+
 @Slf4j
 @Service
 @Transactional(rollbackFor = Exception.class)
@@ -102,16 +103,16 @@ public class dataImpl implements dataServer {
             String[] userCookie = Objects.requireNonNull(getCookieByName(request, "loginCookie")).split("_");
             HashOperations<String, String, String> hashOps = redisTemplate.opsForHash();
             String auth;
-            if (!"系统管理员".equals(userCookie[2])){
-                auth = hashOps.get("auth_" + userCookie[2]+"_"+form_name, "search");
-            }else {
-                auth="s1";
+            if (!"系统管理员".equals(userCookie[2])) {
+                auth = hashOps.get("auth_" + userCookie[2] + "_" + form_name, "search");
+            } else {
+                auth = "s1";
             }
             if (auth == null) {
                 updateCache(userCookie, hashOps, authManage);
-                auth = hashOps.get("auth_" + userCookie[2]+"_"+form_name, "search");
+                auth = hashOps.get("auth_" + userCookie[2] + "_" + form_name, "search");
             }
-            data = dataManage.queryData(tb.get("db_name"), tb.get("tb_name"), columns,"s0".equals(auth) , userCookie[1]);
+            data = dataManage.queryData(tb.get("db_name"), tb.get("tb_name"), columns, "s0".equals(auth), userCookie[1]);
         } catch (Exception e) {
             return new response<>(500, e.getCause().getMessage(), data);
         }
@@ -135,7 +136,24 @@ public class dataImpl implements dataServer {
     }
 
     @Override
-    public response<statisticsResult> statistics(String parma) {
+    public response<statisticsResult> statistics(String parma, HttpServletRequest request) {
+
+        statisticsResult data = new statisticsResult();
+        try {
+            JSONObject statisticsJSON = JSON.parseObject(parma);
+            int form_id = statisticsJSON.getIntValue("form_id");
+            Map<String, String> tb = dataManage.getTableByFormId(form_id);
+            String[] userCookie = Objects.requireNonNull(getCookieByName(request, "loginCookie")).split("_");
+            data = dataManage.statistics(
+                    statisticsJSON.getString("option"),
+                    tb.get("db_name"), tb.get("db_name"),
+                    statisticsJSON.getString("field"),
+                    statisticsJSON.getString("group_field"),
+                    statisticsJSON.getBooleanValue("onlyUser"),
+                    userCookie[1]);
+        } catch (Exception e) {
+            return new response<>(500, e.getCause().getMessage(), data);
+        }
         return null;
     }
 
@@ -143,7 +161,7 @@ public class dataImpl implements dataServer {
         response<String> res = new response<>("");
         File filePath = new File("./files");
         if (!filePath.exists()) {
-            log.info("文件夹./files创建："+filePath.mkdir());
+            log.info("文件夹./files创建：" + filePath.mkdir());
         }
         if (!file.isEmpty()) {
             try {
@@ -166,8 +184,9 @@ public class dataImpl implements dataServer {
         }
         return res;
     }
-    public String dumpData(){
-        List<String>database=dbManager.getDatabaseList();
+
+    public String dumpData() {
+        List<String> database = dbManager.getDatabaseList();
         return dataDump.dataBaseDumpTask(database);
     }
 }
