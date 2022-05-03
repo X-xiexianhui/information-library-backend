@@ -91,4 +91,26 @@ public class dataBaseDump {
         }
         return "【备份数据库】--END";
     }
+    public static String rollBack(String fileName){
+        try {
+            String newCmd="mysql<"+fileName;
+            Process process;
+            String property = System.getProperty("os.name");
+            System.out.println(property);
+            if (property.contains("Linux")) {
+                // linux
+                process = Runtime.getRuntime().exec(new String[]{"bash", "-c",newCmd});
+            } else {
+                // 本地win
+                process = Runtime.getRuntime().exec(newCmd);
+            }
+            if (process.waitFor() == 0) {
+                // 线程正常执行
+                log.info("成功还原数据库");
+            }
+        }catch (Exception e){
+            return e.getCause().getMessage();
+        }
+        return "成功还原数据库";
+    }
 }
