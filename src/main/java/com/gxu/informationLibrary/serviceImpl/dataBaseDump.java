@@ -55,10 +55,10 @@ public class dataBaseDump {
             String property = System.getProperty("os.name");
             if (property.contains("Linux")) {
                 // linux
-                process = Runtime.getRuntime().exec(new String[]{"bash", "-c", newCmd.toString()});
+                process=Runtime.getRuntime().exec(new String[]{"bash", "-c", newCmd.toString()});
             } else {
                 // 本地win
-                process = Runtime.getRuntime().exec("docker exec -it mysql " + newCmd);
+                process=Runtime.getRuntime().exec(new String[]{"docker", "exec","mysql",newCmd.toString()});
             }
             InputStreamReader inputStreamReader = new InputStreamReader(process.getInputStream(), StandardCharsets.UTF_8);
             bufferedReader = new BufferedReader(inputStreamReader);
