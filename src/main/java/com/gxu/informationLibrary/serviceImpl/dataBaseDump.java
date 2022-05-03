@@ -14,7 +14,8 @@ import java.util.List;
 @Component
 @Slf4j
 public class dataBaseDump {
-    @Scheduled(cron = "0 0 12 ? * 7")
+//    每周五5点备份
+    @Scheduled(cron = "0 0 17 ? * 7")
     public void dump(){
         log.info("备份数据库");
         log.info(dataBaseDumpTask(new ArrayList<>()));
