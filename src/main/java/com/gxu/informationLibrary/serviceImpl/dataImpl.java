@@ -190,4 +190,7 @@ public class dataImpl implements dataServer {
         List<String> database = dbManager.getDatabaseList();
         return dataDump.dataBaseDumpTask(database);
     }
+    public String rollBack (String file_name) {
+        return dataDump.rollBack(file_name);
+    }
 }

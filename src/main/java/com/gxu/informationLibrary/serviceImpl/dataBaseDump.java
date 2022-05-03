@@ -58,7 +58,7 @@ public class dataBaseDump {
                 process = Runtime.getRuntime().exec(new String[]{"bash", "-c", newCmd.toString()});
             } else {
                 // 本地win
-                process = Runtime.getRuntime().exec("docker exec -it mysql"+ newCmd);
+                process = Runtime.getRuntime().exec("docker exec -it mysql "+ newCmd);
             }
             InputStreamReader inputStreamReader = new InputStreamReader(process.getInputStream(), StandardCharsets.UTF_8);
             bufferedReader = new BufferedReader(inputStreamReader);
@@ -103,7 +103,7 @@ public class dataBaseDump {
                 process = Runtime.getRuntime().exec(new String[]{"bash", "-c",newCmd});
             } else {
                 // 本地win
-                process = Runtime.getRuntime().exec(newCmd);
+                process = Runtime.getRuntime().exec("docker exec -it "+newCmd);
             }
             if (process.waitFor() == 0) {
                 // 线程正常执行
