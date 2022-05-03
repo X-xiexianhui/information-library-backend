@@ -58,8 +58,6 @@ public class dataBaseDump {
                 process = Runtime.getRuntime().exec(new String[]{"bash", "-c", newCmd.toString()});
             } else {
                 // 本地win
-//                没有安装docker不需要这一行
-                Runtime.getRuntime().exec("docker exec -it mysql /bin/bash");
                 process = Runtime.getRuntime().exec(newCmd.toString());
             }
             InputStreamReader inputStreamReader = new InputStreamReader(process.getInputStream(), StandardCharsets.UTF_8);
