@@ -49,4 +49,8 @@ public class dataController {
     public response<String> uploadFile(@RequestParam("file") MultipartFile file) {
         return dataManage.uploadFile(file);
     }
+    @PostMapping("api/data/dump")
+    public String dumpData(){
+        return dataManage.dumpData();
+    }
 }

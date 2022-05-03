@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.gxu.informationLibrary.dao.authDao;
 import com.gxu.informationLibrary.dao.dataManageDao;
+import com.gxu.informationLibrary.dao.dbManageDao;
 import com.gxu.informationLibrary.dao.formManageDao;
 import com.gxu.informationLibrary.entity.editEntity;
 import com.gxu.informationLibrary.entity.response;
@@ -37,12 +38,16 @@ public class dataImpl implements dataServer {
     private final StringRedisTemplate redisTemplate;
     private final authDao authManage;
     private final formManageDao formManage;
+    private final dataBaseDump dataDump;
+    private final dbManageDao dbManager;
 
-    public dataImpl(dataManageDao dataManage, StringRedisTemplate redisTemplate, authDao authManage, formManageDao formManage) {
+    public dataImpl(dataManageDao dataManage, StringRedisTemplate redisTemplate, authDao authManage, formManageDao formManage, dataBaseDump dataDump, dbManageDao dbManager) {
         this.dataManage = dataManage;
         this.redisTemplate = redisTemplate;
         this.authManage = authManage;
         this.formManage = formManage;
+        this.dataDump = dataDump;
+        this.dbManager = dbManager;
     }
 
     @Override
@@ -160,5 +165,9 @@ public class dataImpl implements dataServer {
             res.setMsg("上传失败，因为文件是空的.");
         }
         return res;
+    }
+    public String dumpData(){
+        List<String>database=dbManager.getDatabaseList();
+        return dataDump.dataBaseDumpTask(database);
     }
 }

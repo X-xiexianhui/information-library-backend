@@ -77,7 +77,7 @@ public class dataBaseDump {
             }
         }catch (Exception e) {
             e.printStackTrace();
-            return "【备份数据库】FAILURE";
+            return "【备份数据库】FAILURE:"+e.getCause().getMessage();
         } finally {
             try {
                 if (bufferedReader != null) {
