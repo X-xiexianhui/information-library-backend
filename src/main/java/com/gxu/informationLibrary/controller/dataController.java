@@ -55,7 +55,10 @@ public class dataController {
     public String dumpData() {
         return dataManage.dumpData();
     }
-
+    @PostMapping("api/data/roll")
+    public String rollData(@RequestParam String file_name){
+        return dataManage.rollBack(file_name);
+    }
     @PostMapping("api/data/statistics")
     public response<statisticsResult> statisticsData(String parma, HttpServletRequest request) {
         return dataManage.statistics(parma, request);
