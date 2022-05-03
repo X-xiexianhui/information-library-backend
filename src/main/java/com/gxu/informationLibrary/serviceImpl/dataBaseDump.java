@@ -25,22 +25,22 @@ public class dataBaseDump {
     public static void dataBaseDumpTask(List<String>databaseList) throws Exception {
         PrintWriter printWriter = null;
         BufferedReader bufferedReader = null;
+        String backTime = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss").format(new Date());
+        File file = new File("./dump");
+        StringBuilder newCmd = new StringBuilder("mysqldump --databases");
+        for (String database: databaseList) {
+            newCmd.append(" ").append(database);
+        }
+        File datafile = new File(file + File.separator+"backup_"+backTime+ ".sql");
+        newCmd.append(">").append(datafile);
+        if (datafile.exists()) {
+            System.out.println("backup_"+backTime+ ".sql" + "文件名已存在，请更换");
+            return;
+        }
+        if (!file.exists()) {
+            file.mkdir();
+        }
         try {
-            String backTime = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss").format(new Date());
-            File file = new File("./dump");
-            if (!file.exists()) {
-                file.mkdir();
-            }
-            StringBuilder newCmd = new StringBuilder("mysqldump --databases");
-            for (String database: databaseList) {
-                newCmd.append(" ").append(database);
-            }
-            File datafile = new File(file + File.separator+"backup_"+backTime+ ".sql");
-            newCmd.append(">").append(datafile);
-            if (datafile.exists()) {
-                System.out.println("backup_"+backTime+ ".sql" + "文件名已存在，请更换");
-                return;
-            }
             printWriter = new PrintWriter(new OutputStreamWriter(new FileOutputStream(datafile), StandardCharsets.UTF_8));
             Process process;
             String property = System.getProperty("os.name");
