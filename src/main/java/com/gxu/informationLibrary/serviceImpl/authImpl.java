@@ -53,7 +53,7 @@ public class authImpl implements authServer {
     }
     public response<String>checkAuth(String parma, HttpServletRequest request){
         HashOperations<String,String,String> hashOps = redisTemplate.opsForHash();
-        String[] userCookie = Objects.requireNonNull(getCookieByName(request, "loginCookie")).split("_") ;
+        String[] userCookie = Objects.requireNonNull(getCookieByName(request, "login_cookie")).split("_") ;
         JSONObject authJSON = JSON.parseObject(parma);
         String user_id =userCookie[1];
         String user =authJSON.getString("user");
