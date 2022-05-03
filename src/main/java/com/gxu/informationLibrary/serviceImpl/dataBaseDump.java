@@ -15,14 +15,14 @@ import java.util.List;
 @Slf4j
 public class dataBaseDump {
     @Scheduled(cron = "0 0 12 ? * 7")
-    public void dump() throws Exception {
+    public void dump(){
         log.info("备份数据库");
         dataBaseDumpTask(new ArrayList<>());
     }
 
     //mysqldump db.. > ./dump/back.sql
     //备份
-    public static void dataBaseDumpTask(List<String>databaseList) throws Exception {
+    public static void dataBaseDumpTask(List<String>databaseList) {
         PrintWriter printWriter = null;
         BufferedReader bufferedReader = null;
         String backTime = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss").format(new Date());
@@ -38,7 +38,7 @@ public class dataBaseDump {
             return;
         }
         if (!file.exists()) {
-            file.mkdir();
+            log.info(String.valueOf(file.mkdir()));
         }
         try {
             printWriter = new PrintWriter(new OutputStreamWriter(new FileOutputStream(datafile), StandardCharsets.UTF_8));
