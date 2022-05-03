@@ -31,7 +31,7 @@ public class dataBaseDump {
             return;
         }
         //拼接cmd命令
-        Process exec = Runtime.getRuntime().exec("/bin/sh -c mysqldump" + "db_name"+">"+datafile);
+        Process exec = Runtime.getRuntime().exec("/bin/sh -c mysqldump --databases" + "db_name"+">"+datafile);
         if (exec.waitFor() == 0) {
             System.out.println("数据库备份成功,备份路径为：" + datafile);
         }
