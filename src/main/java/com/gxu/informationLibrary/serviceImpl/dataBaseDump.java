@@ -23,42 +23,42 @@ public class dataBaseDump {
 
     //    每周五下午5点备份
     @Scheduled(cron = "0 0 17 ? * 6")
-    public void dump(){
+    public void dump() {
         log.info("备份数据库");
-        List<String>database=dbManager.getDatabaseList();
+        List<String> database = dbManager.getDatabaseList();
         log.info(dataBaseDumpTask(database));
     }
 
     //mysqldump --database db...  > ./dump/back.sql
     //备份
-    public @NotNull String dataBaseDumpTask(@NotNull List<String>databaseList) {
+    public @NotNull String dataBaseDumpTask(@NotNull List<String> databaseList) {
         PrintWriter printWriter = null;
         BufferedReader bufferedReader = null;
-        String backTime = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss").format(new Date());
+        Date dump_tine = new Date();
+        String backTime = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss").format(dump_tine);
         File file = new File("./dump");
         if (!file.exists()) {
-            log.info("文件夹./dump创建："+file.mkdir());
+            log.info("文件夹./dump创建：" + file.mkdir());
         }
         StringBuilder newCmd = new StringBuilder("mysqldump --databases information_library");
-        for (String database: databaseList) {
+        for (String database : databaseList) {
             newCmd.append(" ").append(database);
         }
-        File datafile = new File(file + File.separator+"backup_"+backTime+ ".sql");
+        File datafile = new File(file + File.separator + "backup_" + backTime + ".sql");
         newCmd.append(" >").append(datafile);
         if (datafile.exists()) {
-            return "backup_"+backTime+ ".sql" + "文件名已存在";
+            return "backup_" + backTime + ".sql" + "文件名已存在";
         }
         try {
             printWriter = new PrintWriter(new OutputStreamWriter(new FileOutputStream(datafile), StandardCharsets.UTF_8));
             Process process;
             String property = System.getProperty("os.name");
-            System.out.println(property);
             if (property.contains("Linux")) {
                 // linux
                 process = Runtime.getRuntime().exec(new String[]{"bash", "-c", newCmd.toString()});
             } else {
                 // 本地win
-                process = Runtime.getRuntime().exec("docker exec -it mysql "+ newCmd);
+                process = Runtime.getRuntime().exec("docker exec -it mysql " + newCmd);
             }
             InputStreamReader inputStreamReader = new InputStreamReader(process.getInputStream(), StandardCharsets.UTF_8);
             bufferedReader = new BufferedReader(inputStreamReader);
@@ -72,12 +72,13 @@ public class dataBaseDump {
             //0 表示线程正常终止。
             if (process.waitFor() == 0) {
                 // 线程正常执行
-                dbManager.dumpDataBase(file + File.separator+"backup_"+backTime+ ".sql",backTime);
+                dbManager.dumpDataBase(file + File.separator + "backup_" + backTime + ".sql",
+                        new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(dump_tine));
                 log.info("【备份数据库】SUCCESS，SQL文件：{}", datafile);
             }
-        }catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
-            return "【备份数据库】FAILURE:"+e.getCause().getMessage();
+            return "【备份数据库】FAILURE:" + e.getCause().getMessage();
         } finally {
             try {
                 if (bufferedReader != null) {
@@ -92,24 +93,25 @@ public class dataBaseDump {
         }
         return "【备份数据库】--END";
     }
-    public String rollBack(String fileName){
+
+    public String rollBack(String fileName) {
         try {
-            String newCmd="mysql<"+fileName;
+            String newCmd = "mysql<" + fileName;
             Process process;
             String property = System.getProperty("os.name");
             System.out.println(property);
             if (property.contains("Linux")) {
                 // linux
-                process = Runtime.getRuntime().exec(new String[]{"bash", "-c",newCmd});
+                process = Runtime.getRuntime().exec(new String[]{"bash", "-c", newCmd});
             } else {
                 // 本地win
-                process = Runtime.getRuntime().exec("docker exec -it "+newCmd);
+                process = Runtime.getRuntime().exec("docker exec -it " + newCmd);
             }
             if (process.waitFor() == 0) {
                 // 线程正常执行
                 log.info("成功还原数据库");
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             return e.getCause().getMessage();
         }
         return "成功还原数据库";
