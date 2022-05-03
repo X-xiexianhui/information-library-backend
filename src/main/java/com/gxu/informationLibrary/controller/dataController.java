@@ -60,10 +60,12 @@ public class dataController {
     public String rollData(@RequestParam String file_name) {
         return dataManage.rollBack(file_name);
     }
+
     @GetMapping("api/dump/get")
-    public response<List<JSONObject>> getDumpList(){
+    public response<List<JSONObject>> getDumpList() {
         return dataManage.getDumpList();
     }
+
     @PostMapping("api/data/statistics")
     public response<statisticsResult> statisticsData(String parma, HttpServletRequest request) {
         return dataManage.statistics(parma, request);
