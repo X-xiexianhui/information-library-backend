@@ -43,7 +43,7 @@
         from tb_info
         where tb_id = (select tb_id from form_info where form_id = #{form_id});
     </select>
-    <select id="statistics" resultType="Map">
+    <select id="statistics" resultType="map">
         <choose>
             <when test="option=='count'">select count(${field}) as resutl,${group_field} as col_nam</when>
             <when test="option=='sum'">select sum(${field}) as result,${group_field} as col_name</when>
