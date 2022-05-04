@@ -27,7 +27,7 @@ public interface dataManageDao {
 
     Map<String, String> getTableByFormId(@Param("form_id") int form_id);
 
-    statisticsResult statistics(@Param("option") String option, @Param("db_name") String db_name,
+    List<Map<String,Object>>statistics(@Param("option") String option, @Param("db_name") String db_name,
                                 @Param("tb_name") String tb_name, @Param("field") String field,
                                 @Param("group_field") String group_field, @Param("onlyUser") boolean onlyUser,
                                 @Param("user_id") String user_id);

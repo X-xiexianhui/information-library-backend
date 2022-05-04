@@ -43,11 +43,7 @@
         from tb_info
         where tb_id = (select tb_id from form_info where form_id = #{form_id});
     </select>
-    <resultMap id="statisticsMap" type="com.gxu.informationLibrary.entity.statisticsResult">
-        <collection property="result" column="result" javaType="ArrayList"/>
-        <collection property="col_name" column="col_name" javaType="ArrayList"/>
-    </resultMap>
-    <select id="statistics" resultMap="statisticsMap">
+    <select id="statistics" resultType="Map">
         <choose>
             <when test="option=='count'">select count(${field}) as resutl,${group_field} as col_nam</when>
             <when test="option=='sum'">select sum(${field}) as result,${group_field} as col_name</when>
