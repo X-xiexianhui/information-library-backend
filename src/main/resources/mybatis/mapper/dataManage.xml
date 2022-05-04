@@ -44,14 +44,8 @@
         where tb_id = (select tb_id from form_info where form_id = #{form_id});
     </select>
     <resultMap id="statisticsMap" type="com.gxu.informationLibrary.entity.statisticsResult">
-        <collection property="result" resultMap="resultMap" javaType="ArrayList"/>
-        <collection property="col_name" resultMap="colNameMap" javaType="ArrayList"/>
-    </resultMap>
-    <resultMap id="resultMap" type="int">
-        <result property="result" column="result"/>
-    </resultMap>
-    <resultMap id="colNameMap" type="string">
-        <result column="col_name" property="col_name"/>
+        <collection property="result" column="result" javaType="ArrayList"/>
+        <collection property="col_name" column="col_name" javaType="ArrayList"/>
     </resultMap>
     <select id="statistics" resultMap="statisticsMap">
         <choose>
