@@ -44,7 +44,7 @@ public class dataBaseDump {
         if (!file.exists()) {
             log.info("文件夹./dump创建：" + file.mkdir());
         }
-        StringBuilder newCmd = new StringBuilder("mysqldump --databases information_library");
+        StringBuilder newCmd = new StringBuilder("mysqldump -u"+mysql_user+" -p"+mysql_pwd+" information_library");
         for (String database : databaseList) {
             newCmd.append(" ").append(database);
         }
