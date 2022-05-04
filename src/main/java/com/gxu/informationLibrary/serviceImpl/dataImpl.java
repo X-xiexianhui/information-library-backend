@@ -147,7 +147,7 @@ public class dataImpl implements dataServer {
             System.out.println(Arrays.toString(userCookie));
             data = dataManage.statistics(
                     statisticsJSON.getString("option"),
-                    tb.get("db_name"), tb.get("db_name"),
+                    tb.get("db_name"), tb.get("tb_name"),
                     statisticsJSON.getString("field"),
                     statisticsJSON.getString("group_field"),
                     statisticsJSON.getBooleanValue("onlyUser"),
