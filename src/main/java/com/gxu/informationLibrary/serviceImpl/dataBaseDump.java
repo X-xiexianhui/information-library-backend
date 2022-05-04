@@ -3,6 +3,7 @@ package com.gxu.informationLibrary.serviceImpl;
 import com.gxu.informationLibrary.dao.dbManageDao;
 import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -16,7 +17,10 @@ import java.util.List;
 @Slf4j
 public class dataBaseDump {
     private final dbManageDao dbManager;
-
+    @Value("${spring.datasource.username}")
+    private String mysql_user;
+    @Value("${spring.datasource.password}")
+    private String mysql_pwd;
     public dataBaseDump(dbManageDao dbManager) {
         this.dbManager = dbManager;
     }
@@ -58,7 +62,7 @@ public class dataBaseDump {
                 process=Runtime.getRuntime().exec(new String[]{"bash", "-c", newCmd.toString()});
             } else {
                 // 本地win
-                process=Runtime.getRuntime().exec("docker exec -it mysql "+newCmd);
+                process=Runtime.getRuntime().exec(newCmd.toString());
             }
             InputStreamReader inputStreamReader = new InputStreamReader(process.getInputStream(), StandardCharsets.UTF_16LE);
             bufferedReader = new BufferedReader(inputStreamReader);
