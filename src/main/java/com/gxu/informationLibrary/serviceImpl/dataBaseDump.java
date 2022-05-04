@@ -64,7 +64,7 @@ public class dataBaseDump {
                 // 本地win
                 process=Runtime.getRuntime().exec(newCmd.toString());
             }
-            InputStreamReader inputStreamReader = new InputStreamReader(process.getInputStream(), StandardCharsets.UTF_16LE);
+            InputStreamReader inputStreamReader = new InputStreamReader(process.getInputStream(), StandardCharsets.US_ASCII);
             bufferedReader = new BufferedReader(inputStreamReader);
             String line;
             while ((line = bufferedReader.readLine()) != null) {
@@ -100,7 +100,7 @@ public class dataBaseDump {
 
     public String rollBack(String fileName) {
         try {
-            String newCmd = "mysql<" + fileName;
+            String newCmd = "mysql -u"+mysql_user+" -p"+mysql_pwd +"./dump/"+ fileName;
             Process process;
             String property = System.getProperty("os.name");
             System.out.println(property);
@@ -109,7 +109,7 @@ public class dataBaseDump {
                 process = Runtime.getRuntime().exec(new String[]{"bash", "-c", newCmd});
             } else {
                 // 本地win
-                process = Runtime.getRuntime().exec("docker exec -it " + newCmd);
+                process = Runtime.getRuntime().exec(newCmd);
             }
             if (process.waitFor() == 0) {
                 // 线程正常执行
