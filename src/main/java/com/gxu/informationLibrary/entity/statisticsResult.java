@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 @Data
 public class statisticsResult {
-    List<Integer>result;
+    List<Object>result;
     List<String>col_name;
     public statisticsResult() {
         this.result = new ArrayList<>();

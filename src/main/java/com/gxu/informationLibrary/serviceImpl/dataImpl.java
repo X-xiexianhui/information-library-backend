@@ -139,12 +139,13 @@ public class dataImpl implements dataServer {
         statisticsResult data = new statisticsResult();
         List<Integer>result=new ArrayList<>();
         List<String>col_name=new ArrayList<>();
+        List<Map<String,Object>> select =new ArrayList<>();
         try {
             JSONObject statisticsJSON = JSON.parseObject(parma);
             int form_id = statisticsJSON.getIntValue("form_id");
             Map<String, String> tb = dataManage.getTableByFormId(form_id);
             String[] userCookie = Objects.requireNonNull(getCookieByName(request, "login_cookie")).split("_");
-           List<Map<String,Object>> select = dataManage.statistics(
+            select = dataManage.statistics(
                     statisticsJSON.getString("option"),
                     tb.get("db_name"), tb.get("tb_name"),
                     statisticsJSON.getString("field"),
