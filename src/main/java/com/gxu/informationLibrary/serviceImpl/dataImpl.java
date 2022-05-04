@@ -137,9 +137,9 @@ public class dataImpl implements dataServer {
     @Override
     public response<statisticsResult> statistics(String parma, HttpServletRequest request) {
         statisticsResult data = new statisticsResult();
-        List<Integer>result=new ArrayList<>();
+        List<Object>result=new ArrayList<>();
         List<String>col_name=new ArrayList<>();
-        List<Map<String,Object>> select =new ArrayList<>();
+        List<Map<String,Object>> select;
         try {
             JSONObject statisticsJSON = JSON.parseObject(parma);
             int form_id = statisticsJSON.getIntValue("form_id");
@@ -154,7 +154,7 @@ public class dataImpl implements dataServer {
                     userCookie[1]);
             for (Map<String,Object> m :select) {
                 System.out.println(m);
-                result.add((Integer) m.get("result"));
+                result.add(m.get("result"));
                 col_name.add((String) m.get("col_name"));
             }
             data.setResult(result);
