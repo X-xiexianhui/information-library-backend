@@ -19,7 +19,7 @@
     <delete id="deleteMenu">
         delete
         from menu_info
-        where menu_id = #{menu};
+        where menu_id = #{menu_id};
     </delete>
     <resultMap id="menuInfoMap" type="com.gxu.informationLibrary.entity.menuInfo">
         <result column="menu_id" property="menu_id"/>
