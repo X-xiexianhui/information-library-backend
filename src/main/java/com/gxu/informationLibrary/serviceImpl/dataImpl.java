@@ -153,7 +153,6 @@ public class dataImpl implements dataServer {
                     statisticsJSON.getBooleanValue("onlyUser"),
                     userCookie[1]);
             for (Map<String,Object> m :select) {
-                System.out.println(m);
                 result.add(m.get("result"));
                 col_name.add((String) m.get("col_name"));
             }
