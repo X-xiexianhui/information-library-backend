@@ -67,7 +67,7 @@ public class dataController {
     }
 
     @PostMapping("api/data/statistics")
-    public response<statisticsResult> statisticsData(String parma, HttpServletRequest request) {
+    public response<statisticsResult> statisticsData(@RequestBody String parma, HttpServletRequest request) {
         return dataManage.statistics(parma, request);
     }
 }

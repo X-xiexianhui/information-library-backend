@@ -23,10 +23,7 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 import static com.gxu.informationLibrary.util.utils.getCookieByName;
 import static com.gxu.informationLibrary.util.utils.updateCache;
@@ -146,6 +143,8 @@ public class dataImpl implements dataServer {
             int form_id = statisticsJSON.getIntValue("form_id");
             Map<String, String> tb = dataManage.getTableByFormId(form_id);
             String[] userCookie = Objects.requireNonNull(getCookieByName(request, "login_cookie")).split("_");
+            System.out.println(statisticsJSON);
+            System.out.println(Arrays.toString(userCookie));
             data = dataManage.statistics(
                     statisticsJSON.getString("option"),
                     tb.get("db_name"), tb.get("db_name"),
