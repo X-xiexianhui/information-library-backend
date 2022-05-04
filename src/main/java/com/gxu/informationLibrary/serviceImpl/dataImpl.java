@@ -137,6 +137,8 @@ public class dataImpl implements dataServer {
     @Override
     public response<statisticsResult> statistics(String parma, HttpServletRequest request) {
         statisticsResult data = new statisticsResult();
+        List<Integer>result=new ArrayList<>();
+        List<String>col_name=new ArrayList<>();
         try {
             JSONObject statisticsJSON = JSON.parseObject(parma);
             int form_id = statisticsJSON.getIntValue("form_id");
@@ -149,11 +151,10 @@ public class dataImpl implements dataServer {
                     statisticsJSON.getString("group_field"),
                     statisticsJSON.getBooleanValue("onlyUser"),
                     userCookie[1]);
-           List<Integer>result=new ArrayList<>();
-           List<String>col_name=new ArrayList<>();
-            for (Map<String,Object>map:select) {
-                result.add((Integer) map.get("result"));
-                col_name.add((String) map.get("col_name"));
+            for (Map<String,Object> m :select) {
+                System.out.println(m);
+                result.add((Integer) m.get("result"));
+                col_name.add((String) m.get("col_name"));
             }
             data.setResult(result);
             data.setCol_name(col_name);
