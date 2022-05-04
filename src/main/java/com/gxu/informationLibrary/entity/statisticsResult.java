@@ -8,8 +8,4 @@ import java.util.List;
 public class statisticsResult {
     List<Object>result;
     List<String>col_name;
-    public statisticsResult() {
-        this.result = new ArrayList<>();
-        this.col_name = new ArrayList<>();
-    }
 }
