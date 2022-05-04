@@ -136,7 +136,6 @@ public class dataImpl implements dataServer {
 
     @Override
     public response<statisticsResult> statistics(String parma, HttpServletRequest request) {
-
         statisticsResult data = new statisticsResult();
         try {
             JSONObject statisticsJSON = JSON.parseObject(parma);
