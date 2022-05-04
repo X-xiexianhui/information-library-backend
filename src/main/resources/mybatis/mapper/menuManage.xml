@@ -58,7 +58,7 @@
     </resultMap>
     <select id="getMenuSelect" resultMap="menuSelectMap">
         select menu_name, menu_id
-        from menu_info;
+        from menu_info where father_menu=0;
     </select>
     <resultMap id="menuMap" type="com.gxu.informationLibrary.entity.initMenu">
         <result column="name" property="name"/>
