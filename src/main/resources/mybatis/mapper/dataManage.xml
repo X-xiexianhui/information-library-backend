@@ -49,16 +49,16 @@
     </resultMap>
     <select id="statistics" resultMap="statisticsMap">
         <choose>
-            <when test="option=='count'">select count(#{field}) as resutl,#{group_field} as col_nam</when>
-            <when test="option=='sum'">select sum(#{field}) as result,#{group_field} as col_name</when>
-            <when test="option=='avg'">select avg(#{field}) as reult,#{group_field} as col_name</when>
+            <when test="option=='count'">select count(${field}) as resutl,${group_field} as col_nam</when>
+            <when test="option=='sum'">select sum(${field}) as result,${group_field} as col_name</when>
+            <when test="option=='avg'">select avg(${field}) as reult,${group_field} as col_name</when>
         </choose>
         from ${db_name}.${tb_name}
         <if test="onlyUser==true">
             where user=#{user_id}
         </if>
-        group by #{group_field}
-        order by #{group_field};
+        group by ${group_field}
+        order by ${group_field};
     </select>
     <select id="getDumpList" resultType="com.alibaba.fastjson.JSONObject">
         select file_name, dump_time

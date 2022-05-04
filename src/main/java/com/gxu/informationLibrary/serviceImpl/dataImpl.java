@@ -143,8 +143,6 @@ public class dataImpl implements dataServer {
             int form_id = statisticsJSON.getIntValue("form_id");
             Map<String, String> tb = dataManage.getTableByFormId(form_id);
             String[] userCookie = Objects.requireNonNull(getCookieByName(request, "login_cookie")).split("_");
-            System.out.println(statisticsJSON);
-            System.out.println(Arrays.toString(userCookie));
             data = dataManage.statistics(
                     statisticsJSON.getString("option"),
                     tb.get("db_name"), tb.get("tb_name"),
