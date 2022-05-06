@@ -31,6 +31,7 @@ public class tbManageImpl implements tbManageServer {
     }
 
     @Override
+//    创建数据库
     public List<JSONObject> createTable(String Param) {
         JSONObject jsonParam = JSONObject.parseObject(Param);
         String db_name = jsonParam.getString("db_name");
