@@ -19,6 +19,7 @@ public class dbManageImpl implements dbManageServer {
     @Override
     @Transactional(rollbackFor=Exception.class)
 //    开启事务
+//    创建数据库
     public void createDB(String dbName) {
         dbManage.createDb(dbName);
     }
@@ -26,6 +27,7 @@ public class dbManageImpl implements dbManageServer {
     @Override
     @Transactional(rollbackFor=Exception.class)
 //    开启事务
+//    删除数据库
     public void deleteDB(String dbName) {
         dbManage.deleteDb(dbName);
     }
