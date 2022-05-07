@@ -30,6 +30,10 @@
         </foreach>
         <if test="onlyAuth==true">and user=#{user_id}</if>;
     </select>
+    <select id="queryDataById" resultType="com.alibaba.fastjson.JSONObject">
+        select *
+        from ${db_name}.${tb_name} where record_id = #{record_id};
+    </select>
     <select id="getTableColumn" resultType="map">
         select col_name as field, label_name as title, '' as value, data_type
         from column_info,
