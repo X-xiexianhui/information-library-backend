@@ -34,6 +34,7 @@ public class utils {
         Cookie cookie = new Cookie(key, value); //key 为cookie内容名字，value为cookie 类型
         cookie.setMaxAge(expiry);       //cookie过期时间
         cookie.setHttpOnly(false);
+        cookie.setDomain("127.0.0.1");
         cookie.setPath("/");
         cookie.setSecure(false);
         response.addCookie(cookie);
