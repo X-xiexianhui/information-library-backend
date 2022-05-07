@@ -22,12 +22,7 @@ public class AppConfig implements WebMvcConfigurer {
     public void addInterceptors(@NotNull InterceptorRegistry registry) {
         List<String> pattern = Arrays.asList(
                 "/", "css/**", "js/**", "img/**", "json/**", "fonts/**", "/*.html",
-                "/api/user/login", "/api/user/logout", "/api/pwd/reset", "/api/user/check","/api/email/check");
+                "/api/user/login", "/api/user/logout", "/api/pwd/reset", "/api/user/check","/api/email/check","/static/**");
         registry.addInterceptor(interceptor()).excludePathPatterns(pattern);
-    }
-
-    @Override
-    public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/static/**");
     }
 }
