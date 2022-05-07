@@ -1,5 +1,5 @@
 package com.gxu.informationLibrary.config;
-
+//合并打包后，不需要跨域过滤器，否则cookie会失效
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.cors.CorsConfiguration;
