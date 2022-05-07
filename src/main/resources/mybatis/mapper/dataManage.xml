@@ -19,8 +19,7 @@
         </foreach>
     </update>
     <delete id="deleteData">
-        update ${db_name}.${tb_name}
-        set is_del=1
+        delete from ${db_name}.${tb_name}
         where record_id = #{record_id};
     </delete>
     <select id="queryData" resultType="com.alibaba.fastjson.JSONObject">
