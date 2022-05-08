@@ -6,7 +6,8 @@
         create table ${db_name}.${tb_name}(
         <foreach item="item" index="index" collection="column">
             ${item.col_name} ${item.data_type}
-            <if test="item.data_type!='date' and item.data_type!='time' and item.data_type!='datetime' and item.data_type!='bool'">
+            <if test="item.data_type!='date' and item.data_type!='time'
+            and item.data_type!='datetime' and item.data_type!='bool'">
                 <choose>
                     <when test="item.data_type=='numeric'">
                         (${item.len},${item.place})
@@ -84,14 +85,17 @@
         insert into column_info(tb_id, col_name, data_type, len, place, PK, not_null, uni)
         <foreach item="item" collection="column" index="index" separator="union all">
             select tb_id,
-            #{item.col_name},#{item.data_type},#{item.len},#{item.place},#{item.PK},#{item.not_null},#{item.uni}
+            #{item.col_name},#{item.data_type},#{item.len},
+                   #{item.place},#{item.PK},#{item.not_null},#{item.uni}
             from tb_info where db_name=#{item.db_name} and tb_name=#{item.tb_name}
         </foreach>;
     </insert>
     <update id="addColumn">
         <foreach collection="insert" item="item" index="index">
-            alter table ${item.db_name}.${item.tb_name} add column ${item.col_name} ${item.data_type}
-            <if test="item.data_type!='date' and item.data_type!='time' and item.data_type!='datetime' and item.data_type!='bool'">
+            alter table ${item.db_name}.${item.tb_name}
+                add column ${item.col_name} ${item.data_type}
+            <if test="item.data_type!='date' and item.data_type!='time'
+            and item.data_type!='datetime' and item.data_type!='bool'">
                 <choose>
                     <when test="item.data_type=='numeric'">
                         (${item.len},${item.place})
@@ -113,13 +117,15 @@
         delete
         from column_info
         where col_name = #{col_name}
-          and tb_id = (select tb_id from tb_info where db_name = #{db_name} and tb_name = #{tb_name});
+          and tb_id = (select tb_id from tb_info
+          where db_name = #{db_name} and tb_name = #{tb_name});
     </update>
 
     <update id="changeColumn">
         alter table ${db_name}.${tb_name}
         change ${col_name} ${new_column} ${data_type}
-        <if test="item.data_type!='date' and item.data_type!='time' and item.data_type!='datetime' and item.data_type!='bool'">
+        <if test="item.data_type!='date' and item.data_type!='time'
+        and item.data_type!='datetime' and item.data_type!='bool'">
             <choose>
                 <when test="item.data_type=='numeric'">
                     (${item.len},${item.place})
@@ -145,12 +151,14 @@
             drop index ${key_name};
         update column_info
         set uni = false
-        where tb_id = (select tb_id from tb_info where db_name = #{db_name} and tb_name = #{tb_name})
+        where tb_id = (select tb_id from tb_info
+        where db_name = #{db_name} and tb_name = #{tb_name})
     </update>
 
     <update id="setNotNull">
         alter table ${db_name}.${tb_name} modify ${col_name} ${data_type}
-        <if test="item.data_type!='date' and item.data_type!='time' and item.data_type!='datetime' and item.data_type!='bool'">
+        <if test="item.data_type!='date' and item.data_type!='time'
+        and item.data_type!='datetime' and item.data_type!='bool'">
             <choose>
                 <when test="data_type=='numeric'">
                     (${len},${place})
@@ -164,7 +172,8 @@
         null;
         update column_info
         set not_null = #{not_null}
-        where tb_id = (select tb_id from tb_info where db_name = #{db_name} and tb_name = #{tb_name});
+        where tb_id = (select tb_id from tb_info
+        where db_name = #{db_name} and tb_name = #{tb_name});
     </update>
 
     <update id="dropPK">

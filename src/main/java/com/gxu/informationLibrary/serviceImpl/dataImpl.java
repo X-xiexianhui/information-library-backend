@@ -64,8 +64,10 @@ public class dataImpl implements dataServer {
         JSONObject insert = JSON.parseObject(parma);
         int form_id = insert.getInteger("form_id");
         Map<String, String> tb = dataManage.getTableByFormId(form_id);
-        List<editEntity> columns = insert.getJSONArray("insert").toJavaList(editEntity.class);
-        String[] userCookie = Objects.requireNonNull(getCookieByName(request, "login_cookie")).split("_");
+        List<editEntity> columns = insert.getJSONArray("insert")
+                .toJavaList(editEntity.class);
+        String[] userCookie = Objects.requireNonNull(
+                getCookieByName(request, "login_cookie")).split("_");
         columns.add(new editEntity("user",userCookie[1]));
         try {
             dataManage.insertData(tb.get("db_name"), tb.get("tb_name"), columns);
@@ -91,31 +93,36 @@ public class dataImpl implements dataServer {
     }
 
     @Override
-    public response<List<JSONObject>> queryData(String parma, HttpServletRequest request) {
+    public response<List<JSONObject>>
+    queryData(String parma, HttpServletRequest request) {
         List<JSONObject> data = new ArrayList<>();
         try {
             JSONObject query = JSON.parseObject(parma);
             int form_id = query.getIntValue("form_id");
             String form_name = formManage.queryFormName(form_id);
             Map<String, String> tb = dataManage.getTableByFormId(form_id);
-            List<editEntity> columns = query.getJSONArray("columns").toJavaList(editEntity.class);
-            String[] userCookie = Objects.requireNonNull(getCookieByName(request, "login_cookie")).split("_");
+            List<editEntity> columns = query.getJSONArray("columns").
+                    toJavaList(editEntity.class);
+            String[] userCookie = Objects.requireNonNull(
+                    getCookieByName(request, "login_cookie")).split("_");
             HashOperations<String, String, String> hashOps = redisTemplate.opsForHash();
             String auth;
             if (!"系统管理员".equals(userCookie[2])) {
-                auth = hashOps.get("auth_" + userCookie[2] + "_" + form_name, "search");
+                auth = hashOps.get("auth_" + userCookie[2] + "_" + form_name,
+                        "search");
             } else {
                 auth = "s1";
             }
             if (auth == null) {
                 updateCache(userCookie, hashOps, authManage);
-                auth = hashOps.get("auth_" + userCookie[2] + "_" + form_name, "search");
+                auth = hashOps.get("auth_" + userCookie[2] + "_" + form_name,
+                        "search");
             }
-            data = dataManage.queryData(tb.get("db_name"), tb.get("tb_name"), columns, "s0".equals(auth), userCookie[1]);
+            data = dataManage.queryData(tb.get("db_name"), tb.get("tb_name"),
+                    columns, "s0".equals(auth), userCookie[1]);
         } catch (Exception e) {
             return new response<>(500, e.getCause().getMessage(), data);
         }
-
         return new response<>(data);
     }
 
@@ -126,8 +133,10 @@ public class dataImpl implements dataServer {
             int form_id = updateJSON.getIntValue("form_id");
             Map<String, String> tb = dataManage.getTableByFormId(form_id);
             int record_id = updateJSON.getIntValue("record_id");
-            List<editEntity> updates = updateJSON.getJSONArray("update").toJavaList(editEntity.class);
-            dataManage.updateData(tb.get("db_name"), tb.get("tb_name"), record_id, updates);
+            List<editEntity> updates = updateJSON.getJSONArray("update").
+                    toJavaList(editEntity.class);
+            dataManage.updateData(tb.get("db_name"), tb.get("tb_name"),
+                    record_id, updates);
         } catch (Exception e) {
             return new response<>(500, e.getCause().getMessage(), "");
         }
@@ -144,7 +153,8 @@ public class dataImpl implements dataServer {
             JSONObject statisticsJSON = JSON.parseObject(parma);
             int form_id = statisticsJSON.getIntValue("form_id");
             Map<String, String> tb = dataManage.getTableByFormId(form_id);
-            String[] userCookie = Objects.requireNonNull(getCookieByName(request, "login_cookie")).split("_");
+            String[] userCookie = Objects.requireNonNull(getCookieByName(
+                    request, "login_cookie")).split("_");
             select = dataManage.statistics(
                     statisticsJSON.getString("option"),
                     tb.get("db_name"), tb.get("tb_name"),

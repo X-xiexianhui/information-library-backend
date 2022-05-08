@@ -15,7 +15,8 @@
     </insert>
     <update id="updateData">
         <foreach collection="updates" item="item" index="index">
-            update ${db_name}.${tb_name} set ${item.col_name}=#{item.value} where record_id =#{record_id};
+            update ${db_name}.${tb_name} set ${item.col_name}=#{item.value}
+            where record_id =#{record_id};
         </foreach>
     </update>
     <delete id="deleteData">
@@ -29,6 +30,22 @@
             ${item.col_name} like concat('%',#{item.value},'%')
         </foreach>
         <if test="onlyAuth==true">and user=#{user_id}</if>;
+    </select>
+    <select id="statistics" resultType="map">
+        <choose>
+            <when test="option=='count'">select count(${field})
+                as result,${group_field} as col_nam</when>
+            <when test="option=='sum'">select sum(${field})
+                as result,${group_field} as col_name</when>
+            <when test="option=='avg'">select avg(${field})
+                as result,${group_field} as col_name</when>
+        </choose>
+        from ${db_name}.${tb_name}
+        <if test="onlyUser==true">
+            where user=#{user_id}
+        </if>
+        group by ${group_field}
+        order by ${group_field};
     </select>
     <select id="queryDataById" resultType="com.alibaba.fastjson.JSONObject">
         select *
@@ -46,19 +63,7 @@
         from tb_info
         where tb_id = (select tb_id from form_info where form_id = #{form_id});
     </select>
-    <select id="statistics" resultType="map">
-        <choose>
-            <when test="option=='count'">select count(${field}) as result,${group_field} as col_nam</when>
-            <when test="option=='sum'">select sum(${field}) as result,${group_field} as col_name</when>
-            <when test="option=='avg'">select avg(${field}) as result,${group_field} as col_name</when>
-        </choose>
-        from ${db_name}.${tb_name}
-        <if test="onlyUser==true">
-            where user=#{user_id}
-        </if>
-        group by ${group_field}
-        order by ${group_field};
-    </select>
+
     <select id="getDumpList" resultType="com.alibaba.fastjson.JSONObject">
         select file_name, dump_time
         from data_base_dump_info

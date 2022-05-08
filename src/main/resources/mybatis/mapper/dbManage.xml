@@ -20,6 +20,7 @@
         select db_name from db_info;
     </select>
     <insert id="dumpDataBase">
-        insert into data_base_dump_info(file_name, dump_time) VALUES (#{file_name},str_to_date(#{dump_time},'%Y-%m-%d %H:%i:%s'));
+        insert into data_base_dump_info(file_name, dump_time)
+        VALUES (#{file_name},str_to_date(#{dump_time},'%Y-%m-%d %H:%i:%s'));
     </insert>
 </mapper>

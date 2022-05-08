@@ -36,7 +36,8 @@ public class tbManageImpl implements tbManageServer {
         JSONObject jsonParam = JSONObject.parseObject(Param);
         String db_name = jsonParam.getString("db_name");
         String tb_name = jsonParam.getString("tb_name");
-        List<column> columns = new Columns(jsonParam.getJSONArray("column"), db_name, tb_name).getColumns();
+        List<column> columns = new Columns(jsonParam.getJSONArray("column"),
+                db_name, tb_name).getColumns();
         List<String> pks = new ArrayList<>();
         for (column c : columns) {
             if (c.isPK()) {
@@ -81,9 +82,12 @@ public class tbManageImpl implements tbManageServer {
         JSONObject json = JSON.parseObject(Param);
         String db_name = json.getString("db_name");
         String tb_name = json.getString("tb_name");
-        List<column> insert = new Columns(json.getJSONArray("insert"), db_name, tb_name).getColumns();
-        List<column> remove = new Columns(json.getJSONArray("remove"), db_name, tb_name).getColumns();
-        List<alterColumn<Object>> update = new alterColumns(json.getJSONArray("update"),db_name,tb_name).getAlterColumns();
+        List<column> insert = new Columns(json.getJSONArray("insert"),
+                db_name, tb_name).getColumns();
+        List<column> remove = new Columns(json.getJSONArray("remove"),
+                db_name, tb_name).getColumns();
+        List<alterColumn<Object>> update = new alterColumns(
+                json.getJSONArray("update"),db_name,tb_name).getAlterColumns();
         addColumn(insert);
         dropColumn(remove);
         alterColumn(update);
