@@ -34,7 +34,7 @@
     <select id="statistics" resultType="map">
         <choose>
             <when test="option=='count'">select count(${field})
-                as result,${group_field} as col_nam</when>
+                as result,${group_field} as col_name</when>
             <when test="option=='sum'">select sum(${field})
                 as result,${group_field} as col_name</when>
             <when test="option=='avg'">select avg(${field})
