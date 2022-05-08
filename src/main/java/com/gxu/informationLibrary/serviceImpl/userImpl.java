@@ -117,11 +117,12 @@ public class userImpl implements userServer {
             JSONObject pwdJSON=JSON.parseObject(parma);
             String md5Password = DigestUtils.md5DigestAsHex(pwdJSON.getString("pwd").getBytes());
             String oldPassword = DigestUtils.md5DigestAsHex(pwdJSON.getString("old_pwd").getBytes());
-
             String[] userCookie= Objects.requireNonNull(getCookieByName(request, "login_cookie")).split("_");
-            if (!oldPassword.equals(userManage.getPwd(userCookie[1]))){
+            String user_id = userCookie[1];
+            if (!oldPassword.equals(userManage.getPwd(user_id))){
                 return new response<>(405,"原密码错误", false);
             }
+            userManage.updateUser("user_pwd",md5Password,user_id);
         }catch (Exception e){
             return new response<>(500,e.getCause().getMessage(),false);
         }
