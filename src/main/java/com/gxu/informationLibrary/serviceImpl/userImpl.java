@@ -13,12 +13,15 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.DigestUtils;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
+import static com.gxu.informationLibrary.util.utils.getCookieByName;
 import static com.gxu.informationLibrary.util.utils.setCookie;
 
 @Service
@@ -104,6 +107,21 @@ public class userImpl implements userServer {
             String user_id=pwdJSON.getString("user_id");
             String md5Password = DigestUtils.md5DigestAsHex(pwdJSON.getString("user_pwd").getBytes());
             userManage.updateUser("user_pwd",md5Password,user_id);
+        }catch (Exception e){
+            return new response<>(500,e.getCause().getMessage(),false);
+        }
+        return new response<>(true);
+    }
+    public response<Boolean>editPwd(String parma, HttpServletRequest request){
+        try {
+            JSONObject pwdJSON=JSON.parseObject(parma);
+            String md5Password = DigestUtils.md5DigestAsHex(pwdJSON.getString("pwd").getBytes());
+            String oldPassword = DigestUtils.md5DigestAsHex(pwdJSON.getString("old_pwd").getBytes());
+
+            String[] userCookie= Objects.requireNonNull(getCookieByName(request, "login_cookie")).split("_");
+            if (!oldPassword.equals(userManage.getPwd(userCookie[1]))){
+                return new response<>(405,"原密码错误", false);
+            }
         }catch (Exception e){
             return new response<>(500,e.getCause().getMessage(),false);
         }

@@ -24,4 +24,6 @@ public interface userDao {
     String queryEmail(@Param("user_id") String user_id);
 
     <T> void updateUser(@Param("col_name") String col_name,@Param("value") T value,@Param("user_id") String user_id);
+
+    String getPwd(@Param("user_id") String user_id);
 }

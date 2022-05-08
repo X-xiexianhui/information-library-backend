@@ -7,6 +7,7 @@ import com.gxu.informationLibrary.serviceImpl.userImpl;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.List;
@@ -73,12 +74,12 @@ public class userController {
     }
 
     @PostMapping("api/user/check")
-    public response<Boolean> checkUser(@RequestParam("user_id") String user_id){
-        response<Boolean>res;
+    public response<Boolean> checkUser(@RequestParam("user_id") String user_id) {
+        response<Boolean> res;
         try {
-            res=mail.sendMimeMail(user_id).get();
-        }catch (Exception e){
-            return new response<>(500,e.getCause().getMessage(),false);
+            res = mail.sendMimeMail(user_id).get();
+        } catch (Exception e) {
+            return new response<>(500, e.getCause().getMessage(), false);
         }
         return res;
     }
@@ -91,5 +92,10 @@ public class userController {
     @PostMapping("api/pwd/reset")
     public response<Boolean> resetPwd(@RequestBody String parma) {
         return userManager.resetPwd(parma);
+    }
+
+    @PostMapping("api/pwd/edit")
+    public response<Boolean> editPwd(@RequestBody String parma, HttpServletRequest request) {
+        return userManager.editPwd(parma, request);
     }
 }
