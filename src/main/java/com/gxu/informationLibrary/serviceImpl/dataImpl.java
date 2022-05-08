@@ -91,7 +91,22 @@ public class dataImpl implements dataServer {
 
         return new response<>("");
     }
-
+    @Override
+    public response<String> updateData(String parma) {
+        try {
+            JSONObject updateJSON = JSON.parseObject(parma);
+            int form_id = updateJSON.getIntValue("form_id");
+            Map<String, String> tb = dataManage.getTableByFormId(form_id);
+            int record_id = updateJSON.getIntValue("record_id");
+            List<editEntity> updates = updateJSON.getJSONArray("update").
+                    toJavaList(editEntity.class);
+            dataManage.updateData(tb.get("db_name"), tb.get("tb_name"),
+                    record_id, updates);
+        } catch (Exception e) {
+            return new response<>(500, e.getCause().getMessage(), "");
+        }
+        return new response<>("");
+    }
     @Override
     public response<List<JSONObject>>
     queryData(String parma, HttpServletRequest request) {
@@ -124,23 +139,6 @@ public class dataImpl implements dataServer {
             return new response<>(500, e.getCause().getMessage(), data);
         }
         return new response<>(data);
-    }
-
-    @Override
-    public response<String> updateData(String parma) {
-        try {
-            JSONObject updateJSON = JSON.parseObject(parma);
-            int form_id = updateJSON.getIntValue("form_id");
-            Map<String, String> tb = dataManage.getTableByFormId(form_id);
-            int record_id = updateJSON.getIntValue("record_id");
-            List<editEntity> updates = updateJSON.getJSONArray("update").
-                    toJavaList(editEntity.class);
-            dataManage.updateData(tb.get("db_name"), tb.get("tb_name"),
-                    record_id, updates);
-        } catch (Exception e) {
-            return new response<>(500, e.getCause().getMessage(), "");
-        }
-        return new response<>("");
     }
 
     @Override
