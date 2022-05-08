@@ -110,7 +110,6 @@
         </foreach>
         ;
     </update>
-
     <update id="dropColumn">
         alter table ${db_name}.${tb_name}
             drop column ${col_name};
@@ -120,7 +119,6 @@
           and tb_id = (select tb_id from tb_info
           where db_name = #{db_name} and tb_name = #{tb_name});
     </update>
-
     <update id="changeColumn">
         alter table ${db_name}.${tb_name}
         change ${col_name} ${new_column} ${data_type}
@@ -137,7 +135,6 @@
         </if>
         ;
     </update>
-
     <update id="addUnique">
         alter table ${db_name}.${tb_name}
             add unique (${col_name});
@@ -145,7 +142,6 @@
         set uni = true
         where tb_id = (select tb_id from tb_info where db_name = #{db_name} and tb_name = #{tb_name});
     </update>
-
     <update id="dropUnique">
         alter table ${db_name}.${tb_name}
             drop index ${key_name};
@@ -154,7 +150,6 @@
         where tb_id = (select tb_id from tb_info
         where db_name = #{db_name} and tb_name = #{tb_name})
     </update>
-
     <update id="setNotNull">
         alter table ${db_name}.${tb_name} modify ${col_name} ${data_type}
         <if test="item.data_type!='date' and item.data_type!='time'
@@ -175,12 +170,10 @@
         where tb_id = (select tb_id from tb_info
         where db_name = #{db_name} and tb_name = #{tb_name});
     </update>
-
     <update id="dropPK">
         alter table ${db_name}.${tb_name}
             drop primary key;
     </update>
-
     <update id="addPK">
         alter table ${db_name}.${tb_name} add primary key (
         <foreach item="pk" index="index" collection="pks" separator=",">
@@ -188,23 +181,19 @@
         </foreach>
         );
     </update>
-
     <select id="showKeys" resultType="com.alibaba.fastjson.JSONObject">
         show keys from ${db_name}.${tb_name} where Column_name = #{col_name} and Non_unique = 0;
     </select>
-
     <select id="query" resultType="String">
         select ${query_col}
         from column_info
         where ${query_name} = #{query_value};
     </select>
-
     <select id="queryInt" resultType="int">
         select ${query_col}
         from column_info
         where ${query_name} = #{query_value};
     </select>
-
     <select id="getPKs" resultType="String">
         select PK
         from column_info
