@@ -48,4 +48,7 @@
         select user_pwd
         from user_info where user_id=#{user_id};
     </select>
+    <select id="checkExist" resultType="map">
+        select * from user_info where user_id=#{user_id};
+    </select>
 </mapper>
