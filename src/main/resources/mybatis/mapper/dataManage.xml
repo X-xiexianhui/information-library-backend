@@ -20,7 +20,8 @@
         </foreach>
     </update>
     <delete id="deleteData">
-        delete from ${db_name}.${tb_name}
+        delete
+        from ${db_name}.${tb_name}
         where record_id = #{record_id};
     </delete>
     <select id="queryData" resultType="com.alibaba.fastjson.JSONObject">
@@ -32,16 +33,22 @@
         <if test="onlyAuth==true">and user=#{user_id}</if>;
     </select>
     <insert id="removeToRecycle">
-        insert into recycle_bin(form_name, data)  select form_name,#{data} from form_info where form_id=#{form_id}
+        insert into recycle_bin(form_name, data)
+        select form_name, #{data}
+        from form_info
+        where form_id = #{form_id}
     </insert>
     <select id="statistics" resultType="map">
         <choose>
             <when test="option=='count'">select count(${field})
-                as result,${group_field} as col_name</when>
+                as result,${group_field} as col_name
+            </when>
             <when test="option=='sum'">select sum(${field})
-                as result,${group_field} as col_name</when>
+                as result,${group_field} as col_name
+            </when>
             <when test="option=='avg'">select avg(${field})
-                as result,${group_field} as col_name</when>
+                as result,${group_field} as col_name
+            </when>
         </choose>
         from ${db_name}.${tb_name}
         <if test="onlyUser==true">
@@ -52,7 +59,8 @@
     </select>
     <select id="queryDataById" resultType="com.alibaba.fastjson.JSONObject">
         select *
-        from ${db_name}.${tb_name} where record_id = #{record_id};
+        from ${db_name}.${tb_name}
+        where record_id = #{record_id};
     </select>
     <select id="getTableColumn" resultType="map">
         select col_name as field, label_name as title, '' as value, data_type
@@ -74,6 +82,9 @@
         order by dump_time desc;
     </select>
     <select id="getRecycleData" resultType="com.alibaba.fastjson.JSONObject">
-        select data from recycle_bin where form_name=(select form_name from form_info where form_id=#{form_id});
+        select data
+        from recycle_bin
+        where user = #{user_id}
+          and form_name = (select form_name from form_info where form_id = #{form_id});
     </select>
 </mapper>
