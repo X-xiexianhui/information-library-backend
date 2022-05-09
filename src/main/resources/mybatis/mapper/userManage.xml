@@ -41,9 +41,6 @@
     <select id="queryEmail" resultType="string">
         select user_email from user_info where user_id=#{user_id}
     </select>
-    <update id="updateUser">
-        update user_info set ${col_name}=#{value} where user_id=#{user_id};
-    </update>
     <select id="getPwd" resultType="string">
         select user_pwd
         from user_info where user_id=#{user_id};

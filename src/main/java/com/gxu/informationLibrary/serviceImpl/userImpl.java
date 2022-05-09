@@ -37,10 +37,15 @@ public class userImpl implements userServer {
 
     @Override
     public List<userInfo> addUser(String param) {
+
         userInfo user= JSON.parseObject(param).toJavaObject(userInfo.class);
         user.setUser_pwd("user_pwd"+user.getUser_id());
         String md5Password = DigestUtils.md5DigestAsHex(user.getUser_pwd().getBytes());
         user.setUser_pwd(md5Password);
+        Map<String,Object>user_exist=userManage.checkExist(user.getUser_id());
+        if (user_exist != null && (boolean) user_exist.get("is_del")){
+            throw new RuntimeException("用户已存在");
+        }
         userManage.addUser(user);
         return userManage.queryUser("");
     }
@@ -106,7 +111,7 @@ public class userImpl implements userServer {
             JSONObject pwdJSON=JSON.parseObject(parma);
             String user_id=pwdJSON.getString("user_id");
             String md5Password = DigestUtils.md5DigestAsHex(pwdJSON.getString("user_pwd").getBytes());
-            userManage.updateUser("user_pwd",md5Password,user_id);
+            userManage.editUser("user_pwd",md5Password,user_id);
         }catch (Exception e){
             return new response<>(500,e.getCause().getMessage(),false);
         }
@@ -122,7 +127,7 @@ public class userImpl implements userServer {
             if (!oldPassword.equals(userManage.getPwd(user_id))){
                 return new response<>(405,"原密码错误", false);
             }
-            userManage.updateUser("user_pwd",md5Password,user_id);
+            userManage.editUser("user_pwd",md5Password,user_id);
         }catch (Exception e){
             return new response<>(500,e.getCause().getMessage(),false);
         }
