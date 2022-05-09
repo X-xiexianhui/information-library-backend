@@ -2,7 +2,6 @@ package com.gxu.informationLibrary.dao;
 
 import com.alibaba.fastjson.JSONObject;
 import com.gxu.informationLibrary.entity.editEntity;
-import com.gxu.informationLibrary.entity.statisticsResult;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
@@ -27,18 +26,18 @@ public interface dataManageDao {
 
     Map<String, String> getTableByFormId(@Param("form_id") int form_id);
 
-    List<Map<String,Object>>statistics(@Param("option") String option, @Param("db_name") String db_name,
-                                @Param("tb_name") String tb_name, @Param("field") String field,
-                                @Param("group_field") String group_field, @Param("onlyUser") boolean onlyUser,
-                                @Param("user_id") String user_id);
+    List<Map<String, Object>> statistics(@Param("option") String option, @Param("db_name") String db_name,
+                                         @Param("tb_name") String tb_name, @Param("field") String field,
+                                         @Param("group_field") String group_field, @Param("onlyUser") boolean onlyUser,
+                                         @Param("user_id") String user_id);
 
     List<JSONObject> getDumpList(@Param("dump_time") String dump_time);
 
-    void removeToRecycle(@Param("form_id") int from_id,@Param("data") String data);
+    void removeToRecycle(@Param("form_id") int from_id, @Param("data") String data);
 
     JSONObject queryDataById(@Param("record_id") int record_id);
 
-    List<JSONObject>getRecycleData(@Param("form_id") int form_id);
+    List<JSONObject> getRecycleData(@Param("form_id") int form_id);
 
     void restoreData();
 }

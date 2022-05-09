@@ -10,8 +10,6 @@ import com.gxu.informationLibrary.entity.editEntity;
 import com.gxu.informationLibrary.entity.response;
 import com.gxu.informationLibrary.entity.statisticsResult;
 import com.gxu.informationLibrary.server.dataServer;
-import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.data.redis.core.HashOperations;
@@ -62,7 +60,7 @@ public class dataImpl implements dataServer {
     }
 
     @Override
-    public response<String> insertData(String parma,HttpServletRequest request) {
+    public response<String> insertData(String parma, HttpServletRequest request) {
         JSONObject insert = JSON.parseObject(parma);
         int form_id = insert.getInteger("form_id");
         Map<String, String> tb = dataManage.getTableByFormId(form_id);
@@ -70,7 +68,7 @@ public class dataImpl implements dataServer {
                 .toJavaList(editEntity.class);
         String[] userCookie = Objects.requireNonNull(
                 getCookieByName(request, "login_cookie")).split("_");
-        columns.add(new editEntity("user",userCookie[1]));
+        columns.add(new editEntity("user", userCookie[1]));
         try {
             dataManage.insertData(tb.get("db_name"), tb.get("tb_name"), columns);
         } catch (Exception e) {
@@ -78,6 +76,7 @@ public class dataImpl implements dataServer {
         }
         return new response<>("");
     }
+
     @Override
     public response<String> deleteData(String parma) {
         try {
@@ -86,13 +85,14 @@ public class dataImpl implements dataServer {
             Map<String, String> tb = dataManage.getTableByFormId(form_id);
             int record_id = deleteJSON.getIntValue("record_id");
             String data = dataManage.queryDataById(record_id).toJSONString();
-            dataManage.removeToRecycle(form_id,data);
+            dataManage.removeToRecycle(form_id, data);
             dataManage.deleteData(tb.get("db_name"), tb.get("tb_name"), record_id);
         } catch (Exception e) {
             return new response<>(500, e.getCause().getMessage(), "");
         }
         return new response<>("");
     }
+
     @Override
     public response<String> updateData(String parma) {
         try {
@@ -108,6 +108,7 @@ public class dataImpl implements dataServer {
         }
         return new response<>("");
     }
+
     @Override
     public response<List<JSONObject>>
     queryData(String parma, HttpServletRequest request) {
@@ -143,9 +144,9 @@ public class dataImpl implements dataServer {
     @Override
     public response<statisticsResult> statistics(String parma, HttpServletRequest request) {
         statisticsResult data = new statisticsResult();
-        List<Object>result=new ArrayList<>();
-        List<String>col_name=new ArrayList<>();
-        List<Map<String,Object>> select;
+        List<Object> result = new ArrayList<>();
+        List<String> col_name = new ArrayList<>();
+        List<Map<String, Object>> select;
         try {
             JSONObject statisticsJSON = JSON.parseObject(parma);
             int form_id = statisticsJSON.getIntValue("form_id");
@@ -159,7 +160,7 @@ public class dataImpl implements dataServer {
                     statisticsJSON.getString("group_field"),
                     statisticsJSON.getBooleanValue("onlyUser"),
                     userCookie[1]);
-            for (Map<String,Object> m :select) {
+            for (Map<String, Object> m : select) {
                 result.add(m.get("result"));
                 col_name.add((String) m.get("col_name"));
             }
@@ -175,12 +176,12 @@ public class dataImpl implements dataServer {
         response<String> res = new response<>("");
         File filePath = new File("./files");
         if (!filePath.exists()) {
-            log.info("文件夹./dump创建："+filePath.mkdir());
+            log.info("文件夹./dump创建：" + filePath.mkdir());
         }
         if (!file.isEmpty()) {
             try {
                 BufferedOutputStream out = new BufferedOutputStream(
-                        new FileOutputStream("./files/"+ file.getOriginalFilename()));
+                        new FileOutputStream("./files/" + file.getOriginalFilename()));
                 out.write(file.getBytes());
                 out.flush();
                 out.close();
@@ -203,43 +204,45 @@ public class dataImpl implements dataServer {
         List<String> database = dbManager.getDatabaseList();
         return dataDump.dataBaseDumpTask(database);
     }
-    public String rollBack (String file_name) {
+
+    public String rollBack(String file_name) {
         return dataDump.rollBack(file_name);
     }
 
-    public response<List<JSONObject>>getDumpList(String dump_time){
-        List<JSONObject>data=new ArrayList<>();
+    public response<List<JSONObject>> getDumpList(String dump_time) {
+        List<JSONObject> data = new ArrayList<>();
         try {
-            data=dataManage.getDumpList(dump_time);
-        }catch (Exception e){
-            return new response<>(500,e.getCause().getMessage(),data);
+            data = dataManage.getDumpList(dump_time);
+        } catch (Exception e) {
+            return new response<>(500, e.getCause().getMessage(), data);
         }
         return new response<>(data);
     }
 
-    public response<List<JSONObject>>getRecycleData(int form_id){
-        List<JSONObject>data=new ArrayList<>();
+    public response<List<JSONObject>> getRecycleData(int form_id) {
+        List<JSONObject> data = new ArrayList<>();
         try {
-            data=dataManage.getRecycleData(form_id);
-        }catch (Exception e){
-            return new response<>(500,e.getCause().getMessage(),data);
+            data = dataManage.getRecycleData(form_id);
+        } catch (Exception e) {
+            return new response<>(500, e.getCause().getMessage(), data);
         }
         return new response<>(data);
     }
-    public response<Boolean>restoreData(String parma){
+
+    public response<Boolean> restoreData(String parma) {
         try {
             JSONObject dataJSON = JSONObject.parseObject(parma);
             int form_id = dataJSON.getIntValue("form_id");
             Map<String, String> tb = dataManage.getTableByFormId(form_id);
-            Set<String>keys=dataJSON.getJSONObject("data").keySet();
-            List<editEntity>columns=new ArrayList<>();
-            for (String key: keys) {
-                editEntity c=new editEntity(key,dataJSON.get(key));
+            Set<String> keys = dataJSON.getJSONObject("data").keySet();
+            List<editEntity> columns = new ArrayList<>();
+            for (String key : keys) {
+                editEntity c = new editEntity(key, dataJSON.get(key));
                 columns.add(c);
             }
             dataManage.insertData(tb.get("db_name"), tb.get("tb_name"), columns);
-        }catch (Exception e){
-            return new response<>(500,e.getCause().getMessage(),false);
+        } catch (Exception e) {
+            return new response<>(500, e.getCause().getMessage(), false);
         }
         return new response<>(true);
     }
