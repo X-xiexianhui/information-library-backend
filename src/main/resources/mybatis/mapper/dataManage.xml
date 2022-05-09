@@ -74,7 +74,6 @@
         from tb_info
         where tb_id = (select tb_id from form_info where form_id = #{form_id});
     </select>
-
     <select id="getDumpList" resultType="com.alibaba.fastjson.JSONObject">
         select file_name, dump_time
         from data_base_dump_info
@@ -88,9 +87,13 @@
           and form_name = (select form_name from form_info where form_id = #{form_id});
     </select>
     <delete id="deleteRecycle">
-        delete from recycle_bin where id=#{id};
+        delete
+        from recycle_bin
+        where id = #{id};
     </delete>
     <delete id="clearRecycle">
-        delete from recycle_bin where user=#{user_id};
+        delete
+        from recycle_bin
+        where user = #{user_id};
     </delete>
 </mapper>
