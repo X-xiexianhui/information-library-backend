@@ -37,4 +37,6 @@ public interface dataManageDao {
     void removeToRecycle(@Param("form_id") int from_id,@Param("data") String data);
 
     JSONObject queryDataById(@Param("record_id") int record_id);
+
+    List<JSONObject>getRecycleData(String form_name);
 }

@@ -73,4 +73,7 @@
         where date_format(dump_time, '%Y-%m-%d %H:%i:%s') like concat('%', #{dump_time}, '%')
         order by dump_time desc;
     </select>
+    <select id="getRecycleData" resultType="com.alibaba.fastjson.JSONObject">
+        select data from recycle_bin where form_name=#{form_name};
+    </select>
 </mapper>
