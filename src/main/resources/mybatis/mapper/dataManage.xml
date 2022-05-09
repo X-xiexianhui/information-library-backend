@@ -74,6 +74,6 @@
         order by dump_time desc;
     </select>
     <select id="getRecycleData" resultType="com.alibaba.fastjson.JSONObject">
-        select data from recycle_bin where form_name=#{form_name};
+        select data from recycle_bin where form_name=(select form_name from form_info where form_id=#{form_id});
     </select>
 </mapper>

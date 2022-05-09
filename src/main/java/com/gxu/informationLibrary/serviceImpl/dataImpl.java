@@ -216,4 +216,14 @@ public class dataImpl implements dataServer {
         }
         return new response<>(data);
     }
+
+    public response<List<JSONObject>>getRecycleData(int form_id){
+        List<JSONObject>data=new ArrayList<>();
+        try {
+            data=dataManage.getRecycleData(form_id);
+        }catch (Exception e){
+            return new response<>(500,e.getCause().getMessage(),data);
+        }
+        return new response<>(data);
+    }
 }

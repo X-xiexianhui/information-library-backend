@@ -38,5 +38,5 @@ public interface dataManageDao {
 
     JSONObject queryDataById(@Param("record_id") int record_id);
 
-    List<JSONObject>getRecycleData(String form_name);
+    List<JSONObject>getRecycleData(@Param("form_id") int form_id);
 }
