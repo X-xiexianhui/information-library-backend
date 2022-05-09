@@ -247,4 +247,12 @@ public class dataImpl implements dataServer {
         }
         return new response<>(true);
     }
+    public response<Boolean>deleteRecycleData(int id){
+        try {
+            dataManage.deleteRecycleData(id);
+        }catch (Exception e){
+            return new response<>(500,e.getCause().getMessage(),false);
+        }
+        return new response<>(true);
+    }
 }
