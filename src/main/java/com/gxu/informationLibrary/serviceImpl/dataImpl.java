@@ -76,7 +76,6 @@ public class dataImpl implements dataServer {
         }
         return new response<>("");
     }
-
     @Override
     public response<String> deleteData(String parma) {
         try {
@@ -90,7 +89,6 @@ public class dataImpl implements dataServer {
         } catch (Exception e) {
             return new response<>(500, e.getCause().getMessage(), "");
         }
-
         return new response<>("");
     }
     @Override
@@ -102,8 +100,7 @@ public class dataImpl implements dataServer {
             int record_id = updateJSON.getIntValue("record_id");
             List<editEntity> updates = updateJSON.getJSONArray("update").
                     toJavaList(editEntity.class);
-            dataManage.updateData(tb.get("db_name"), tb.get("tb_name"),
-                    record_id, updates);
+            dataManage.updateData(tb.get("db_name"), tb.get("tb_name"), record_id, updates);
         } catch (Exception e) {
             return new response<>(500, e.getCause().getMessage(), "");
         }
@@ -118,10 +115,8 @@ public class dataImpl implements dataServer {
             int form_id = query.getIntValue("form_id");
             String form_name = formManage.queryFormName(form_id);
             Map<String, String> tb = dataManage.getTableByFormId(form_id);
-            List<editEntity> columns = query.getJSONArray("columns").
-                    toJavaList(editEntity.class);
-            String[] userCookie = Objects.requireNonNull(
-                    getCookieByName(request, "login_cookie")).split("_");
+            List<editEntity> columns = query.getJSONArray("columns").toJavaList(editEntity.class);
+            String[] userCookie = Objects.requireNonNull(getCookieByName(request, "login_cookie")).split("_");
             HashOperations<String, String, String> hashOps = redisTemplate.opsForHash();
             String auth;
             if (!"系统管理员".equals(userCookie[2])) {
