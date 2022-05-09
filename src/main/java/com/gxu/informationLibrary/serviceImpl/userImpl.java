@@ -111,7 +111,7 @@ public class userImpl implements userServer {
             JSONObject pwdJSON=JSON.parseObject(parma);
             String user_id=pwdJSON.getString("user_id");
             String md5Password = DigestUtils.md5DigestAsHex(pwdJSON.getString("user_pwd").getBytes());
-            userManage.editUser("user_pwd",md5Password,user_id);
+            userManage.editUser(user_id,"user_pwd",md5Password);
         }catch (Exception e){
             return new response<>(500,e.getCause().getMessage(),false);
         }
@@ -127,7 +127,7 @@ public class userImpl implements userServer {
             if (!oldPassword.equals(userManage.getPwd(user_id))){
                 return new response<>(405,"原密码错误", false);
             }
-            userManage.editUser("user_pwd",md5Password,user_id);
+            userManage.editUser(user_id,"user_pwd",md5Password);
         }catch (Exception e){
             return new response<>(500,e.getCause().getMessage(),false);
         }
