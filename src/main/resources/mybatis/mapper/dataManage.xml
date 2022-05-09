@@ -90,4 +90,7 @@
     <delete id="deleteRecycle">
         delete from recycle_bin where id=#{id};
     </delete>
+    <delete id="clearRecycle">
+        delete from recycle_bin where user=#{user_id};
+    </delete>
 </mapper>

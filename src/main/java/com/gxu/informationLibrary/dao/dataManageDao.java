@@ -40,4 +40,6 @@ public interface dataManageDao {
     List<JSONObject> getRecycleData(@Param("form_id") int form_id,@Param("user_id") String user_id);
 
     void deleteRecycleData(@Param("id") int id);
+
+    void clearRecycle(@Param("user_id") String user_id);
 }
