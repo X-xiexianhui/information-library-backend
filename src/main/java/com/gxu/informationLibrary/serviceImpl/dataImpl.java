@@ -10,6 +10,8 @@ import com.gxu.informationLibrary.entity.editEntity;
 import com.gxu.informationLibrary.entity.response;
 import com.gxu.informationLibrary.entity.statisticsResult;
 import com.gxu.informationLibrary.server.dataServer;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.data.redis.core.HashOperations;
