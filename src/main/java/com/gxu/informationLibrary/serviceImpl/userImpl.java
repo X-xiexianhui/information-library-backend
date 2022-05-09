@@ -37,14 +37,16 @@ public class userImpl implements userServer {
 
     @Override
     public List<userInfo> addUser(String param) {
-
         userInfo user= JSON.parseObject(param).toJavaObject(userInfo.class);
         user.setUser_pwd("user_pwd"+user.getUser_id());
         String md5Password = DigestUtils.md5DigestAsHex(user.getUser_pwd().getBytes());
         user.setUser_pwd(md5Password);
         Map<String,Object>user_exist=userManage.checkExist(user.getUser_id());
         if (user_exist != null && (boolean) user_exist.get("is_del")){
+            System.out.println((boolean) user_exist.get("is_del"));
             throw new RuntimeException("用户已存在");
+        }else {
+            userManage.deleteUser(user.getUser_id());
         }
         userManage.addUser(user);
         return userManage.queryUser("");
