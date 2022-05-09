@@ -106,8 +106,10 @@ public class tbManageImpl implements tbManageServer {
     private void addColumn(List<column> insert) {
         if (insert.size() == 0) return;
         tbManage.addColumn(insert);
-        tbManage.insertColumn(insert,insert.get(0).getDb_name(),insert.get(0).getTb_name());
-        formManage.insertFormStruct(insert,insert.get(0).getDb_name(),insert.get(0).getTb_name());
+        tbManage.insertColumn(insert,insert.get(0).getDb_name()
+                ,insert.get(0).getTb_name());
+        formManage.insertFormStruct(insert,insert.get(0).getDb_name()
+                ,insert.get(0).getTb_name());
         for (column c : insert) {
             if (c.isPK()) {
                 isAlterPK = true;
@@ -115,7 +117,6 @@ public class tbManageImpl implements tbManageServer {
             }
         }
     }
-
     // 删除一列
     private void dropColumn(List<column> remove) {
         if (remove.size() == 0) return;
@@ -123,7 +124,6 @@ public class tbManageImpl implements tbManageServer {
             tbManage.dropColumn(r.getDb_name(), r.getTb_name(), r.getCol_name());
         }
     }
-
     // 修改一列
     private void alterColumn(List<alterColumn<Object>> alterColumn) {
         if (alterColumn.size() == 0) return;
@@ -133,10 +133,12 @@ public class tbManageImpl implements tbManageServer {
                     setIsAlterPK(alter.getCol_id(), (Boolean) alter.getNew_Value());
                     break;
                 case "not_null":
-                    setNotNull(alter.getDb_name(), alter.getTb_name(), alter.getCol_id(), (Boolean) alter.getNew_Value());
+                    setNotNull(alter.getDb_name(), alter.getTb_name(),
+                            alter.getCol_id(), (Boolean) alter.getNew_Value());
                     break;
                 case "uni":
-                    alterUnique(alter.getDb_name(), alter.getTb_name(), alter.getCol_id(), (Boolean) alter.getNew_Value());
+                    alterUnique(alter.getDb_name(), alter.getTb_name(),
+                            alter.getCol_id(), (Boolean) alter.getNew_Value());
                     break;
                 default:
                     changeColumn(alter);

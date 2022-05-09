@@ -103,7 +103,6 @@ public class dataBaseDump {
             String newCmd = "mysql -u"+mysql_user+" -p"+mysql_pwd +"< ./dump/"+ fileName;
             Process process;
             String property = System.getProperty("os.name");
-            System.out.println(property);
             if (property.contains("Linux")) {
                 // linux
                 process = Runtime.getRuntime().exec(new String[]{"bash", "-c", newCmd});
