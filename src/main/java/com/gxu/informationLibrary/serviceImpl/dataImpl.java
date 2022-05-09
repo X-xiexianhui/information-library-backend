@@ -247,6 +247,17 @@ public class dataImpl implements dataServer {
         }
         return new response<>(true);
     }
+
+    public response<Boolean>restoreAllData(int form_id,HttpServletRequest request){
+        try {
+            String[] userCookie = Objects.requireNonNull(getCookieByName(request, "login_cookie")).split("_");
+            List<JSONObject>data = dataManage.getRecycleData(form_id,userCookie[1]);
+        }catch (Exception e){
+            return new response<>(500,e.getCause().getMessage(),false);
+        }
+        return new response<>(true);
+    }
+
     public response<Boolean>deleteRecycleData(int id){
         try {
             dataManage.deleteRecycleData(id);
@@ -255,6 +266,7 @@ public class dataImpl implements dataServer {
         }
         return new response<>(true);
     }
+
     public response<Boolean>clearRecycle(HttpServletRequest request){
         try {
             String[] userCookie = Objects.requireNonNull(getCookieByName(request, "login_cookie")).split("_");
