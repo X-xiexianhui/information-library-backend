@@ -33,4 +33,8 @@ public interface dataManageDao {
                                 @Param("user_id") String user_id);
 
     List<JSONObject> getDumpList(@Param("dump_time") String dump_time);
+
+    void removeToRecycle(@Param("form_id") int from_id,@Param("data") String data);
+
+    JSONObject queryDataById(@Param("record_id") int record_id);
 }

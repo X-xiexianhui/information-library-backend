@@ -71,6 +71,6 @@
         order by dump_time desc;
     </select>
     <insert id="removeToRecycle">
-        insert into recycle_bin (form_name, data) VALUES (#{form_name},#{data});
+        insert into recycle_bin(form_name, data)  select form_name,#{data} from form_info where form_id=#{form_id}
     </insert>
 </mapper>
