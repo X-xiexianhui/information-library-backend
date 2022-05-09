@@ -70,4 +70,7 @@
         where date_format(dump_time, '%Y-%m-%d %H:%i:%s') like concat('%', #{dump_time}, '%')
         order by dump_time desc;
     </select>
+    <insert id="removeToRecycle">
+        insert into recycle_bin (form_name, data) VALUES (#{form_name},#{data});
+    </insert>
 </mapper>
