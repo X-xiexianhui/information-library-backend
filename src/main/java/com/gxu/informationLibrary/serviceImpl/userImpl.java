@@ -47,7 +47,7 @@ public class userImpl implements userServer {
 
     @Override
     public List<userInfo> deleteUser(String user_id) {
-        userManage.deleteUser(user_id);
+        userManage.editUser(user_id,"is_del",1);
         return userManage.queryUser("");
     }
 

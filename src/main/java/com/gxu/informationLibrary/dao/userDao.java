@@ -17,7 +17,7 @@ public interface userDao {
 
     List<userInfo>queryUser(@Param("user_name") String user_name);
 
-    void editUser(@Param("user_id") String user_id,@Param("col_name") String col_name,@Param("value") String value);
+    <T>void editUser(@Param("user_id") String user_id,@Param("col_name") String col_name,@Param("value") T value);
 
     Map<String,String> checkUser(@Param("user_id") String user_id);
 
