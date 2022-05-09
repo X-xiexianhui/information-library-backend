@@ -31,6 +31,9 @@
         </foreach>
         <if test="onlyAuth==true">and user=#{user_id}</if>;
     </select>
+    <insert id="removeToRecycle">
+        insert into recycle_bin(form_name, data)  select form_name,#{data} from form_info where form_id=#{form_id}
+    </insert>
     <select id="statistics" resultType="map">
         <choose>
             <when test="option=='count'">select count(${field})
@@ -70,7 +73,4 @@
         where date_format(dump_time, '%Y-%m-%d %H:%i:%s') like concat('%', #{dump_time}, '%')
         order by dump_time desc;
     </select>
-    <insert id="removeToRecycle">
-        insert into recycle_bin(form_name, data)  select form_name,#{data} from form_info where form_id=#{form_id}
-    </insert>
 </mapper>
