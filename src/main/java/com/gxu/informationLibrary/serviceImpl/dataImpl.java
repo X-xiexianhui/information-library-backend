@@ -226,4 +226,21 @@ public class dataImpl implements dataServer {
         }
         return new response<>(data);
     }
+    public response<Boolean>restoreData(String parma){
+        try {
+            JSONObject dataJSON = JSONObject.parseObject(parma);
+            int form_id = dataJSON.getIntValue("form_id");
+            Map<String, String> tb = dataManage.getTableByFormId(form_id);
+            Set<String>keys=dataJSON.getJSONObject("data").keySet();
+            List<editEntity>columns=new ArrayList<>();
+            for (String key: keys) {
+                editEntity c=new editEntity(key,dataJSON.get(key));
+                columns.add(c);
+            }
+            dataManage.insertData(tb.get("db_name"), tb.get("tb_name"), columns);
+        }catch (Exception e){
+            return new response<>(500,e.getCause().getMessage(),false);
+        }
+        return new response<>(true);
+    }
 }
