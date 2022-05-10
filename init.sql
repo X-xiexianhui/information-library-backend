@@ -186,6 +186,20 @@ create table user_info
         foreign key (user_role) references role_info (role_id)
             on update cascade
 );
+
+create table recycle_bin
+(
+    id       int auto_increment
+        primary key,
+    form_id  int         null,
+    data     json        null,
+    user     varchar(18) null,
+    del_time datetime    not null,
+    constraint recycle_bin_form_info_form_id_fk
+        foreign key (form_id) references form_info (form_id),
+    constraint recycle_bin_user_info_user_id_fk
+        foreign key (user) references user_info (user_id)
+);
 INSERT INTO information_library.auth_info (auth_level, `option`, auth_mean)
 VALUES ('d0', '删除', '不允许删除数据');
 INSERT INTO information_library.auth_info (auth_level, `option`, auth_mean)
@@ -206,10 +220,8 @@ INSERT INTO information_library.auth_info (auth_level, `option`, auth_mean)
 VALUES ('w0', '添加', '不允许添加数据');
 INSERT INTO information_library.auth_info (auth_level, `option`, auth_mean)
 VALUES ('w1', '添加', '允许添加数据');
-INSERT INTO information_library.role_info (role_id, role_name, role_description)
-VALUES (1, '系统管理员', '系统管理员，可以进入管理后台，拥有对所有数据的全部修改权限，不可删除，不可修改');
 INSERT INTO information_library.user_info (user_id, user_pwd, user_name, user_email, user_role, is_del)
-VALUES ('admin', 'bff8af1fe092a663b838c4c7c0c90f11', '系统管理员', '2769530016@qq.com', 1, 0);
+VALUES ('admin', '601cea768fb9c2ce3b028391c442e072', '管理员', '2769530016@qq.com', 1, 0);
 
 
 
