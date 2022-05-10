@@ -100,7 +100,7 @@ public class dataBaseDump {
 
     public String rollBack(String fileName) {
         try {
-            String newCmd = "mysql -u"+mysql_user+" -p"+mysql_pwd +"< ./dump/"+ fileName;
+            String newCmd = "mysql -u"+mysql_user+" -p" +mysql_pwd+" <./dump"+File.separator+ fileName;
             Process process;
             String property = System.getProperty("os.name");
             if (property.contains("Linux")) {
