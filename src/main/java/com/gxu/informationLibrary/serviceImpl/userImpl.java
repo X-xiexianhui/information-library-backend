@@ -124,6 +124,7 @@ public class userImpl implements userServer {
         }
         return new response<>(true);
     }
+
     public response<Boolean>editPwd(String parma, HttpServletRequest request){
         try {
             JSONObject pwdJSON=JSON.parseObject(parma);
