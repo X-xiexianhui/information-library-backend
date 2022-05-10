@@ -97,7 +97,7 @@ public class userController {
     public response<Boolean> editPwd(@RequestBody String parma, HttpServletRequest request) {
         return userManager.editPwd(parma, request);
     }
-    @PostMapping("pai/pwd/recover")
+    @PostMapping("api/pwd/recover")
     public response<Boolean>recoverPwd(@RequestParam("user_id")String user_id){
         return userManager.recoverPwd(user_id);
     }
