@@ -59,11 +59,17 @@ public class tbManageImpl implements tbManageServer {
     }
 
     @Override
-    public void deleteTable(String db_name, String tb_name) throws Exception {
-        if (tbManage.count(db_name,tb_name)>0){
-            throw new Exception("数据库表非空，不允许删除");
+    public response<Boolean> deleteTable(String db_name, String tb_name) {
+        try {
+            if (tbManage.count(db_name,tb_name)>0){
+                return new response<>(500,"数据库非空不允许删除",false);
+            }
+            tbManage.deleteTable(db_name, tb_name);
+        }catch (Exception e){
+            return new response<>(500,e.getCause().getMessage(),false);
         }
-        tbManage.deleteTable(db_name, tb_name);
+        return new response<>(true);
+
     }
 
     @Override

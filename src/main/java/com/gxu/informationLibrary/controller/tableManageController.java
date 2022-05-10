@@ -33,13 +33,8 @@ public class tableManageController {
     }
 
     @DeleteMapping("/api/tb/delete")
-    public response<String> deleteTable(@RequestParam("db_name") String db_name, @RequestParam("tb_name") String tb_name) {
-        try {
-            tbManage.deleteTable(db_name, tb_name);
-        } catch (Exception e) {
-            return new response<>(500, e.getCause().getMessage(), "");
-        }
-        return new response<>("");
+    public response<Boolean> deleteTable(@RequestParam("db_name") String db_name, @RequestParam("tb_name") String tb_name) {
+        return tbManage.deleteTable(db_name,tb_name);
     }
 
     @GetMapping("/api/tb/search")
