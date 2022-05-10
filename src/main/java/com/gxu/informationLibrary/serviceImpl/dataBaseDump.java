@@ -64,7 +64,7 @@ public class dataBaseDump {
                 // 本地win
                 process=Runtime.getRuntime().exec(newCmd.toString());
             }
-            InputStreamReader inputStreamReader = new InputStreamReader(process.getInputStream(), StandardCharsets.US_ASCII);
+            InputStreamReader inputStreamReader = new InputStreamReader(process.getInputStream(), StandardCharsets.UTF_8);
             bufferedReader = new BufferedReader(inputStreamReader);
             String line;
             while ((line = bufferedReader.readLine()) != null) {
