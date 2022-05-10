@@ -98,4 +98,15 @@ public class userController {
     public response<Boolean> editPwd(@RequestBody String parma, HttpServletRequest request) {
         return userManager.editPwd(parma, request);
     }
+
+    @GetMapping("api/user/query")
+    public response<userInfo>getUser(@RequestParam String user_id){
+        userInfo data =new userInfo();
+        try {
+            data=userManager.queryUserById(user_id);
+        }catch (Exception e){
+            return new response<>(500,e.getCause().getMessage(),data);
+        }
+        return new response<>(data);
+    }
 }
