@@ -58,8 +58,9 @@ public class userImpl implements userServer {
         return userManage.queryUser("");
     }
 
-    public userInfo queryUserById(String user_id){
-        return userManage.queryUserById(user_id);
+    public userInfo queryUserById(HttpServletRequest request){
+        String[] userCookies = Objects.requireNonNull(getCookieByName(request, "login_cookie")).split("_");
+        return userManage.queryUserById(userCookies[1]);
     }
 
     @Override

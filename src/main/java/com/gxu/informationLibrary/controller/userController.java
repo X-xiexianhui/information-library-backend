@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 @Controller
 @ResponseBody
@@ -100,10 +99,10 @@ public class userController {
     }
 
     @GetMapping("api/user/query")
-    public response<userInfo>getUser(@RequestParam String user_id){
+    public response<userInfo>getUser(HttpServletRequest request){
         userInfo data =new userInfo();
         try {
-            data=userManager.queryUserById(user_id);
+            data=userManager.queryUserById(request);
         }catch (Exception e){
             return new response<>(500,e.getCause().getMessage(),data);
         }
