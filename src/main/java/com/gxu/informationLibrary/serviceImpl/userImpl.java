@@ -141,4 +141,15 @@ public class userImpl implements userServer {
         }
         return new response<>(true);
     }
+
+    public response<Boolean>recoverPwd(String user_id){
+        try {
+            String pwd="user_pwd"+user_id;
+            String md5Password = DigestUtils.md5DigestAsHex(pwd.getBytes());
+            userManage.editUser(user_id,"user_pwd",md5Password);
+        }catch (Exception e){
+            return new response<>(500,"重置密码失败",false);
+        }
+        return new response<>(true);
+    }
 }
