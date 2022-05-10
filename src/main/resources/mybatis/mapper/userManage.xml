@@ -56,8 +56,10 @@
         where user_id = #{user_id};
     </select>
     <select id="queryUserById" resultMap="userInfoMap">
-        select user_id, '******' as user_pwd, user_name, user_email, user_role
-        from user_info
-        where user_id = #{user_id};
+        select user_id, '******' as user_pwd, user_name, user_email, role_name as user_role
+        from user_info,
+             role_info
+        where user_id=#{user_id}
+          and user_role = role_info.role_id
     </select>
 </mapper>
