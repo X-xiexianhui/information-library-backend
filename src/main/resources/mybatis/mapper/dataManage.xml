@@ -33,7 +33,7 @@
         <if test="onlyAuth==true">and user=#{user_id}</if>;
     </select>
     <insert id="removeToRecycle">
-        insert into recycle_bin(form_name, data)
+        insert into recycle_bin(form_id, data)
         select form_name, #{data}
         from form_info
         where form_id = #{form_id}
@@ -84,7 +84,7 @@
         select data
         from recycle_bin
         where user = #{user_id}
-          and form_name = (select form_name from form_info where form_id = #{form_id});
+          and form_id = #{form_id};
     </select>
     <delete id="deleteRecycle">
         delete
@@ -94,6 +94,7 @@
     <delete id="clearRecycle">
         delete
         from recycle_bin
-        where user = #{user_id};
+        where user = #{user_id}
+          and form_id=#{form_id};
     </delete>
 </mapper>

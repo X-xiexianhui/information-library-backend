@@ -277,10 +277,10 @@ public class dataImpl implements dataServer {
         return new response<>(true);
     }
 
-    public response<Boolean>clearRecycle(HttpServletRequest request){
+    public response<Boolean>clearRecycle(HttpServletRequest request,int form_id){
         try {
             String[] userCookie = Objects.requireNonNull(getCookieByName(request, "login_cookie")).split("_");
-            dataManage.clearRecycle(userCookie[1]);
+            dataManage.clearRecycle(userCookie[1], form_id);
         }catch (Exception e){
             return new response<>(500,e.getCause().getMessage(),false);
         }

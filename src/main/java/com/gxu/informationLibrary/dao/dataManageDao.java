@@ -41,5 +41,5 @@ public interface dataManageDao {
 
     void deleteRecycleData(@Param("id") int id);
 
-    void clearRecycle(@Param("user_id") String user_id);
+    void clearRecycle(@Param("user_id") String user_id,int form_id);
 }
