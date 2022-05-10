@@ -252,6 +252,16 @@ public class dataImpl implements dataServer {
         try {
             String[] userCookie = Objects.requireNonNull(getCookieByName(request, "login_cookie")).split("_");
             List<JSONObject>data = dataManage.getRecycleData(form_id,userCookie[1]);
+            Map<String, String> tb = dataManage.getTableByFormId(form_id);
+            for (JSONObject d: data) {
+                Set<String>keys=d.keySet();
+                List<editEntity> columns = new ArrayList<>();
+                for (String key : keys) {
+                    editEntity c = new editEntity(key, d.get(key));
+                    columns.add(c);
+                }
+                dataManage.insertData(tb.get("db_name"), tb.get("tb_name"), columns);
+            }
         }catch (Exception e){
             return new response<>(500,e.getCause().getMessage(),false);
         }
