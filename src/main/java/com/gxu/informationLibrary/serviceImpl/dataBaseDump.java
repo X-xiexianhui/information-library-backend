@@ -102,7 +102,7 @@ public class dataBaseDump {
         try {
 
             File datafile = new File("./dump" + File.separator + fileName);
-            String newCmd = "mysql -u "+mysql_user+" -p" +mysql_pwd+" <"+datafile;
+            String newCmd = "mysql -u "+mysql_user+" -p" +mysql_pwd+" -e source "+datafile;
             Process process;
             String property = System.getProperty("os.name");
             if (property.contains("Linux")) {
