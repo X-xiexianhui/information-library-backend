@@ -9,7 +9,9 @@
         where role_name = #{user.user_role};
     </insert>
     <delete id="deleteUser">
-       delete from user_info where user_id=#{user_id};
+        delete
+        from user_info
+        where user_id = #{user_id};
     </delete>
     <update id="editUser">
         update user_info
@@ -39,13 +41,23 @@
           and user_role = role_info.role_id;
     </select>
     <select id="queryEmail" resultType="string">
-        select user_email from user_info where user_id=#{user_id}
+        select user_email
+        from user_info
+        where user_id = #{user_id}
     </select>
     <select id="getPwd" resultType="string">
         select user_pwd
-        from user_info where user_id=#{user_id};
+        from user_info
+        where user_id = #{user_id};
     </select>
     <select id="checkExist" resultType="map">
-        select * from user_info where user_id=#{user_id};
+        select *
+        from user_info
+        where user_id = #{user_id};
+    </select>
+    <select id="queryUserById" resultMap="userInfoMap">
+        select user_id, '******' as user_pwd, user_name, user_email, user_role
+        from user_info
+        where user_id = #{user_id};
     </select>
 </mapper>

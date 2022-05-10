@@ -58,6 +58,10 @@ public class userImpl implements userServer {
         return userManage.queryUser("");
     }
 
+    public userInfo queryUserById(String user_id){
+        return userManage.queryUserById(user_id);
+    }
+
     @Override
     public List<userInfo> queryUser(String user_name) {
         return userManage.queryUser(user_name);

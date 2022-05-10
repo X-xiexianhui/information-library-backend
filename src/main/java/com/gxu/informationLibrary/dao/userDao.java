@@ -26,4 +26,6 @@ public interface userDao {
     String getPwd(@Param("user_id") String user_id);
 
     Map<String,Object> checkExist(@Param("user_id") String user_id);
+
+    userInfo queryUserById(@Param("user_id") String user_id);
 }
