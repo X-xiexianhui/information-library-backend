@@ -102,7 +102,7 @@ public class dataBaseDump {
         try {
 
             File datafile = new File("./dump" + File.separator + fileName);
-            String newCmd = "mysql -u "+mysql_user+" -p" +mysql_pwd+" -e source "+datafile;
+            String newCmd = "mysql -u "+mysql_user+" -p" +mysql_pwd+" <"+datafile;
             Process process;
             String property = System.getProperty("os.name");
             if (property.contains("Linux")) {
@@ -110,7 +110,7 @@ public class dataBaseDump {
                 process = Runtime.getRuntime().exec(new String[]{"bash", "-c", newCmd});
             } else {
                 // 本地win
-                process = Runtime.getRuntime().exec(newCmd);
+                process = Runtime.getRuntime().exec(new String[]{ "cmd", "/c", newCmd});
             }
             if (process.waitFor() == 0) {
                 // 线程正常执行
