@@ -76,8 +76,22 @@
         where date_format(dump_time, '%Y-%m-%d %H:%i:%s') like concat('%', #{dump_time}, '%')
         order by dump_time desc;
     </select>
-    <select id="getRecycleData" resultType="com.alibaba.fastjson.JSONObject">
-        select data
+    <resultMap id="recycleDataMap" type="com.gxu.informationLibrary.entity.recycleBin">
+        <constructor>
+            <idArg column="id" javaType="int"/>
+            <arg column="form_id" javaType="int"/>
+            <arg column="data" javaType="com.alibaba.fastjson.JSONObject"/>
+            <arg column="user" javaType="int"/>
+            <arg column="del_time" javaType="string"/>
+        </constructor>
+        <id column="id" property="id" javaType="int"/>
+        <result column="form_id" property="form_id" javaType="int"/>
+        <result column="data" property="data"/>
+        <result column="user" property="user"/>
+        <result column="del_time" javaType="string"/>
+    </resultMap>
+    <select id="getRecycleData" resultMap="recycleDataMap">
+        select *
         from recycle_bin
         where user = #{user_id}
           and form_id = #{form_id};
