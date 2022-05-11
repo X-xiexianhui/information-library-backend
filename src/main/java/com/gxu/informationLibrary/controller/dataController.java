@@ -85,4 +85,14 @@ public class dataController {
     public response<Boolean>clear(@RequestParam("id")int id){
         return dataManage.deleteRecycleData(id);
     }
+
+    @PostMapping("api/recycle/restore")
+    public response<Boolean>restore(@RequestBody String parma){
+        return dataManage.restoreData(parma);
+    }
+
+    @PostMapping("api/recycle/restore/all")
+    public response<Boolean>restoreAll(@RequestParam("form_id")int form_id,HttpServletRequest request){
+        return dataManage.restoreAllData(form_id,request);
+    }
 }
