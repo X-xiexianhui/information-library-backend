@@ -79,11 +79,11 @@
     </select>
     <resultMap id="recycleDataMap" type="com.gxu.informationLibrary.entity.recycleBin">
         <constructor>
-            <idArg column="id" javaType="int"/>
-            <arg column="form_id" javaType="int"/>
-            <arg column="data" javaType="string"/>
-            <arg column="user" javaType="int"/>
-            <arg column="del_time" javaType="string"/>
+            <idArg column="id" javaType="int" jdbcType="int"/>
+            <arg column="form_id" javaType="int" jdbcType="int"/>
+            <arg column="data" javaType="string" jdbcType="json"/>
+            <arg column="user" javaType="string" jdbcType="string"/>
+            <arg column="del_time" javaType="string" jdbcType="datetime"/>
         </constructor>
 <!--        <id column="id" property="id" javaType="int"/>-->
 <!--        <result column="form_id" property="form_id" javaType="int"/>-->
