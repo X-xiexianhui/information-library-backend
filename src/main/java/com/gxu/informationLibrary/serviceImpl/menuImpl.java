@@ -1,6 +1,7 @@
 package com.gxu.informationLibrary.serviceImpl;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.gxu.informationLibrary.dao.formManageDao;
 import com.gxu.informationLibrary.dao.menuDao;
@@ -54,7 +55,13 @@ public class menuImpl implements menuServer {
     @Override
     public List<menuInfo> editMenu(String param) {
         JSONObject menuJSON=JSON.parseObject(param);
-        menu.editMenu(menuJSON.getString("col_name"), menuJSON.getString("value"),menuJSON.getIntValue("menu_id") );
+        JSONArray update = menuJSON.getJSONArray("update");
+        int menu_id = menuJSON.getIntValue("menu_id");
+        for (int i = 0; i < update.size(); i++) {
+            JSONObject up = update.getJSONObject(i);
+            menu.editMenu(up.getString("col_name"), up.getString("value"),menu_id);
+        }
+
         return menu.query("");
     }
     public List<Map<String,Object>> initMenu(){
