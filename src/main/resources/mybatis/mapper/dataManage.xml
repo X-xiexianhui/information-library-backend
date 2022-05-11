@@ -91,12 +91,6 @@
         <result column="user" property="user"/>
         <result column="del_time" javaType="string"/>
     </resultMap>
-    <select id="getRecycleData" resultMap="recycleDataMap">
-        select *
-        from recycle_bin
-        where user = #{user_id}
-          and form_id = #{form_id};
-    </select>
     <delete id="deleteRecycle">
         delete
         from recycle_bin

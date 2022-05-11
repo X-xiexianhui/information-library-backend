@@ -38,8 +38,6 @@ public interface dataManageDao {
 
     JSONObject queryDataById(@Param("record_id") int record_id);
 
-    List<recycleBin> getRecycleData(@Param("form_id") int form_id, @Param("user_id") String user_id);
-
     void deleteRecycleData(@Param("id") int id);
 
     void clearRecycle(@Param("user_id") String user_id,int form_id);
