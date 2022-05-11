@@ -81,15 +81,15 @@
         <constructor>
             <idArg column="id" javaType="int"/>
             <arg column="form_id" javaType="int"/>
-            <arg column="data" javaType="com.alibaba.fastjson.JSONObject"/>
+            <arg column="data"/>
             <arg column="user" javaType="int"/>
             <arg column="del_time" javaType="string"/>
         </constructor>
         <id column="id" property="id" javaType="int"/>
         <result column="form_id" property="form_id" javaType="int"/>
-        <result column="data" property="data"/>
-        <result column="user" property="user"/>
-        <result column="del_time" javaType="string"/>
+        <result column="data"/>
+        <result column="user" property="user" javaType="string"/>
+        <result column="del_time" property="del_time" javaType="string"/>
     </resultMap>
     <delete id="deleteRecycle">
         delete
