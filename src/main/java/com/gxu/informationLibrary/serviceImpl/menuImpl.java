@@ -54,7 +54,7 @@ public class menuImpl implements menuServer {
     @Override
     public List<menuInfo> editMenu(String param) {
         JSONObject menuJSON=JSON.parseObject(param);
-        menu.editMenu(menuJSON.getString("col_name"), menuJSON.getString("value"));
+        menu.editMenu(menuJSON.getString("col_name"), menuJSON.getString("value"),menuJSON.getIntValue("menu_id") );
         return menu.query("");
     }
     public List<Map<String,Object>> initMenu(){
