@@ -296,7 +296,7 @@ public class dataImpl implements dataServer {
             int form_id = query.getIntValue("form_id");
             List<editEntity> columns = query.getJSONArray("columns").toJavaList(editEntity.class);
             String[] userCookie = Objects.requireNonNull(getCookieByName(request, "login_cookie")).split("_");
-            dataManage.queryRecycleData(form_id,userCookie[1],columns);
+            data=dataManage.queryRecycleData(form_id,userCookie[1],columns);
         }catch (Exception e){
             return new response<>(500,e.getCause().getMessage(),data);
         }
