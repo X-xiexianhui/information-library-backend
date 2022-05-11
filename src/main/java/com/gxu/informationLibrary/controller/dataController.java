@@ -1,6 +1,7 @@
 package com.gxu.informationLibrary.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import com.gxu.informationLibrary.entity.recycleBin;
 import com.gxu.informationLibrary.entity.response;
 import com.gxu.informationLibrary.entity.statisticsResult;
 import com.gxu.informationLibrary.serviceImpl.dataImpl;
@@ -72,7 +73,7 @@ public class dataController {
     }
 
     @GetMapping("api/recycle/get")
-    public response<List<JSONObject>> getRecycleData(@RequestParam("form_id") int form_id, HttpServletRequest request) {
+    public response<List<recycleBin>> getRecycleData(@RequestParam("form_id") int form_id, HttpServletRequest request) {
         return dataManage.getRecycleData(form_id, request);
     }
 

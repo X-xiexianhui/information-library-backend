@@ -2,6 +2,7 @@ package com.gxu.informationLibrary.dao;
 
 import com.alibaba.fastjson.JSONObject;
 import com.gxu.informationLibrary.entity.editEntity;
+import com.gxu.informationLibrary.entity.recycleBin;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
@@ -37,7 +38,7 @@ public interface dataManageDao {
 
     JSONObject queryDataById(@Param("record_id") int record_id);
 
-    List<JSONObject> getRecycleData(@Param("form_id") int form_id,@Param("user_id") String user_id);
+    List<recycleBin> getRecycleData(@Param("form_id") int form_id, @Param("user_id") String user_id);
 
     void deleteRecycleData(@Param("id") int id);
 

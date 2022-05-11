@@ -7,6 +7,7 @@ import com.gxu.informationLibrary.dao.dataManageDao;
 import com.gxu.informationLibrary.dao.dbManageDao;
 import com.gxu.informationLibrary.dao.formManageDao;
 import com.gxu.informationLibrary.entity.editEntity;
+import com.gxu.informationLibrary.entity.recycleBin;
 import com.gxu.informationLibrary.entity.response;
 import com.gxu.informationLibrary.entity.statisticsResult;
 import com.gxu.informationLibrary.server.dataServer;
@@ -219,8 +220,8 @@ public class dataImpl implements dataServer {
         return new response<>(data);
     }
 
-    public response<List<JSONObject>> getRecycleData(int form_id,HttpServletRequest request) {
-        List<JSONObject> data = new ArrayList<>();
+    public response<List<recycleBin>> getRecycleData(int form_id, HttpServletRequest request) {
+        List<recycleBin> data = new ArrayList<>();
         try {
             String[] userCookie = Objects.requireNonNull(getCookieByName(request, "login_cookie")).split("_");
             data = dataManage.getRecycleData(form_id,userCookie[1]);
@@ -251,9 +252,10 @@ public class dataImpl implements dataServer {
     public response<Boolean>restoreAllData(int form_id,HttpServletRequest request){
         try {
             String[] userCookie = Objects.requireNonNull(getCookieByName(request, "login_cookie")).split("_");
-            List<JSONObject>data = dataManage.getRecycleData(form_id,userCookie[1]);
+            List<recycleBin>data = dataManage.getRecycleData(form_id,userCookie[1]);
             Map<String, String> tb = dataManage.getTableByFormId(form_id);
-            for (JSONObject d: data) {
+            for (recycleBin r: data) {
+                JSONObject d=r.getData();
                 Set<String>keys=d.keySet();
                 List<editEntity> columns = new ArrayList<>();
                 for (String key : keys) {
