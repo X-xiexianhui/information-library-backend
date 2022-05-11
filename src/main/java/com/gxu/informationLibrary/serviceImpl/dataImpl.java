@@ -221,13 +221,13 @@ public class dataImpl implements dataServer {
     }
 
     public response<Boolean> restoreData(String parma) {
+        List<editEntity> columns = new ArrayList<>();
         try {
             JSONObject dataJSON = JSON.parseObject(parma);
             int form_id = dataJSON.getIntValue("form_id");
             Map<String, String> tb = dataManage.getTableByFormId(form_id);
             JSONObject data = dataJSON.getJSONObject("data");
             Set<String> keys = data.keySet();
-            List<editEntity> columns = new ArrayList<>();
             for (String key : keys) {
                 editEntity c = new editEntity(key, data.get(key));
                 columns.add(c);
