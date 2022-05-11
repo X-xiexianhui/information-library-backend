@@ -288,4 +288,18 @@ public class dataImpl implements dataServer {
         }
         return new response<>(true);
     }
+
+    public response<List<recycleBin>>queryRecycleData(String parma, HttpServletRequest request){
+        List<recycleBin>data=new ArrayList<>();
+        try {
+            JSONObject query = JSON.parseObject(parma);
+            int form_id = query.getIntValue("form_id");
+            List<editEntity> columns = query.getJSONArray("columns").toJavaList(editEntity.class);
+            String[] userCookie = Objects.requireNonNull(getCookieByName(request, "login_cookie")).split("_");
+            dataManage.queryRecycleData(form_id,userCookie[1],columns);
+        }catch (Exception e){
+            return new response<>(500,e.getCause().getMessage(),data);
+        }
+        return new response<>(data);
+    }
 }
