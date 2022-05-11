@@ -32,7 +32,7 @@
         <if test="onlyAuth==true">and user=#{user_id}</if>;
     </select>
     <insert id="removeToRecycle">
-        insert into recycle_bin(form_id, data,del_time) values (#{form_id},#{data},NOW())
+        insert into recycle_bin(form_id, data,user,del_time) values (#{form_id},#{data},#{user_id},NOW())
     </insert>
     <select id="statistics" resultType="map">
         <choose>
