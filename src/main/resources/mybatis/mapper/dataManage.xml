@@ -26,8 +26,7 @@
     </delete>
     <select id="queryData" resultType="com.alibaba.fastjson.JSONObject">
         select * from ${db_name}.${tb_name}
-        where not is_del=1
-        <foreach collection="columns" item="item" index="index" separator="and" open="and">
+        <foreach collection="columns" item="item" index="index" separator="and" open="where">
             ${item.col_name} like concat('%',#{item.value},'%')
         </foreach>
         <if test="onlyAuth==true">and user=#{user_id}</if>;
