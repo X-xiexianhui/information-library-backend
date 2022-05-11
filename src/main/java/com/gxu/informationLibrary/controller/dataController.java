@@ -75,4 +75,14 @@ public class dataController {
     public response<List<JSONObject>>getRecycleData(@RequestParam("form_id")int form_id,HttpServletRequest request){
         return dataManage.getRecycleData(form_id,request);
     }
+
+    @PostMapping("api/recycle/clear")
+    public response<Boolean>clearAll(@RequestParam("form_id") int form_id,HttpServletRequest request){
+        return dataManage.clearRecycle(request,form_id);
+    }
+
+    @PostMapping("api/recycle/delete")
+    public response<Boolean>clear(@RequestParam("id")int id){
+        return dataManage.deleteRecycleData(id);
+    }
 }
