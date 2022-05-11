@@ -12,7 +12,7 @@ public class recycleBin {
     String user;
     String del_time;
 
-    public recycleBin(int id, int form_id, String data, String user, String del_time) {
+    public recycleBin(Integer id, Integer form_id, String data, String user, String del_time) {
         this.id = id;
         this.form_id = form_id;
         this.data = JSON.parseObject(data);
