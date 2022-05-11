@@ -32,7 +32,8 @@
         <if test="onlyAuth==true">and user=#{user_id}</if>;
     </select>
     <insert id="removeToRecycle">
-        insert into recycle_bin(form_id, data,user,del_time) values (#{form_id},#{data},#{user_id},NOW())
+        insert into recycle_bin(form_id, data, user, del_time)
+        values (#{form_id}, #{data}, #{user_id}, NOW())
     </insert>
     <select id="statistics" resultType="map">
         <choose>
@@ -105,6 +106,14 @@
         delete
         from recycle_bin
         where user = #{user_id}
-          and form_id=#{form_id};
+          and form_id = #{form_id};
     </delete>
+    <select id="queryRecycleData" resultMap="recycleDataMap">
+        select * from recycle_bin
+        where user = #{user_id}
+        and form_id = #{form_id}
+        <foreach collection="queryList" item="item" index="index" open="and">
+            data->concat('.$',#{item.col_name}) like concat('%',#{item.value},'%')
+        </foreach>;
+    </select>
 </mapper>
