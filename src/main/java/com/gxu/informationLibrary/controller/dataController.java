@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.print.DocFlavor;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Map;
@@ -95,5 +96,10 @@ public class dataController {
     @PostMapping("api/recycle/restore/all")
     public response<Boolean> restoreAll(@RequestParam("form_id") int form_id, HttpServletRequest request) {
         return dataManage.restoreAllData(form_id, request);
+    }
+
+    @PostMapping("api/recycle/query")
+    public response<List<recycleBin>> queryRecycleData(@RequestBody String parma, HttpServletRequest request) {
+        return dataManage.queryRecycleData(parma, request);
     }
 }
