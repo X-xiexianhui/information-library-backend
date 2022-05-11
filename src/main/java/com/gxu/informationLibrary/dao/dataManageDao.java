@@ -43,4 +43,6 @@ public interface dataManageDao {
     void deleteRecycleData(@Param("id") int id);
 
     void clearRecycle(@Param("user_id") String user_id,int form_id);
+
+    List<recycleBin>queryRecycleData(@Param("form_id") int form_id, @Param("user_id") String user_id,@Param("queryList") List<editEntity>columns);
 }
