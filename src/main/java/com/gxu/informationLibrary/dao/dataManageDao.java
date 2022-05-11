@@ -38,7 +38,7 @@ public interface dataManageDao {
 
     JSONObject queryDataById(@Param("db_name") String db_name,@Param("tb_name") String tb_name,@Param("record_id") int record_id);
 
-    void deleteRecycleData(@Param("id") int id);
+    void deleteRecycleData(@Param("del_id") int id);
 
     void clearRecycle(@Param("user_id") String user_id,int form_id);
 

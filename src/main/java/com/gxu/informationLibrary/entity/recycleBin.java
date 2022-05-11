@@ -6,14 +6,14 @@ import lombok.Data;
 
 @Data
 public class recycleBin {
-    int id;
+    int del_id;
     int form_id;
     JSONObject data;
     String user;
     String del_time;
 
-    public recycleBin(Integer id, Integer form_id, String data, String user, String del_time) {
-        this.id = id;
+    public recycleBin(Integer del_id, Integer form_id, String data, String user, String del_time) {
+        this.del_id = del_id;
         this.form_id = form_id;
         this.data = JSON.parseObject(data);
         this.user = user;

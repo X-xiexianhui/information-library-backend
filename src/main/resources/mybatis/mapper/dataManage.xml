@@ -89,7 +89,7 @@
     <delete id="deleteRecycle">
         delete
         from recycle_bin
-        where del_id = #{id};
+        where del_id = #{del_id};
     </delete>
     <delete id="clearRecycle">
         delete
