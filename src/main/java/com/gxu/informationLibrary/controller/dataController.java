@@ -72,27 +72,27 @@ public class dataController {
     }
 
     @GetMapping("api/recycle/get")
-    public response<List<JSONObject>>getRecycleData(@RequestParam("form_id")int form_id,HttpServletRequest request){
-        return dataManage.getRecycleData(form_id,request);
+    public response<List<JSONObject>> getRecycleData(@RequestParam("form_id") int form_id, HttpServletRequest request) {
+        return dataManage.getRecycleData(form_id, request);
     }
 
     @PostMapping("api/recycle/clear")
-    public response<Boolean>clearAll(@RequestParam("form_id") int form_id,HttpServletRequest request){
-        return dataManage.clearRecycle(request,form_id);
+    public response<Boolean> clearAll(@RequestParam("form_id") int form_id, HttpServletRequest request) {
+        return dataManage.clearRecycle(request, form_id);
     }
 
     @PostMapping("api/recycle/delete")
-    public response<Boolean>clear(@RequestParam("id")int id){
+    public response<Boolean> clear(@RequestParam("id") int id) {
         return dataManage.deleteRecycleData(id);
     }
 
     @PostMapping("api/recycle/restore")
-    public response<Boolean>restore(@RequestBody String parma){
+    public response<Boolean> restore(@RequestBody String parma) {
         return dataManage.restoreData(parma);
     }
 
     @PostMapping("api/recycle/restore/all")
-    public response<Boolean>restoreAll(@RequestParam("form_id")int form_id,HttpServletRequest request){
-        return dataManage.restoreAllData(form_id,request);
+    public response<Boolean> restoreAll(@RequestParam("form_id") int form_id, HttpServletRequest request) {
+        return dataManage.restoreAllData(form_id, request);
     }
 }
