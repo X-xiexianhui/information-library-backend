@@ -222,7 +222,7 @@ public class dataImpl implements dataServer {
 
     public response<Boolean> restoreData(String parma) {
         try {
-            JSONObject dataJSON = JSONObject.parseObject(parma);
+            JSONObject dataJSON = JSON.parseObject(parma);
             int form_id = dataJSON.getIntValue("form_id");
             Map<String, String> tb = dataManage.getTableByFormId(form_id);
             JSONObject data = dataJSON.getJSONObject("data");
