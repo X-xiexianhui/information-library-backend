@@ -86,7 +86,7 @@
             <arg column="del_time" javaType="string"/>
         </constructor>
     </resultMap>
-    <delete id="deleteRecycle">
+    <delete id="deleteRecycleData">
         delete
         from recycle_bin
         where del_id = #{del_id};
