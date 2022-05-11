@@ -226,9 +226,10 @@ public class dataImpl implements dataServer {
             int form_id = dataJSON.getIntValue("form_id");
             Map<String, String> tb = dataManage.getTableByFormId(form_id);
             Set<String> keys = dataJSON.getJSONObject("data").keySet();
+            JSONObject data = dataJSON.getJSONObject("data");
             List<editEntity> columns = new ArrayList<>();
             for (String key : keys) {
-                editEntity c = new editEntity(key, dataJSON.get(key));
+                editEntity c = new editEntity(key, data.get(key));
                 columns.add(c);
             }
             dataManage.insertData(tb.get("db_name"), tb.get("tb_name"), columns);
