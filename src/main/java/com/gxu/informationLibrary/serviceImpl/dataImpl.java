@@ -254,7 +254,7 @@ public class dataImpl implements dataServer {
                     columns.add(c);
                 }
                 dataManage.insertData(tb.get("db_name"), tb.get("tb_name"), columns);
-                dataManage.deleteRecycleData(d.getIntValue("del_id"));
+                dataManage.deleteRecycleData(r.getDel_id());
             }
         }catch (Exception e){
             return new response<>(500,e.getCause().getMessage(),false);
