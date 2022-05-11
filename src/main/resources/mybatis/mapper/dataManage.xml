@@ -102,7 +102,7 @@
         where user = #{user_id}
         and form_id = #{form_id}
         <foreach collection="queryList" item="item" index="index" open="and">
-            data->concat('$.',#{item.col_name}) like concat('%',#{item.value},'%')
+            json_extract(data,concat('$.',#{item.col_name})) like concat('%',#{item.value},'%')
         </foreach>;
     </select>
 </mapper>
