@@ -85,7 +85,8 @@ public class dataImpl implements dataServer {
             int form_id = deleteJSON.getIntValue("form_id");
             Map<String, String> tb = dataManage.getTableByFormId(form_id);
             int record_id = deleteJSON.getIntValue("record_id");
-            JSONObject data = dataManage.queryDataById(record_id);
+            JSONObject data = dataManage.queryDataById(parma, parma, record_id);
+            System.out.println(data);
             dataManage.removeToRecycle(form_id, data.toJSONString(), data.getString("user"));
             dataManage.deleteData(tb.get("db_name"), tb.get("tb_name"), record_id);
         } catch (Exception e) {
