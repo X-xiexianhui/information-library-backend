@@ -70,4 +70,9 @@ public class dataController {
     public response<statisticsResult> statisticsData(@RequestBody String parma, HttpServletRequest request) {
         return dataManage.statistics(parma, request);
     }
+
+    @GetMapping("api/recycle/get")
+    public response<List<JSONObject>>getRecycleData(@RequestParam("form_id")int form_id,HttpServletRequest request){
+        return dataManage.getRecycleData(form_id,request);
+    }
 }
