@@ -220,17 +220,6 @@ public class dataImpl implements dataServer {
         return new response<>(data);
     }
 
-    public response<List<recycleBin>> getRecycleData(int form_id, HttpServletRequest request) {
-        List<recycleBin> data = new ArrayList<>();
-        try {
-            String[] userCookie = Objects.requireNonNull(getCookieByName(request, "login_cookie")).split("_");
-            data = dataManage.getRecycleData(form_id,userCookie[1]);
-        } catch (Exception e) {
-            return new response<>(500, e.getCause().getMessage(), data);
-        }
-        return new response<>(data);
-    }
-
     public response<Boolean> restoreData(String parma) {
         try {
             JSONObject dataJSON = JSONObject.parseObject(parma);
@@ -252,7 +241,7 @@ public class dataImpl implements dataServer {
     public response<Boolean>restoreAllData(int form_id,HttpServletRequest request){
         try {
             String[] userCookie = Objects.requireNonNull(getCookieByName(request, "login_cookie")).split("_");
-            List<recycleBin>data = dataManage.getRecycleData(form_id,userCookie[1]);
+            List<recycleBin>data = dataManage.queryRecycleData(form_id,userCookie[1], new ArrayList<>());
             Map<String, String> tb = dataManage.getTableByFormId(form_id);
             for (recycleBin r: data) {
                 JSONObject d=r.getData();

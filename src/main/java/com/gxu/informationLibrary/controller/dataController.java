@@ -72,11 +72,6 @@ public class dataController {
         return dataManage.statistics(parma, request);
     }
 
-    @GetMapping("api/recycle/get")
-    public response<List<recycleBin>> getRecycleData(@RequestParam("form_id") int form_id, HttpServletRequest request) {
-        return dataManage.getRecycleData(form_id, request);
-    }
-
     @PostMapping("api/recycle/clear")
     public response<Boolean> clearAll(@RequestParam("form_id") int form_id, HttpServletRequest request) {
         return dataManage.clearRecycle(request, form_id);
