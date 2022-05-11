@@ -79,7 +79,7 @@
     </select>
     <resultMap id="recycleDataMap" type="com.gxu.informationLibrary.entity.recycleBin">
         <constructor>
-            <idArg column="id" javaType="int"/>
+            <idArg column="del_id" javaType="int"/>
             <arg column="form_id" javaType="int"/>
             <arg column="data" javaType="string"/>
             <arg column="user" javaType="string"/>
@@ -89,7 +89,7 @@
     <delete id="deleteRecycle">
         delete
         from recycle_bin
-        where id = #{id};
+        where del_id = #{id};
     </delete>
     <delete id="clearRecycle">
         delete
