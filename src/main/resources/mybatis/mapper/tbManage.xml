@@ -23,7 +23,6 @@
         user varchar(18) not null,
         file varchar(64),
         record_id int auto_increment,
-        is_del tinyint(1)default 0,
         <if test="pks!=null and pks.size()>0">
             primary key (
             <foreach item="pk" index="index" collection="pks" separator=",">
@@ -34,7 +33,6 @@
         index (record_id),
         index (file),
         index (user),
-        index (is_del)
         );
         update db_info set tables=tables+1 where db_name=#{db_name};
         insert into tb_info(db_name, tb_name) values (#{db_name},#{tb_name});
