@@ -55,9 +55,9 @@ public class utils {
     public static void updateCache(String @NotNull [] userCookie, @NotNull HashOperations<String, String, String> hashOps, @NotNull authDao authManage,String form_name) {
         roleAuth cache= authManage.queryByNameAndForm(userCookie[2], form_name);
         String key="auth_"+userCookie[2]+"_"+form_name;
-        hashOps.put(key,"add",cache.getAddAuth());
+        hashOps.put(key,"addAuth",cache.getAddAuth());
         hashOps.put(key,"del",cache.getDel());
         hashOps.put(key,"search",cache.getSearch());
-        hashOps.put(key,"edit",cache.getEditAuth());
+        hashOps.put(key,"editAuth",cache.getEditAuth());
     }
 }
