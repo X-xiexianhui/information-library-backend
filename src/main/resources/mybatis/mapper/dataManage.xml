@@ -37,11 +37,11 @@
     </insert>
     <select id="statistics" resultType="map">
         <choose>
-            <when test="option=='count'">select count(${field}) as result,#{group_field} as col_name
+            <when test="option=='count'">select count(${field}) as result,${group_field} as col_name
             </when>
-            <when test="option=='sum'">select sum(${field}) as result,#{group_field} as col_name
+            <when test="option=='sum'">select sum(${field}) as result,${group_field} as col_name
             </when>
-            <when test="option=='avg'">select avg(${field}) as result,#{group_field} as col_name
+            <when test="option=='avg'">select avg(${field}) as result,${group_field} as col_name
             </when>
         </choose>
         from ${db_name}.${tb_name}

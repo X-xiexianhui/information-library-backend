@@ -7,5 +7,5 @@ import java.util.List;
 @Data
 public class statisticsResult {
     List<Object>result;
-    List<String>col_name;
+    List<Object>col_name;
 }

@@ -146,7 +146,7 @@ public class dataImpl implements dataServer {
     public response<statisticsResult> statistics(String parma, HttpServletRequest request) {
         statisticsResult data = new statisticsResult();
         List<Object> result = new ArrayList<>();
-        List<String> col_name = new ArrayList<>();
+        List<Object> col_name = new ArrayList<>();
         List<Map<String, Object>> select=new ArrayList<>();
         try {
             JSONObject statisticsJSON = JSON.parseObject(parma);
@@ -162,7 +162,7 @@ public class dataImpl implements dataServer {
                     userCookie[1]);
             for (Map<String, Object> m : select) {
                 result.add(m.get("result"));
-                col_name.add((String) m.get("col_name"));
+                col_name.add(m.get("col_name"));
             }
             data.setResult(result);
             data.setCol_name(col_name);
