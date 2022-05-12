@@ -199,7 +199,7 @@ public class dataImpl implements dataServer {
         }
         return res;
     }
-    public void downloadFile(String parma, @NotNull HttpServletResponse response) throws IOException {
+    public void downloadFile(String parma, @NotNull HttpServletResponse response,HttpServletRequest request) throws IOException {
         // 读到流中
         JSONObject fileJSON = JSON.parseObject(parma);
         String file_name = fileJSON.getString("file_name");
@@ -208,6 +208,7 @@ public class dataImpl implements dataServer {
             response.reset();
             response.setContentType("application/octet-stream");
             response.addHeader("Content-Disposition", "attachment; filename=" + URLEncoder.encode(file_name, "UTF-8"));
+            response.setHeader("Access-Control-Allow-Origin",request.getHeader("origin"));
             ServletOutputStream outputStream = response.getOutputStream();
             byte[] b = new byte[1024];
             int len;

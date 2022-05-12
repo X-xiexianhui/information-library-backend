@@ -55,8 +55,8 @@ public class dataController {
     }
 
     @PostMapping("api/file/download")
-    public void downloadFile(@RequestBody String parma, HttpServletResponse response) throws IOException {
-        dataManage.downloadFile(parma,response);
+    public void downloadFile(@RequestBody String parma, HttpServletResponse response,HttpServletRequest request) throws IOException {
+        dataManage.downloadFile(parma,response, request);
     }
     @PostMapping("api/data/dump")
     public String dumpData() {
