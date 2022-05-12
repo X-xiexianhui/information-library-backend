@@ -19,11 +19,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import javax.servlet.http.HttpServletResponse;
+import java.io.*;
+import java.net.URLEncoder;
 import java.util.*;
 
 import static com.gxu.informationLibrary.util.utils.getCookieByName;
@@ -198,6 +198,21 @@ public class dataImpl implements dataServer {
             res.setMsg("上传失败，因为文件是空的.");
         }
         return res;
+    }
+    public void downloadFile(String file_name, @NotNull HttpServletResponse response) throws IOException {
+        // 读到流中
+        InputStream inputStream = new FileInputStream("./file/"+file_name);// 文件的存放路径
+        response.reset();
+        response.setContentType("application/octet-stream");
+        response.addHeader("Content-Disposition", "attachment; filename=" + URLEncoder.encode(file_name, "UTF-8"));
+        ServletOutputStream outputStream = response.getOutputStream();
+        byte[] b = new byte[1024];
+        int len;
+        //从输入流中读取一定数量的字节，并将其存储在缓冲区字节数组中，读到末尾返回-1
+        while ((len = inputStream.read(b)) > 0) {
+            outputStream.write(b, 0, len);
+        }
+        inputStream.close();
     }
 
     public String dumpData() {
