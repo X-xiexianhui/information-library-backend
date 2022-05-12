@@ -199,6 +199,7 @@ public class dataImpl implements dataServer {
         }
         return res;
     }
+
     public void downloadFile(String parma, @NotNull HttpServletResponse response,HttpServletRequest request) throws IOException {
         // 读到流中
         JSONObject fileJSON = JSON.parseObject(parma);
