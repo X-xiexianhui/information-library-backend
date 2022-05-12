@@ -14,7 +14,8 @@ public interface authDao {
 
     void editAuth(@Param("role_name") String role_name,@Param("form_name") String form_name,@Param("col_name") String col_name,@Param("value") String value);
 
-    roleAuth queryByName(@Param("role_name") String role_name,String form_name);
+    roleAuth queryByNameAndForm(@Param("role_name") String role_name, String form_name);
+    roleAuth queryByName(@Param("role_name") String role_name);
 
     void addRoleAuth(List<Integer>roleList,List<Integer>formList);
 }
