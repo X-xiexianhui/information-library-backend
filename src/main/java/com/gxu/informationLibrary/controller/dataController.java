@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -52,6 +54,10 @@ public class dataController {
         return dataManage.uploadFile(file);
     }
 
+    @GetMapping("api/file/download")
+    public void downloadFile(@RequestParam("file_name")String file_name, HttpServletResponse response) throws IOException {
+        dataManage.downloadFile(file_name,response);
+    }
     @PostMapping("api/data/dump")
     public String dumpData() {
         return dataManage.dumpData();
