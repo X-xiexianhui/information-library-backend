@@ -206,11 +206,8 @@ public class dataImpl implements dataServer {
         String file_name = fileJSON.getString("file_name");
         try {
             InputStream inputStream = new FileInputStream("./files/"+file_name);// 文件的存放路径
-            response.reset();
             response.setContentType("application/octet-stream");
             response.addHeader("Content-Disposition", "attachment; filename=" + URLEncoder.encode(file_name, "UTF-8"));
-            response.setHeader("Access-Control-Allow-Origin",request.getHeader("origin"));
-            response.setHeader("Access-Control-Allow-Credentials","true");
             ServletOutputStream outputStream = response.getOutputStream();
             byte[] b = new byte[1024];
             int len;
