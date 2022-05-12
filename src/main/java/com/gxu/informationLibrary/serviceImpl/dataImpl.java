@@ -202,7 +202,7 @@ public class dataImpl implements dataServer {
     public void downloadFile(String file_name, @NotNull HttpServletResponse response) throws IOException {
         // 读到流中
         try {
-            InputStream inputStream = new FileInputStream("./file/"+file_name);// 文件的存放路径
+            InputStream inputStream = new FileInputStream("./files/"+file_name);// 文件的存放路径
             response.reset();
             response.setContentType("application/octet-stream");
             response.addHeader("Content-Disposition", "attachment; filename=" + URLEncoder.encode(file_name, "UTF-8"));
