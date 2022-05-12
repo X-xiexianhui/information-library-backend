@@ -37,6 +37,7 @@ public class authImpl implements authServer {
     public List<roleAuth> getAuth(String role_name) {
         return authManage.getAuth(role_name);
     }
+
     public roleAuth queryByName(String role_name) {
         return authManage.queryByName(role_name);
     }
