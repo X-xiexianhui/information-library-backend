@@ -130,7 +130,7 @@ public class dataImpl implements dataServer {
                 auth = "s1";
             }
             if (auth == null) {
-                updateCache(userCookie, hashOps, authManage);
+                updateCache(userCookie, hashOps, authManage, form_name);
                 auth = hashOps.get("auth_" + userCookie[2] + "_" + form_name,
                         "search");
             }

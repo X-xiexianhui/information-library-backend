@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.gxu.informationLibrary.dao.authDao;
+import com.gxu.informationLibrary.dao.formManageDao;
 import com.gxu.informationLibrary.entity.response;
 import com.gxu.informationLibrary.entity.roleAuth;
 import com.gxu.informationLibrary.server.authServer;
@@ -24,10 +25,12 @@ import static com.gxu.informationLibrary.util.utils.updateCache;
 public class authImpl implements authServer {
     private final authDao authManage;
     private final StringRedisTemplate redisTemplate;
+    private final formManageDao formManage;
 
-    public authImpl(authDao authManage, StringRedisTemplate redisTemplate) {
+    public authImpl(authDao authManage, StringRedisTemplate redisTemplate, formManageDao formManage) {
         this.authManage = authManage;
         this.redisTemplate = redisTemplate;
+        this.formManage = formManage;
     }
 
     @Override
@@ -58,11 +61,13 @@ public class authImpl implements authServer {
         String user_id =userCookie[1];
         String user =authJSON.getString("user");
         String option =authJSON.getString("option");
+        int form_id = authJSON.getIntValue("form_id");
+        String form_name=formManage.queryFormName(form_id);
         if (!"系统管理员".equals(userCookie[2])){
-            String auth = hashOps.get("auth_"+userCookie[2],option);
+            String auth = hashOps.get("auth_"+userCookie[2]+"_"+form_name,option);
             if (auth==null){
-                updateCache(userCookie, hashOps, authManage);
-                auth = hashOps.get("auth_"+userCookie[2],option);
+                updateCache(userCookie, hashOps, authManage,form_name);
+                auth = hashOps.get("auth_"+userCookie[2]+"_"+form_name,option);
             }
             if ("w0".equals(auth)){
                 return new response<>(403,"您没有添加数据权限","");

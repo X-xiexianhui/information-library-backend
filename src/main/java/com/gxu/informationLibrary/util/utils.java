@@ -11,7 +11,6 @@ import org.springframework.data.redis.core.HashOperations;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -53,8 +52,9 @@ public class utils {
         }
         return cookieMap;
     }
-    public static void updateCache(String @NotNull [] userCookie, @NotNull HashOperations<String, String, String> hashOps, @NotNull authDao authManage) {
+    public static void updateCache(String @NotNull [] userCookie, @NotNull HashOperations<String, String, String> hashOps, @NotNull authDao authManage,String form_name) {
         roleAuth cache= authManage.queryByName(userCookie[2]);
+        System.out.println(cache.toString());
         String key="auth_"+cache.getRole_name()+"_"+cache.getForm_name();
         hashOps.put(key,"add",cache.getAddAuth());
         hashOps.put(key,"del",cache.getDel());
