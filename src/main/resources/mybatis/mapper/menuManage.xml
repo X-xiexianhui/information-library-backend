@@ -75,4 +75,7 @@
                  left join menu_info as child on parent.menu_id = child.father_menu)
         where parent.father_menu = 0;
     </select>
+    <select id="countSubMenu" resultType="int">
+        select count(father_menu) from menu_info where father_menu=#{menu_id};
+    </select>
 </mapper>

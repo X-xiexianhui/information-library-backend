@@ -57,13 +57,7 @@ public class menuController {
 
     @PostMapping("api/menu/edit")
     public response<List<menuInfo>> editMenu(@RequestBody String param) {
-        List<menuInfo> data = new ArrayList<>();
-        try {
-            data = menu.editMenu(param);
-        } catch (Exception e) {
-            return new response<>(500, e.getCause().getMessage(), data);
-        }
-        return new response<>(data);
+            return menu.editMenu(param);
     }
 
     @GetMapping("api/menu/select")

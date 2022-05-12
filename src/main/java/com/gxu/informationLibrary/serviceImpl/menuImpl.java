@@ -6,10 +6,12 @@ import com.alibaba.fastjson.JSONObject;
 import com.gxu.informationLibrary.dao.formManageDao;
 import com.gxu.informationLibrary.dao.menuDao;
 import com.gxu.informationLibrary.entity.menuInfo;
+import com.gxu.informationLibrary.entity.response;
 import com.gxu.informationLibrary.server.menuServer;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -53,16 +55,24 @@ public class menuImpl implements menuServer {
     }
 
     @Override
-    public List<menuInfo> editMenu(String param) {
-        JSONObject menuJSON=JSON.parseObject(param);
-        JSONArray update = menuJSON.getJSONArray("update");
-        int menu_id = menuJSON.getIntValue("menu_id");
-        for (int i = 0; i < update.size(); i++) {
-            JSONObject up = update.getJSONObject(i);
-            menu.editMenu(up.getString("col_name"), up.getString("value"),menu_id);
+    public response<List<menuInfo>> editMenu(String param) {
+        List<menuInfo>data=new ArrayList<>();
+        try {
+            JSONObject menuJSON=JSON.parseObject(param);
+            JSONArray update = menuJSON.getJSONArray("update");
+            int menu_id = menuJSON.getIntValue("menu_id");
+            int submenu = menu.countSubMenu(menu_id);
+            for (int i = 0; i < update.size(); i++) {
+                JSONObject up = update.getJSONObject(i);
+                menu.editMenu(up.getString("col_name"), up.getString("value"),menu_id);
+            }
+            data=menu.query("");
+        }catch (Exception e){
+            return new response<>(500,e.getCause().getMessage(),data);
         }
 
-        return menu.query("");
+
+        return new response<>(data);
     }
     public List<Map<String,Object>> initMenu(){
         return menu.initMenu();
