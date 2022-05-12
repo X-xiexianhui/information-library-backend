@@ -8,8 +8,11 @@ import com.gxu.informationLibrary.dao.menuDao;
 import com.gxu.informationLibrary.entity.menuInfo;
 import com.gxu.informationLibrary.entity.response;
 import com.gxu.informationLibrary.server.menuServer;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,10 +23,11 @@ import java.util.Map;
 public class menuImpl implements menuServer {
     final menuDao menu;
     final formManageDao formManage;
-
-    public menuImpl(menuDao menu, formManageDao formManage) {
+    private final PlatformTransactionManager platformTransactionManager;
+    public menuImpl(menuDao menu, formManageDao formManage, PlatformTransactionManager platformTransactionManager) {
         this.menu = menu;
         this.formManage = formManage;
+        this.platformTransactionManager = platformTransactionManager;
     }
 
     @Override
@@ -64,7 +68,12 @@ public class menuImpl implements menuServer {
             int submenu = menu.countSubMenu(menu_id);
             for (int i = 0; i < update.size(); i++) {
                 JSONObject up = update.getJSONObject(i);
-                menu.editMenu(up.getString("col_name"), up.getString("value"),menu_id);
+                String col_name = up.getString("col_name");
+                if (col_name.equals("menu_level")&&submenu>0){
+                    platformTransactionManager.rollback(TransactionAspectSupport.currentTransactionStatus());
+                    return new response<>(500,"该菜单有子菜单不可更改为二级菜单",menu.query(""));
+                }
+                menu.editMenu(col_name, up.getString("value"),menu_id);
             }
             data=menu.query("");
         }catch (Exception e){
