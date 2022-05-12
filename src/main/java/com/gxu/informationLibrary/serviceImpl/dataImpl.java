@@ -217,7 +217,7 @@ public class dataImpl implements dataServer {
             }
             inputStream.close();
         }catch (Exception e){
-                response.getWriter().write("获取文件失败");
+                log.info(e.getMessage());
         }
     }
 
