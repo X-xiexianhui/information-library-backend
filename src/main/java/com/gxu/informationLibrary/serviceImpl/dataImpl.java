@@ -199,8 +199,10 @@ public class dataImpl implements dataServer {
         }
         return res;
     }
-    public void downloadFile(String file_name, @NotNull HttpServletResponse response) throws IOException {
+    public void downloadFile(String parma, @NotNull HttpServletResponse response) throws IOException {
         // 读到流中
+        JSONObject fileJSON = JSON.parseObject(parma);
+        String file_name = fileJSON.getString("file_name");
         try {
             InputStream inputStream = new FileInputStream("./files/"+file_name);// 文件的存放路径
             response.reset();
