@@ -52,6 +52,7 @@ public class authImpl implements authServer {
             JSONObject edit=array.getJSONObject(i);
             authManage.editAuth(role_name,form_name , edit.getString("col_name"), edit.getString("value"));
             hashOps.delete("auth_"+role_name+"_"+form_name,edit.getString("col_name"));
+            System.out.println(edit.getString("col_name"));
         }
         return authManage.getAuth("");
     }
