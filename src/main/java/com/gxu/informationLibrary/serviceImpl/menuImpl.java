@@ -8,7 +8,6 @@ import com.gxu.informationLibrary.dao.menuDao;
 import com.gxu.informationLibrary.entity.menuInfo;
 import com.gxu.informationLibrary.entity.response;
 import com.gxu.informationLibrary.server.menuServer;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.Transactional;
