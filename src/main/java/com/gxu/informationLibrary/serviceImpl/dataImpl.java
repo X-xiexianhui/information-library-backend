@@ -208,7 +208,6 @@ public class dataImpl implements dataServer {
             response.reset();
             response.setContentType("application/octet-stream");
             response.addHeader("Content-Disposition", "attachment; filename=" + URLEncoder.encode(file_name, "UTF-8"));
-            response.setHeader("Access-Control-Allow-Origin", "*");
             ServletOutputStream outputStream = response.getOutputStream();
             byte[] b = new byte[1024];
             int len;
