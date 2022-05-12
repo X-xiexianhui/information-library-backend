@@ -9,9 +9,7 @@ import com.gxu.informationLibrary.entity.menuInfo;
 import com.gxu.informationLibrary.entity.response;
 import com.gxu.informationLibrary.server.menuServer;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,11 +20,9 @@ import java.util.Map;
 public class menuImpl implements menuServer {
     final menuDao menu;
     final formManageDao formManage;
-    private final PlatformTransactionManager platformTransactionManager;
-    public menuImpl(menuDao menu, formManageDao formManage, PlatformTransactionManager platformTransactionManager) {
+    public menuImpl(menuDao menu, formManageDao formManage) {
         this.menu = menu;
         this.formManage = formManage;
-        this.platformTransactionManager = platformTransactionManager;
     }
 
     @Override
@@ -79,7 +75,6 @@ public class menuImpl implements menuServer {
                 JSONObject up = update.getJSONObject(i);
                 String col_name = up.getString("col_name");
                 if (col_name.equals("menu_level")&&submenu>0){
-                    platformTransactionManager.rollback(TransactionAspectSupport.currentTransactionStatus());
                     return new response<>(500,"该菜单有子菜单不可更改为二级菜单",menu.query(""));
                 }
                 menu.editMenu(col_name, up.getString("value"),menu_id);
