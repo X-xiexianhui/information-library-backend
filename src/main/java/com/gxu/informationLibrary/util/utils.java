@@ -53,7 +53,7 @@ public class utils {
         return cookieMap;
     }
     public static void updateCache(String @NotNull [] userCookie, @NotNull HashOperations<String, String, String> hashOps, @NotNull authDao authManage,String form_name) {
-        roleAuth cache= authManage.queryByName(userCookie[2]);
+        roleAuth cache= authManage.queryByName(userCookie[2], form_name);
         System.out.println(cache.toString());
         String key="auth_"+cache.getRole_name()+"_"+cache.getForm_name();
         hashOps.put(key,"add",cache.getAddAuth());

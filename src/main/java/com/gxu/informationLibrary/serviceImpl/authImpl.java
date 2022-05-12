@@ -38,7 +38,7 @@ public class authImpl implements authServer {
         return authManage.getAuth(role_name);
     }
     public roleAuth queryByName(String role_name) {
-        return authManage.queryByName(role_name);
+        return authManage.queryByName(role_name, role_name);
     }
     @Override
     public List<roleAuth> editAuth(String parma) {
