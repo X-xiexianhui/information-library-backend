@@ -189,7 +189,7 @@ create table user_info
 
 create table recycle_bin
 (
-    id       int auto_increment
+    del_id   int auto_increment
         primary key,
     form_id  int         null,
     data     json        null,
@@ -220,8 +220,8 @@ INSERT INTO information_library.auth_info (auth_level, `option`, auth_mean)
 VALUES ('w0', '添加', '不允许添加数据');
 INSERT INTO information_library.auth_info (auth_level, `option`, auth_mean)
 VALUES ('w1', '添加', '允许添加数据');
-insert into role_info (role_name, role_description)
-VALUES ('系统管理员', '系统管理员拥有对数据的所有权限，可以进入管理后台，不允许删除，不允许修改');
+INSERT INTO information_library.role_info (role_id, role_name, role_description)
+VALUES (1, '系统管理员', '系统管理员拥有对数据的所有权限，可以进入管理后台，不允许删除，不允许修改');
 INSERT INTO information_library.user_info (user_id, user_pwd, user_name, user_email, user_role, is_del)
 VALUES ('admin', '601cea768fb9c2ce3b028391c442e072', '管理员', '2769530016@qq.com', 1, 0);
 
