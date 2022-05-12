@@ -25,7 +25,7 @@
         where role_id = (select role_id from role_info where role_name = #{role_name})
           and form_id = (select form_id from form_info where form_name = #{form_name});
     </update>
-    <select id="queryByName" resultType="com.gxu.informationLibrary.entity.roleAuth">
+    <select id="queryByNameAndForm" resultType="com.gxu.informationLibrary.entity.roleAuth">
         select role_name, form_name, addAuth, del, search, editAuth
         from role_auth,
              role_info,
@@ -34,6 +34,15 @@
           and role_name = #{role_name}
           and form_info.form_id = role_auth.form_id
           and form_name =#{form_name};
+    </select>
+    <select id="queryByName" resultType="com.gxu.informationLibrary.entity.roleAuth">
+        select role_name, form_name, addAuth, del, search, editAuth
+        from role_auth,
+             role_info,
+             form_info
+        where role_auth.role_id = role_info.role_id
+          and role_name = #{role_name}
+          and form_info.form_id = role_auth.form_id;
     </select>
     <insert id="addRoleAuth">
         insert into role_auth(role_id, form_id, addAuth, del, search, editAuth)
