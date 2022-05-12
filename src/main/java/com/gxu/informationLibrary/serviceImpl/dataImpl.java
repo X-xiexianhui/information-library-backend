@@ -147,7 +147,7 @@ public class dataImpl implements dataServer {
         statisticsResult data = new statisticsResult();
         List<Object> result = new ArrayList<>();
         List<Object> col_name = new ArrayList<>();
-        List<Map<String, Object>> select=new ArrayList<>();
+        List<Map<String, Object>> select;
         try {
             JSONObject statisticsJSON = JSON.parseObject(parma);
             int form_id = statisticsJSON.getIntValue("form_id");
