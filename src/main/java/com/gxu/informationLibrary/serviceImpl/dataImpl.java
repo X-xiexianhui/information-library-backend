@@ -201,18 +201,22 @@ public class dataImpl implements dataServer {
     }
     public void downloadFile(String file_name, @NotNull HttpServletResponse response) throws IOException {
         // 读到流中
-        InputStream inputStream = new FileInputStream("./file/"+file_name);// 文件的存放路径
-        response.reset();
-        response.setContentType("application/octet-stream");
-        response.addHeader("Content-Disposition", "attachment; filename=" + URLEncoder.encode(file_name, "UTF-8"));
-        ServletOutputStream outputStream = response.getOutputStream();
-        byte[] b = new byte[1024];
-        int len;
-        //从输入流中读取一定数量的字节，并将其存储在缓冲区字节数组中，读到末尾返回-1
-        while ((len = inputStream.read(b)) > 0) {
-            outputStream.write(b, 0, len);
+        try {
+            InputStream inputStream = new FileInputStream("./file/"+file_name);// 文件的存放路径
+            response.reset();
+            response.setContentType("application/octet-stream");
+            response.addHeader("Content-Disposition", "attachment; filename=" + URLEncoder.encode(file_name, "UTF-8"));
+            ServletOutputStream outputStream = response.getOutputStream();
+            byte[] b = new byte[1024];
+            int len;
+            //从输入流中读取一定数量的字节，并将其存储在缓冲区字节数组中，读到末尾返回-1
+            while ((len = inputStream.read(b)) > 0) {
+                outputStream.write(b, 0, len);
+            }
+            inputStream.close();
+        }catch (Exception e){
+                response.getWriter().write("获取文件失败");
         }
-        inputStream.close();
     }
 
     public String dumpData() {
