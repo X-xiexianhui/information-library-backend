@@ -35,13 +35,7 @@ public class menuController {
 
     @PostMapping("api/menu/delete")
     public response<List<menuInfo>> deleteMenu(@RequestBody String Param) {
-        List<menuInfo> data = new ArrayList<>();
-        try {
-            data = menu.deleteMenu(Param);
-        } catch (Exception e) {
-            return new response<>(500, e.getCause().getMessage(), data);
-        }
-        return new response<>(data);
+            return menu.deleteMenu(Param);
     }
 
     @GetMapping("api/menu/query")

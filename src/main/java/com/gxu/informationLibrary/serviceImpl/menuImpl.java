@@ -37,11 +37,21 @@ public class menuImpl implements menuServer {
     }
 
     @Override
-    public List<menuInfo> deleteMenu(String param) {
-        int menu_id=JSON.parseObject(param).getIntValue("menu_id");
+    public response<List<menuInfo>> deleteMenu(String param) {
+        List<menuInfo>data=new ArrayList<>();
+        try {
+            int menu_id=JSON.parseObject(param).getIntValue("menu_id");
+            int submenu = menu.countSubMenu(menu_id);
+            if (submenu>0) {
+                return new response<>(405,"该菜单有子菜单无法删除",menu.query(""));
+            }
+            menu.deleteMenu(menu_id);
+            data=menu.query("");
+        }catch (Exception e) {
+            return new response<>(500,e.getCause().getMessage(),data);
+        }
 
-        menu.deleteMenu(menu_id);
-        return menu.query("");
+        return new response<>(data);
     }
 
     @Override
