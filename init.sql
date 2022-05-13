@@ -195,8 +195,6 @@ create table recycle_bin
     data     json        null,
     user     varchar(18) null,
     del_time datetime    not null,
-    constraint recycle_bin_form_info_form_id_fk
-        foreign key (form_id) references form_info (form_id),
     constraint recycle_bin_user_info_user_id_fk
         foreign key (user) references user_info (user_id)
 );
