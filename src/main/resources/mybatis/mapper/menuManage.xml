@@ -5,7 +5,7 @@
     <insert id="addMenu">
         <choose>
             <when test="menu.menu_level=='一级菜单'">
-                insert into menu_info(menu_name, menu_level,father_menu) values (#{menu.menu_name},'一级菜单',0);
+                insert into menu_info(menu_name, menu_level,father_menu,context_form) values (#{menu.menu_name},'一级菜单',0,0);
             </when>
             <when test="menu.menu_level=='二级菜单'">
                 insert into menu_info(menu_name, menu_level, father_menu, context_form) select
