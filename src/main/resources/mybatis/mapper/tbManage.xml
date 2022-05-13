@@ -48,6 +48,12 @@
         from tb_info
         where tb_name = #{tb_name}
           and db_name = #{db_name};
+        delete
+        from menu_info
+        where context_form = (select form_id
+                              from form_info
+                              where tb_id =
+                                    (select tb_id from tb_info where db_name = #{db_name} and tb_name = #{tb_name}));
     </update>
 
     <select id="searchTable" resultType="table">
@@ -85,14 +91,14 @@
         <foreach item="item" collection="column" index="index" separator="union all">
             select tb_id,
             #{item.col_name},#{item.data_type},#{item.len},
-                   #{item.place},#{item.PK},#{item.not_null},#{item.uni}
+            #{item.place},#{item.PK},#{item.not_null},#{item.uni}
             from tb_info where db_name=#{item.db_name} and tb_name=#{item.tb_name}
         </foreach>;
     </insert>
     <update id="addColumn">
         <foreach collection="insert" item="item" index="index">
             alter table ${item.db_name}.${item.tb_name}
-                add column ${item.col_name} ${item.data_type}
+            add column ${item.col_name} ${item.data_type}
             <if test="item.data_type!='date' and item.data_type!='time'
             and item.data_type!='datetime' and item.data_type!='bool'">
                 <choose>
@@ -106,7 +112,8 @@
             </if>
             <if test="item.uni==true">unique</if>
             <if test="item.not_null==true">not null</if>;
-        </foreach>;
+        </foreach>
+        ;
     </update>
     <update id="dropColumn">
         alter table ${db_name}.${tb_name}
@@ -114,8 +121,10 @@
         delete
         from column_info
         where col_name = #{col_name}
-          and tb_id = (select tb_id from tb_info
-          where db_name = #{db_name} and tb_name = #{tb_name});
+          and tb_id = (select tb_id
+                       from tb_info
+                       where db_name = #{db_name}
+                         and tb_name = #{tb_name});
     </update>
     <update id="changeColumn">
         alter table ${db_name}.${tb_name}
@@ -130,23 +139,28 @@
                     (${item.len})
                 </otherwise>
             </choose>
-        </if>;
+        </if>
+        ;
     </update>
     <update id="addUnique">
         alter table ${db_name}.${tb_name}
             add unique (${col_name});
         update column_info
         set uni = true
-        where tb_id = (select tb_id from tb_info
-        where db_name = #{db_name} and tb_name = #{tb_name});
+        where tb_id = (select tb_id
+                       from tb_info
+                       where db_name = #{db_name}
+                         and tb_name = #{tb_name});
     </update>
     <update id="dropUnique">
         alter table ${db_name}.${tb_name}
             drop index ${key_name};
         update column_info
         set uni = false
-        where tb_id = (select tb_id from tb_info
-        where db_name = #{db_name} and tb_name = #{tb_name})
+        where tb_id = (select tb_id
+                       from tb_info
+                       where db_name = #{db_name}
+                         and tb_name = #{tb_name})
     </update>
     <update id="setNotNull">
         alter table ${db_name}.${tb_name} modify ${col_name} ${data_type}
