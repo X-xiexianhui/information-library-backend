@@ -8,9 +8,10 @@
         <result column="tb_name" property="tb_name"/>
     </resultMap>
     <select id="query" resultMap="formTableMap">
-        select form_id, form_name, concat(db_name, '.', tb_name) as tb_name
-        from form_info,
-             tb_info where form_info.tb_id = tb_info.tb_id and tb_name like concat('%',#{tb_name},'%');
+        select * from (select form_id, form_name, concat(db_name, '.', tb_name) as my_name
+                       from form_info,
+                            tb_info where form_info.tb_id = tb_info.tb_id) as fifnmn
+        where my_name like concat('%',#{tb_name},'%');
     </select>
     <update id="renameForm">
         update form_info
